@@ -1,0 +1,158 @@
+{
+  "project_info": {
+    "project_number": "683059644780",
+    "project_id": "torricantinestore",
+    "storage_bucket": "torricantinestore.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:683059644780:android:08b3b6e3c2dcc74656cb49",
+        "android_client_info": {
+          "package_name": "com.example.torri_cantine_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "683059644780-t7ltk88mmf52smbrffugltgp47go6cks.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOBvcMOccdxMdpF80dtk-NTwUM0CIp85I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "683059644780-kb2lekb8b1lpdr4ufu2dt1f19k6rheq1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "683059644780-aq9nvcspqgh6md1q7fl887p76dpfhahu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.torriCantineApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:683059644780:android:60b2ddddb8c7cd4456cb49",
+        "android_client_info": {
+          "package_name": "com.torricantine.torristore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "683059644780-0o5nb8kbr40oj0n3u74a1m9romlijlvb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.torricantine.torristore",
+            "certificate_hash": "71f6b71118012ed1c96c882237cc1ee745567515"
+          }
+        },
+        {
+          "client_id": "683059644780-74ol6f1grhsjtncleh7v2vtc3mda6hs9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.torricantine.torristore",
+            "certificate_hash": "3dba56a327c491d4fad1ff45c7b49f886d66e83b"
+          }
+        },
+        {
+          "client_id": "683059644780-e9jvp5a3ig32f3br129nokoj79r9jfdr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.torricantine.torristore",
+            "certificate_hash": "06ff5bf1f428437916addc626114a3f137ad8abc"
+          }
+        },
+        {
+          "client_id": "683059644780-fc4vf2ehjb03eo35k9eq2b84vu2g9ssh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.torricantine.torristore",
+            "certificate_hash": "b7b1b1511bbf52ae27d9cf2c78bc44a0be332482"
+          }
+        },
+        {
+          "client_id": "683059644780-vosih997vtqdhavk69o12obqaguk9k9j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.torricantine.torristore",
+            "certificate_hash": "b56e106346eecaa94ab7a3a4ec6fca32273db369"
+          }
+        },
+        {
+          "client_id": "683059644780-t7ltk88mmf52smbrffugltgp47go6cks.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOBvcMOccdxMdpF80dtk-NTwUM0CIp85I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "683059644780-kb2lekb8b1lpdr4ufu2dt1f19k6rheq1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "683059644780-aq9nvcspqgh6md1q7fl887p76dpfhahu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.torriCantineApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:683059644780:android:d7673401ed28cf5256cb49",
+        "android_client_info": {
+          "package_name": "com.torricantine.torristore.staging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "683059644780-t7ltk88mmf52smbrffugltgp47go6cks.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOBvcMOccdxMdpF80dtk-NTwUM0CIp85I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "683059644780-kb2lekb8b1lpdr4ufu2dt1f19k6rheq1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "683059644780-aq9nvcspqgh6md1q7fl887p76dpfhahu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.torriCantineApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

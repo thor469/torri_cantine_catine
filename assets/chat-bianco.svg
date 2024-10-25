@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20">
+  <defs>
+    <clipPath id="clip-chat-bianco">
+      <rect width="20" height="20"/>
+    </clipPath>
+  </defs>
+  <g id="chat-bianco" clip-path="url(#clip-chat-bianco)">
+    <path id="Icon_feather-message-circle" data-name="Icon feather-message-circle" d="M13.846,3.5h.515l.055,0a9.352,9.352,0,0,1,8.832,8.832q0,.028,0,.055v.493a9.386,9.386,0,0,1-9.382,9.382h-.022a9.315,9.315,0,0,1-3.791-.812L4.816,23.2a1,1,0,0,1-1.265-1.265L5.3,16.695A9.386,9.386,0,0,1,13.846,3.5Zm.486,2h-.486a7.377,7.377,0,0,0-6.58,10.678,1,1,0,0,1,.056.767L6.081,20.669,9.8,19.428a1,1,0,0,1,.767.056,7.3,7.3,0,0,0,3.275.78h.019a7.39,7.39,0,0,0,7.385-7.379v-.467A7.354,7.354,0,0,0,14.333,5.5Z" transform="translate(-3.375 -3.375)" fill="#fff"/>
+  </g>
+</svg>
