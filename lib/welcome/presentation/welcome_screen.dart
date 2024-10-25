@@ -75,7 +75,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               }
               return null;
             },
-            orElse: () => overlayLoader.hide(context),
+            orElse: () => SizedBox.shrink(),
             error: (error) {
               overlayLoader.hide(context);
 
@@ -130,7 +130,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ],
               ),
             },
-            orElse: () => overlayLoader.hide(context),
+            orElse: () => SizedBox.shrink(),
             // orElse: () => const SizedBox(),
           ),
         ),
@@ -182,7 +182,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
             },
             // orElse: () => const SizedBox(),
-            orElse: () => overlayLoader.hide(context),
+            orElse: () => const SizedBox.shrink(),
           ),
         ),
       ],

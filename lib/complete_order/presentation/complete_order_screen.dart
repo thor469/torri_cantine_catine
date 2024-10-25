@@ -1784,12 +1784,9 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                       address_2: model.address_2,
                       city: model.city,
                       state: model.state,
-                      // state:
-                      //     model.user.first.shipping!.state,
                       postcode: model.postcode,
                       country: "IT",
-                      // country: model
-                      //     .user.first.shipping!.country,
+                      phone: model.phone
                     ),
                     Shipping(
                       first_name: model.first_name,
@@ -1799,12 +1796,9 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                       address_2: model.address_2,
                       city: model.city,
                       state: model.state,
-                      // state:
-                      //     model.user.first.shipping!.state,
                       postcode: model.postcode,
                       country: "IT",
-                      // country: model
-                      //     .user.first.shipping!.country,
+                      phone: model.phone
                     ),
                     note.text,
                     "ppcp-gateway",
@@ -1860,13 +1854,11 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
             address_2: shipping!.address_2,
             city: shipping!.city,
             state: shipping!.state,
-            // state:
-            //     model.user.first.shipping!.state,
             postcode: shipping!.postcode,
             country: "IT",
-            // country: model
-            //     .user.first.shipping!.country,
+            phone: shipping.phone
           ),
+
           Shipping(
             first_name: shipping!.first_name,
             last_name: shipping!.last_name,
@@ -1876,7 +1868,8 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
             city: shipping!.city,
             state: shipping!.state,
             postcode: shipping!.postcode,
-            country: "IT",
+            country: "IT", phone: shipping.phone
+
           ),
           note.text,
           "cod",
@@ -1913,12 +1906,9 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
             address_2: shipping!.address_2,
             city: shipping!.city,
             state: shipping!.state,
-            // state:
-            //     model.user.first.shipping!.state,
             postcode: shipping!.postcode,
             country: "IT",
-            // country: model
-            //     .user.first.shipping!.country,
+            phone: shipping.phone
           ),
           Shipping(
             first_name: shipping!.first_name,
@@ -1930,6 +1920,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
             state: billing!.state,
             postcode: shipping!.postcode,
             country: "IT",
+            phone: shipping.phone
           ),
           note.text,
           "bacs",

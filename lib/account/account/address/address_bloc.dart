@@ -87,6 +87,9 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
           "type": request.type,
           "is_default": request.is_default,
         },
+        queryParameters: {
+          "type" : request.type
+        },
         options: Options(
           method: 'PUT',
         ),
@@ -100,44 +103,7 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
   }
 
 
-  Future<void> deleteAddress(AddAddressRequest request, String id) async{
-    try{
-      const dep = DependencyFactoryImpl();
-      Dio dio = dep.createDioForApiCart().dio;
-      var codeInfo = await dio.request(
-        '/wp-json/wp/v2/user_addresses/$id',
-        data: {
-          "id" : id,
-          "first_name": request.first_name,
-          "last_name": request.last_name,
-          "company": request.company,
-          "address_1": request.address_1,
-          "address_2": request.address_2,
-          "city": request.city,
-          "state": request.state,
-          "postcode": request.postcode,
-          "country": request.country,
-          "email": request.email,
-          "phone": request.phone,
-          "notes": request.notes,
-          "type": request.type,
-          "is_default": request.is_default,
-        },
-        queryParameters: {
-          "type": request.type,
-        },
-        options: Options(
-          method: 'DELETE',
-        ),
-      );
-      AddressResponse data = AddressResponse.fromJson(codeInfo.data);
 
-    }on DioError catch(e){
-      if (kDebugMode) {
-        print(e.message);
-      }
-    }
-  }
 
 
 }

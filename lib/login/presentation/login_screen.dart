@@ -81,9 +81,9 @@ class _LoginScreenState extends State<LoginScreen> {
               if (mounted) {
                 context.read<CartBloc>().add(const CartEvent.fetch());
               }
-              return const SizedBox();
+              return const SizedBox.shrink();
             },
-            orElse: () => const SizedBox(),
+            orElse: () => const SizedBox.shrink(),
           ),
         ),
         BlocListener<CartBloc, CartState>(
@@ -115,8 +115,8 @@ class _LoginScreenState extends State<LoginScreen> {
               );
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
             },
-            cartEmpty: () => const SizedBox(),
-            orElse: () => const SizedBox(),
+            cartEmpty: () => const SizedBox.shrink(),
+            orElse: () => const SizedBox.shrink(),
           ),
         )
       ],

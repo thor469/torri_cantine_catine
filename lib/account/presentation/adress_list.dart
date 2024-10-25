@@ -411,7 +411,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
           text: "Elimina",
           colorText: Colors.white,
           ontap: () async {
-            await context.read<AddressBloc>().deleteAddress(
+            context.read<AccountBloc>().deleteAddress(
               AddAddressRequest(
                   first_name: billing.first_name,
                   last_name: billing.last_name,
@@ -430,9 +430,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
               ),
                 billing.id
             );
-            if(mounted){
-              context.read<AccountBloc>().add(AccountEvent.fetchAddress());
-            }
+
 
           },
         ),
@@ -472,7 +470,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
           text: "Elimina",
           colorText: Colors.white,
           ontap: ()  async {
-            await context.read<AddressBloc>().deleteAddress(
+            context.read<AccountBloc>().deleteAddress(
                 AddAddressRequest(
                     first_name: shipping.first_name,
                     last_name: shipping.last_name,
@@ -491,9 +489,6 @@ class _AddressListScreenState extends State<AddressListScreen> {
                 ),
                 shipping.id
             );
-            if(mounted){
-              context.read<AccountBloc>().add(AccountEvent.fetchAddress());
-            }
           },
         ),
       ],

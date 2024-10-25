@@ -71,6 +71,7 @@ _$_Shipping _$$_ShippingFromJson(Map<String, dynamic> json) => _$_Shipping(
       state: json['state'] as String?,
       postcode: json['postcode'] as String?,
       country: json['country'] as String?,
+      phone: json['phone'] as String?,
     );
 
 Map<String, dynamic> _$$_ShippingToJson(_$_Shipping instance) =>
@@ -84,4 +85,5 @@ Map<String, dynamic> _$$_ShippingToJson(_$_Shipping instance) =>
       'state': instance.state,
       'postcode': instance.postcode,
       'country': instance.country,
+      'phone': instance.phone,
     };

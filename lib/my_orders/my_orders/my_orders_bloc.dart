@@ -1,6 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:http_services/http_services.dart';
+import 'package:torri_cantine_app/app/dependency_injection/dependency_factory_impl.dart';
 import 'package:torri_cantine_app/my_orders/model/request/my_orders_request.dart';
 import 'package:torri_cantine_app/my_orders/model/response/my_orders_response.dart';
 import 'package:torri_cantine_app/my_orders/service/my_orders_service.dart';
@@ -45,10 +47,6 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent, MyOrdersState> {
     yield const MyOrdersState.initial();
     yield const MyOrdersState.loading();
     try {
-
-
-
-
       final response = await service.postOrdersData(
         MyOrdersRequest(
           billing_address: billing,
@@ -59,11 +57,36 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent, MyOrdersState> {
             payment_data: paymentData
         ),
       );
-      // wp/v2/update_order_points?order_id=<id_ordine>&points=<somma_punti>
-
+      // ?=<id_ordine>&=<somma_punti>
+    print(response.order_id);
+     await addPoint(response.order_id ?? 0);
     yield MyOrdersState.loaded(response);
     } on ApiException catch (e) {
+      print(e);
       yield const MyOrdersState.error();
     }
   }
+
+  Future<void> addPoint(int orderId) async{
+    try{
+      const dep = DependencyFactoryImpl();
+      Dio dio = dep.createDioForApiCart().dio;
+      var codeInfo = await dio.request(
+        'wp/v2/update_order_points',
+        queryParameters: {
+          "order_id": orderId,
+          "points" : 10
+        },
+        options: Options(
+          method: 'POST',
+        ),
+      );
+      print(codeInfo);
+    }on DioError catch(e){
+      if (kDebugMode) {
+        print(e.message);
+      }
+    }
+  }
+
 }

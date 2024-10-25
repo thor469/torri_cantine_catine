@@ -50,26 +50,22 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       LocalStorage storage = LocalStorage();
       String token = await storage.getFCMToken() ?? '';
 
-
       //String deviceId = response.token!;
       String deviceId = await storage.getDeviceId() ??'';
       // final notificationResponse =
       //     await notificationService.getToken(NotificationRequest());
       // print(notificationResponse);
       if (fcmToken == null) {
-        await Firebase.initializeApp(
-            options: DefaultFirebaseOptions.currentPlatform);
+        await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
         FirebaseMessaging.instance.getToken().then((value) {
           String? token = value;
           print('FCMToken:' + token!);
           print('DeviceID:' + deviceId!);
           storage.setFCMToken(token!);
         });
-        notificationService.insertToken(
-            InsertNotificationRequest(token: token.trim(), deviceId: deviceId.trim(), userId: 165));
+        notificationService.insertToken(InsertNotificationRequest(token: token.trim(), deviceId: deviceId.trim(), userId: 165));
       } else {
-        notificationService.insertToken(
-            InsertNotificationRequest(token: fcmToken.trim(), deviceId: deviceId.trim(), userId: 0));
+        notificationService.insertToken(InsertNotificationRequest(token: fcmToken.trim(), deviceId: deviceId.trim(), userId: 0));
       }
       storage.setUserName(username);
       storage.setPassword(password);

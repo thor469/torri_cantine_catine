@@ -628,25 +628,25 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
                             color: Color.fromARGB(255, 191, 190, 190),
                             height: 15,
                             thickness: 1),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Text("Spedisci a questo indirizzo",
-                                  style: TCTypography.of(context).text_14_bold),
-                            ),
-                            Checkbox(
-                                activeColor: Colors.transparent,
-                                checkColor: const Color.fromARGB(255, 161, 29, 51),
-                                value: confirmSpedizioneIsChecked,
-                                onChanged: (bool? value) {
-                                  setState(() {
-                                    confirmSpedizioneIsChecked = value!;
-                                  });
-                                }),
-                          ],
-                        ),
-                        const Divider(color: Color.fromARGB(255, 191, 190, 190), height: 15, thickness: 1),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //   children: [
+                        //     Expanded(
+                        //       child: Text("Spedisci a questo indirizzo",
+                        //           style: TCTypography.of(context).text_14_bold),
+                        //     ),
+                        //     Checkbox(
+                        //         activeColor: Colors.transparent,
+                        //         checkColor: const Color.fromARGB(255, 161, 29, 51),
+                        //         value: confirmSpedizioneIsChecked,
+                        //         onChanged: (bool? value) {
+                        //           setState(() {
+                        //             confirmSpedizioneIsChecked = value!;
+                        //           });
+                        //         }),
+                        //   ],
+                        // ),
+                        // const Divider(color: Color.fromARGB(255, 191, 190, 190), height: 15, thickness: 1),
                         if(widget.isNewAddress)
                         ...[
                           Row(

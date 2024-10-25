@@ -694,6 +694,7 @@ mixin _$Shipping {
   String? get state => throw _privateConstructorUsedError;
   String? get postcode => throw _privateConstructorUsedError;
   String? get country => throw _privateConstructorUsedError;
+  String? get phone => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -715,7 +716,8 @@ abstract class $ShippingCopyWith<$Res> {
       String? city,
       String? state,
       String? postcode,
-      String? country});
+      String? country,
+      String? phone});
 }
 
 /// @nodoc
@@ -740,6 +742,7 @@ class _$ShippingCopyWithImpl<$Res, $Val extends Shipping>
     Object? state = freezed,
     Object? postcode = freezed,
     Object? country = freezed,
+    Object? phone = freezed,
   }) {
     return _then(_value.copyWith(
       first_name: freezed == first_name
@@ -778,6 +781,10 @@ class _$ShippingCopyWithImpl<$Res, $Val extends Shipping>
           ? _value.country
           : country // ignore: cast_nullable_to_non_nullable
               as String?,
+      phone: freezed == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -798,7 +805,8 @@ abstract class _$$_ShippingCopyWith<$Res> implements $ShippingCopyWith<$Res> {
       String? city,
       String? state,
       String? postcode,
-      String? country});
+      String? country,
+      String? phone});
 }
 
 /// @nodoc
@@ -821,6 +829,7 @@ class __$$_ShippingCopyWithImpl<$Res>
     Object? state = freezed,
     Object? postcode = freezed,
     Object? country = freezed,
+    Object? phone = freezed,
   }) {
     return _then(_$_Shipping(
       first_name: freezed == first_name
@@ -859,6 +868,10 @@ class __$$_ShippingCopyWithImpl<$Res>
           ? _value.country
           : country // ignore: cast_nullable_to_non_nullable
               as String?,
+      phone: freezed == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -875,7 +888,8 @@ class _$_Shipping implements _Shipping {
       this.city,
       this.state,
       this.postcode,
-      this.country});
+      this.country,
+      this.phone});
 
   factory _$_Shipping.fromJson(Map<String, dynamic> json) =>
       _$$_ShippingFromJson(json);
@@ -898,10 +912,12 @@ class _$_Shipping implements _Shipping {
   final String? postcode;
   @override
   final String? country;
+  @override
+  final String? phone;
 
   @override
   String toString() {
-    return 'Shipping(first_name: $first_name, last_name: $last_name, company: $company, address_1: $address_1, address_2: $address_2, city: $city, state: $state, postcode: $postcode, country: $country)';
+    return 'Shipping(first_name: $first_name, last_name: $last_name, company: $company, address_1: $address_1, address_2: $address_2, city: $city, state: $state, postcode: $postcode, country: $country, phone: $phone)';
   }
 
   @override
@@ -922,13 +938,14 @@ class _$_Shipping implements _Shipping {
             (identical(other.state, state) || other.state == state) &&
             (identical(other.postcode, postcode) ||
                 other.postcode == postcode) &&
-            (identical(other.country, country) || other.country == country));
+            (identical(other.country, country) || other.country == country) &&
+            (identical(other.phone, phone) || other.phone == phone));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, first_name, last_name, company,
-      address_1, address_2, city, state, postcode, country);
+      address_1, address_2, city, state, postcode, country, phone);
 
   @JsonKey(ignore: true)
   @override
@@ -954,7 +971,8 @@ abstract class _Shipping implements Shipping {
       final String? city,
       final String? state,
       final String? postcode,
-      final String? country}) = _$_Shipping;
+      final String? country,
+      final String? phone}) = _$_Shipping;
 
   factory _Shipping.fromJson(Map<String, dynamic> json) = _$_Shipping.fromJson;
 
@@ -976,6 +994,8 @@ abstract class _Shipping implements Shipping {
   String? get postcode;
   @override
   String? get country;
+  @override
+  String? get phone;
   @override
   @JsonKey(ignore: true)
   _$$_ShippingCopyWith<_$_Shipping> get copyWith =>

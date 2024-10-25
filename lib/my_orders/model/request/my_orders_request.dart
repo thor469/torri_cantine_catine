@@ -68,6 +68,7 @@ class Shipping with _$Shipping {
     String? state,
     String? postcode,
     String? country,
+    String? phone
   }) = _Shipping;
 
   factory Shipping.fromJson(Map<String, dynamic> json) =>
