@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torri_cantine_app/account/account/address/address_bloc.dart';
 import 'package:torri_cantine_app/account/model/request/add_address_request.dart';
@@ -97,6 +98,27 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
         elevation: 1,
       ));
       return false;
+    }if (companyController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Inserisci nome dell'azienda"),
+        elevation: 1,
+      ));
+      return false;
+    }
+    if (phoneController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Inserisci numero di telefono'),
+        elevation: 1,
+      ));
+      return false;
+    } else if ( phoneController.text.isNotEmpty && !RegExp(
+        r"(^[0|3]{1}[0-9]{5,10}$)")
+        .hasMatch(phoneController.text) && (phoneController.text !='') ) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Inserisci un numero di telefono valido'),
+        elevation: 1,
+      ));
+      return false;
     }
     if (addressController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -127,13 +149,13 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
       ));
       return false;
     }
-    if (!indFatturaIsChecked && !indSpedizioneIsChecked) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Specifica se l\'indirizzo è di fatturazione e/o spedizione'),
-        elevation: 1,
-      ));
-      return false;
-    }
+    // if (!indFatturaIsChecked && !indSpedizioneIsChecked) {
+    //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+    //     content: Text('Specifica se l\'indirizzo è di fatturazione e/o spedizione'),
+    //     elevation: 1,
+    //   ));
+    //   return false;
+    // }
 
     if (emailController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -155,14 +177,6 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
       //   elevation: 1,
       // ));
       //return false;
-    } else if ( phoneController.text.isNotEmpty && !RegExp(
-        r"(^[0|3]{1}[0-9]{5,10}$)")
-        .hasMatch(phoneController.text) && (phoneController.text !='') ) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Inserisci un numero di telefono valido'),
-        elevation: 1,
-      ));
-      return false;
     }
     return true;
   }
@@ -301,6 +315,8 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
                                 contentPadding:
                                 const EdgeInsets.only(left: 10, bottom: 15),
                               ),
+                              inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+                              ],
                             ),
                           ),
                         ),
@@ -331,6 +347,8 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
                                 contentPadding:
                                 const EdgeInsets.only(left: 10, bottom: 15),
                               ),
+                              inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+                              ],
                             ),
                           ),
                         ),
@@ -392,7 +410,10 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
                                     border: InputBorder.none,
                                     contentPadding:
                                     EdgeInsets.only(left: 10, bottom: 15),
-                                  )),
+                                  ),
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.digitsOnly,
+                                ],),
                             )),
                         Text(
                           "Email",
@@ -451,7 +472,11 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
                                     border: InputBorder.none,
                                     contentPadding:
                                     const EdgeInsets.only(left: 10, bottom: 15),
-                                  )),
+                                  ),
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+                                ],
+                              ),
                             )),
                         Text(
                           "Indirizzo",
@@ -531,7 +556,10 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
                                 border: InputBorder.none,
                                 contentPadding:
                                 const EdgeInsets.only(left: 10, bottom: 15),
-                              )),
+                              ),
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+                            ],),
                         ),
                         Padding(
                             padding: const EdgeInsets.symmetric(vertical: 15.0),
@@ -555,7 +583,10 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
                                     border: InputBorder.none,
                                     contentPadding:
                                     const EdgeInsets.only(left: 10, bottom: 15),
-                                  )),
+                                  ),
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+                                ],),
                             )),
                         Container(
                           width: MediaQuery.of(context).size.width,
@@ -579,6 +610,9 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
                               contentPadding:
                               const EdgeInsets.only(left: 10, bottom: 10),
                             ),
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(RegExp(r'[0-9]'),)
+                            ],
                           ),
                         ),
                         const SizedBox(height: 25),
