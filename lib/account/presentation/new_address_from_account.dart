@@ -191,7 +191,7 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
   }
 
   Future<void> updateAddress({required bool isDefault, required String id ,required String type}) async{
-    context.read<AddressBloc>().updateAddress(
+    await context.read<AddressBloc>().updateAddress(
         AddAddressRequest(
             first_name: nameController.text,
             last_name: surnameController.text,
