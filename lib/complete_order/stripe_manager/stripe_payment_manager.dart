@@ -11,7 +11,7 @@ import 'package:torri_cantine_app/my_orders/my_orders/my_orders_bloc.dart';
 
 abstract class StripePaymentManager {
 
-  static Future <void> makePayment(int amount, String currency,BuildContext context,UserAddress shipping, UserAddress billing, int customerId) async{
+  static Future <void> makePayment(int amount, String currency,BuildContext context,UserAddress shipping, UserAddress billing, int customerId, int totPoint) async{
   try {
     String clientSecret = await _getClientSecret((amount).toString(), currency);
     await  _initializePaymentSheet(clientSecret,billing ,customerId);
@@ -42,14 +42,16 @@ abstract class StripePaymentManager {
                 state: shipping.state,
                 postcode: shipping.postcode,
                 country: "IT",
-                // phone: shipping.phone,
+                phone: shipping.phone,
               ),
               "",
               "stripe",
-              []),
+              [],
+              totPoint
+          ),
         );
 // ignore: use_build_context_synchronously
-                      _showSuccess(context);
+    _showSuccess(context);
   } catch(err){
      _showFail(context);
     throw Exception(err.toString());

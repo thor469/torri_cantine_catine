@@ -39,6 +39,8 @@ class _HomePageBodyState extends State<HomePageBody> {
     return a;
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     //print('##### HERE ###################');
@@ -175,7 +177,9 @@ class _HomePageBodyState extends State<HomePageBody> {
               leftText: "Nuova linea With Love",
               rightText: "Vedi tutti",
               products: listaPerCategoria(products ?? [], 'with-love') ?? [],
-              isLoading: isLoading,),
+              isLoading: isLoading,
+
+            ),
 
           ),
           Padding(
@@ -184,7 +188,8 @@ class _HomePageBodyState extends State<HomePageBody> {
               leftText: "I vini più richiesti",
               rightText: "Vedi tutti",
               products: listMostRequested(products ?? []) ?? [],
-              isLoading: isLoading,),
+              isLoading: isLoading,
+            ),
           )
         ],
       ),

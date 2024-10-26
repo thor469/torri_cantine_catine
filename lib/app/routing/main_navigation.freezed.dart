@@ -36,20 +36,17 @@ mixin _$MainNavigation {
     required TResult Function(bool fromMenu) account,
     required TResult Function() notification,
     required TResult Function(Order order) orderDetail,
-    required TResult Function() completeOrder,
+    required TResult Function(int totPoint) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function() modifyAddress,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
-    required TResult Function(int id) newAddress,
-    required TResult Function(int id) newShipping,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
     required TResult Function() thankYou,
     required TResult Function() menu,
     required TResult Function(bool fromMenu, bool fromAccount) wishList,
     required TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)
+            UserAddress? user, String returnPage, bool isNewAddress, int? point)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) =>
@@ -73,20 +70,23 @@ mixin _$MainNavigation {
     TResult? Function(bool fromMenu)? account,
     TResult? Function()? notification,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function()? completeOrder,
+    TResult? Function(int totPoint)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function()? modifyAddress,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
-    TResult? Function(int id)? newAddress,
-    TResult? Function(int id)? newShipping,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
     TResult? Function()? thankYou,
     TResult? Function()? menu,
     TResult? Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult? Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult? Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) =>
@@ -110,20 +110,23 @@ mixin _$MainNavigation {
     TResult Function(bool fromMenu)? account,
     TResult Function()? notification,
     TResult Function(Order order)? orderDetail,
-    TResult Function()? completeOrder,
+    TResult Function(int totPoint)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function()? modifyAddress,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
-    TResult Function(int id)? newAddress,
-    TResult Function(int id)? newShipping,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
     TResult Function()? thankYou,
     TResult Function()? menu,
     TResult Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -146,11 +149,8 @@ mixin _$MainNavigation {
     required TResult Function(_OrderDetail value) orderDetail,
     required TResult Function(_CompleteOrder value) completeOrder,
     required TResult Function(_Categories value) categories,
-    required TResult Function(_ModifyAddress value) modifyAddress,
     required TResult Function(_AddReview value) addReview,
     required TResult Function(_ProductDetail value) productDetail,
-    required TResult Function(_NewAddress value) newAddress,
-    required TResult Function(_NewShipping value) newShipping,
     required TResult Function(_PersonalInfo value) personalInfo,
     required TResult Function(_CategoriesDetail value) categoriesDetail,
     required TResult Function(_ThankYou value) thankYou,
@@ -178,11 +178,8 @@ mixin _$MainNavigation {
     TResult? Function(_OrderDetail value)? orderDetail,
     TResult? Function(_CompleteOrder value)? completeOrder,
     TResult? Function(_Categories value)? categories,
-    TResult? Function(_ModifyAddress value)? modifyAddress,
     TResult? Function(_AddReview value)? addReview,
     TResult? Function(_ProductDetail value)? productDetail,
-    TResult? Function(_NewAddress value)? newAddress,
-    TResult? Function(_NewShipping value)? newShipping,
     TResult? Function(_PersonalInfo value)? personalInfo,
     TResult? Function(_CategoriesDetail value)? categoriesDetail,
     TResult? Function(_ThankYou value)? thankYou,
@@ -209,11 +206,8 @@ mixin _$MainNavigation {
     TResult Function(_OrderDetail value)? orderDetail,
     TResult Function(_CompleteOrder value)? completeOrder,
     TResult Function(_Categories value)? categories,
-    TResult Function(_ModifyAddress value)? modifyAddress,
     TResult Function(_AddReview value)? addReview,
     TResult Function(_ProductDetail value)? productDetail,
-    TResult Function(_NewAddress value)? newAddress,
-    TResult Function(_NewShipping value)? newShipping,
     TResult Function(_PersonalInfo value)? personalInfo,
     TResult Function(_CategoriesDetail value)? categoriesDetail,
     TResult Function(_ThankYou value)? thankYou,
@@ -298,20 +292,17 @@ class _$_Home implements _Home {
     required TResult Function(bool fromMenu) account,
     required TResult Function() notification,
     required TResult Function(Order order) orderDetail,
-    required TResult Function() completeOrder,
+    required TResult Function(int totPoint) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function() modifyAddress,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
-    required TResult Function(int id) newAddress,
-    required TResult Function(int id) newShipping,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
     required TResult Function() thankYou,
     required TResult Function() menu,
     required TResult Function(bool fromMenu, bool fromAccount) wishList,
     required TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)
+            UserAddress? user, String returnPage, bool isNewAddress, int? point)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -338,20 +329,23 @@ class _$_Home implements _Home {
     TResult? Function(bool fromMenu)? account,
     TResult? Function()? notification,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function()? completeOrder,
+    TResult? Function(int totPoint)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function()? modifyAddress,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
-    TResult? Function(int id)? newAddress,
-    TResult? Function(int id)? newShipping,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
     TResult? Function()? thankYou,
     TResult? Function()? menu,
     TResult? Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult? Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult? Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -378,20 +372,23 @@ class _$_Home implements _Home {
     TResult Function(bool fromMenu)? account,
     TResult Function()? notification,
     TResult Function(Order order)? orderDetail,
-    TResult Function()? completeOrder,
+    TResult Function(int totPoint)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function()? modifyAddress,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
-    TResult Function(int id)? newAddress,
-    TResult Function(int id)? newShipping,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
     TResult Function()? thankYou,
     TResult Function()? menu,
     TResult Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -420,11 +417,8 @@ class _$_Home implements _Home {
     required TResult Function(_OrderDetail value) orderDetail,
     required TResult Function(_CompleteOrder value) completeOrder,
     required TResult Function(_Categories value) categories,
-    required TResult Function(_ModifyAddress value) modifyAddress,
     required TResult Function(_AddReview value) addReview,
     required TResult Function(_ProductDetail value) productDetail,
-    required TResult Function(_NewAddress value) newAddress,
-    required TResult Function(_NewShipping value) newShipping,
     required TResult Function(_PersonalInfo value) personalInfo,
     required TResult Function(_CategoriesDetail value) categoriesDetail,
     required TResult Function(_ThankYou value) thankYou,
@@ -455,11 +449,8 @@ class _$_Home implements _Home {
     TResult? Function(_OrderDetail value)? orderDetail,
     TResult? Function(_CompleteOrder value)? completeOrder,
     TResult? Function(_Categories value)? categories,
-    TResult? Function(_ModifyAddress value)? modifyAddress,
     TResult? Function(_AddReview value)? addReview,
     TResult? Function(_ProductDetail value)? productDetail,
-    TResult? Function(_NewAddress value)? newAddress,
-    TResult? Function(_NewShipping value)? newShipping,
     TResult? Function(_PersonalInfo value)? personalInfo,
     TResult? Function(_CategoriesDetail value)? categoriesDetail,
     TResult? Function(_ThankYou value)? thankYou,
@@ -489,11 +480,8 @@ class _$_Home implements _Home {
     TResult Function(_OrderDetail value)? orderDetail,
     TResult Function(_CompleteOrder value)? completeOrder,
     TResult Function(_Categories value)? categories,
-    TResult Function(_ModifyAddress value)? modifyAddress,
     TResult Function(_AddReview value)? addReview,
     TResult Function(_ProductDetail value)? productDetail,
-    TResult Function(_NewAddress value)? newAddress,
-    TResult Function(_NewShipping value)? newShipping,
     TResult Function(_PersonalInfo value)? personalInfo,
     TResult Function(_CategoriesDetail value)? categoriesDetail,
     TResult Function(_ThankYou value)? thankYou,
@@ -569,20 +557,17 @@ class _$_Welcome implements _Welcome {
     required TResult Function(bool fromMenu) account,
     required TResult Function() notification,
     required TResult Function(Order order) orderDetail,
-    required TResult Function() completeOrder,
+    required TResult Function(int totPoint) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function() modifyAddress,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
-    required TResult Function(int id) newAddress,
-    required TResult Function(int id) newShipping,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
     required TResult Function() thankYou,
     required TResult Function() menu,
     required TResult Function(bool fromMenu, bool fromAccount) wishList,
     required TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)
+            UserAddress? user, String returnPage, bool isNewAddress, int? point)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -609,20 +594,23 @@ class _$_Welcome implements _Welcome {
     TResult? Function(bool fromMenu)? account,
     TResult? Function()? notification,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function()? completeOrder,
+    TResult? Function(int totPoint)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function()? modifyAddress,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
-    TResult? Function(int id)? newAddress,
-    TResult? Function(int id)? newShipping,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
     TResult? Function()? thankYou,
     TResult? Function()? menu,
     TResult? Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult? Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult? Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -649,20 +637,23 @@ class _$_Welcome implements _Welcome {
     TResult Function(bool fromMenu)? account,
     TResult Function()? notification,
     TResult Function(Order order)? orderDetail,
-    TResult Function()? completeOrder,
+    TResult Function(int totPoint)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function()? modifyAddress,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
-    TResult Function(int id)? newAddress,
-    TResult Function(int id)? newShipping,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
     TResult Function()? thankYou,
     TResult Function()? menu,
     TResult Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -691,11 +682,8 @@ class _$_Welcome implements _Welcome {
     required TResult Function(_OrderDetail value) orderDetail,
     required TResult Function(_CompleteOrder value) completeOrder,
     required TResult Function(_Categories value) categories,
-    required TResult Function(_ModifyAddress value) modifyAddress,
     required TResult Function(_AddReview value) addReview,
     required TResult Function(_ProductDetail value) productDetail,
-    required TResult Function(_NewAddress value) newAddress,
-    required TResult Function(_NewShipping value) newShipping,
     required TResult Function(_PersonalInfo value) personalInfo,
     required TResult Function(_CategoriesDetail value) categoriesDetail,
     required TResult Function(_ThankYou value) thankYou,
@@ -726,11 +714,8 @@ class _$_Welcome implements _Welcome {
     TResult? Function(_OrderDetail value)? orderDetail,
     TResult? Function(_CompleteOrder value)? completeOrder,
     TResult? Function(_Categories value)? categories,
-    TResult? Function(_ModifyAddress value)? modifyAddress,
     TResult? Function(_AddReview value)? addReview,
     TResult? Function(_ProductDetail value)? productDetail,
-    TResult? Function(_NewAddress value)? newAddress,
-    TResult? Function(_NewShipping value)? newShipping,
     TResult? Function(_PersonalInfo value)? personalInfo,
     TResult? Function(_CategoriesDetail value)? categoriesDetail,
     TResult? Function(_ThankYou value)? thankYou,
@@ -760,11 +745,8 @@ class _$_Welcome implements _Welcome {
     TResult Function(_OrderDetail value)? orderDetail,
     TResult Function(_CompleteOrder value)? completeOrder,
     TResult Function(_Categories value)? categories,
-    TResult Function(_ModifyAddress value)? modifyAddress,
     TResult Function(_AddReview value)? addReview,
     TResult Function(_ProductDetail value)? productDetail,
-    TResult Function(_NewAddress value)? newAddress,
-    TResult Function(_NewShipping value)? newShipping,
     TResult Function(_PersonalInfo value)? personalInfo,
     TResult Function(_CategoriesDetail value)? categoriesDetail,
     TResult Function(_ThankYou value)? thankYou,
@@ -839,20 +821,17 @@ class _$_Login implements _Login {
     required TResult Function(bool fromMenu) account,
     required TResult Function() notification,
     required TResult Function(Order order) orderDetail,
-    required TResult Function() completeOrder,
+    required TResult Function(int totPoint) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function() modifyAddress,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
-    required TResult Function(int id) newAddress,
-    required TResult Function(int id) newShipping,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
     required TResult Function() thankYou,
     required TResult Function() menu,
     required TResult Function(bool fromMenu, bool fromAccount) wishList,
     required TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)
+            UserAddress? user, String returnPage, bool isNewAddress, int? point)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -879,20 +858,23 @@ class _$_Login implements _Login {
     TResult? Function(bool fromMenu)? account,
     TResult? Function()? notification,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function()? completeOrder,
+    TResult? Function(int totPoint)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function()? modifyAddress,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
-    TResult? Function(int id)? newAddress,
-    TResult? Function(int id)? newShipping,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
     TResult? Function()? thankYou,
     TResult? Function()? menu,
     TResult? Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult? Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult? Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -919,20 +901,23 @@ class _$_Login implements _Login {
     TResult Function(bool fromMenu)? account,
     TResult Function()? notification,
     TResult Function(Order order)? orderDetail,
-    TResult Function()? completeOrder,
+    TResult Function(int totPoint)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function()? modifyAddress,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
-    TResult Function(int id)? newAddress,
-    TResult Function(int id)? newShipping,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
     TResult Function()? thankYou,
     TResult Function()? menu,
     TResult Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -961,11 +946,8 @@ class _$_Login implements _Login {
     required TResult Function(_OrderDetail value) orderDetail,
     required TResult Function(_CompleteOrder value) completeOrder,
     required TResult Function(_Categories value) categories,
-    required TResult Function(_ModifyAddress value) modifyAddress,
     required TResult Function(_AddReview value) addReview,
     required TResult Function(_ProductDetail value) productDetail,
-    required TResult Function(_NewAddress value) newAddress,
-    required TResult Function(_NewShipping value) newShipping,
     required TResult Function(_PersonalInfo value) personalInfo,
     required TResult Function(_CategoriesDetail value) categoriesDetail,
     required TResult Function(_ThankYou value) thankYou,
@@ -996,11 +978,8 @@ class _$_Login implements _Login {
     TResult? Function(_OrderDetail value)? orderDetail,
     TResult? Function(_CompleteOrder value)? completeOrder,
     TResult? Function(_Categories value)? categories,
-    TResult? Function(_ModifyAddress value)? modifyAddress,
     TResult? Function(_AddReview value)? addReview,
     TResult? Function(_ProductDetail value)? productDetail,
-    TResult? Function(_NewAddress value)? newAddress,
-    TResult? Function(_NewShipping value)? newShipping,
     TResult? Function(_PersonalInfo value)? personalInfo,
     TResult? Function(_CategoriesDetail value)? categoriesDetail,
     TResult? Function(_ThankYou value)? thankYou,
@@ -1030,11 +1009,8 @@ class _$_Login implements _Login {
     TResult Function(_OrderDetail value)? orderDetail,
     TResult Function(_CompleteOrder value)? completeOrder,
     TResult Function(_Categories value)? categories,
-    TResult Function(_ModifyAddress value)? modifyAddress,
     TResult Function(_AddReview value)? addReview,
     TResult Function(_ProductDetail value)? productDetail,
-    TResult Function(_NewAddress value)? newAddress,
-    TResult Function(_NewShipping value)? newShipping,
     TResult Function(_PersonalInfo value)? personalInfo,
     TResult Function(_CategoriesDetail value)? categoriesDetail,
     TResult Function(_ThankYou value)? thankYou,
@@ -1111,20 +1087,17 @@ class _$_Products implements _Products {
     required TResult Function(bool fromMenu) account,
     required TResult Function() notification,
     required TResult Function(Order order) orderDetail,
-    required TResult Function() completeOrder,
+    required TResult Function(int totPoint) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function() modifyAddress,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
-    required TResult Function(int id) newAddress,
-    required TResult Function(int id) newShipping,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
     required TResult Function() thankYou,
     required TResult Function() menu,
     required TResult Function(bool fromMenu, bool fromAccount) wishList,
     required TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)
+            UserAddress? user, String returnPage, bool isNewAddress, int? point)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -1151,20 +1124,23 @@ class _$_Products implements _Products {
     TResult? Function(bool fromMenu)? account,
     TResult? Function()? notification,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function()? completeOrder,
+    TResult? Function(int totPoint)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function()? modifyAddress,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
-    TResult? Function(int id)? newAddress,
-    TResult? Function(int id)? newShipping,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
     TResult? Function()? thankYou,
     TResult? Function()? menu,
     TResult? Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult? Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult? Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -1191,20 +1167,23 @@ class _$_Products implements _Products {
     TResult Function(bool fromMenu)? account,
     TResult Function()? notification,
     TResult Function(Order order)? orderDetail,
-    TResult Function()? completeOrder,
+    TResult Function(int totPoint)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function()? modifyAddress,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
-    TResult Function(int id)? newAddress,
-    TResult Function(int id)? newShipping,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
     TResult Function()? thankYou,
     TResult Function()? menu,
     TResult Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -1233,11 +1212,8 @@ class _$_Products implements _Products {
     required TResult Function(_OrderDetail value) orderDetail,
     required TResult Function(_CompleteOrder value) completeOrder,
     required TResult Function(_Categories value) categories,
-    required TResult Function(_ModifyAddress value) modifyAddress,
     required TResult Function(_AddReview value) addReview,
     required TResult Function(_ProductDetail value) productDetail,
-    required TResult Function(_NewAddress value) newAddress,
-    required TResult Function(_NewShipping value) newShipping,
     required TResult Function(_PersonalInfo value) personalInfo,
     required TResult Function(_CategoriesDetail value) categoriesDetail,
     required TResult Function(_ThankYou value) thankYou,
@@ -1268,11 +1244,8 @@ class _$_Products implements _Products {
     TResult? Function(_OrderDetail value)? orderDetail,
     TResult? Function(_CompleteOrder value)? completeOrder,
     TResult? Function(_Categories value)? categories,
-    TResult? Function(_ModifyAddress value)? modifyAddress,
     TResult? Function(_AddReview value)? addReview,
     TResult? Function(_ProductDetail value)? productDetail,
-    TResult? Function(_NewAddress value)? newAddress,
-    TResult? Function(_NewShipping value)? newShipping,
     TResult? Function(_PersonalInfo value)? personalInfo,
     TResult? Function(_CategoriesDetail value)? categoriesDetail,
     TResult? Function(_ThankYou value)? thankYou,
@@ -1302,11 +1275,8 @@ class _$_Products implements _Products {
     TResult Function(_OrderDetail value)? orderDetail,
     TResult Function(_CompleteOrder value)? completeOrder,
     TResult Function(_Categories value)? categories,
-    TResult Function(_ModifyAddress value)? modifyAddress,
     TResult Function(_AddReview value)? addReview,
     TResult Function(_ProductDetail value)? productDetail,
-    TResult Function(_NewAddress value)? newAddress,
-    TResult Function(_NewShipping value)? newShipping,
     TResult Function(_PersonalInfo value)? personalInfo,
     TResult Function(_CategoriesDetail value)? categoriesDetail,
     TResult Function(_ThankYou value)? thankYou,
@@ -1383,20 +1353,17 @@ class _$_FirstRegistration implements _FirstRegistration {
     required TResult Function(bool fromMenu) account,
     required TResult Function() notification,
     required TResult Function(Order order) orderDetail,
-    required TResult Function() completeOrder,
+    required TResult Function(int totPoint) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function() modifyAddress,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
-    required TResult Function(int id) newAddress,
-    required TResult Function(int id) newShipping,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
     required TResult Function() thankYou,
     required TResult Function() menu,
     required TResult Function(bool fromMenu, bool fromAccount) wishList,
     required TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)
+            UserAddress? user, String returnPage, bool isNewAddress, int? point)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -1423,20 +1390,23 @@ class _$_FirstRegistration implements _FirstRegistration {
     TResult? Function(bool fromMenu)? account,
     TResult? Function()? notification,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function()? completeOrder,
+    TResult? Function(int totPoint)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function()? modifyAddress,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
-    TResult? Function(int id)? newAddress,
-    TResult? Function(int id)? newShipping,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
     TResult? Function()? thankYou,
     TResult? Function()? menu,
     TResult? Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult? Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult? Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -1463,20 +1433,23 @@ class _$_FirstRegistration implements _FirstRegistration {
     TResult Function(bool fromMenu)? account,
     TResult Function()? notification,
     TResult Function(Order order)? orderDetail,
-    TResult Function()? completeOrder,
+    TResult Function(int totPoint)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function()? modifyAddress,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
-    TResult Function(int id)? newAddress,
-    TResult Function(int id)? newShipping,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
     TResult Function()? thankYou,
     TResult Function()? menu,
     TResult Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -1505,11 +1478,8 @@ class _$_FirstRegistration implements _FirstRegistration {
     required TResult Function(_OrderDetail value) orderDetail,
     required TResult Function(_CompleteOrder value) completeOrder,
     required TResult Function(_Categories value) categories,
-    required TResult Function(_ModifyAddress value) modifyAddress,
     required TResult Function(_AddReview value) addReview,
     required TResult Function(_ProductDetail value) productDetail,
-    required TResult Function(_NewAddress value) newAddress,
-    required TResult Function(_NewShipping value) newShipping,
     required TResult Function(_PersonalInfo value) personalInfo,
     required TResult Function(_CategoriesDetail value) categoriesDetail,
     required TResult Function(_ThankYou value) thankYou,
@@ -1540,11 +1510,8 @@ class _$_FirstRegistration implements _FirstRegistration {
     TResult? Function(_OrderDetail value)? orderDetail,
     TResult? Function(_CompleteOrder value)? completeOrder,
     TResult? Function(_Categories value)? categories,
-    TResult? Function(_ModifyAddress value)? modifyAddress,
     TResult? Function(_AddReview value)? addReview,
     TResult? Function(_ProductDetail value)? productDetail,
-    TResult? Function(_NewAddress value)? newAddress,
-    TResult? Function(_NewShipping value)? newShipping,
     TResult? Function(_PersonalInfo value)? personalInfo,
     TResult? Function(_CategoriesDetail value)? categoriesDetail,
     TResult? Function(_ThankYou value)? thankYou,
@@ -1574,11 +1541,8 @@ class _$_FirstRegistration implements _FirstRegistration {
     TResult Function(_OrderDetail value)? orderDetail,
     TResult Function(_CompleteOrder value)? completeOrder,
     TResult Function(_Categories value)? categories,
-    TResult Function(_ModifyAddress value)? modifyAddress,
     TResult Function(_AddReview value)? addReview,
     TResult Function(_ProductDetail value)? productDetail,
-    TResult Function(_NewAddress value)? newAddress,
-    TResult Function(_NewShipping value)? newShipping,
     TResult Function(_PersonalInfo value)? personalInfo,
     TResult Function(_CategoriesDetail value)? categoriesDetail,
     TResult Function(_ThankYou value)? thankYou,
@@ -1689,20 +1653,17 @@ class _$_SecondRegistration implements _SecondRegistration {
     required TResult Function(bool fromMenu) account,
     required TResult Function() notification,
     required TResult Function(Order order) orderDetail,
-    required TResult Function() completeOrder,
+    required TResult Function(int totPoint) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function() modifyAddress,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
-    required TResult Function(int id) newAddress,
-    required TResult Function(int id) newShipping,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
     required TResult Function() thankYou,
     required TResult Function() menu,
     required TResult Function(bool fromMenu, bool fromAccount) wishList,
     required TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)
+            UserAddress? user, String returnPage, bool isNewAddress, int? point)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -1729,20 +1690,23 @@ class _$_SecondRegistration implements _SecondRegistration {
     TResult? Function(bool fromMenu)? account,
     TResult? Function()? notification,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function()? completeOrder,
+    TResult? Function(int totPoint)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function()? modifyAddress,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
-    TResult? Function(int id)? newAddress,
-    TResult? Function(int id)? newShipping,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
     TResult? Function()? thankYou,
     TResult? Function()? menu,
     TResult? Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult? Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult? Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -1769,20 +1733,23 @@ class _$_SecondRegistration implements _SecondRegistration {
     TResult Function(bool fromMenu)? account,
     TResult Function()? notification,
     TResult Function(Order order)? orderDetail,
-    TResult Function()? completeOrder,
+    TResult Function(int totPoint)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function()? modifyAddress,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
-    TResult Function(int id)? newAddress,
-    TResult Function(int id)? newShipping,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
     TResult Function()? thankYou,
     TResult Function()? menu,
     TResult Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -1811,11 +1778,8 @@ class _$_SecondRegistration implements _SecondRegistration {
     required TResult Function(_OrderDetail value) orderDetail,
     required TResult Function(_CompleteOrder value) completeOrder,
     required TResult Function(_Categories value) categories,
-    required TResult Function(_ModifyAddress value) modifyAddress,
     required TResult Function(_AddReview value) addReview,
     required TResult Function(_ProductDetail value) productDetail,
-    required TResult Function(_NewAddress value) newAddress,
-    required TResult Function(_NewShipping value) newShipping,
     required TResult Function(_PersonalInfo value) personalInfo,
     required TResult Function(_CategoriesDetail value) categoriesDetail,
     required TResult Function(_ThankYou value) thankYou,
@@ -1846,11 +1810,8 @@ class _$_SecondRegistration implements _SecondRegistration {
     TResult? Function(_OrderDetail value)? orderDetail,
     TResult? Function(_CompleteOrder value)? completeOrder,
     TResult? Function(_Categories value)? categories,
-    TResult? Function(_ModifyAddress value)? modifyAddress,
     TResult? Function(_AddReview value)? addReview,
     TResult? Function(_ProductDetail value)? productDetail,
-    TResult? Function(_NewAddress value)? newAddress,
-    TResult? Function(_NewShipping value)? newShipping,
     TResult? Function(_PersonalInfo value)? personalInfo,
     TResult? Function(_CategoriesDetail value)? categoriesDetail,
     TResult? Function(_ThankYou value)? thankYou,
@@ -1880,11 +1841,8 @@ class _$_SecondRegistration implements _SecondRegistration {
     TResult Function(_OrderDetail value)? orderDetail,
     TResult Function(_CompleteOrder value)? completeOrder,
     TResult Function(_Categories value)? categories,
-    TResult Function(_ModifyAddress value)? modifyAddress,
     TResult Function(_AddReview value)? addReview,
     TResult Function(_ProductDetail value)? productDetail,
-    TResult Function(_NewAddress value)? newAddress,
-    TResult Function(_NewShipping value)? newShipping,
     TResult Function(_PersonalInfo value)? personalInfo,
     TResult Function(_CategoriesDetail value)? categoriesDetail,
     TResult Function(_ThankYou value)? thankYou,
@@ -1967,20 +1925,17 @@ class _$_ThirdRegistration implements _ThirdRegistration {
     required TResult Function(bool fromMenu) account,
     required TResult Function() notification,
     required TResult Function(Order order) orderDetail,
-    required TResult Function() completeOrder,
+    required TResult Function(int totPoint) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function() modifyAddress,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
-    required TResult Function(int id) newAddress,
-    required TResult Function(int id) newShipping,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
     required TResult Function() thankYou,
     required TResult Function() menu,
     required TResult Function(bool fromMenu, bool fromAccount) wishList,
     required TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)
+            UserAddress? user, String returnPage, bool isNewAddress, int? point)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -2007,20 +1962,23 @@ class _$_ThirdRegistration implements _ThirdRegistration {
     TResult? Function(bool fromMenu)? account,
     TResult? Function()? notification,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function()? completeOrder,
+    TResult? Function(int totPoint)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function()? modifyAddress,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
-    TResult? Function(int id)? newAddress,
-    TResult? Function(int id)? newShipping,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
     TResult? Function()? thankYou,
     TResult? Function()? menu,
     TResult? Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult? Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult? Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -2047,20 +2005,23 @@ class _$_ThirdRegistration implements _ThirdRegistration {
     TResult Function(bool fromMenu)? account,
     TResult Function()? notification,
     TResult Function(Order order)? orderDetail,
-    TResult Function()? completeOrder,
+    TResult Function(int totPoint)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function()? modifyAddress,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
-    TResult Function(int id)? newAddress,
-    TResult Function(int id)? newShipping,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
     TResult Function()? thankYou,
     TResult Function()? menu,
     TResult Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -2089,11 +2050,8 @@ class _$_ThirdRegistration implements _ThirdRegistration {
     required TResult Function(_OrderDetail value) orderDetail,
     required TResult Function(_CompleteOrder value) completeOrder,
     required TResult Function(_Categories value) categories,
-    required TResult Function(_ModifyAddress value) modifyAddress,
     required TResult Function(_AddReview value) addReview,
     required TResult Function(_ProductDetail value) productDetail,
-    required TResult Function(_NewAddress value) newAddress,
-    required TResult Function(_NewShipping value) newShipping,
     required TResult Function(_PersonalInfo value) personalInfo,
     required TResult Function(_CategoriesDetail value) categoriesDetail,
     required TResult Function(_ThankYou value) thankYou,
@@ -2124,11 +2082,8 @@ class _$_ThirdRegistration implements _ThirdRegistration {
     TResult? Function(_OrderDetail value)? orderDetail,
     TResult? Function(_CompleteOrder value)? completeOrder,
     TResult? Function(_Categories value)? categories,
-    TResult? Function(_ModifyAddress value)? modifyAddress,
     TResult? Function(_AddReview value)? addReview,
     TResult? Function(_ProductDetail value)? productDetail,
-    TResult? Function(_NewAddress value)? newAddress,
-    TResult? Function(_NewShipping value)? newShipping,
     TResult? Function(_PersonalInfo value)? personalInfo,
     TResult? Function(_CategoriesDetail value)? categoriesDetail,
     TResult? Function(_ThankYou value)? thankYou,
@@ -2158,11 +2113,8 @@ class _$_ThirdRegistration implements _ThirdRegistration {
     TResult Function(_OrderDetail value)? orderDetail,
     TResult Function(_CompleteOrder value)? completeOrder,
     TResult Function(_Categories value)? categories,
-    TResult Function(_ModifyAddress value)? modifyAddress,
     TResult Function(_AddReview value)? addReview,
     TResult Function(_ProductDetail value)? productDetail,
-    TResult Function(_NewAddress value)? newAddress,
-    TResult Function(_NewShipping value)? newShipping,
     TResult Function(_PersonalInfo value)? personalInfo,
     TResult Function(_CategoriesDetail value)? categoriesDetail,
     TResult Function(_ThankYou value)? thankYou,
@@ -2297,20 +2249,17 @@ class _$_Cart implements _Cart {
     required TResult Function(bool fromMenu) account,
     required TResult Function() notification,
     required TResult Function(Order order) orderDetail,
-    required TResult Function() completeOrder,
+    required TResult Function(int totPoint) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function() modifyAddress,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
-    required TResult Function(int id) newAddress,
-    required TResult Function(int id) newShipping,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
     required TResult Function() thankYou,
     required TResult Function() menu,
     required TResult Function(bool fromMenu, bool fromAccount) wishList,
     required TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)
+            UserAddress? user, String returnPage, bool isNewAddress, int? point)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -2337,20 +2286,23 @@ class _$_Cart implements _Cart {
     TResult? Function(bool fromMenu)? account,
     TResult? Function()? notification,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function()? completeOrder,
+    TResult? Function(int totPoint)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function()? modifyAddress,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
-    TResult? Function(int id)? newAddress,
-    TResult? Function(int id)? newShipping,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
     TResult? Function()? thankYou,
     TResult? Function()? menu,
     TResult? Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult? Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult? Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -2377,20 +2329,23 @@ class _$_Cart implements _Cart {
     TResult Function(bool fromMenu)? account,
     TResult Function()? notification,
     TResult Function(Order order)? orderDetail,
-    TResult Function()? completeOrder,
+    TResult Function(int totPoint)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function()? modifyAddress,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
-    TResult Function(int id)? newAddress,
-    TResult Function(int id)? newShipping,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
     TResult Function()? thankYou,
     TResult Function()? menu,
     TResult Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -2419,11 +2374,8 @@ class _$_Cart implements _Cart {
     required TResult Function(_OrderDetail value) orderDetail,
     required TResult Function(_CompleteOrder value) completeOrder,
     required TResult Function(_Categories value) categories,
-    required TResult Function(_ModifyAddress value) modifyAddress,
     required TResult Function(_AddReview value) addReview,
     required TResult Function(_ProductDetail value) productDetail,
-    required TResult Function(_NewAddress value) newAddress,
-    required TResult Function(_NewShipping value) newShipping,
     required TResult Function(_PersonalInfo value) personalInfo,
     required TResult Function(_CategoriesDetail value) categoriesDetail,
     required TResult Function(_ThankYou value) thankYou,
@@ -2454,11 +2406,8 @@ class _$_Cart implements _Cart {
     TResult? Function(_OrderDetail value)? orderDetail,
     TResult? Function(_CompleteOrder value)? completeOrder,
     TResult? Function(_Categories value)? categories,
-    TResult? Function(_ModifyAddress value)? modifyAddress,
     TResult? Function(_AddReview value)? addReview,
     TResult? Function(_ProductDetail value)? productDetail,
-    TResult? Function(_NewAddress value)? newAddress,
-    TResult? Function(_NewShipping value)? newShipping,
     TResult? Function(_PersonalInfo value)? personalInfo,
     TResult? Function(_CategoriesDetail value)? categoriesDetail,
     TResult? Function(_ThankYou value)? thankYou,
@@ -2488,11 +2437,8 @@ class _$_Cart implements _Cart {
     TResult Function(_OrderDetail value)? orderDetail,
     TResult Function(_CompleteOrder value)? completeOrder,
     TResult Function(_Categories value)? categories,
-    TResult Function(_ModifyAddress value)? modifyAddress,
     TResult Function(_AddReview value)? addReview,
     TResult Function(_ProductDetail value)? productDetail,
-    TResult Function(_NewAddress value)? newAddress,
-    TResult Function(_NewShipping value)? newShipping,
     TResult Function(_PersonalInfo value)? personalInfo,
     TResult Function(_CategoriesDetail value)? categoriesDetail,
     TResult Function(_ThankYou value)? thankYou,
@@ -2637,20 +2583,17 @@ class _$_MyOrders implements _MyOrders {
     required TResult Function(bool fromMenu) account,
     required TResult Function() notification,
     required TResult Function(Order order) orderDetail,
-    required TResult Function() completeOrder,
+    required TResult Function(int totPoint) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function() modifyAddress,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
-    required TResult Function(int id) newAddress,
-    required TResult Function(int id) newShipping,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
     required TResult Function() thankYou,
     required TResult Function() menu,
     required TResult Function(bool fromMenu, bool fromAccount) wishList,
     required TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)
+            UserAddress? user, String returnPage, bool isNewAddress, int? point)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -2677,20 +2620,23 @@ class _$_MyOrders implements _MyOrders {
     TResult? Function(bool fromMenu)? account,
     TResult? Function()? notification,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function()? completeOrder,
+    TResult? Function(int totPoint)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function()? modifyAddress,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
-    TResult? Function(int id)? newAddress,
-    TResult? Function(int id)? newShipping,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
     TResult? Function()? thankYou,
     TResult? Function()? menu,
     TResult? Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult? Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult? Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -2718,20 +2664,23 @@ class _$_MyOrders implements _MyOrders {
     TResult Function(bool fromMenu)? account,
     TResult Function()? notification,
     TResult Function(Order order)? orderDetail,
-    TResult Function()? completeOrder,
+    TResult Function(int totPoint)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function()? modifyAddress,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
-    TResult Function(int id)? newAddress,
-    TResult Function(int id)? newShipping,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
     TResult Function()? thankYou,
     TResult Function()? menu,
     TResult Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -2760,11 +2709,8 @@ class _$_MyOrders implements _MyOrders {
     required TResult Function(_OrderDetail value) orderDetail,
     required TResult Function(_CompleteOrder value) completeOrder,
     required TResult Function(_Categories value) categories,
-    required TResult Function(_ModifyAddress value) modifyAddress,
     required TResult Function(_AddReview value) addReview,
     required TResult Function(_ProductDetail value) productDetail,
-    required TResult Function(_NewAddress value) newAddress,
-    required TResult Function(_NewShipping value) newShipping,
     required TResult Function(_PersonalInfo value) personalInfo,
     required TResult Function(_CategoriesDetail value) categoriesDetail,
     required TResult Function(_ThankYou value) thankYou,
@@ -2795,11 +2741,8 @@ class _$_MyOrders implements _MyOrders {
     TResult? Function(_OrderDetail value)? orderDetail,
     TResult? Function(_CompleteOrder value)? completeOrder,
     TResult? Function(_Categories value)? categories,
-    TResult? Function(_ModifyAddress value)? modifyAddress,
     TResult? Function(_AddReview value)? addReview,
     TResult? Function(_ProductDetail value)? productDetail,
-    TResult? Function(_NewAddress value)? newAddress,
-    TResult? Function(_NewShipping value)? newShipping,
     TResult? Function(_PersonalInfo value)? personalInfo,
     TResult? Function(_CategoriesDetail value)? categoriesDetail,
     TResult? Function(_ThankYou value)? thankYou,
@@ -2829,11 +2772,8 @@ class _$_MyOrders implements _MyOrders {
     TResult Function(_OrderDetail value)? orderDetail,
     TResult Function(_CompleteOrder value)? completeOrder,
     TResult Function(_Categories value)? categories,
-    TResult Function(_ModifyAddress value)? modifyAddress,
     TResult Function(_AddReview value)? addReview,
     TResult Function(_ProductDetail value)? productDetail,
-    TResult Function(_NewAddress value)? newAddress,
-    TResult Function(_NewShipping value)? newShipping,
     TResult Function(_PersonalInfo value)? personalInfo,
     TResult Function(_CategoriesDetail value)? categoriesDetail,
     TResult Function(_ThankYou value)? thankYou,
@@ -2955,20 +2895,17 @@ class _$_PointsBalance implements _PointsBalance {
     required TResult Function(bool fromMenu) account,
     required TResult Function() notification,
     required TResult Function(Order order) orderDetail,
-    required TResult Function() completeOrder,
+    required TResult Function(int totPoint) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function() modifyAddress,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
-    required TResult Function(int id) newAddress,
-    required TResult Function(int id) newShipping,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
     required TResult Function() thankYou,
     required TResult Function() menu,
     required TResult Function(bool fromMenu, bool fromAccount) wishList,
     required TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)
+            UserAddress? user, String returnPage, bool isNewAddress, int? point)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -2995,20 +2932,23 @@ class _$_PointsBalance implements _PointsBalance {
     TResult? Function(bool fromMenu)? account,
     TResult? Function()? notification,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function()? completeOrder,
+    TResult? Function(int totPoint)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function()? modifyAddress,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
-    TResult? Function(int id)? newAddress,
-    TResult? Function(int id)? newShipping,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
     TResult? Function()? thankYou,
     TResult? Function()? menu,
     TResult? Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult? Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult? Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -3035,20 +2975,23 @@ class _$_PointsBalance implements _PointsBalance {
     TResult Function(bool fromMenu)? account,
     TResult Function()? notification,
     TResult Function(Order order)? orderDetail,
-    TResult Function()? completeOrder,
+    TResult Function(int totPoint)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function()? modifyAddress,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
-    TResult Function(int id)? newAddress,
-    TResult Function(int id)? newShipping,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
     TResult Function()? thankYou,
     TResult Function()? menu,
     TResult Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -3077,11 +3020,8 @@ class _$_PointsBalance implements _PointsBalance {
     required TResult Function(_OrderDetail value) orderDetail,
     required TResult Function(_CompleteOrder value) completeOrder,
     required TResult Function(_Categories value) categories,
-    required TResult Function(_ModifyAddress value) modifyAddress,
     required TResult Function(_AddReview value) addReview,
     required TResult Function(_ProductDetail value) productDetail,
-    required TResult Function(_NewAddress value) newAddress,
-    required TResult Function(_NewShipping value) newShipping,
     required TResult Function(_PersonalInfo value) personalInfo,
     required TResult Function(_CategoriesDetail value) categoriesDetail,
     required TResult Function(_ThankYou value) thankYou,
@@ -3112,11 +3052,8 @@ class _$_PointsBalance implements _PointsBalance {
     TResult? Function(_OrderDetail value)? orderDetail,
     TResult? Function(_CompleteOrder value)? completeOrder,
     TResult? Function(_Categories value)? categories,
-    TResult? Function(_ModifyAddress value)? modifyAddress,
     TResult? Function(_AddReview value)? addReview,
     TResult? Function(_ProductDetail value)? productDetail,
-    TResult? Function(_NewAddress value)? newAddress,
-    TResult? Function(_NewShipping value)? newShipping,
     TResult? Function(_PersonalInfo value)? personalInfo,
     TResult? Function(_CategoriesDetail value)? categoriesDetail,
     TResult? Function(_ThankYou value)? thankYou,
@@ -3146,11 +3083,8 @@ class _$_PointsBalance implements _PointsBalance {
     TResult Function(_OrderDetail value)? orderDetail,
     TResult Function(_CompleteOrder value)? completeOrder,
     TResult Function(_Categories value)? categories,
-    TResult Function(_ModifyAddress value)? modifyAddress,
     TResult Function(_AddReview value)? addReview,
     TResult Function(_ProductDetail value)? productDetail,
-    TResult Function(_NewAddress value)? newAddress,
-    TResult Function(_NewShipping value)? newShipping,
     TResult Function(_PersonalInfo value)? personalInfo,
     TResult Function(_CategoriesDetail value)? categoriesDetail,
     TResult Function(_ThankYou value)? thankYou,
@@ -3260,20 +3194,17 @@ class _$_Account implements _Account {
     required TResult Function(bool fromMenu) account,
     required TResult Function() notification,
     required TResult Function(Order order) orderDetail,
-    required TResult Function() completeOrder,
+    required TResult Function(int totPoint) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function() modifyAddress,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
-    required TResult Function(int id) newAddress,
-    required TResult Function(int id) newShipping,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
     required TResult Function() thankYou,
     required TResult Function() menu,
     required TResult Function(bool fromMenu, bool fromAccount) wishList,
     required TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)
+            UserAddress? user, String returnPage, bool isNewAddress, int? point)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -3300,20 +3231,23 @@ class _$_Account implements _Account {
     TResult? Function(bool fromMenu)? account,
     TResult? Function()? notification,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function()? completeOrder,
+    TResult? Function(int totPoint)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function()? modifyAddress,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
-    TResult? Function(int id)? newAddress,
-    TResult? Function(int id)? newShipping,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
     TResult? Function()? thankYou,
     TResult? Function()? menu,
     TResult? Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult? Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult? Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -3340,20 +3274,23 @@ class _$_Account implements _Account {
     TResult Function(bool fromMenu)? account,
     TResult Function()? notification,
     TResult Function(Order order)? orderDetail,
-    TResult Function()? completeOrder,
+    TResult Function(int totPoint)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function()? modifyAddress,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
-    TResult Function(int id)? newAddress,
-    TResult Function(int id)? newShipping,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
     TResult Function()? thankYou,
     TResult Function()? menu,
     TResult Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -3382,11 +3319,8 @@ class _$_Account implements _Account {
     required TResult Function(_OrderDetail value) orderDetail,
     required TResult Function(_CompleteOrder value) completeOrder,
     required TResult Function(_Categories value) categories,
-    required TResult Function(_ModifyAddress value) modifyAddress,
     required TResult Function(_AddReview value) addReview,
     required TResult Function(_ProductDetail value) productDetail,
-    required TResult Function(_NewAddress value) newAddress,
-    required TResult Function(_NewShipping value) newShipping,
     required TResult Function(_PersonalInfo value) personalInfo,
     required TResult Function(_CategoriesDetail value) categoriesDetail,
     required TResult Function(_ThankYou value) thankYou,
@@ -3417,11 +3351,8 @@ class _$_Account implements _Account {
     TResult? Function(_OrderDetail value)? orderDetail,
     TResult? Function(_CompleteOrder value)? completeOrder,
     TResult? Function(_Categories value)? categories,
-    TResult? Function(_ModifyAddress value)? modifyAddress,
     TResult? Function(_AddReview value)? addReview,
     TResult? Function(_ProductDetail value)? productDetail,
-    TResult? Function(_NewAddress value)? newAddress,
-    TResult? Function(_NewShipping value)? newShipping,
     TResult? Function(_PersonalInfo value)? personalInfo,
     TResult? Function(_CategoriesDetail value)? categoriesDetail,
     TResult? Function(_ThankYou value)? thankYou,
@@ -3451,11 +3382,8 @@ class _$_Account implements _Account {
     TResult Function(_OrderDetail value)? orderDetail,
     TResult Function(_CompleteOrder value)? completeOrder,
     TResult Function(_Categories value)? categories,
-    TResult Function(_ModifyAddress value)? modifyAddress,
     TResult Function(_AddReview value)? addReview,
     TResult Function(_ProductDetail value)? productDetail,
-    TResult Function(_NewAddress value)? newAddress,
-    TResult Function(_NewShipping value)? newShipping,
     TResult Function(_PersonalInfo value)? personalInfo,
     TResult Function(_CategoriesDetail value)? categoriesDetail,
     TResult Function(_ThankYou value)? thankYou,
@@ -3537,20 +3465,17 @@ class _$_Notification implements _Notification {
     required TResult Function(bool fromMenu) account,
     required TResult Function() notification,
     required TResult Function(Order order) orderDetail,
-    required TResult Function() completeOrder,
+    required TResult Function(int totPoint) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function() modifyAddress,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
-    required TResult Function(int id) newAddress,
-    required TResult Function(int id) newShipping,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
     required TResult Function() thankYou,
     required TResult Function() menu,
     required TResult Function(bool fromMenu, bool fromAccount) wishList,
     required TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)
+            UserAddress? user, String returnPage, bool isNewAddress, int? point)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -3577,20 +3502,23 @@ class _$_Notification implements _Notification {
     TResult? Function(bool fromMenu)? account,
     TResult? Function()? notification,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function()? completeOrder,
+    TResult? Function(int totPoint)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function()? modifyAddress,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
-    TResult? Function(int id)? newAddress,
-    TResult? Function(int id)? newShipping,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
     TResult? Function()? thankYou,
     TResult? Function()? menu,
     TResult? Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult? Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult? Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -3617,20 +3545,23 @@ class _$_Notification implements _Notification {
     TResult Function(bool fromMenu)? account,
     TResult Function()? notification,
     TResult Function(Order order)? orderDetail,
-    TResult Function()? completeOrder,
+    TResult Function(int totPoint)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function()? modifyAddress,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
-    TResult Function(int id)? newAddress,
-    TResult Function(int id)? newShipping,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
     TResult Function()? thankYou,
     TResult Function()? menu,
     TResult Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -3659,11 +3590,8 @@ class _$_Notification implements _Notification {
     required TResult Function(_OrderDetail value) orderDetail,
     required TResult Function(_CompleteOrder value) completeOrder,
     required TResult Function(_Categories value) categories,
-    required TResult Function(_ModifyAddress value) modifyAddress,
     required TResult Function(_AddReview value) addReview,
     required TResult Function(_ProductDetail value) productDetail,
-    required TResult Function(_NewAddress value) newAddress,
-    required TResult Function(_NewShipping value) newShipping,
     required TResult Function(_PersonalInfo value) personalInfo,
     required TResult Function(_CategoriesDetail value) categoriesDetail,
     required TResult Function(_ThankYou value) thankYou,
@@ -3694,11 +3622,8 @@ class _$_Notification implements _Notification {
     TResult? Function(_OrderDetail value)? orderDetail,
     TResult? Function(_CompleteOrder value)? completeOrder,
     TResult? Function(_Categories value)? categories,
-    TResult? Function(_ModifyAddress value)? modifyAddress,
     TResult? Function(_AddReview value)? addReview,
     TResult? Function(_ProductDetail value)? productDetail,
-    TResult? Function(_NewAddress value)? newAddress,
-    TResult? Function(_NewShipping value)? newShipping,
     TResult? Function(_PersonalInfo value)? personalInfo,
     TResult? Function(_CategoriesDetail value)? categoriesDetail,
     TResult? Function(_ThankYou value)? thankYou,
@@ -3728,11 +3653,8 @@ class _$_Notification implements _Notification {
     TResult Function(_OrderDetail value)? orderDetail,
     TResult Function(_CompleteOrder value)? completeOrder,
     TResult Function(_Categories value)? categories,
-    TResult Function(_ModifyAddress value)? modifyAddress,
     TResult Function(_AddReview value)? addReview,
     TResult Function(_ProductDetail value)? productDetail,
-    TResult Function(_NewAddress value)? newAddress,
-    TResult Function(_NewShipping value)? newShipping,
     TResult Function(_PersonalInfo value)? personalInfo,
     TResult Function(_CategoriesDetail value)? categoriesDetail,
     TResult Function(_ThankYou value)? thankYou,
@@ -3845,20 +3767,17 @@ class _$_OrderDetail implements _OrderDetail {
     required TResult Function(bool fromMenu) account,
     required TResult Function() notification,
     required TResult Function(Order order) orderDetail,
-    required TResult Function() completeOrder,
+    required TResult Function(int totPoint) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function() modifyAddress,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
-    required TResult Function(int id) newAddress,
-    required TResult Function(int id) newShipping,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
     required TResult Function() thankYou,
     required TResult Function() menu,
     required TResult Function(bool fromMenu, bool fromAccount) wishList,
     required TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)
+            UserAddress? user, String returnPage, bool isNewAddress, int? point)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -3885,20 +3804,23 @@ class _$_OrderDetail implements _OrderDetail {
     TResult? Function(bool fromMenu)? account,
     TResult? Function()? notification,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function()? completeOrder,
+    TResult? Function(int totPoint)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function()? modifyAddress,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
-    TResult? Function(int id)? newAddress,
-    TResult? Function(int id)? newShipping,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
     TResult? Function()? thankYou,
     TResult? Function()? menu,
     TResult? Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult? Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult? Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -3925,20 +3847,23 @@ class _$_OrderDetail implements _OrderDetail {
     TResult Function(bool fromMenu)? account,
     TResult Function()? notification,
     TResult Function(Order order)? orderDetail,
-    TResult Function()? completeOrder,
+    TResult Function(int totPoint)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function()? modifyAddress,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
-    TResult Function(int id)? newAddress,
-    TResult Function(int id)? newShipping,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
     TResult Function()? thankYou,
     TResult Function()? menu,
     TResult Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -3967,11 +3892,8 @@ class _$_OrderDetail implements _OrderDetail {
     required TResult Function(_OrderDetail value) orderDetail,
     required TResult Function(_CompleteOrder value) completeOrder,
     required TResult Function(_Categories value) categories,
-    required TResult Function(_ModifyAddress value) modifyAddress,
     required TResult Function(_AddReview value) addReview,
     required TResult Function(_ProductDetail value) productDetail,
-    required TResult Function(_NewAddress value) newAddress,
-    required TResult Function(_NewShipping value) newShipping,
     required TResult Function(_PersonalInfo value) personalInfo,
     required TResult Function(_CategoriesDetail value) categoriesDetail,
     required TResult Function(_ThankYou value) thankYou,
@@ -4002,11 +3924,8 @@ class _$_OrderDetail implements _OrderDetail {
     TResult? Function(_OrderDetail value)? orderDetail,
     TResult? Function(_CompleteOrder value)? completeOrder,
     TResult? Function(_Categories value)? categories,
-    TResult? Function(_ModifyAddress value)? modifyAddress,
     TResult? Function(_AddReview value)? addReview,
     TResult? Function(_ProductDetail value)? productDetail,
-    TResult? Function(_NewAddress value)? newAddress,
-    TResult? Function(_NewShipping value)? newShipping,
     TResult? Function(_PersonalInfo value)? personalInfo,
     TResult? Function(_CategoriesDetail value)? categoriesDetail,
     TResult? Function(_ThankYou value)? thankYou,
@@ -4036,11 +3955,8 @@ class _$_OrderDetail implements _OrderDetail {
     TResult Function(_OrderDetail value)? orderDetail,
     TResult Function(_CompleteOrder value)? completeOrder,
     TResult Function(_Categories value)? categories,
-    TResult Function(_ModifyAddress value)? modifyAddress,
     TResult Function(_AddReview value)? addReview,
     TResult Function(_ProductDetail value)? productDetail,
-    TResult Function(_NewAddress value)? newAddress,
-    TResult Function(_NewShipping value)? newShipping,
     TResult Function(_PersonalInfo value)? personalInfo,
     TResult Function(_CategoriesDetail value)? categoriesDetail,
     TResult Function(_ThankYou value)? thankYou,
@@ -4071,6 +3987,8 @@ abstract class _$$_CompleteOrderCopyWith<$Res> {
   factory _$$_CompleteOrderCopyWith(
           _$_CompleteOrder value, $Res Function(_$_CompleteOrder) then) =
       __$$_CompleteOrderCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int totPoint});
 }
 
 /// @nodoc
@@ -4080,26 +3998,51 @@ class __$$_CompleteOrderCopyWithImpl<$Res>
   __$$_CompleteOrderCopyWithImpl(
       _$_CompleteOrder _value, $Res Function(_$_CompleteOrder) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? totPoint = null,
+  }) {
+    return _then(_$_CompleteOrder(
+      null == totPoint
+          ? _value.totPoint
+          : totPoint // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_CompleteOrder implements _CompleteOrder {
-  const _$_CompleteOrder();
+  const _$_CompleteOrder(this.totPoint);
+
+  @override
+  final int totPoint;
 
   @override
   String toString() {
-    return 'MainNavigation.completeOrder()';
+    return 'MainNavigation.completeOrder(totPoint: $totPoint)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_CompleteOrder);
+        (other.runtimeType == runtimeType &&
+            other is _$_CompleteOrder &&
+            (identical(other.totPoint, totPoint) ||
+                other.totPoint == totPoint));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, totPoint);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_CompleteOrderCopyWith<_$_CompleteOrder> get copyWith =>
+      __$$_CompleteOrderCopyWithImpl<_$_CompleteOrder>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -4122,24 +4065,21 @@ class _$_CompleteOrder implements _CompleteOrder {
     required TResult Function(bool fromMenu) account,
     required TResult Function() notification,
     required TResult Function(Order order) orderDetail,
-    required TResult Function() completeOrder,
+    required TResult Function(int totPoint) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function() modifyAddress,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
-    required TResult Function(int id) newAddress,
-    required TResult Function(int id) newShipping,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
     required TResult Function() thankYou,
     required TResult Function() menu,
     required TResult Function(bool fromMenu, bool fromAccount) wishList,
     required TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)
+            UserAddress? user, String returnPage, bool isNewAddress, int? point)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
-    return completeOrder();
+    return completeOrder(totPoint);
   }
 
   @override
@@ -4162,24 +4102,27 @@ class _$_CompleteOrder implements _CompleteOrder {
     TResult? Function(bool fromMenu)? account,
     TResult? Function()? notification,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function()? completeOrder,
+    TResult? Function(int totPoint)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function()? modifyAddress,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
-    TResult? Function(int id)? newAddress,
-    TResult? Function(int id)? newShipping,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
     TResult? Function()? thankYou,
     TResult? Function()? menu,
     TResult? Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult? Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult? Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
-    return completeOrder?.call();
+    return completeOrder?.call(totPoint);
   }
 
   @override
@@ -4202,26 +4145,29 @@ class _$_CompleteOrder implements _CompleteOrder {
     TResult Function(bool fromMenu)? account,
     TResult Function()? notification,
     TResult Function(Order order)? orderDetail,
-    TResult Function()? completeOrder,
+    TResult Function(int totPoint)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function()? modifyAddress,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
-    TResult Function(int id)? newAddress,
-    TResult Function(int id)? newShipping,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
     TResult Function()? thankYou,
     TResult Function()? menu,
     TResult Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
   }) {
     if (completeOrder != null) {
-      return completeOrder();
+      return completeOrder(totPoint);
     }
     return orElse();
   }
@@ -4244,11 +4190,8 @@ class _$_CompleteOrder implements _CompleteOrder {
     required TResult Function(_OrderDetail value) orderDetail,
     required TResult Function(_CompleteOrder value) completeOrder,
     required TResult Function(_Categories value) categories,
-    required TResult Function(_ModifyAddress value) modifyAddress,
     required TResult Function(_AddReview value) addReview,
     required TResult Function(_ProductDetail value) productDetail,
-    required TResult Function(_NewAddress value) newAddress,
-    required TResult Function(_NewShipping value) newShipping,
     required TResult Function(_PersonalInfo value) personalInfo,
     required TResult Function(_CategoriesDetail value) categoriesDetail,
     required TResult Function(_ThankYou value) thankYou,
@@ -4279,11 +4222,8 @@ class _$_CompleteOrder implements _CompleteOrder {
     TResult? Function(_OrderDetail value)? orderDetail,
     TResult? Function(_CompleteOrder value)? completeOrder,
     TResult? Function(_Categories value)? categories,
-    TResult? Function(_ModifyAddress value)? modifyAddress,
     TResult? Function(_AddReview value)? addReview,
     TResult? Function(_ProductDetail value)? productDetail,
-    TResult? Function(_NewAddress value)? newAddress,
-    TResult? Function(_NewShipping value)? newShipping,
     TResult? Function(_PersonalInfo value)? personalInfo,
     TResult? Function(_CategoriesDetail value)? categoriesDetail,
     TResult? Function(_ThankYou value)? thankYou,
@@ -4313,11 +4253,8 @@ class _$_CompleteOrder implements _CompleteOrder {
     TResult Function(_OrderDetail value)? orderDetail,
     TResult Function(_CompleteOrder value)? completeOrder,
     TResult Function(_Categories value)? categories,
-    TResult Function(_ModifyAddress value)? modifyAddress,
     TResult Function(_AddReview value)? addReview,
     TResult Function(_ProductDetail value)? productDetail,
-    TResult Function(_NewAddress value)? newAddress,
-    TResult Function(_NewShipping value)? newShipping,
     TResult Function(_PersonalInfo value)? personalInfo,
     TResult Function(_CategoriesDetail value)? categoriesDetail,
     TResult Function(_ThankYou value)? thankYou,
@@ -4335,7 +4272,12 @@ class _$_CompleteOrder implements _CompleteOrder {
 }
 
 abstract class _CompleteOrder implements MainNavigation {
-  const factory _CompleteOrder() = _$_CompleteOrder;
+  const factory _CompleteOrder(final int totPoint) = _$_CompleteOrder;
+
+  int get totPoint;
+  @JsonKey(ignore: true)
+  _$$_CompleteOrderCopyWith<_$_CompleteOrder> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -4430,20 +4372,17 @@ class _$_Categories implements _Categories {
     required TResult Function(bool fromMenu) account,
     required TResult Function() notification,
     required TResult Function(Order order) orderDetail,
-    required TResult Function() completeOrder,
+    required TResult Function(int totPoint) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function() modifyAddress,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
-    required TResult Function(int id) newAddress,
-    required TResult Function(int id) newShipping,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
     required TResult Function() thankYou,
     required TResult Function() menu,
     required TResult Function(bool fromMenu, bool fromAccount) wishList,
     required TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)
+            UserAddress? user, String returnPage, bool isNewAddress, int? point)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -4470,20 +4409,23 @@ class _$_Categories implements _Categories {
     TResult? Function(bool fromMenu)? account,
     TResult? Function()? notification,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function()? completeOrder,
+    TResult? Function(int totPoint)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function()? modifyAddress,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
-    TResult? Function(int id)? newAddress,
-    TResult? Function(int id)? newShipping,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
     TResult? Function()? thankYou,
     TResult? Function()? menu,
     TResult? Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult? Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult? Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -4510,20 +4452,23 @@ class _$_Categories implements _Categories {
     TResult Function(bool fromMenu)? account,
     TResult Function()? notification,
     TResult Function(Order order)? orderDetail,
-    TResult Function()? completeOrder,
+    TResult Function(int totPoint)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function()? modifyAddress,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
-    TResult Function(int id)? newAddress,
-    TResult Function(int id)? newShipping,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
     TResult Function()? thankYou,
     TResult Function()? menu,
     TResult Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -4552,11 +4497,8 @@ class _$_Categories implements _Categories {
     required TResult Function(_OrderDetail value) orderDetail,
     required TResult Function(_CompleteOrder value) completeOrder,
     required TResult Function(_Categories value) categories,
-    required TResult Function(_ModifyAddress value) modifyAddress,
     required TResult Function(_AddReview value) addReview,
     required TResult Function(_ProductDetail value) productDetail,
-    required TResult Function(_NewAddress value) newAddress,
-    required TResult Function(_NewShipping value) newShipping,
     required TResult Function(_PersonalInfo value) personalInfo,
     required TResult Function(_CategoriesDetail value) categoriesDetail,
     required TResult Function(_ThankYou value) thankYou,
@@ -4587,11 +4529,8 @@ class _$_Categories implements _Categories {
     TResult? Function(_OrderDetail value)? orderDetail,
     TResult? Function(_CompleteOrder value)? completeOrder,
     TResult? Function(_Categories value)? categories,
-    TResult? Function(_ModifyAddress value)? modifyAddress,
     TResult? Function(_AddReview value)? addReview,
     TResult? Function(_ProductDetail value)? productDetail,
-    TResult? Function(_NewAddress value)? newAddress,
-    TResult? Function(_NewShipping value)? newShipping,
     TResult? Function(_PersonalInfo value)? personalInfo,
     TResult? Function(_CategoriesDetail value)? categoriesDetail,
     TResult? Function(_ThankYou value)? thankYou,
@@ -4621,11 +4560,8 @@ class _$_Categories implements _Categories {
     TResult Function(_OrderDetail value)? orderDetail,
     TResult Function(_CompleteOrder value)? completeOrder,
     TResult Function(_Categories value)? categories,
-    TResult Function(_ModifyAddress value)? modifyAddress,
     TResult Function(_AddReview value)? addReview,
     TResult Function(_ProductDetail value)? productDetail,
-    TResult Function(_NewAddress value)? newAddress,
-    TResult Function(_NewShipping value)? newShipping,
     TResult Function(_PersonalInfo value)? personalInfo,
     TResult Function(_CategoriesDetail value)? categoriesDetail,
     TResult Function(_ThankYou value)? thankYou,
@@ -4651,278 +4587,6 @@ abstract class _Categories implements MainNavigation {
   @JsonKey(ignore: true)
   _$$_CategoriesCopyWith<_$_Categories> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$_ModifyAddressCopyWith<$Res> {
-  factory _$$_ModifyAddressCopyWith(
-          _$_ModifyAddress value, $Res Function(_$_ModifyAddress) then) =
-      __$$_ModifyAddressCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$_ModifyAddressCopyWithImpl<$Res>
-    extends _$MainNavigationCopyWithImpl<$Res, _$_ModifyAddress>
-    implements _$$_ModifyAddressCopyWith<$Res> {
-  __$$_ModifyAddressCopyWithImpl(
-      _$_ModifyAddress _value, $Res Function(_$_ModifyAddress) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$_ModifyAddress implements _ModifyAddress {
-  const _$_ModifyAddress();
-
-  @override
-  String toString() {
-    return 'MainNavigation.modifyAddress()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_ModifyAddress);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() home,
-    required TResult Function() welcome,
-    required TResult Function() login,
-    required TResult Function() products,
-    required TResult Function() firstRegistration,
-    required TResult Function(List<String> registrationDatas)
-        secondRegistration,
-    required TResult Function() thirdRegistration,
-    required TResult Function(bool showAppBar, bool fromMenu,
-            bool fromCompleteOrder, bool fromHomePage)
-        cart,
-    required TResult Function(bool fromMenu, bool fromAccount,
-            bool fromThankScreen, bool fromOrderDetails)
-        myOrders,
-    required TResult Function(bool fromMenu, bool fromAccount) pointsBalance,
-    required TResult Function(bool fromMenu) account,
-    required TResult Function() notification,
-    required TResult Function(Order order) orderDetail,
-    required TResult Function() completeOrder,
-    required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function() modifyAddress,
-    required TResult Function(int product_id) addReview,
-    required TResult Function(int productId) productDetail,
-    required TResult Function(int id) newAddress,
-    required TResult Function(int id) newShipping,
-    required TResult Function(AccountResponse user) personalInfo,
-    required TResult Function(int id) categoriesDetail,
-    required TResult Function() thankYou,
-    required TResult Function() menu,
-    required TResult Function(bool fromMenu, bool fromAccount) wishList,
-    required TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)
-        newAddressFromAccount,
-    required TResult Function(int id) addressList,
-  }) {
-    return modifyAddress();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? home,
-    TResult? Function()? welcome,
-    TResult? Function()? login,
-    TResult? Function()? products,
-    TResult? Function()? firstRegistration,
-    TResult? Function(List<String> registrationDatas)? secondRegistration,
-    TResult? Function()? thirdRegistration,
-    TResult? Function(bool showAppBar, bool fromMenu, bool fromCompleteOrder,
-            bool fromHomePage)?
-        cart,
-    TResult? Function(bool fromMenu, bool fromAccount, bool fromThankScreen,
-            bool fromOrderDetails)?
-        myOrders,
-    TResult? Function(bool fromMenu, bool fromAccount)? pointsBalance,
-    TResult? Function(bool fromMenu)? account,
-    TResult? Function()? notification,
-    TResult? Function(Order order)? orderDetail,
-    TResult? Function()? completeOrder,
-    TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function()? modifyAddress,
-    TResult? Function(int product_id)? addReview,
-    TResult? Function(int productId)? productDetail,
-    TResult? Function(int id)? newAddress,
-    TResult? Function(int id)? newShipping,
-    TResult? Function(AccountResponse user)? personalInfo,
-    TResult? Function(int id)? categoriesDetail,
-    TResult? Function()? thankYou,
-    TResult? Function()? menu,
-    TResult? Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult? Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
-        newAddressFromAccount,
-    TResult? Function(int id)? addressList,
-  }) {
-    return modifyAddress?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? home,
-    TResult Function()? welcome,
-    TResult Function()? login,
-    TResult Function()? products,
-    TResult Function()? firstRegistration,
-    TResult Function(List<String> registrationDatas)? secondRegistration,
-    TResult Function()? thirdRegistration,
-    TResult Function(bool showAppBar, bool fromMenu, bool fromCompleteOrder,
-            bool fromHomePage)?
-        cart,
-    TResult Function(bool fromMenu, bool fromAccount, bool fromThankScreen,
-            bool fromOrderDetails)?
-        myOrders,
-    TResult Function(bool fromMenu, bool fromAccount)? pointsBalance,
-    TResult Function(bool fromMenu)? account,
-    TResult Function()? notification,
-    TResult Function(Order order)? orderDetail,
-    TResult Function()? completeOrder,
-    TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function()? modifyAddress,
-    TResult Function(int product_id)? addReview,
-    TResult Function(int productId)? productDetail,
-    TResult Function(int id)? newAddress,
-    TResult Function(int id)? newShipping,
-    TResult Function(AccountResponse user)? personalInfo,
-    TResult Function(int id)? categoriesDetail,
-    TResult Function()? thankYou,
-    TResult Function()? menu,
-    TResult Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
-        newAddressFromAccount,
-    TResult Function(int id)? addressList,
-    required TResult orElse(),
-  }) {
-    if (modifyAddress != null) {
-      return modifyAddress();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Home value) home,
-    required TResult Function(_Welcome value) welcome,
-    required TResult Function(_Login value) login,
-    required TResult Function(_Products value) products,
-    required TResult Function(_FirstRegistration value) firstRegistration,
-    required TResult Function(_SecondRegistration value) secondRegistration,
-    required TResult Function(_ThirdRegistration value) thirdRegistration,
-    required TResult Function(_Cart value) cart,
-    required TResult Function(_MyOrders value) myOrders,
-    required TResult Function(_PointsBalance value) pointsBalance,
-    required TResult Function(_Account value) account,
-    required TResult Function(_Notification value) notification,
-    required TResult Function(_OrderDetail value) orderDetail,
-    required TResult Function(_CompleteOrder value) completeOrder,
-    required TResult Function(_Categories value) categories,
-    required TResult Function(_ModifyAddress value) modifyAddress,
-    required TResult Function(_AddReview value) addReview,
-    required TResult Function(_ProductDetail value) productDetail,
-    required TResult Function(_NewAddress value) newAddress,
-    required TResult Function(_NewShipping value) newShipping,
-    required TResult Function(_PersonalInfo value) personalInfo,
-    required TResult Function(_CategoriesDetail value) categoriesDetail,
-    required TResult Function(_ThankYou value) thankYou,
-    required TResult Function(_Menu value) menu,
-    required TResult Function(_WishlistScreen value) wishList,
-    required TResult Function(_MyAddressFromAccountScreen value)
-        newAddressFromAccount,
-    required TResult Function(_MyAddressListScreen value) addressList,
-  }) {
-    return modifyAddress(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Home value)? home,
-    TResult? Function(_Welcome value)? welcome,
-    TResult? Function(_Login value)? login,
-    TResult? Function(_Products value)? products,
-    TResult? Function(_FirstRegistration value)? firstRegistration,
-    TResult? Function(_SecondRegistration value)? secondRegistration,
-    TResult? Function(_ThirdRegistration value)? thirdRegistration,
-    TResult? Function(_Cart value)? cart,
-    TResult? Function(_MyOrders value)? myOrders,
-    TResult? Function(_PointsBalance value)? pointsBalance,
-    TResult? Function(_Account value)? account,
-    TResult? Function(_Notification value)? notification,
-    TResult? Function(_OrderDetail value)? orderDetail,
-    TResult? Function(_CompleteOrder value)? completeOrder,
-    TResult? Function(_Categories value)? categories,
-    TResult? Function(_ModifyAddress value)? modifyAddress,
-    TResult? Function(_AddReview value)? addReview,
-    TResult? Function(_ProductDetail value)? productDetail,
-    TResult? Function(_NewAddress value)? newAddress,
-    TResult? Function(_NewShipping value)? newShipping,
-    TResult? Function(_PersonalInfo value)? personalInfo,
-    TResult? Function(_CategoriesDetail value)? categoriesDetail,
-    TResult? Function(_ThankYou value)? thankYou,
-    TResult? Function(_Menu value)? menu,
-    TResult? Function(_WishlistScreen value)? wishList,
-    TResult? Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
-    TResult? Function(_MyAddressListScreen value)? addressList,
-  }) {
-    return modifyAddress?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Home value)? home,
-    TResult Function(_Welcome value)? welcome,
-    TResult Function(_Login value)? login,
-    TResult Function(_Products value)? products,
-    TResult Function(_FirstRegistration value)? firstRegistration,
-    TResult Function(_SecondRegistration value)? secondRegistration,
-    TResult Function(_ThirdRegistration value)? thirdRegistration,
-    TResult Function(_Cart value)? cart,
-    TResult Function(_MyOrders value)? myOrders,
-    TResult Function(_PointsBalance value)? pointsBalance,
-    TResult Function(_Account value)? account,
-    TResult Function(_Notification value)? notification,
-    TResult Function(_OrderDetail value)? orderDetail,
-    TResult Function(_CompleteOrder value)? completeOrder,
-    TResult Function(_Categories value)? categories,
-    TResult Function(_ModifyAddress value)? modifyAddress,
-    TResult Function(_AddReview value)? addReview,
-    TResult Function(_ProductDetail value)? productDetail,
-    TResult Function(_NewAddress value)? newAddress,
-    TResult Function(_NewShipping value)? newShipping,
-    TResult Function(_PersonalInfo value)? personalInfo,
-    TResult Function(_CategoriesDetail value)? categoriesDetail,
-    TResult Function(_ThankYou value)? thankYou,
-    TResult Function(_Menu value)? menu,
-    TResult Function(_WishlistScreen value)? wishList,
-    TResult Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
-    TResult Function(_MyAddressListScreen value)? addressList,
-    required TResult orElse(),
-  }) {
-    if (modifyAddress != null) {
-      return modifyAddress(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _ModifyAddress implements MainNavigation {
-  const factory _ModifyAddress() = _$_ModifyAddress;
 }
 
 /// @nodoc
@@ -5008,20 +4672,17 @@ class _$_AddReview implements _AddReview {
     required TResult Function(bool fromMenu) account,
     required TResult Function() notification,
     required TResult Function(Order order) orderDetail,
-    required TResult Function() completeOrder,
+    required TResult Function(int totPoint) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function() modifyAddress,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
-    required TResult Function(int id) newAddress,
-    required TResult Function(int id) newShipping,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
     required TResult Function() thankYou,
     required TResult Function() menu,
     required TResult Function(bool fromMenu, bool fromAccount) wishList,
     required TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)
+            UserAddress? user, String returnPage, bool isNewAddress, int? point)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -5048,20 +4709,23 @@ class _$_AddReview implements _AddReview {
     TResult? Function(bool fromMenu)? account,
     TResult? Function()? notification,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function()? completeOrder,
+    TResult? Function(int totPoint)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function()? modifyAddress,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
-    TResult? Function(int id)? newAddress,
-    TResult? Function(int id)? newShipping,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
     TResult? Function()? thankYou,
     TResult? Function()? menu,
     TResult? Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult? Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult? Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -5088,20 +4752,23 @@ class _$_AddReview implements _AddReview {
     TResult Function(bool fromMenu)? account,
     TResult Function()? notification,
     TResult Function(Order order)? orderDetail,
-    TResult Function()? completeOrder,
+    TResult Function(int totPoint)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function()? modifyAddress,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
-    TResult Function(int id)? newAddress,
-    TResult Function(int id)? newShipping,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
     TResult Function()? thankYou,
     TResult Function()? menu,
     TResult Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -5130,11 +4797,8 @@ class _$_AddReview implements _AddReview {
     required TResult Function(_OrderDetail value) orderDetail,
     required TResult Function(_CompleteOrder value) completeOrder,
     required TResult Function(_Categories value) categories,
-    required TResult Function(_ModifyAddress value) modifyAddress,
     required TResult Function(_AddReview value) addReview,
     required TResult Function(_ProductDetail value) productDetail,
-    required TResult Function(_NewAddress value) newAddress,
-    required TResult Function(_NewShipping value) newShipping,
     required TResult Function(_PersonalInfo value) personalInfo,
     required TResult Function(_CategoriesDetail value) categoriesDetail,
     required TResult Function(_ThankYou value) thankYou,
@@ -5165,11 +4829,8 @@ class _$_AddReview implements _AddReview {
     TResult? Function(_OrderDetail value)? orderDetail,
     TResult? Function(_CompleteOrder value)? completeOrder,
     TResult? Function(_Categories value)? categories,
-    TResult? Function(_ModifyAddress value)? modifyAddress,
     TResult? Function(_AddReview value)? addReview,
     TResult? Function(_ProductDetail value)? productDetail,
-    TResult? Function(_NewAddress value)? newAddress,
-    TResult? Function(_NewShipping value)? newShipping,
     TResult? Function(_PersonalInfo value)? personalInfo,
     TResult? Function(_CategoriesDetail value)? categoriesDetail,
     TResult? Function(_ThankYou value)? thankYou,
@@ -5199,11 +4860,8 @@ class _$_AddReview implements _AddReview {
     TResult Function(_OrderDetail value)? orderDetail,
     TResult Function(_CompleteOrder value)? completeOrder,
     TResult Function(_Categories value)? categories,
-    TResult Function(_ModifyAddress value)? modifyAddress,
     TResult Function(_AddReview value)? addReview,
     TResult Function(_ProductDetail value)? productDetail,
-    TResult Function(_NewAddress value)? newAddress,
-    TResult Function(_NewShipping value)? newShipping,
     TResult Function(_PersonalInfo value)? personalInfo,
     TResult Function(_CategoriesDetail value)? categoriesDetail,
     TResult Function(_ThankYou value)? thankYou,
@@ -5312,20 +4970,17 @@ class _$_ProductDetail implements _ProductDetail {
     required TResult Function(bool fromMenu) account,
     required TResult Function() notification,
     required TResult Function(Order order) orderDetail,
-    required TResult Function() completeOrder,
+    required TResult Function(int totPoint) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function() modifyAddress,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
-    required TResult Function(int id) newAddress,
-    required TResult Function(int id) newShipping,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
     required TResult Function() thankYou,
     required TResult Function() menu,
     required TResult Function(bool fromMenu, bool fromAccount) wishList,
     required TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)
+            UserAddress? user, String returnPage, bool isNewAddress, int? point)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -5352,20 +5007,23 @@ class _$_ProductDetail implements _ProductDetail {
     TResult? Function(bool fromMenu)? account,
     TResult? Function()? notification,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function()? completeOrder,
+    TResult? Function(int totPoint)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function()? modifyAddress,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
-    TResult? Function(int id)? newAddress,
-    TResult? Function(int id)? newShipping,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
     TResult? Function()? thankYou,
     TResult? Function()? menu,
     TResult? Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult? Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult? Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -5392,20 +5050,23 @@ class _$_ProductDetail implements _ProductDetail {
     TResult Function(bool fromMenu)? account,
     TResult Function()? notification,
     TResult Function(Order order)? orderDetail,
-    TResult Function()? completeOrder,
+    TResult Function(int totPoint)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function()? modifyAddress,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
-    TResult Function(int id)? newAddress,
-    TResult Function(int id)? newShipping,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
     TResult Function()? thankYou,
     TResult Function()? menu,
     TResult Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -5434,11 +5095,8 @@ class _$_ProductDetail implements _ProductDetail {
     required TResult Function(_OrderDetail value) orderDetail,
     required TResult Function(_CompleteOrder value) completeOrder,
     required TResult Function(_Categories value) categories,
-    required TResult Function(_ModifyAddress value) modifyAddress,
     required TResult Function(_AddReview value) addReview,
     required TResult Function(_ProductDetail value) productDetail,
-    required TResult Function(_NewAddress value) newAddress,
-    required TResult Function(_NewShipping value) newShipping,
     required TResult Function(_PersonalInfo value) personalInfo,
     required TResult Function(_CategoriesDetail value) categoriesDetail,
     required TResult Function(_ThankYou value) thankYou,
@@ -5469,11 +5127,8 @@ class _$_ProductDetail implements _ProductDetail {
     TResult? Function(_OrderDetail value)? orderDetail,
     TResult? Function(_CompleteOrder value)? completeOrder,
     TResult? Function(_Categories value)? categories,
-    TResult? Function(_ModifyAddress value)? modifyAddress,
     TResult? Function(_AddReview value)? addReview,
     TResult? Function(_ProductDetail value)? productDetail,
-    TResult? Function(_NewAddress value)? newAddress,
-    TResult? Function(_NewShipping value)? newShipping,
     TResult? Function(_PersonalInfo value)? personalInfo,
     TResult? Function(_CategoriesDetail value)? categoriesDetail,
     TResult? Function(_ThankYou value)? thankYou,
@@ -5503,11 +5158,8 @@ class _$_ProductDetail implements _ProductDetail {
     TResult Function(_OrderDetail value)? orderDetail,
     TResult Function(_CompleteOrder value)? completeOrder,
     TResult Function(_Categories value)? categories,
-    TResult Function(_ModifyAddress value)? modifyAddress,
     TResult Function(_AddReview value)? addReview,
     TResult Function(_ProductDetail value)? productDetail,
-    TResult Function(_NewAddress value)? newAddress,
-    TResult Function(_NewShipping value)? newShipping,
     TResult Function(_PersonalInfo value)? personalInfo,
     TResult Function(_CategoriesDetail value)? categoriesDetail,
     TResult Function(_ThankYou value)? thankYou,
@@ -5530,612 +5182,6 @@ abstract class _ProductDetail implements MainNavigation {
   int get productId;
   @JsonKey(ignore: true)
   _$$_ProductDetailCopyWith<_$_ProductDetail> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$_NewAddressCopyWith<$Res> {
-  factory _$$_NewAddressCopyWith(
-          _$_NewAddress value, $Res Function(_$_NewAddress) then) =
-      __$$_NewAddressCopyWithImpl<$Res>;
-  @useResult
-  $Res call({int id});
-}
-
-/// @nodoc
-class __$$_NewAddressCopyWithImpl<$Res>
-    extends _$MainNavigationCopyWithImpl<$Res, _$_NewAddress>
-    implements _$$_NewAddressCopyWith<$Res> {
-  __$$_NewAddressCopyWithImpl(
-      _$_NewAddress _value, $Res Function(_$_NewAddress) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-  }) {
-    return _then(_$_NewAddress(
-      null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_NewAddress implements _NewAddress {
-  const _$_NewAddress(this.id);
-
-  @override
-  final int id;
-
-  @override
-  String toString() {
-    return 'MainNavigation.newAddress(id: $id)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_NewAddress &&
-            (identical(other.id, id) || other.id == id));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, id);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_NewAddressCopyWith<_$_NewAddress> get copyWith =>
-      __$$_NewAddressCopyWithImpl<_$_NewAddress>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() home,
-    required TResult Function() welcome,
-    required TResult Function() login,
-    required TResult Function() products,
-    required TResult Function() firstRegistration,
-    required TResult Function(List<String> registrationDatas)
-        secondRegistration,
-    required TResult Function() thirdRegistration,
-    required TResult Function(bool showAppBar, bool fromMenu,
-            bool fromCompleteOrder, bool fromHomePage)
-        cart,
-    required TResult Function(bool fromMenu, bool fromAccount,
-            bool fromThankScreen, bool fromOrderDetails)
-        myOrders,
-    required TResult Function(bool fromMenu, bool fromAccount) pointsBalance,
-    required TResult Function(bool fromMenu) account,
-    required TResult Function() notification,
-    required TResult Function(Order order) orderDetail,
-    required TResult Function() completeOrder,
-    required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function() modifyAddress,
-    required TResult Function(int product_id) addReview,
-    required TResult Function(int productId) productDetail,
-    required TResult Function(int id) newAddress,
-    required TResult Function(int id) newShipping,
-    required TResult Function(AccountResponse user) personalInfo,
-    required TResult Function(int id) categoriesDetail,
-    required TResult Function() thankYou,
-    required TResult Function() menu,
-    required TResult Function(bool fromMenu, bool fromAccount) wishList,
-    required TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)
-        newAddressFromAccount,
-    required TResult Function(int id) addressList,
-  }) {
-    return newAddress(id);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? home,
-    TResult? Function()? welcome,
-    TResult? Function()? login,
-    TResult? Function()? products,
-    TResult? Function()? firstRegistration,
-    TResult? Function(List<String> registrationDatas)? secondRegistration,
-    TResult? Function()? thirdRegistration,
-    TResult? Function(bool showAppBar, bool fromMenu, bool fromCompleteOrder,
-            bool fromHomePage)?
-        cart,
-    TResult? Function(bool fromMenu, bool fromAccount, bool fromThankScreen,
-            bool fromOrderDetails)?
-        myOrders,
-    TResult? Function(bool fromMenu, bool fromAccount)? pointsBalance,
-    TResult? Function(bool fromMenu)? account,
-    TResult? Function()? notification,
-    TResult? Function(Order order)? orderDetail,
-    TResult? Function()? completeOrder,
-    TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function()? modifyAddress,
-    TResult? Function(int product_id)? addReview,
-    TResult? Function(int productId)? productDetail,
-    TResult? Function(int id)? newAddress,
-    TResult? Function(int id)? newShipping,
-    TResult? Function(AccountResponse user)? personalInfo,
-    TResult? Function(int id)? categoriesDetail,
-    TResult? Function()? thankYou,
-    TResult? Function()? menu,
-    TResult? Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult? Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
-        newAddressFromAccount,
-    TResult? Function(int id)? addressList,
-  }) {
-    return newAddress?.call(id);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? home,
-    TResult Function()? welcome,
-    TResult Function()? login,
-    TResult Function()? products,
-    TResult Function()? firstRegistration,
-    TResult Function(List<String> registrationDatas)? secondRegistration,
-    TResult Function()? thirdRegistration,
-    TResult Function(bool showAppBar, bool fromMenu, bool fromCompleteOrder,
-            bool fromHomePage)?
-        cart,
-    TResult Function(bool fromMenu, bool fromAccount, bool fromThankScreen,
-            bool fromOrderDetails)?
-        myOrders,
-    TResult Function(bool fromMenu, bool fromAccount)? pointsBalance,
-    TResult Function(bool fromMenu)? account,
-    TResult Function()? notification,
-    TResult Function(Order order)? orderDetail,
-    TResult Function()? completeOrder,
-    TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function()? modifyAddress,
-    TResult Function(int product_id)? addReview,
-    TResult Function(int productId)? productDetail,
-    TResult Function(int id)? newAddress,
-    TResult Function(int id)? newShipping,
-    TResult Function(AccountResponse user)? personalInfo,
-    TResult Function(int id)? categoriesDetail,
-    TResult Function()? thankYou,
-    TResult Function()? menu,
-    TResult Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
-        newAddressFromAccount,
-    TResult Function(int id)? addressList,
-    required TResult orElse(),
-  }) {
-    if (newAddress != null) {
-      return newAddress(id);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Home value) home,
-    required TResult Function(_Welcome value) welcome,
-    required TResult Function(_Login value) login,
-    required TResult Function(_Products value) products,
-    required TResult Function(_FirstRegistration value) firstRegistration,
-    required TResult Function(_SecondRegistration value) secondRegistration,
-    required TResult Function(_ThirdRegistration value) thirdRegistration,
-    required TResult Function(_Cart value) cart,
-    required TResult Function(_MyOrders value) myOrders,
-    required TResult Function(_PointsBalance value) pointsBalance,
-    required TResult Function(_Account value) account,
-    required TResult Function(_Notification value) notification,
-    required TResult Function(_OrderDetail value) orderDetail,
-    required TResult Function(_CompleteOrder value) completeOrder,
-    required TResult Function(_Categories value) categories,
-    required TResult Function(_ModifyAddress value) modifyAddress,
-    required TResult Function(_AddReview value) addReview,
-    required TResult Function(_ProductDetail value) productDetail,
-    required TResult Function(_NewAddress value) newAddress,
-    required TResult Function(_NewShipping value) newShipping,
-    required TResult Function(_PersonalInfo value) personalInfo,
-    required TResult Function(_CategoriesDetail value) categoriesDetail,
-    required TResult Function(_ThankYou value) thankYou,
-    required TResult Function(_Menu value) menu,
-    required TResult Function(_WishlistScreen value) wishList,
-    required TResult Function(_MyAddressFromAccountScreen value)
-        newAddressFromAccount,
-    required TResult Function(_MyAddressListScreen value) addressList,
-  }) {
-    return newAddress(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Home value)? home,
-    TResult? Function(_Welcome value)? welcome,
-    TResult? Function(_Login value)? login,
-    TResult? Function(_Products value)? products,
-    TResult? Function(_FirstRegistration value)? firstRegistration,
-    TResult? Function(_SecondRegistration value)? secondRegistration,
-    TResult? Function(_ThirdRegistration value)? thirdRegistration,
-    TResult? Function(_Cart value)? cart,
-    TResult? Function(_MyOrders value)? myOrders,
-    TResult? Function(_PointsBalance value)? pointsBalance,
-    TResult? Function(_Account value)? account,
-    TResult? Function(_Notification value)? notification,
-    TResult? Function(_OrderDetail value)? orderDetail,
-    TResult? Function(_CompleteOrder value)? completeOrder,
-    TResult? Function(_Categories value)? categories,
-    TResult? Function(_ModifyAddress value)? modifyAddress,
-    TResult? Function(_AddReview value)? addReview,
-    TResult? Function(_ProductDetail value)? productDetail,
-    TResult? Function(_NewAddress value)? newAddress,
-    TResult? Function(_NewShipping value)? newShipping,
-    TResult? Function(_PersonalInfo value)? personalInfo,
-    TResult? Function(_CategoriesDetail value)? categoriesDetail,
-    TResult? Function(_ThankYou value)? thankYou,
-    TResult? Function(_Menu value)? menu,
-    TResult? Function(_WishlistScreen value)? wishList,
-    TResult? Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
-    TResult? Function(_MyAddressListScreen value)? addressList,
-  }) {
-    return newAddress?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Home value)? home,
-    TResult Function(_Welcome value)? welcome,
-    TResult Function(_Login value)? login,
-    TResult Function(_Products value)? products,
-    TResult Function(_FirstRegistration value)? firstRegistration,
-    TResult Function(_SecondRegistration value)? secondRegistration,
-    TResult Function(_ThirdRegistration value)? thirdRegistration,
-    TResult Function(_Cart value)? cart,
-    TResult Function(_MyOrders value)? myOrders,
-    TResult Function(_PointsBalance value)? pointsBalance,
-    TResult Function(_Account value)? account,
-    TResult Function(_Notification value)? notification,
-    TResult Function(_OrderDetail value)? orderDetail,
-    TResult Function(_CompleteOrder value)? completeOrder,
-    TResult Function(_Categories value)? categories,
-    TResult Function(_ModifyAddress value)? modifyAddress,
-    TResult Function(_AddReview value)? addReview,
-    TResult Function(_ProductDetail value)? productDetail,
-    TResult Function(_NewAddress value)? newAddress,
-    TResult Function(_NewShipping value)? newShipping,
-    TResult Function(_PersonalInfo value)? personalInfo,
-    TResult Function(_CategoriesDetail value)? categoriesDetail,
-    TResult Function(_ThankYou value)? thankYou,
-    TResult Function(_Menu value)? menu,
-    TResult Function(_WishlistScreen value)? wishList,
-    TResult Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
-    TResult Function(_MyAddressListScreen value)? addressList,
-    required TResult orElse(),
-  }) {
-    if (newAddress != null) {
-      return newAddress(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _NewAddress implements MainNavigation {
-  const factory _NewAddress(final int id) = _$_NewAddress;
-
-  int get id;
-  @JsonKey(ignore: true)
-  _$$_NewAddressCopyWith<_$_NewAddress> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$_NewShippingCopyWith<$Res> {
-  factory _$$_NewShippingCopyWith(
-          _$_NewShipping value, $Res Function(_$_NewShipping) then) =
-      __$$_NewShippingCopyWithImpl<$Res>;
-  @useResult
-  $Res call({int id});
-}
-
-/// @nodoc
-class __$$_NewShippingCopyWithImpl<$Res>
-    extends _$MainNavigationCopyWithImpl<$Res, _$_NewShipping>
-    implements _$$_NewShippingCopyWith<$Res> {
-  __$$_NewShippingCopyWithImpl(
-      _$_NewShipping _value, $Res Function(_$_NewShipping) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-  }) {
-    return _then(_$_NewShipping(
-      null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_NewShipping implements _NewShipping {
-  const _$_NewShipping(this.id);
-
-  @override
-  final int id;
-
-  @override
-  String toString() {
-    return 'MainNavigation.newShipping(id: $id)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_NewShipping &&
-            (identical(other.id, id) || other.id == id));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, id);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_NewShippingCopyWith<_$_NewShipping> get copyWith =>
-      __$$_NewShippingCopyWithImpl<_$_NewShipping>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() home,
-    required TResult Function() welcome,
-    required TResult Function() login,
-    required TResult Function() products,
-    required TResult Function() firstRegistration,
-    required TResult Function(List<String> registrationDatas)
-        secondRegistration,
-    required TResult Function() thirdRegistration,
-    required TResult Function(bool showAppBar, bool fromMenu,
-            bool fromCompleteOrder, bool fromHomePage)
-        cart,
-    required TResult Function(bool fromMenu, bool fromAccount,
-            bool fromThankScreen, bool fromOrderDetails)
-        myOrders,
-    required TResult Function(bool fromMenu, bool fromAccount) pointsBalance,
-    required TResult Function(bool fromMenu) account,
-    required TResult Function() notification,
-    required TResult Function(Order order) orderDetail,
-    required TResult Function() completeOrder,
-    required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function() modifyAddress,
-    required TResult Function(int product_id) addReview,
-    required TResult Function(int productId) productDetail,
-    required TResult Function(int id) newAddress,
-    required TResult Function(int id) newShipping,
-    required TResult Function(AccountResponse user) personalInfo,
-    required TResult Function(int id) categoriesDetail,
-    required TResult Function() thankYou,
-    required TResult Function() menu,
-    required TResult Function(bool fromMenu, bool fromAccount) wishList,
-    required TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)
-        newAddressFromAccount,
-    required TResult Function(int id) addressList,
-  }) {
-    return newShipping(id);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? home,
-    TResult? Function()? welcome,
-    TResult? Function()? login,
-    TResult? Function()? products,
-    TResult? Function()? firstRegistration,
-    TResult? Function(List<String> registrationDatas)? secondRegistration,
-    TResult? Function()? thirdRegistration,
-    TResult? Function(bool showAppBar, bool fromMenu, bool fromCompleteOrder,
-            bool fromHomePage)?
-        cart,
-    TResult? Function(bool fromMenu, bool fromAccount, bool fromThankScreen,
-            bool fromOrderDetails)?
-        myOrders,
-    TResult? Function(bool fromMenu, bool fromAccount)? pointsBalance,
-    TResult? Function(bool fromMenu)? account,
-    TResult? Function()? notification,
-    TResult? Function(Order order)? orderDetail,
-    TResult? Function()? completeOrder,
-    TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function()? modifyAddress,
-    TResult? Function(int product_id)? addReview,
-    TResult? Function(int productId)? productDetail,
-    TResult? Function(int id)? newAddress,
-    TResult? Function(int id)? newShipping,
-    TResult? Function(AccountResponse user)? personalInfo,
-    TResult? Function(int id)? categoriesDetail,
-    TResult? Function()? thankYou,
-    TResult? Function()? menu,
-    TResult? Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult? Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
-        newAddressFromAccount,
-    TResult? Function(int id)? addressList,
-  }) {
-    return newShipping?.call(id);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? home,
-    TResult Function()? welcome,
-    TResult Function()? login,
-    TResult Function()? products,
-    TResult Function()? firstRegistration,
-    TResult Function(List<String> registrationDatas)? secondRegistration,
-    TResult Function()? thirdRegistration,
-    TResult Function(bool showAppBar, bool fromMenu, bool fromCompleteOrder,
-            bool fromHomePage)?
-        cart,
-    TResult Function(bool fromMenu, bool fromAccount, bool fromThankScreen,
-            bool fromOrderDetails)?
-        myOrders,
-    TResult Function(bool fromMenu, bool fromAccount)? pointsBalance,
-    TResult Function(bool fromMenu)? account,
-    TResult Function()? notification,
-    TResult Function(Order order)? orderDetail,
-    TResult Function()? completeOrder,
-    TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function()? modifyAddress,
-    TResult Function(int product_id)? addReview,
-    TResult Function(int productId)? productDetail,
-    TResult Function(int id)? newAddress,
-    TResult Function(int id)? newShipping,
-    TResult Function(AccountResponse user)? personalInfo,
-    TResult Function(int id)? categoriesDetail,
-    TResult Function()? thankYou,
-    TResult Function()? menu,
-    TResult Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
-        newAddressFromAccount,
-    TResult Function(int id)? addressList,
-    required TResult orElse(),
-  }) {
-    if (newShipping != null) {
-      return newShipping(id);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Home value) home,
-    required TResult Function(_Welcome value) welcome,
-    required TResult Function(_Login value) login,
-    required TResult Function(_Products value) products,
-    required TResult Function(_FirstRegistration value) firstRegistration,
-    required TResult Function(_SecondRegistration value) secondRegistration,
-    required TResult Function(_ThirdRegistration value) thirdRegistration,
-    required TResult Function(_Cart value) cart,
-    required TResult Function(_MyOrders value) myOrders,
-    required TResult Function(_PointsBalance value) pointsBalance,
-    required TResult Function(_Account value) account,
-    required TResult Function(_Notification value) notification,
-    required TResult Function(_OrderDetail value) orderDetail,
-    required TResult Function(_CompleteOrder value) completeOrder,
-    required TResult Function(_Categories value) categories,
-    required TResult Function(_ModifyAddress value) modifyAddress,
-    required TResult Function(_AddReview value) addReview,
-    required TResult Function(_ProductDetail value) productDetail,
-    required TResult Function(_NewAddress value) newAddress,
-    required TResult Function(_NewShipping value) newShipping,
-    required TResult Function(_PersonalInfo value) personalInfo,
-    required TResult Function(_CategoriesDetail value) categoriesDetail,
-    required TResult Function(_ThankYou value) thankYou,
-    required TResult Function(_Menu value) menu,
-    required TResult Function(_WishlistScreen value) wishList,
-    required TResult Function(_MyAddressFromAccountScreen value)
-        newAddressFromAccount,
-    required TResult Function(_MyAddressListScreen value) addressList,
-  }) {
-    return newShipping(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Home value)? home,
-    TResult? Function(_Welcome value)? welcome,
-    TResult? Function(_Login value)? login,
-    TResult? Function(_Products value)? products,
-    TResult? Function(_FirstRegistration value)? firstRegistration,
-    TResult? Function(_SecondRegistration value)? secondRegistration,
-    TResult? Function(_ThirdRegistration value)? thirdRegistration,
-    TResult? Function(_Cart value)? cart,
-    TResult? Function(_MyOrders value)? myOrders,
-    TResult? Function(_PointsBalance value)? pointsBalance,
-    TResult? Function(_Account value)? account,
-    TResult? Function(_Notification value)? notification,
-    TResult? Function(_OrderDetail value)? orderDetail,
-    TResult? Function(_CompleteOrder value)? completeOrder,
-    TResult? Function(_Categories value)? categories,
-    TResult? Function(_ModifyAddress value)? modifyAddress,
-    TResult? Function(_AddReview value)? addReview,
-    TResult? Function(_ProductDetail value)? productDetail,
-    TResult? Function(_NewAddress value)? newAddress,
-    TResult? Function(_NewShipping value)? newShipping,
-    TResult? Function(_PersonalInfo value)? personalInfo,
-    TResult? Function(_CategoriesDetail value)? categoriesDetail,
-    TResult? Function(_ThankYou value)? thankYou,
-    TResult? Function(_Menu value)? menu,
-    TResult? Function(_WishlistScreen value)? wishList,
-    TResult? Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
-    TResult? Function(_MyAddressListScreen value)? addressList,
-  }) {
-    return newShipping?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Home value)? home,
-    TResult Function(_Welcome value)? welcome,
-    TResult Function(_Login value)? login,
-    TResult Function(_Products value)? products,
-    TResult Function(_FirstRegistration value)? firstRegistration,
-    TResult Function(_SecondRegistration value)? secondRegistration,
-    TResult Function(_ThirdRegistration value)? thirdRegistration,
-    TResult Function(_Cart value)? cart,
-    TResult Function(_MyOrders value)? myOrders,
-    TResult Function(_PointsBalance value)? pointsBalance,
-    TResult Function(_Account value)? account,
-    TResult Function(_Notification value)? notification,
-    TResult Function(_OrderDetail value)? orderDetail,
-    TResult Function(_CompleteOrder value)? completeOrder,
-    TResult Function(_Categories value)? categories,
-    TResult Function(_ModifyAddress value)? modifyAddress,
-    TResult Function(_AddReview value)? addReview,
-    TResult Function(_ProductDetail value)? productDetail,
-    TResult Function(_NewAddress value)? newAddress,
-    TResult Function(_NewShipping value)? newShipping,
-    TResult Function(_PersonalInfo value)? personalInfo,
-    TResult Function(_CategoriesDetail value)? categoriesDetail,
-    TResult Function(_ThankYou value)? thankYou,
-    TResult Function(_Menu value)? menu,
-    TResult Function(_WishlistScreen value)? wishList,
-    TResult Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
-    TResult Function(_MyAddressListScreen value)? addressList,
-    required TResult orElse(),
-  }) {
-    if (newShipping != null) {
-      return newShipping(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _NewShipping implements MainNavigation {
-  const factory _NewShipping(final int id) = _$_NewShipping;
-
-  int get id;
-  @JsonKey(ignore: true)
-  _$$_NewShippingCopyWith<_$_NewShipping> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -6231,20 +5277,17 @@ class _$_PersonalInfo implements _PersonalInfo {
     required TResult Function(bool fromMenu) account,
     required TResult Function() notification,
     required TResult Function(Order order) orderDetail,
-    required TResult Function() completeOrder,
+    required TResult Function(int totPoint) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function() modifyAddress,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
-    required TResult Function(int id) newAddress,
-    required TResult Function(int id) newShipping,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
     required TResult Function() thankYou,
     required TResult Function() menu,
     required TResult Function(bool fromMenu, bool fromAccount) wishList,
     required TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)
+            UserAddress? user, String returnPage, bool isNewAddress, int? point)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -6271,20 +5314,23 @@ class _$_PersonalInfo implements _PersonalInfo {
     TResult? Function(bool fromMenu)? account,
     TResult? Function()? notification,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function()? completeOrder,
+    TResult? Function(int totPoint)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function()? modifyAddress,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
-    TResult? Function(int id)? newAddress,
-    TResult? Function(int id)? newShipping,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
     TResult? Function()? thankYou,
     TResult? Function()? menu,
     TResult? Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult? Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult? Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -6311,20 +5357,23 @@ class _$_PersonalInfo implements _PersonalInfo {
     TResult Function(bool fromMenu)? account,
     TResult Function()? notification,
     TResult Function(Order order)? orderDetail,
-    TResult Function()? completeOrder,
+    TResult Function(int totPoint)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function()? modifyAddress,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
-    TResult Function(int id)? newAddress,
-    TResult Function(int id)? newShipping,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
     TResult Function()? thankYou,
     TResult Function()? menu,
     TResult Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -6353,11 +5402,8 @@ class _$_PersonalInfo implements _PersonalInfo {
     required TResult Function(_OrderDetail value) orderDetail,
     required TResult Function(_CompleteOrder value) completeOrder,
     required TResult Function(_Categories value) categories,
-    required TResult Function(_ModifyAddress value) modifyAddress,
     required TResult Function(_AddReview value) addReview,
     required TResult Function(_ProductDetail value) productDetail,
-    required TResult Function(_NewAddress value) newAddress,
-    required TResult Function(_NewShipping value) newShipping,
     required TResult Function(_PersonalInfo value) personalInfo,
     required TResult Function(_CategoriesDetail value) categoriesDetail,
     required TResult Function(_ThankYou value) thankYou,
@@ -6388,11 +5434,8 @@ class _$_PersonalInfo implements _PersonalInfo {
     TResult? Function(_OrderDetail value)? orderDetail,
     TResult? Function(_CompleteOrder value)? completeOrder,
     TResult? Function(_Categories value)? categories,
-    TResult? Function(_ModifyAddress value)? modifyAddress,
     TResult? Function(_AddReview value)? addReview,
     TResult? Function(_ProductDetail value)? productDetail,
-    TResult? Function(_NewAddress value)? newAddress,
-    TResult? Function(_NewShipping value)? newShipping,
     TResult? Function(_PersonalInfo value)? personalInfo,
     TResult? Function(_CategoriesDetail value)? categoriesDetail,
     TResult? Function(_ThankYou value)? thankYou,
@@ -6422,11 +5465,8 @@ class _$_PersonalInfo implements _PersonalInfo {
     TResult Function(_OrderDetail value)? orderDetail,
     TResult Function(_CompleteOrder value)? completeOrder,
     TResult Function(_Categories value)? categories,
-    TResult Function(_ModifyAddress value)? modifyAddress,
     TResult Function(_AddReview value)? addReview,
     TResult Function(_ProductDetail value)? productDetail,
-    TResult Function(_NewAddress value)? newAddress,
-    TResult Function(_NewShipping value)? newShipping,
     TResult Function(_PersonalInfo value)? personalInfo,
     TResult Function(_CategoriesDetail value)? categoriesDetail,
     TResult Function(_ThankYou value)? thankYou,
@@ -6534,20 +5574,17 @@ class _$_CategoriesDetail implements _CategoriesDetail {
     required TResult Function(bool fromMenu) account,
     required TResult Function() notification,
     required TResult Function(Order order) orderDetail,
-    required TResult Function() completeOrder,
+    required TResult Function(int totPoint) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function() modifyAddress,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
-    required TResult Function(int id) newAddress,
-    required TResult Function(int id) newShipping,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
     required TResult Function() thankYou,
     required TResult Function() menu,
     required TResult Function(bool fromMenu, bool fromAccount) wishList,
     required TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)
+            UserAddress? user, String returnPage, bool isNewAddress, int? point)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -6574,20 +5611,23 @@ class _$_CategoriesDetail implements _CategoriesDetail {
     TResult? Function(bool fromMenu)? account,
     TResult? Function()? notification,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function()? completeOrder,
+    TResult? Function(int totPoint)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function()? modifyAddress,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
-    TResult? Function(int id)? newAddress,
-    TResult? Function(int id)? newShipping,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
     TResult? Function()? thankYou,
     TResult? Function()? menu,
     TResult? Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult? Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult? Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -6614,20 +5654,23 @@ class _$_CategoriesDetail implements _CategoriesDetail {
     TResult Function(bool fromMenu)? account,
     TResult Function()? notification,
     TResult Function(Order order)? orderDetail,
-    TResult Function()? completeOrder,
+    TResult Function(int totPoint)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function()? modifyAddress,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
-    TResult Function(int id)? newAddress,
-    TResult Function(int id)? newShipping,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
     TResult Function()? thankYou,
     TResult Function()? menu,
     TResult Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -6656,11 +5699,8 @@ class _$_CategoriesDetail implements _CategoriesDetail {
     required TResult Function(_OrderDetail value) orderDetail,
     required TResult Function(_CompleteOrder value) completeOrder,
     required TResult Function(_Categories value) categories,
-    required TResult Function(_ModifyAddress value) modifyAddress,
     required TResult Function(_AddReview value) addReview,
     required TResult Function(_ProductDetail value) productDetail,
-    required TResult Function(_NewAddress value) newAddress,
-    required TResult Function(_NewShipping value) newShipping,
     required TResult Function(_PersonalInfo value) personalInfo,
     required TResult Function(_CategoriesDetail value) categoriesDetail,
     required TResult Function(_ThankYou value) thankYou,
@@ -6691,11 +5731,8 @@ class _$_CategoriesDetail implements _CategoriesDetail {
     TResult? Function(_OrderDetail value)? orderDetail,
     TResult? Function(_CompleteOrder value)? completeOrder,
     TResult? Function(_Categories value)? categories,
-    TResult? Function(_ModifyAddress value)? modifyAddress,
     TResult? Function(_AddReview value)? addReview,
     TResult? Function(_ProductDetail value)? productDetail,
-    TResult? Function(_NewAddress value)? newAddress,
-    TResult? Function(_NewShipping value)? newShipping,
     TResult? Function(_PersonalInfo value)? personalInfo,
     TResult? Function(_CategoriesDetail value)? categoriesDetail,
     TResult? Function(_ThankYou value)? thankYou,
@@ -6725,11 +5762,8 @@ class _$_CategoriesDetail implements _CategoriesDetail {
     TResult Function(_OrderDetail value)? orderDetail,
     TResult Function(_CompleteOrder value)? completeOrder,
     TResult Function(_Categories value)? categories,
-    TResult Function(_ModifyAddress value)? modifyAddress,
     TResult Function(_AddReview value)? addReview,
     TResult Function(_ProductDetail value)? productDetail,
-    TResult Function(_NewAddress value)? newAddress,
-    TResult Function(_NewShipping value)? newShipping,
     TResult Function(_PersonalInfo value)? personalInfo,
     TResult Function(_CategoriesDetail value)? categoriesDetail,
     TResult Function(_ThankYou value)? thankYou,
@@ -6811,20 +5845,17 @@ class _$_ThankYou implements _ThankYou {
     required TResult Function(bool fromMenu) account,
     required TResult Function() notification,
     required TResult Function(Order order) orderDetail,
-    required TResult Function() completeOrder,
+    required TResult Function(int totPoint) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function() modifyAddress,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
-    required TResult Function(int id) newAddress,
-    required TResult Function(int id) newShipping,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
     required TResult Function() thankYou,
     required TResult Function() menu,
     required TResult Function(bool fromMenu, bool fromAccount) wishList,
     required TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)
+            UserAddress? user, String returnPage, bool isNewAddress, int? point)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -6851,20 +5882,23 @@ class _$_ThankYou implements _ThankYou {
     TResult? Function(bool fromMenu)? account,
     TResult? Function()? notification,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function()? completeOrder,
+    TResult? Function(int totPoint)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function()? modifyAddress,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
-    TResult? Function(int id)? newAddress,
-    TResult? Function(int id)? newShipping,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
     TResult? Function()? thankYou,
     TResult? Function()? menu,
     TResult? Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult? Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult? Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -6891,20 +5925,23 @@ class _$_ThankYou implements _ThankYou {
     TResult Function(bool fromMenu)? account,
     TResult Function()? notification,
     TResult Function(Order order)? orderDetail,
-    TResult Function()? completeOrder,
+    TResult Function(int totPoint)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function()? modifyAddress,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
-    TResult Function(int id)? newAddress,
-    TResult Function(int id)? newShipping,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
     TResult Function()? thankYou,
     TResult Function()? menu,
     TResult Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -6933,11 +5970,8 @@ class _$_ThankYou implements _ThankYou {
     required TResult Function(_OrderDetail value) orderDetail,
     required TResult Function(_CompleteOrder value) completeOrder,
     required TResult Function(_Categories value) categories,
-    required TResult Function(_ModifyAddress value) modifyAddress,
     required TResult Function(_AddReview value) addReview,
     required TResult Function(_ProductDetail value) productDetail,
-    required TResult Function(_NewAddress value) newAddress,
-    required TResult Function(_NewShipping value) newShipping,
     required TResult Function(_PersonalInfo value) personalInfo,
     required TResult Function(_CategoriesDetail value) categoriesDetail,
     required TResult Function(_ThankYou value) thankYou,
@@ -6968,11 +6002,8 @@ class _$_ThankYou implements _ThankYou {
     TResult? Function(_OrderDetail value)? orderDetail,
     TResult? Function(_CompleteOrder value)? completeOrder,
     TResult? Function(_Categories value)? categories,
-    TResult? Function(_ModifyAddress value)? modifyAddress,
     TResult? Function(_AddReview value)? addReview,
     TResult? Function(_ProductDetail value)? productDetail,
-    TResult? Function(_NewAddress value)? newAddress,
-    TResult? Function(_NewShipping value)? newShipping,
     TResult? Function(_PersonalInfo value)? personalInfo,
     TResult? Function(_CategoriesDetail value)? categoriesDetail,
     TResult? Function(_ThankYou value)? thankYou,
@@ -7002,11 +6033,8 @@ class _$_ThankYou implements _ThankYou {
     TResult Function(_OrderDetail value)? orderDetail,
     TResult Function(_CompleteOrder value)? completeOrder,
     TResult Function(_Categories value)? categories,
-    TResult Function(_ModifyAddress value)? modifyAddress,
     TResult Function(_AddReview value)? addReview,
     TResult Function(_ProductDetail value)? productDetail,
-    TResult Function(_NewAddress value)? newAddress,
-    TResult Function(_NewShipping value)? newShipping,
     TResult Function(_PersonalInfo value)? personalInfo,
     TResult Function(_CategoriesDetail value)? categoriesDetail,
     TResult Function(_ThankYou value)? thankYou,
@@ -7081,20 +6109,17 @@ class _$_Menu implements _Menu {
     required TResult Function(bool fromMenu) account,
     required TResult Function() notification,
     required TResult Function(Order order) orderDetail,
-    required TResult Function() completeOrder,
+    required TResult Function(int totPoint) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function() modifyAddress,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
-    required TResult Function(int id) newAddress,
-    required TResult Function(int id) newShipping,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
     required TResult Function() thankYou,
     required TResult Function() menu,
     required TResult Function(bool fromMenu, bool fromAccount) wishList,
     required TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)
+            UserAddress? user, String returnPage, bool isNewAddress, int? point)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -7121,20 +6146,23 @@ class _$_Menu implements _Menu {
     TResult? Function(bool fromMenu)? account,
     TResult? Function()? notification,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function()? completeOrder,
+    TResult? Function(int totPoint)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function()? modifyAddress,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
-    TResult? Function(int id)? newAddress,
-    TResult? Function(int id)? newShipping,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
     TResult? Function()? thankYou,
     TResult? Function()? menu,
     TResult? Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult? Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult? Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -7161,20 +6189,23 @@ class _$_Menu implements _Menu {
     TResult Function(bool fromMenu)? account,
     TResult Function()? notification,
     TResult Function(Order order)? orderDetail,
-    TResult Function()? completeOrder,
+    TResult Function(int totPoint)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function()? modifyAddress,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
-    TResult Function(int id)? newAddress,
-    TResult Function(int id)? newShipping,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
     TResult Function()? thankYou,
     TResult Function()? menu,
     TResult Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -7203,11 +6234,8 @@ class _$_Menu implements _Menu {
     required TResult Function(_OrderDetail value) orderDetail,
     required TResult Function(_CompleteOrder value) completeOrder,
     required TResult Function(_Categories value) categories,
-    required TResult Function(_ModifyAddress value) modifyAddress,
     required TResult Function(_AddReview value) addReview,
     required TResult Function(_ProductDetail value) productDetail,
-    required TResult Function(_NewAddress value) newAddress,
-    required TResult Function(_NewShipping value) newShipping,
     required TResult Function(_PersonalInfo value) personalInfo,
     required TResult Function(_CategoriesDetail value) categoriesDetail,
     required TResult Function(_ThankYou value) thankYou,
@@ -7238,11 +6266,8 @@ class _$_Menu implements _Menu {
     TResult? Function(_OrderDetail value)? orderDetail,
     TResult? Function(_CompleteOrder value)? completeOrder,
     TResult? Function(_Categories value)? categories,
-    TResult? Function(_ModifyAddress value)? modifyAddress,
     TResult? Function(_AddReview value)? addReview,
     TResult? Function(_ProductDetail value)? productDetail,
-    TResult? Function(_NewAddress value)? newAddress,
-    TResult? Function(_NewShipping value)? newShipping,
     TResult? Function(_PersonalInfo value)? personalInfo,
     TResult? Function(_CategoriesDetail value)? categoriesDetail,
     TResult? Function(_ThankYou value)? thankYou,
@@ -7272,11 +6297,8 @@ class _$_Menu implements _Menu {
     TResult Function(_OrderDetail value)? orderDetail,
     TResult Function(_CompleteOrder value)? completeOrder,
     TResult Function(_Categories value)? categories,
-    TResult Function(_ModifyAddress value)? modifyAddress,
     TResult Function(_AddReview value)? addReview,
     TResult Function(_ProductDetail value)? productDetail,
-    TResult Function(_NewAddress value)? newAddress,
-    TResult Function(_NewShipping value)? newShipping,
     TResult Function(_PersonalInfo value)? personalInfo,
     TResult Function(_CategoriesDetail value)? categoriesDetail,
     TResult Function(_ThankYou value)? thankYou,
@@ -7389,20 +6411,17 @@ class _$_WishlistScreen implements _WishlistScreen {
     required TResult Function(bool fromMenu) account,
     required TResult Function() notification,
     required TResult Function(Order order) orderDetail,
-    required TResult Function() completeOrder,
+    required TResult Function(int totPoint) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function() modifyAddress,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
-    required TResult Function(int id) newAddress,
-    required TResult Function(int id) newShipping,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
     required TResult Function() thankYou,
     required TResult Function() menu,
     required TResult Function(bool fromMenu, bool fromAccount) wishList,
     required TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)
+            UserAddress? user, String returnPage, bool isNewAddress, int? point)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -7429,20 +6448,23 @@ class _$_WishlistScreen implements _WishlistScreen {
     TResult? Function(bool fromMenu)? account,
     TResult? Function()? notification,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function()? completeOrder,
+    TResult? Function(int totPoint)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function()? modifyAddress,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
-    TResult? Function(int id)? newAddress,
-    TResult? Function(int id)? newShipping,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
     TResult? Function()? thankYou,
     TResult? Function()? menu,
     TResult? Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult? Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult? Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -7469,20 +6491,23 @@ class _$_WishlistScreen implements _WishlistScreen {
     TResult Function(bool fromMenu)? account,
     TResult Function()? notification,
     TResult Function(Order order)? orderDetail,
-    TResult Function()? completeOrder,
+    TResult Function(int totPoint)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function()? modifyAddress,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
-    TResult Function(int id)? newAddress,
-    TResult Function(int id)? newShipping,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
     TResult Function()? thankYou,
     TResult Function()? menu,
     TResult Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -7511,11 +6536,8 @@ class _$_WishlistScreen implements _WishlistScreen {
     required TResult Function(_OrderDetail value) orderDetail,
     required TResult Function(_CompleteOrder value) completeOrder,
     required TResult Function(_Categories value) categories,
-    required TResult Function(_ModifyAddress value) modifyAddress,
     required TResult Function(_AddReview value) addReview,
     required TResult Function(_ProductDetail value) productDetail,
-    required TResult Function(_NewAddress value) newAddress,
-    required TResult Function(_NewShipping value) newShipping,
     required TResult Function(_PersonalInfo value) personalInfo,
     required TResult Function(_CategoriesDetail value) categoriesDetail,
     required TResult Function(_ThankYou value) thankYou,
@@ -7546,11 +6568,8 @@ class _$_WishlistScreen implements _WishlistScreen {
     TResult? Function(_OrderDetail value)? orderDetail,
     TResult? Function(_CompleteOrder value)? completeOrder,
     TResult? Function(_Categories value)? categories,
-    TResult? Function(_ModifyAddress value)? modifyAddress,
     TResult? Function(_AddReview value)? addReview,
     TResult? Function(_ProductDetail value)? productDetail,
-    TResult? Function(_NewAddress value)? newAddress,
-    TResult? Function(_NewShipping value)? newShipping,
     TResult? Function(_PersonalInfo value)? personalInfo,
     TResult? Function(_CategoriesDetail value)? categoriesDetail,
     TResult? Function(_ThankYou value)? thankYou,
@@ -7580,11 +6599,8 @@ class _$_WishlistScreen implements _WishlistScreen {
     TResult Function(_OrderDetail value)? orderDetail,
     TResult Function(_CompleteOrder value)? completeOrder,
     TResult Function(_Categories value)? categories,
-    TResult Function(_ModifyAddress value)? modifyAddress,
     TResult Function(_AddReview value)? addReview,
     TResult Function(_ProductDetail value)? productDetail,
-    TResult Function(_NewAddress value)? newAddress,
-    TResult Function(_NewShipping value)? newShipping,
     TResult Function(_PersonalInfo value)? personalInfo,
     TResult Function(_CategoriesDetail value)? categoriesDetail,
     TResult Function(_ThankYou value)? thankYou,
@@ -7625,7 +6641,8 @@ abstract class _$$_MyAddressFromAccountScreenCopyWith<$Res> {
       bool editShipping,
       UserAddress? user,
       String returnPage,
-      bool isNewAddress});
+      bool isNewAddress,
+      int? point});
 
   $UserAddressCopyWith<$Res>? get user;
 }
@@ -7648,6 +6665,7 @@ class __$$_MyAddressFromAccountScreenCopyWithImpl<$Res>
     Object? user = freezed,
     Object? returnPage = null,
     Object? isNewAddress = null,
+    Object? point = freezed,
   }) {
     return _then(_$_MyAddressFromAccountScreen(
       null == id
@@ -7674,6 +6692,10 @@ class __$$_MyAddressFromAccountScreenCopyWithImpl<$Res>
           ? _value.isNewAddress
           : isNewAddress // ignore: cast_nullable_to_non_nullable
               as bool,
+      freezed == point
+          ? _value.point
+          : point // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 
@@ -7693,8 +6715,14 @@ class __$$_MyAddressFromAccountScreenCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_MyAddressFromAccountScreen implements _MyAddressFromAccountScreen {
-  const _$_MyAddressFromAccountScreen(this.id, this.editFatturazione,
-      this.editShipping, this.user, this.returnPage, this.isNewAddress);
+  const _$_MyAddressFromAccountScreen(
+      this.id,
+      this.editFatturazione,
+      this.editShipping,
+      this.user,
+      this.returnPage,
+      this.isNewAddress,
+      this.point);
 
   @override
   final int id;
@@ -7708,10 +6736,12 @@ class _$_MyAddressFromAccountScreen implements _MyAddressFromAccountScreen {
   final String returnPage;
   @override
   final bool isNewAddress;
+  @override
+  final int? point;
 
   @override
   String toString() {
-    return 'MainNavigation.newAddressFromAccount(id: $id, editFatturazione: $editFatturazione, editShipping: $editShipping, user: $user, returnPage: $returnPage, isNewAddress: $isNewAddress)';
+    return 'MainNavigation.newAddressFromAccount(id: $id, editFatturazione: $editFatturazione, editShipping: $editShipping, user: $user, returnPage: $returnPage, isNewAddress: $isNewAddress, point: $point)';
   }
 
   @override
@@ -7728,12 +6758,13 @@ class _$_MyAddressFromAccountScreen implements _MyAddressFromAccountScreen {
             (identical(other.returnPage, returnPage) ||
                 other.returnPage == returnPage) &&
             (identical(other.isNewAddress, isNewAddress) ||
-                other.isNewAddress == isNewAddress));
+                other.isNewAddress == isNewAddress) &&
+            (identical(other.point, point) || other.point == point));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, id, editFatturazione,
-      editShipping, user, returnPage, isNewAddress);
+      editShipping, user, returnPage, isNewAddress, point);
 
   @JsonKey(ignore: true)
   @override
@@ -7763,25 +6794,22 @@ class _$_MyAddressFromAccountScreen implements _MyAddressFromAccountScreen {
     required TResult Function(bool fromMenu) account,
     required TResult Function() notification,
     required TResult Function(Order order) orderDetail,
-    required TResult Function() completeOrder,
+    required TResult Function(int totPoint) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function() modifyAddress,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
-    required TResult Function(int id) newAddress,
-    required TResult Function(int id) newShipping,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
     required TResult Function() thankYou,
     required TResult Function() menu,
     required TResult Function(bool fromMenu, bool fromAccount) wishList,
     required TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)
+            UserAddress? user, String returnPage, bool isNewAddress, int? point)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
-    return newAddressFromAccount(
-        id, editFatturazione, editShipping, user, returnPage, isNewAddress);
+    return newAddressFromAccount(id, editFatturazione, editShipping, user,
+        returnPage, isNewAddress, point);
   }
 
   @override
@@ -7804,25 +6832,28 @@ class _$_MyAddressFromAccountScreen implements _MyAddressFromAccountScreen {
     TResult? Function(bool fromMenu)? account,
     TResult? Function()? notification,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function()? completeOrder,
+    TResult? Function(int totPoint)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function()? modifyAddress,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
-    TResult? Function(int id)? newAddress,
-    TResult? Function(int id)? newShipping,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
     TResult? Function()? thankYou,
     TResult? Function()? menu,
     TResult? Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult? Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult? Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
-    return newAddressFromAccount?.call(
-        id, editFatturazione, editShipping, user, returnPage, isNewAddress);
+    return newAddressFromAccount?.call(id, editFatturazione, editShipping, user,
+        returnPage, isNewAddress, point);
   }
 
   @override
@@ -7845,27 +6876,30 @@ class _$_MyAddressFromAccountScreen implements _MyAddressFromAccountScreen {
     TResult Function(bool fromMenu)? account,
     TResult Function()? notification,
     TResult Function(Order order)? orderDetail,
-    TResult Function()? completeOrder,
+    TResult Function(int totPoint)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function()? modifyAddress,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
-    TResult Function(int id)? newAddress,
-    TResult Function(int id)? newShipping,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
     TResult Function()? thankYou,
     TResult Function()? menu,
     TResult Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
   }) {
     if (newAddressFromAccount != null) {
-      return newAddressFromAccount(
-          id, editFatturazione, editShipping, user, returnPage, isNewAddress);
+      return newAddressFromAccount(id, editFatturazione, editShipping, user,
+          returnPage, isNewAddress, point);
     }
     return orElse();
   }
@@ -7888,11 +6922,8 @@ class _$_MyAddressFromAccountScreen implements _MyAddressFromAccountScreen {
     required TResult Function(_OrderDetail value) orderDetail,
     required TResult Function(_CompleteOrder value) completeOrder,
     required TResult Function(_Categories value) categories,
-    required TResult Function(_ModifyAddress value) modifyAddress,
     required TResult Function(_AddReview value) addReview,
     required TResult Function(_ProductDetail value) productDetail,
-    required TResult Function(_NewAddress value) newAddress,
-    required TResult Function(_NewShipping value) newShipping,
     required TResult Function(_PersonalInfo value) personalInfo,
     required TResult Function(_CategoriesDetail value) categoriesDetail,
     required TResult Function(_ThankYou value) thankYou,
@@ -7923,11 +6954,8 @@ class _$_MyAddressFromAccountScreen implements _MyAddressFromAccountScreen {
     TResult? Function(_OrderDetail value)? orderDetail,
     TResult? Function(_CompleteOrder value)? completeOrder,
     TResult? Function(_Categories value)? categories,
-    TResult? Function(_ModifyAddress value)? modifyAddress,
     TResult? Function(_AddReview value)? addReview,
     TResult? Function(_ProductDetail value)? productDetail,
-    TResult? Function(_NewAddress value)? newAddress,
-    TResult? Function(_NewShipping value)? newShipping,
     TResult? Function(_PersonalInfo value)? personalInfo,
     TResult? Function(_CategoriesDetail value)? categoriesDetail,
     TResult? Function(_ThankYou value)? thankYou,
@@ -7957,11 +6985,8 @@ class _$_MyAddressFromAccountScreen implements _MyAddressFromAccountScreen {
     TResult Function(_OrderDetail value)? orderDetail,
     TResult Function(_CompleteOrder value)? completeOrder,
     TResult Function(_Categories value)? categories,
-    TResult Function(_ModifyAddress value)? modifyAddress,
     TResult Function(_AddReview value)? addReview,
     TResult Function(_ProductDetail value)? productDetail,
-    TResult Function(_NewAddress value)? newAddress,
-    TResult Function(_NewShipping value)? newShipping,
     TResult Function(_PersonalInfo value)? personalInfo,
     TResult Function(_CategoriesDetail value)? categoriesDetail,
     TResult Function(_ThankYou value)? thankYou,
@@ -7985,7 +7010,8 @@ abstract class _MyAddressFromAccountScreen implements MainNavigation {
       final bool editShipping,
       final UserAddress? user,
       final String returnPage,
-      final bool isNewAddress) = _$_MyAddressFromAccountScreen;
+      final bool isNewAddress,
+      final int? point) = _$_MyAddressFromAccountScreen;
 
   int get id;
   bool get editFatturazione;
@@ -7993,6 +7019,7 @@ abstract class _MyAddressFromAccountScreen implements MainNavigation {
   UserAddress? get user;
   String get returnPage;
   bool get isNewAddress;
+  int? get point;
   @JsonKey(ignore: true)
   _$$_MyAddressFromAccountScreenCopyWith<_$_MyAddressFromAccountScreen>
       get copyWith => throw _privateConstructorUsedError;
@@ -8081,20 +7108,17 @@ class _$_MyAddressListScreen implements _MyAddressListScreen {
     required TResult Function(bool fromMenu) account,
     required TResult Function() notification,
     required TResult Function(Order order) orderDetail,
-    required TResult Function() completeOrder,
+    required TResult Function(int totPoint) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function() modifyAddress,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
-    required TResult Function(int id) newAddress,
-    required TResult Function(int id) newShipping,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
     required TResult Function() thankYou,
     required TResult Function() menu,
     required TResult Function(bool fromMenu, bool fromAccount) wishList,
     required TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)
+            UserAddress? user, String returnPage, bool isNewAddress, int? point)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -8121,20 +7145,23 @@ class _$_MyAddressListScreen implements _MyAddressListScreen {
     TResult? Function(bool fromMenu)? account,
     TResult? Function()? notification,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function()? completeOrder,
+    TResult? Function(int totPoint)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function()? modifyAddress,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
-    TResult? Function(int id)? newAddress,
-    TResult? Function(int id)? newShipping,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
     TResult? Function()? thankYou,
     TResult? Function()? menu,
     TResult? Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult? Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult? Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -8161,20 +7188,23 @@ class _$_MyAddressListScreen implements _MyAddressListScreen {
     TResult Function(bool fromMenu)? account,
     TResult Function()? notification,
     TResult Function(Order order)? orderDetail,
-    TResult Function()? completeOrder,
+    TResult Function(int totPoint)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function()? modifyAddress,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
-    TResult Function(int id)? newAddress,
-    TResult Function(int id)? newShipping,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
     TResult Function()? thankYou,
     TResult Function()? menu,
     TResult Function(bool fromMenu, bool fromAccount)? wishList,
-    TResult Function(int id, bool editFatturazione, bool editShipping,
-            UserAddress? user, String returnPage, bool isNewAddress)?
+    TResult Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -8203,11 +7233,8 @@ class _$_MyAddressListScreen implements _MyAddressListScreen {
     required TResult Function(_OrderDetail value) orderDetail,
     required TResult Function(_CompleteOrder value) completeOrder,
     required TResult Function(_Categories value) categories,
-    required TResult Function(_ModifyAddress value) modifyAddress,
     required TResult Function(_AddReview value) addReview,
     required TResult Function(_ProductDetail value) productDetail,
-    required TResult Function(_NewAddress value) newAddress,
-    required TResult Function(_NewShipping value) newShipping,
     required TResult Function(_PersonalInfo value) personalInfo,
     required TResult Function(_CategoriesDetail value) categoriesDetail,
     required TResult Function(_ThankYou value) thankYou,
@@ -8238,11 +7265,8 @@ class _$_MyAddressListScreen implements _MyAddressListScreen {
     TResult? Function(_OrderDetail value)? orderDetail,
     TResult? Function(_CompleteOrder value)? completeOrder,
     TResult? Function(_Categories value)? categories,
-    TResult? Function(_ModifyAddress value)? modifyAddress,
     TResult? Function(_AddReview value)? addReview,
     TResult? Function(_ProductDetail value)? productDetail,
-    TResult? Function(_NewAddress value)? newAddress,
-    TResult? Function(_NewShipping value)? newShipping,
     TResult? Function(_PersonalInfo value)? personalInfo,
     TResult? Function(_CategoriesDetail value)? categoriesDetail,
     TResult? Function(_ThankYou value)? thankYou,
@@ -8272,11 +7296,8 @@ class _$_MyAddressListScreen implements _MyAddressListScreen {
     TResult Function(_OrderDetail value)? orderDetail,
     TResult Function(_CompleteOrder value)? completeOrder,
     TResult Function(_Categories value)? categories,
-    TResult Function(_ModifyAddress value)? modifyAddress,
     TResult Function(_AddReview value)? addReview,
     TResult Function(_ProductDetail value)? productDetail,
-    TResult Function(_NewAddress value)? newAddress,
-    TResult Function(_NewShipping value)? newShipping,
     TResult Function(_PersonalInfo value)? personalInfo,
     TResult Function(_CategoriesDetail value)? categoriesDetail,
     TResult Function(_ThankYou value)? thankYou,

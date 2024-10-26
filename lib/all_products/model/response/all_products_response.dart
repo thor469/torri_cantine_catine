@@ -27,7 +27,8 @@ class Product with _$Product {
     String? type,
     bool? featured,
     String? date_created,
-    @Default(<ImageProduct>[]) List<ImageProduct> images, 
+    int? points,
+    @Default(<ImageProduct>[]) List<ImageProduct> images,
     @Default(<ProductTags>[]) List<ProductTags>? tags, 
     @Default(<MetaData>[]) List<MetaData>? metadata,
     @Default(<ProductCategories>[]) List<ProductCategories>? categories,
@@ -48,9 +49,7 @@ class ImageProduct with _$ImageProduct {
       _$ImageProductFromJson(json);
 }
 
-@freezed
 
-class ProductScore with _$ProductScore{}
 
 
 

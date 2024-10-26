@@ -28,7 +28,7 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
+    return Scaffold(backgroundColor: Color.fromARGB(255, 244, 244, 244),
       appBar: AppBar(
           toolbarHeight: MediaQuery.of(context).size.height * 0.07,
           backgroundColor: Colors.white,

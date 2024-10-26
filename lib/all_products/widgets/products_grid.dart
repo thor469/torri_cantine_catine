@@ -4,6 +4,7 @@ import 'package:torri_cantine_app/all_products/widgets/product_preview.dart';
 
 class ProductGrid extends StatefulWidget {
   final List<Product> products;
+  // final List<int> productPoint;
   int pageNumber;
 
   ProductGrid({super.key, required this.products, required this.pageNumber});
@@ -56,7 +57,7 @@ class _ProductGridState extends State<ProductGrid> {
             average_rating: widget.products[index].average_rating ?? "0",  // Default rating
             tags: widget.products[index].tags ?? [],  // Default to empty list
             categories: widget.products[index].categories ?? [],  // Default empty list
-            type: widget.products[index].type ?? 'Unknown',  // Default type if null
+            type: widget.products[index].type ?? 'Unknown', productPoint: widget.products[index].points ?? 0,  // Default type if null
           );
 
         } else {

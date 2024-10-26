@@ -22,6 +22,8 @@ class _PromotionsScreenState extends State<PromotionsScreen> {
     super.initState();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -99,6 +101,7 @@ class _PromotionsScreenState extends State<PromotionsScreen> {
                       child: ProductGrid(
                         products: promotedProd(model ?? []) ?? [],
                         pageNumber: page,
+
                       ),
                     ),
                   ],

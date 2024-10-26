@@ -15,6 +15,7 @@ class NewAddressFromAccountScreen extends StatefulWidget {
   final bool editShipping;
   final bool isNewAddress;
   final UserAddress? existingAddress;
+  final int? point;
   String returnPage;
 
   NewAddressFromAccountScreen({
@@ -23,7 +24,7 @@ class NewAddressFromAccountScreen extends StatefulWidget {
     required this.editFatturazione,
     required this.editShipping,
     this.existingAddress,
-    required this.returnPage, required this.isNewAddress
+    required this.returnPage, required this.isNewAddress,  this.point
   });
   @override
   State<NewAddressFromAccountScreen> createState() => _NewAddressFromAccountScreenState();
@@ -253,7 +254,7 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
                 break;
                 }
                 case 'completeorder' : {
-                MainNavigation.push(context, const MainNavigation.completeOrder());
+                MainNavigation.push(context, MainNavigation.completeOrder(widget.point ?? 0));
                 break;
                 }
                   default : {
@@ -689,7 +690,7 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
                                       break;
                                     }
                                     case 'completeorder' : {
-                                      MainNavigation.push(context, const MainNavigation.completeOrder());
+                                      MainNavigation.push(context, MainNavigation.completeOrder(widget.point ?? 0));
                                       break;
                                     }
                                     default : {

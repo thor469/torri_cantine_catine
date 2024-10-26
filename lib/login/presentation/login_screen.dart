@@ -81,9 +81,9 @@ class _LoginScreenState extends State<LoginScreen> {
               if (mounted) {
                 context.read<CartBloc>().add(const CartEvent.fetch());
               }
-              return const SizedBox.shrink();
+              return const SizedBox();
             },
-            orElse: () => const SizedBox.shrink(),
+            orElse: () => const SizedBox(),
           ),
         ),
         BlocListener<CartBloc, CartState>(
@@ -115,8 +115,8 @@ class _LoginScreenState extends State<LoginScreen> {
               );
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
             },
-            cartEmpty: () => const SizedBox.shrink(),
-            orElse: () => const SizedBox.shrink(),
+            cartEmpty: () => const SizedBox(),
+            orElse: () => const SizedBox(),
           ),
         )
       ],
@@ -359,22 +359,22 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        GestureDetector(
-                          onTap: () async {
-                            if (mounted) {
-                              context.read<RegistrationBloc>().add(
-                                  const RegistrationEvent
-                                      .registerWithFacebook());
-                            }
-                          },
-                          child: SizedBox(
-                              width: 40,
-                              height: 40,
-                              child: Image.asset("assets/logo_fb.png")),
-                        ),
-                        const SizedBox(
-                          width: 40,
-                        ),
+                        // GestureDetector(
+                        //   onTap: () async {
+                        //     if (mounted) {
+                        //       context.read<RegistrationBloc>().add(
+                        //           const RegistrationEvent
+                        //               .registerWithFacebook());
+                        //     }
+                        //   },
+                        //   child: SizedBox(
+                        //       width: 40,
+                        //       height: 40,
+                        //       child: Image.asset("assets/logo_fb.png")),
+                        // ),
+                        // const SizedBox(
+                        //   width: 40,
+                        // ),
                         SizedBox(
                             width: 40,
                             height: 40,

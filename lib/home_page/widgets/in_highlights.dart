@@ -101,7 +101,7 @@ class _HighlightsState extends State<Highlights> {
                     tags: product.tags ?? [],  // Ensure tags is a List; provide empty list if null
                     description: product.description ?? 'No Description',  // Default description
                     short_description: product.short_description ?? 'No Short Description',  // Default short description
-                    type: product.type ?? 'Unknown Type',  // Default type if null
+                    type: product.type ?? 'Unknown Type', productPoint: product.points ?? 0,
                   ),
                 );
               },

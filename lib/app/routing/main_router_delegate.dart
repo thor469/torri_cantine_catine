@@ -4,8 +4,6 @@ import 'package:torri_cantine_app/account/presentation/adress_list.dart';
 import 'package:torri_cantine_app/account/presentation/new_address_from_account.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation_stack.dart';
-import 'package:torri_cantine_app/complete_order/presentation/new_address_screen.dart';
-import 'package:torri_cantine_app/complete_order/presentation/new_shipping_screen.dart';
 import 'package:torri_cantine_app/personal_info/presentation/personal_info.dart';
 import 'package:torri_cantine_app/points_balance_screen/presentation/points_balance.dart';
 import 'package:torri_cantine_app/all_products/presentation/products_screen.dart';
@@ -15,7 +13,6 @@ import 'package:torri_cantine_app/cart/presentation/cart_screen.dart';
 import 'package:torri_cantine_app/categories/presentation/categories_detail_screen.dart';
 import 'package:torri_cantine_app/categories/presentation/categories_screen.dart';
 import 'package:torri_cantine_app/complete_order/presentation/complete_order_screen.dart';
-import 'package:torri_cantine_app/complete_order/presentation/modify_address_screen.dart';
 import 'package:torri_cantine_app/complete_order/presentation/thank_you_screen.dart';
 import 'package:torri_cantine_app/menu_screen/menu_screen.dart';
 import 'package:torri_cantine_app/my_orders/presentation/my_orders.dart';
@@ -158,43 +155,44 @@ class MainRouterDelegate extends RouterDelegate<MainNavigationStack>
                 key: ValueKey('products_${entry.key}'),
                 child: Products( fromMenu: true, showAppBar: true,),
               ),
-              completeOrder: () => FadePage(
+              completeOrder: (totPoint) => FadePage(
                 key: ValueKey('completeOrder_${entry.key}'),
-                child: const CompleteOrderScreen(),
+                child:  CompleteOrderScreen(totPoint: totPoint,
+                ),
               ),
               categories: (showAppBar, fromMenu) => FadePage(
                 key: ValueKey('categories_${entry.key}'),
                 child: CategoriesScreen(
                     showAppBar: showAppBar, fromMenu: fromMenu),
               ),
-              modifyAddress: () => FadePage(
-                key: ValueKey('modifyAddress_${entry.key}'),
-                child: const ModifyAddressScreen(),
-              ),
+              // modifyAddress: () => FadePage(
+              //   key: ValueKey('modifyAddress_${entry.key}'),
+              //   child: const ModifyAddressScreen(),
+              // ),
               productDetail: (id) => FadePage(
                 key: ValueKey('productDetail_${entry.key}'),
                 child: ProductDetailPage(
                   id: id,
                 ),
               ),
-              newAddress: (id) => FadePage(
-                key: ValueKey('newAddress_${entry.key}'),
-                child: NewAddressScreen(
-                  customerdId: id,
-                ),
-              ),
+              // newAddress: (id) => FadePage(
+              //   key: ValueKey('newAddress_${entry.key}'),
+              //   child: NewAddressScreen(
+              //     customerdId: id,
+              //   ),
+              // ),
               addressList: (id) => FadePage(
                 key: ValueKey('addressList_${entry.key}'),
                 child: AddressListScreen(
                   customerdId: id,
                 ),
               ),
-              newShipping: (id) => FadePage(
-                key: ValueKey('newShipping_${entry.key}'),
-                child: NewShippingScreen(
-                  customerdId: id,
-                ),
-              ),
+              // newShipping: (id) => FadePage(
+              //   key: ValueKey('newShipping_${entry.key}'),
+              //   child: NewShippingScreen(
+              //     customerdId: id,
+              //   ),
+              // ),
               categoriesDetail: (id) => FadePage(
                 key: ValueKey('categoriesDetail_${entry.key}'),
                 child: CategoriesDetailScreen(
@@ -222,14 +220,14 @@ class MainRouterDelegate extends RouterDelegate<MainNavigationStack>
                 key: ValueKey('newAddress_${entry.key}'),
                 child: PersonalInfo(user: user),
               ),
-              newAddressFromAccount: (id, editFatturazione, editShipping, existingAddress, returnPage, isNewAddress) => FadePage(
+              newAddressFromAccount: (id, editFatturazione, editShipping, existingAddress, returnPage, isNewAddress, point) => FadePage(
                 key: ValueKey('newAddressFromAccount_${entry.key}'),
                 child: NewAddressFromAccountScreen(
                   customerdId: id,
                   editFatturazione: editFatturazione,
                   editShipping: editShipping,
                   existingAddress: existingAddress,
-                  returnPage: returnPage, isNewAddress: isNewAddress,
+                  returnPage: returnPage, isNewAddress: isNewAddress, point: point,
                 ),
               ),
             ),

@@ -16,6 +16,7 @@ import 'package:torri_cantine_app/cart/cart/cart_bloc.dart';
 import 'package:torri_cantine_app/cart/cubit/counter_single_product_cubit.dart';
 import 'package:torri_cantine_app/cart/widget/cart_item.dart';
 import 'package:torri_cantine_app/menu_screen/menu_screen.dart';
+import 'package:torri_cantine_app/points_balance_screen/bloc/points_bloc.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 
 
@@ -39,6 +40,7 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   LocalStorage storage = LocalStorage();
   int selectedIndex = 0;
+  double moneyDiscount = 0;
 
   @override
   void initState() {
@@ -46,6 +48,7 @@ class _CartScreenState extends State<CartScreen> {
       String email = await storage.getUserEmail() ?? "";
       if (mounted) {
         context.read<AccountBloc>().add(AccountEvent.fetch(email));
+        moneyDiscount = await context.read<PointsBloc>().getMoneyDiscountAvaible() ?? 0;
       }
     });
     context.read<CartBloc>().add(const CartEvent.fetch());
@@ -231,7 +234,7 @@ class _CartScreenState extends State<CartScreen> {
                 ),
               ),
               loaded: (cart) {
-
+                bool isDiscountEnabled = false;
                 print('#### cart loaded');
                 // print(cart.items.first.extensions?.bundles);
 
@@ -240,12 +243,12 @@ class _CartScreenState extends State<CartScreen> {
                 var taxedTotalItems=  double.tryParse(taxedTotalItemsValue.toString())!.toStringAsFixed(2).replaceAll('.', ',');
 
 
-                var cartTotalDiscountValue =
-                    (int.tryParse(cart.totals.totalDiscount??'0')! + int.tryParse(cart.totals.totalDiscountTax??'0')!)/100;
-                var cartTotalDiscount = double.tryParse(
-                    cartTotalDiscountValue.toString())!
-                    .toStringAsFixed(2).replaceAll(
-                    '.', ',');
+                var cartTotalDiscountValue = (int.tryParse(cart.totals.totalDiscount??'0')! + int.tryParse(cart.totals.totalDiscountTax??'0')!)/100;
+                if(moneyDiscount >= 5.0){
+                  cartTotalDiscountValue += 5;
+                  isDiscountEnabled = true;
+                }
+                var cartTotalDiscount = double.tryParse(cartTotalDiscountValue.toString())!.toStringAsFixed(2).replaceAll('.', ',');
 
 
                 var subTotal = double.tryParse((taxedTotalItemsValue-cartTotalDiscountValue).toString())!.toStringAsFixed(2).replaceAll('.', ',');
@@ -267,8 +270,8 @@ class _CartScreenState extends State<CartScreen> {
                   //print(element.id);
                   //print('________________________');
 
-                  if(element.extensions?.bundles?['bundled_item_data']?['is_hidden_in_cart'] != true
-                      && element.extensions?.bundles?['bundled_item_data']?['is_hidden_in_summary'] != true) {
+                  if(element.extensions?.bundles['bundled_item_data']?['is_hidden_in_cart'] != true
+                      && element.extensions?.bundles['bundled_item_data']?['is_hidden_in_summary'] != true) {
                     filteredItems.add(element);
                   }
                   //
@@ -276,14 +279,8 @@ class _CartScreenState extends State<CartScreen> {
                   //     && element.extensions?.bundles?.bundledItemData?.isHiddenInSummary != true) {
                   //   filteredItems.add(element);
                   // }
-
                 });
-
-                context
-                    .read<CounterSingleProductCubit>()
-                    .emit({for (var e in cart.items) e.key ?? "": e.quantity ?? 0});
-
-
+                context.read<CounterSingleProductCubit>().emit({for (var e in cart.items) e.key ?? "": e.quantity ?? 0});
                 return PopScope(
                     canPop: false,
                     onPopInvoked: (didPop) {
@@ -299,7 +296,6 @@ class _CartScreenState extends State<CartScreen> {
                         child: ListView.builder(
                           itemCount: filteredItems.length,
                           itemBuilder: (context, index) {
-
                             // print(filteredItems[index].name);
                             // print(filteredItems[index].extensions?.bundles?.bundledItemData?.isHiddenInCart);
                             // print(filteredItems[index].extensions?.bundles?.bundledItemData?.isHiddenInSummary);
@@ -307,10 +303,6 @@ class _CartScreenState extends State<CartScreen> {
                             // print(filteredItems[index].extensions?.bundles?.bundledItemData?.bundleId);
                             // print(filteredItems[index].id);
                             // print('________________________');
-
-
-
-
                             return Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 15),
                               child: CartItem(
@@ -364,7 +356,7 @@ class _CartScreenState extends State<CartScreen> {
                                     ),
                                   ),
                                   Visibility(
-                                    visible: int.tryParse(cart.totals.totalDiscount??'0')! > 0,
+                                    visible: int.tryParse(cart.totals.totalDiscount ??'0' )! > 0 || isDiscountEnabled,
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10.0, vertical: 8),
@@ -447,8 +439,16 @@ class _CartScreenState extends State<CartScreen> {
                                   text: "PROCEDI CON L'ORDINE",
                                   colorText: Colors.white,
                                   ontap: () {
-                                    MainNavigation.push(
-                                        context, const MainNavigation.completeOrder());
+                                    int point = 0;
+                                    for(var item in cart.items){
+                                      for(var i = 0; i < (item.quantity ?? 0); i++) {
+                                        String price =
+                                            '${item.prices?.price.substring(0, (item.prices?.price.length ?? 0) - 2)}.${item.prices?.price.substring((item.prices?.price.length ?? 0) - 2)}';
+                                        double ap = double.tryParse(price) ?? 0;
+                                        point += ap.toInt();
+                                      }
+                                    }
+                                    MainNavigation.push(context, MainNavigation.completeOrder(point));
                                   },
                                 ),
                               )
@@ -459,7 +459,6 @@ class _CartScreenState extends State<CartScreen> {
                     )
 
                 );
-
 
               },
               orElse: () => const SizedBox(),
