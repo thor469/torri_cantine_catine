@@ -48,10 +48,10 @@ class _CartScreenState extends State<CartScreen> {
       String email = await storage.getUserEmail() ?? "";
       if (mounted) {
         context.read<AccountBloc>().add(AccountEvent.fetch(email));
+        context.read<CartBloc>().add(const CartEvent.fetch());
         moneyDiscount = await context.read<PointsBloc>().getMoneyDiscountAvaible() ?? 0;
       }
     });
-    context.read<CartBloc>().add(const CartEvent.fetch());
     super.initState();
   }
 
@@ -442,13 +442,12 @@ class _CartScreenState extends State<CartScreen> {
                                     int point = 0;
                                     for(var item in cart.items){
                                       for(var i = 0; i < (item.quantity ?? 0); i++) {
-                                        String price =
-                                            '${item.prices?.price.substring(0, (item.prices?.price.length ?? 0) - 2)}.${item.prices?.price.substring((item.prices?.price.length ?? 0) - 2)}';
+                                        String price = '${item.prices?.price.substring(0, (item.prices?.price.length ?? 0) - 2)}.${item.prices?.price.substring((item.prices?.price.length ?? 0) - 2)}';
                                         double ap = double.tryParse(price) ?? 0;
                                         point += ap.toInt();
                                       }
                                     }
-                                    MainNavigation.push(context, MainNavigation.completeOrder(point));
+                                    MainNavigation.push(context, MainNavigation.completeOrder(point, cart));
                                   },
                                 ),
                               )

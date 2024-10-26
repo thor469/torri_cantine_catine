@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:torri_cantine_app/account/model/response/account_response.dart';
 import 'package:torri_cantine_app/account/model/response/add_address_response.dart';
 import 'package:torri_cantine_app/app/app_config.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
@@ -75,8 +74,7 @@ abstract class StripePaymentManager {
             ),),
             billingDetails: BillingDetails(
               name: billing.first_name,
-              address: Address(city: billing.city
-              , country: "IT", line1: "", line2: "", postalCode: billing.postcode, state: billing.state,)
+              address: Address(city: billing.city, country: "IT", line1: billing.address_1, line2: billing.address_2, postalCode: billing.postcode, state: billing.state,)
             ),
       ));
   }

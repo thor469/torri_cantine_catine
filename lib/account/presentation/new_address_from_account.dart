@@ -7,6 +7,7 @@ import 'package:torri_cantine_app/account/model/response/add_address_response.da
 import 'package:torri_cantine_app/app/common/primary_button.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
+import 'package:torri_cantine_app/cart/model/response/cart_response.dart';
 import 'package:torri_cantine_app/personal_info/update_customer/update_customer_bloc.dart';
 
 
@@ -18,6 +19,7 @@ class NewAddressFromAccountScreen extends StatefulWidget {
   final UserAddress? existingAddress;
   final int? point;
   String returnPage;
+  final CartResponse? cart;
 
   NewAddressFromAccountScreen({
     super.key,
@@ -25,7 +27,7 @@ class NewAddressFromAccountScreen extends StatefulWidget {
     required this.editFatturazione,
     required this.editShipping,
     this.existingAddress,
-    required this.returnPage, required this.isNewAddress,  this.point
+    required this.returnPage, required this.isNewAddress,  this.point, this.cart
   });
   @override
   State<NewAddressFromAccountScreen> createState() => _NewAddressFromAccountScreenState();
@@ -268,7 +270,7 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
                 break;
                 }
                 case 'completeorder' : {
-                MainNavigation.push(context, MainNavigation.completeOrder(widget.point ?? 0));
+                MainNavigation.push(context, MainNavigation.completeOrder(widget.point ?? 0, widget.cart));
                 break;
                 }
                   default : {
@@ -724,7 +726,7 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
                                       break;
                                     }
                                     case 'completeorder' : {
-                                      MainNavigation.push(context, MainNavigation.completeOrder(widget.point ?? 0));
+                                      MainNavigation.push(context, MainNavigation.completeOrder(widget.point ?? 0, widget.cart));
                                       break;
                                     }
                                     default : {

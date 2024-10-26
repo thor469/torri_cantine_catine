@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:torri_cantine_app/account/model/response/account_response.dart';
 import 'package:torri_cantine_app/account/model/response/add_address_response.dart';
+import 'package:torri_cantine_app/cart/model/response/cart_response.dart';
 import 'package:torri_cantine_app/my_orders/my_orders/list_all_orders/model/response/list_all_orders_response.dart';
 
 part 'main_navigation.freezed.dart';
@@ -21,7 +22,7 @@ abstract class MainNavigation with _$MainNavigation {
   const factory MainNavigation.account(bool fromMenu) = _Account;
   const factory MainNavigation.notification() = _Notification;
   const factory MainNavigation.orderDetail(Order order) = _OrderDetail;
-  const factory MainNavigation.completeOrder(int totPoint) = _CompleteOrder;
+  const factory MainNavigation.completeOrder(int totPoint, CartResponse? cart) = _CompleteOrder;
   const factory MainNavigation.categories(bool showAppBar, bool fromMenu) =_Categories;
   const factory MainNavigation.addReview(int product_id) = _AddReview;
   const factory MainNavigation.productDetail(int productId) = _ProductDetail;
@@ -30,7 +31,7 @@ abstract class MainNavigation with _$MainNavigation {
   const factory MainNavigation.thankYou() = _ThankYou;
   const factory MainNavigation.menu() = _Menu;
   const factory MainNavigation.wishList(bool fromMenu, bool fromAccount) =_WishlistScreen;
-  const factory MainNavigation.newAddressFromAccount(int id, bool editFatturazione, bool editShipping, UserAddress? user, String returnPage, bool isNewAddress, int? point) =_MyAddressFromAccountScreen;
+  const factory MainNavigation.newAddressFromAccount(int id, bool editFatturazione, bool editShipping, UserAddress? user, String returnPage, bool isNewAddress, int? point, CartResponse? cart) =_MyAddressFromAccountScreen;
   const factory MainNavigation.addressList(int id) = _MyAddressListScreen;
 
   static void push(BuildContext context, MainNavigation page) => MainNavigationNotification.push(page).dispatch(context);

@@ -155,9 +155,9 @@ class MainRouterDelegate extends RouterDelegate<MainNavigationStack>
                 key: ValueKey('products_${entry.key}'),
                 child: Products( fromMenu: true, showAppBar: true,),
               ),
-              completeOrder: (totPoint) => FadePage(
+              completeOrder: (totPoint,cart) => FadePage(
                 key: ValueKey('completeOrder_${entry.key}'),
-                child:  CompleteOrderScreen(totPoint: totPoint,
+                child:  CompleteOrderScreen(totPoint: totPoint,cart: cart,
                 ),
               ),
               categories: (showAppBar, fromMenu) => FadePage(
@@ -220,14 +220,14 @@ class MainRouterDelegate extends RouterDelegate<MainNavigationStack>
                 key: ValueKey('newAddress_${entry.key}'),
                 child: PersonalInfo(user: user),
               ),
-              newAddressFromAccount: (id, editFatturazione, editShipping, existingAddress, returnPage, isNewAddress, point) => FadePage(
+              newAddressFromAccount: (id, editFatturazione, editShipping, existingAddress, returnPage, isNewAddress, point, cart) => FadePage(
                 key: ValueKey('newAddressFromAccount_${entry.key}'),
                 child: NewAddressFromAccountScreen(
                   customerdId: id,
                   editFatturazione: editFatturazione,
                   editShipping: editShipping,
                   existingAddress: existingAddress,
-                  returnPage: returnPage, isNewAddress: isNewAddress, point: point,
+                  returnPage: returnPage, isNewAddress: isNewAddress, point: point, cart: cart,
                 ),
               ),
             ),
