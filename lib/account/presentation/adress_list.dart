@@ -89,7 +89,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
                       model.billing.isEmpty
                           ? GestureDetector(
                         onTap: (){
-                          MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, true, false, null, "account", true, null));
+                          MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, true, false, null, "account", true));
                         },
                         child: const Row(
                           children: [
@@ -117,7 +117,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
                               _buildBillingAddress(model.billing.first),
                               GestureDetector(
                                 onTap: (){
-                                  MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, true, false, null, "account", true, null));
+                                  MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, false, false, null, "account", true));
                                 },
                                 child: const Row(
                                   children: [
@@ -164,7 +164,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
                               ),
                               GestureDetector(
                                 onTap: (){
-                                  MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, true, false, null, "account", true, null));
+                                  MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, true, false, null, "account", true));
                                 },
                                 child: const Row(
                                   children: [
@@ -186,7 +186,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
                       model.shipping.isEmpty
                           ? GestureDetector(
                         onTap: (){
-                          MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, false, true, null, "account", true, null));
+                          MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, false, true, null, "account", true));
                         },
                         child: const Row(
                           children: [
@@ -214,7 +214,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
                               _buildShippingAddress(model.shipping.first),
                               GestureDetector(
                                 onTap: (){
-                                  MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, false, true, null, "account", true, null));
+                                  MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, false, false, null, "account", true));
                                 },
                                 child: const Row(
                                   children: [
@@ -261,7 +261,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
                               ),
                               GestureDetector(
                                 onTap: (){
-                                  MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, false, true, null, "account", true, null));
+                                  MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, false, true, null, "account", true));
                                 },
                                 child: const Row(
                                   children: [
@@ -304,7 +304,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
                           true,
                           null,
                           'account',
-                          true, null
+                          true,
                         ),
                         );
                       },
@@ -395,11 +395,11 @@ class _AddressListScreenState extends State<AddressListScreen> {
               context,
               MainNavigation.newAddressFromAccount(
                 widget.customerdId,
-                true,
+                billing.is_default,
                 false,
                 billing,
                 'account',
-                false, null
+                false,
               ),
             );
           },
@@ -454,11 +454,11 @@ class _AddressListScreenState extends State<AddressListScreen> {
               context,
               MainNavigation.newAddressFromAccount(
                 widget.customerdId,
-                false,
+                shipping.is_default,
                 true,
                 shipping,
                 'account',
-                false, null
+                false,
               ),
             );
           },
