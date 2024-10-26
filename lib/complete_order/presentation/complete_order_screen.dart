@@ -27,7 +27,8 @@ import 'package:torri_cantine_app/utilities/local_storage.dart';
 
 class CompleteOrderScreen extends StatefulWidget {
   final CartResponse? cart;
-  const CompleteOrderScreen({super.key, this.cart});
+  final int totPoint;
+  const CompleteOrderScreen({super.key, this.cart, required this.totPoint});
 
   @override
   State<CompleteOrderScreen> createState() => _CompleteOrderScreenState();
@@ -87,7 +88,6 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
       }
     });
     context.read<CartBloc>().add(const CartEvent.fetch());
-
     //getShippingMethods('66034');
     getPayGateway();
 
@@ -238,12 +238,6 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                   builder: (context, state) => state.maybeWhen(
 
                       loaded: (cart) {
-                        //return Text('loaded');
-                        //print('ITEMS TAXES');
-                        //print(cart.coupons);
-                        // print(cart.totals.totalItemsTax);
-
-                        //da cambiare in valore con IVA
                         String? taxedTotalItems =(int.tryParse((cart.totals.totalItems))! + int.tryParse(cart.totals.totalItemsTax)! ).toString();
                         double taxedTotalItemsValue = double.tryParse('${taxedTotalItems?.substring(0,taxedTotalItems.length-2)}.${taxedTotalItems?.substring(taxedTotalItems.length-2)}')!;
                         taxedTotalItems = '${taxedTotalItems?.substring(0,taxedTotalItems.length-2)},${taxedTotalItems?.substring(taxedTotalItems.length-2)}';
@@ -251,19 +245,9 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                         var cartTotal =  taxedTotalItems;
                         double? cartTotalValue =  taxedTotalItemsValue;
 
-
-                        // int couponTotalInt = 0;
-                        // double couponTotalValue = 0.0;
-                        // String couponTotal = '0.0';
-
-
-
-                        //cartSummedPrice = cartTotalValue;
-
                         if(cartFirstLoad==true) {
                           if(cart.coupons!=null) {
                             Future.delayed(Duration.zero, () { sumCouponDiscount(cart.coupons);});
-                            //print('#### CART COUPONS !!!! ');
                           }
 
                           cartSummedPrice = cartTotalValue;
@@ -328,10 +312,6 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                         }),
                                   ),
                                   customDiv,
-
-
-
-
 
                                   BlocBuilder<CouponBloc, CouponState>(
                                     builder: (context, state) => state.maybeWhen(
@@ -545,7 +525,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                       text:
                                       'Aggiungi un indirizzo per la Fatturazione',
                                       ontap: () {
-                                        MainNavigation.push(context, MainNavigation.newAddressFromAccount(customerId, true , false, null, "completeorder", true));
+                                        MainNavigation.push(context, MainNavigation.newAddressFromAccount(customerId, true , false, null, "completeorder", true, widget.totPoint));
                                       },
                                     ),
                                   )
@@ -597,7 +577,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                         height: 22,
                                                       ),
                                                       onTap: () {
-                                                        MainNavigation.push(context, MainNavigation.newAddressFromAccount(customerId, true, false, model.billing[index], 'completeorder', false));
+                                                        MainNavigation.push(context, MainNavigation.newAddressFromAccount(customerId, true, false, model.billing[index], 'completeorder', false, widget.totPoint));
                                                       },
                                                     ),
                                                   ),
@@ -615,7 +595,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                     padding: EdgeInsets.only(top : 15.0),
                                     child: GestureDetector(
                                       onTap: (){
-                                        MainNavigation.push(context, MainNavigation.newAddressFromAccount(customerId, true, false, null,'completeorder',true));
+                                        MainNavigation.push(context, MainNavigation.newAddressFromAccount(customerId, true, false, null,'completeorder',true, widget.totPoint));
                                         // context.read<AccountBloc>().addAddress();
                                       },
                                       child: const Row(
@@ -979,7 +959,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                       child: PrimaryButton(
                                         text:'Inserisci un indirizzo di spedizione',
                                         ontap: () {
-                                          MainNavigation.push(context, MainNavigation.newAddressFromAccount(customerId, false,true, null,'completeorder', true));
+                                          MainNavigation.push(context, MainNavigation.newAddressFromAccount(customerId, false,true, null,'completeorder', true, widget.totPoint));
                                           //MainNavigation.newShipping(model.user.first.id));
                                         },
                                       ))
@@ -1031,7 +1011,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                         height: 22,
                                                       ),
                                                       onTap: () {
-                                                        MainNavigation.push(context, MainNavigation.newAddressFromAccount(customerId, false, true, model.shipping[index], 'completeorder', false));
+                                                        MainNavigation.push(context, MainNavigation.newAddressFromAccount(customerId, false, true, model.shipping[index], 'completeorder', false, widget.totPoint));
                                                       },
                                                     ),
                                                   ),
@@ -1050,7 +1030,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                     padding: EdgeInsets.only(top : 15.0),
                                     child: GestureDetector(
                                       onTap: (){
-                                        MainNavigation.push(context, MainNavigation.newAddressFromAccount(customerId, false, true, null, "completeorder", true));
+                                        MainNavigation.push(context, MainNavigation.newAddressFromAccount(customerId, false, true, null, "completeorder", true, widget.totPoint));
                                         // context.read<AccountBloc>().addAddress();
                                       },
                                       child: const Row(
@@ -1510,6 +1490,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                         ),
                                     ],
                                   ),
+
                                   const Text(
                                     "Creando questo account confermi di aver letto, compreso e accettato i nostri Termini di servizio e la Politica della Privacy",
                                     style: TextStyle(
@@ -1802,7 +1783,11 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                     ),
                     note.text,
                     "ppcp-gateway",
-                    []),
+                    [],
+                  widget.totPoint
+
+
+                ),
               );
               const MainNavigation.thankYou();
               if (kDebugMode) {
@@ -1868,12 +1853,17 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
             city: shipping!.city,
             state: shipping!.state,
             postcode: shipping!.postcode,
-            country: "IT", phone: shipping.phone
+            country: "IT",
+              phone: shipping.phone
 
           ),
           note.text,
           "cod",
-          []),
+          [],
+        widget.totPoint
+
+
+      ),
     );
   }
 
@@ -1924,7 +1914,9 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
           ),
           note.text,
           "bacs",
-          []),
+          [],
+          widget.totPoint
+      ),
     );
   }
 
@@ -1932,13 +1924,12 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
     //int stripeAmount = ((amountCart ?? 0) - (int.tryParse((appliedCoupon * 100).toString()) ?? 0));
     int stripeAmount = ((int.tryParse((cartSummedPrice * 100).toStringAsFixed(0) ) ?? 0) - (couponTotalInt ?? 0));
 
-
     switch (paymentMethod) {
       case "ppcp-gateway":
         paymentWithPayPal(shipping, billing,cart);
         break;
       case "stripe":
-        StripePaymentManager.makePayment(stripeAmount, "EUR", context, shipping,billing,customerId);
+        StripePaymentManager.makePayment(stripeAmount, "EUR", context, shipping, billing, customerId, widget.totPoint);
         break;
       case "bacs":
         paymentWithBacs(shipping, billing);

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:torri_cantine_app/account/account/account_bloc.dart';
 import 'package:torri_cantine_app/all_products/all_products/all_products_bloc.dart';
 import 'package:torri_cantine_app/all_products/model/response/all_products_response.dart';
 import 'package:torri_cantine_app/all_products/widgets/categories_carousel.dart';
@@ -16,8 +15,6 @@ import 'package:torri_cantine_app/app/common/sub_page_appbar.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
-
-import '../../app/app_config.dart';
 import '../../app/utilitys/fixedFloatingPositions.dart';
 
 class Products extends StatefulWidget {
@@ -83,6 +80,7 @@ class _ProductsState extends State<Products> {
       return FloatingActionButtonLocation.miniCenterDocked;
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -476,7 +474,7 @@ class _ProductsState extends State<Products> {
                                                     products: model
                                                         .toSet()
                                                         .toList(), // Directly using model here
-                                                    pageNumber: pageNumber,
+                                                    pageNumber: pageNumber
                                                   ),
                                                 ],
                                               ),
@@ -487,9 +485,7 @@ class _ProductsState extends State<Products> {
                               );
                             },
                             loaded: (model, pageNumber) {
-                              return SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.80,
+                              return SizedBox(height: MediaQuery.of(context).size.height * 0.80,
                                 child: SingleChildScrollView(
                                   controller: scrollController,
                                   child: Column(
@@ -497,19 +493,15 @@ class _ProductsState extends State<Products> {
                                       model.isEmpty
                                           ? const SizedBox()
                                           : Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 10.0),
+                                              padding: const EdgeInsets.symmetric(horizontal: 10.0),
                                               child: Column(
                                                 children: [
                                                   const SizedBox(
                                                     child: CategoriesCarousel(),
                                                   ),
                                                   ProductGrid(
-                                                    products: model
-                                                        .toSet()
-                                                        .toList(), // Using model directly
-                                                    pageNumber: pageNumber,
+                                                    products: model.toSet().toList(),
+                                                    pageNumber: pageNumber
                                                   ),
                                                 ],
                                               ),

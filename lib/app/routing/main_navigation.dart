@@ -21,19 +21,16 @@ abstract class MainNavigation with _$MainNavigation {
   const factory MainNavigation.account(bool fromMenu) = _Account;
   const factory MainNavigation.notification() = _Notification;
   const factory MainNavigation.orderDetail(Order order) = _OrderDetail;
-  const factory MainNavigation.completeOrder() = _CompleteOrder;
+  const factory MainNavigation.completeOrder(int totPoint) = _CompleteOrder;
   const factory MainNavigation.categories(bool showAppBar, bool fromMenu) =_Categories;
-  const factory MainNavigation.modifyAddress() = _ModifyAddress;
   const factory MainNavigation.addReview(int product_id) = _AddReview;
   const factory MainNavigation.productDetail(int productId) = _ProductDetail;
-  const factory MainNavigation.newAddress(int id) = _NewAddress;
-  const factory MainNavigation.newShipping(int id) = _NewShipping;
   const factory MainNavigation.personalInfo(AccountResponse user) = _PersonalInfo;
   const factory MainNavigation.categoriesDetail(int id) = _CategoriesDetail;
   const factory MainNavigation.thankYou() = _ThankYou;
   const factory MainNavigation.menu() = _Menu;
   const factory MainNavigation.wishList(bool fromMenu, bool fromAccount) =_WishlistScreen;
-  const factory MainNavigation.newAddressFromAccount(int id, bool editFatturazione, bool editShipping, UserAddress? user, String returnPage, bool isNewAddress) =_MyAddressFromAccountScreen;
+  const factory MainNavigation.newAddressFromAccount(int id, bool editFatturazione, bool editShipping, UserAddress? user, String returnPage, bool isNewAddress, int? point) =_MyAddressFromAccountScreen;
   const factory MainNavigation.addressList(int id) = _MyAddressListScreen;
 
   static void push(BuildContext context, MainNavigation page) => MainNavigationNotification.push(page).dispatch(context);

@@ -177,6 +177,7 @@ mixin _$Product {
   String? get type => throw _privateConstructorUsedError;
   bool? get featured => throw _privateConstructorUsedError;
   String? get date_created => throw _privateConstructorUsedError;
+  int? get points => throw _privateConstructorUsedError;
   List<ImageProduct> get images => throw _privateConstructorUsedError;
   List<ProductTags>? get tags => throw _privateConstructorUsedError;
   List<MetaData>? get metadata => throw _privateConstructorUsedError;
@@ -203,6 +204,7 @@ abstract class $ProductCopyWith<$Res> {
       String? type,
       bool? featured,
       String? date_created,
+      int? points,
       List<ImageProduct> images,
       List<ProductTags>? tags,
       List<MetaData>? metadata,
@@ -232,6 +234,7 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
     Object? type = freezed,
     Object? featured = freezed,
     Object? date_created = freezed,
+    Object? points = freezed,
     Object? images = null,
     Object? tags = freezed,
     Object? metadata = freezed,
@@ -278,6 +281,10 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
           ? _value.date_created
           : date_created // ignore: cast_nullable_to_non_nullable
               as String?,
+      points: freezed == points
+          ? _value.points
+          : points // ignore: cast_nullable_to_non_nullable
+              as int?,
       images: null == images
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
@@ -316,6 +323,7 @@ abstract class _$$_ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
       String? type,
       bool? featured,
       String? date_created,
+      int? points,
       List<ImageProduct> images,
       List<ProductTags>? tags,
       List<MetaData>? metadata,
@@ -342,6 +350,7 @@ class __$$_ProductCopyWithImpl<$Res>
     Object? type = freezed,
     Object? featured = freezed,
     Object? date_created = freezed,
+    Object? points = freezed,
     Object? images = null,
     Object? tags = freezed,
     Object? metadata = freezed,
@@ -388,6 +397,10 @@ class __$$_ProductCopyWithImpl<$Res>
           ? _value.date_created
           : date_created // ignore: cast_nullable_to_non_nullable
               as String?,
+      points: freezed == points
+          ? _value.points
+          : points // ignore: cast_nullable_to_non_nullable
+              as int?,
       images: null == images
           ? _value._images
           : images // ignore: cast_nullable_to_non_nullable
@@ -422,6 +435,7 @@ class _$_Product implements _Product {
       this.type,
       this.featured,
       this.date_created,
+      this.points,
       final List<ImageProduct> images = const <ImageProduct>[],
       final List<ProductTags>? tags = const <ProductTags>[],
       final List<MetaData>? metadata = const <MetaData>[],
@@ -454,6 +468,8 @@ class _$_Product implements _Product {
   final bool? featured;
   @override
   final String? date_created;
+  @override
+  final int? points;
   final List<ImageProduct> _images;
   @override
   @JsonKey()
@@ -494,7 +510,7 @@ class _$_Product implements _Product {
 
   @override
   String toString() {
-    return 'Product(id: $id, name: $name, price: $price, regular_price: $regular_price, description: $description, short_description: $short_description, average_rating: $average_rating, type: $type, featured: $featured, date_created: $date_created, images: $images, tags: $tags, metadata: $metadata, categories: $categories)';
+    return 'Product(id: $id, name: $name, price: $price, regular_price: $regular_price, description: $description, short_description: $short_description, average_rating: $average_rating, type: $type, featured: $featured, date_created: $date_created, points: $points, images: $images, tags: $tags, metadata: $metadata, categories: $categories)';
   }
 
   @override
@@ -518,6 +534,7 @@ class _$_Product implements _Product {
                 other.featured == featured) &&
             (identical(other.date_created, date_created) ||
                 other.date_created == date_created) &&
+            (identical(other.points, points) || other.points == points) &&
             const DeepCollectionEquality().equals(other._images, _images) &&
             const DeepCollectionEquality().equals(other._tags, _tags) &&
             const DeepCollectionEquality().equals(other._metadata, _metadata) &&
@@ -539,6 +556,7 @@ class _$_Product implements _Product {
       type,
       featured,
       date_created,
+      points,
       const DeepCollectionEquality().hash(_images),
       const DeepCollectionEquality().hash(_tags),
       const DeepCollectionEquality().hash(_metadata),
@@ -570,6 +588,7 @@ abstract class _Product implements Product {
       final String? type,
       final bool? featured,
       final String? date_created,
+      final int? points,
       final List<ImageProduct> images,
       final List<ProductTags>? tags,
       final List<MetaData>? metadata,
@@ -598,6 +617,8 @@ abstract class _Product implements Product {
   @override
   String? get date_created;
   @override
+  int? get points;
+  @override
   List<ImageProduct> get images;
   @override
   List<ProductTags>? get tags;
@@ -624,14 +645,6 @@ mixin _$ImageProduct {
   @JsonKey(ignore: true)
   $ImageProductCopyWith<ImageProduct> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-
-mixin _$ProductScore{
-  int get id => throw _privateConstructorUsedError;
-
-
 }
 
 /// @nodoc

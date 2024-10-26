@@ -24,7 +24,8 @@ mixin _$MyOrdersEvent {
             Shipping? shipping,
             String? customerNote,
             String? paymentMethods,
-            List<String>? paymentData)
+            List<String>? paymentData,
+            int totPoint)
         createCheckout,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +37,8 @@ mixin _$MyOrdersEvent {
             Shipping? shipping,
             String? customerNote,
             String? paymentMethods,
-            List<String>? paymentData)?
+            List<String>? paymentData,
+            int totPoint)?
         createCheckout,
   }) =>
       throw _privateConstructorUsedError;
@@ -44,7 +46,7 @@ mixin _$MyOrdersEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetch,
     TResult Function(Billing? billing, Shipping? shipping, String? customerNote,
-            String? paymentMethods, List<String>? paymentData)?
+            String? paymentMethods, List<String>? paymentData, int totPoint)?
         createCheckout,
     required TResult orElse(),
   }) =>
@@ -104,12 +106,18 @@ class __$$_FetchCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Fetch implements _Fetch {
+class _$_Fetch with DiagnosticableTreeMixin implements _Fetch {
   const _$_Fetch();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'MyOrdersEvent.fetch()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'MyOrdersEvent.fetch'));
   }
 
   @override
@@ -130,7 +138,8 @@ class _$_Fetch implements _Fetch {
             Shipping? shipping,
             String? customerNote,
             String? paymentMethods,
-            List<String>? paymentData)
+            List<String>? paymentData,
+            int totPoint)
         createCheckout,
   }) {
     return fetch();
@@ -145,7 +154,8 @@ class _$_Fetch implements _Fetch {
             Shipping? shipping,
             String? customerNote,
             String? paymentMethods,
-            List<String>? paymentData)?
+            List<String>? paymentData,
+            int totPoint)?
         createCheckout,
   }) {
     return fetch?.call();
@@ -156,7 +166,7 @@ class _$_Fetch implements _Fetch {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetch,
     TResult Function(Billing? billing, Shipping? shipping, String? customerNote,
-            String? paymentMethods, List<String>? paymentData)?
+            String? paymentMethods, List<String>? paymentData, int totPoint)?
         createCheckout,
     required TResult orElse(),
   }) {
@@ -213,7 +223,8 @@ abstract class _$$_CreateCheckoutCopyWith<$Res> {
       Shipping? shipping,
       String? customerNote,
       String? paymentMethods,
-      List<String>? paymentData});
+      List<String>? paymentData,
+      int totPoint});
 
   $BillingCopyWith<$Res>? get billing;
   $ShippingCopyWith<$Res>? get shipping;
@@ -235,6 +246,7 @@ class __$$_CreateCheckoutCopyWithImpl<$Res>
     Object? customerNote = freezed,
     Object? paymentMethods = freezed,
     Object? paymentData = freezed,
+    Object? totPoint = null,
   }) {
     return _then(_$_CreateCheckout(
       freezed == billing
@@ -257,6 +269,10 @@ class __$$_CreateCheckoutCopyWithImpl<$Res>
           ? _value._paymentData
           : paymentData // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      null == totPoint
+          ? _value.totPoint
+          : totPoint // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 
@@ -287,9 +303,11 @@ class __$$_CreateCheckoutCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_CreateCheckout implements _CreateCheckout {
+class _$_CreateCheckout
+    with DiagnosticableTreeMixin
+    implements _CreateCheckout {
   const _$_CreateCheckout(this.billing, this.shipping, this.customerNote,
-      this.paymentMethods, final List<String>? paymentData)
+      this.paymentMethods, final List<String>? paymentData, this.totPoint)
       : _paymentData = paymentData;
 
   @override
@@ -310,8 +328,24 @@ class _$_CreateCheckout implements _CreateCheckout {
   }
 
   @override
-  String toString() {
-    return 'MyOrdersEvent.createCheckout(billing: $billing, shipping: $shipping, customerNote: $customerNote, paymentMethods: $paymentMethods, paymentData: $paymentData)';
+  final int totPoint;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'MyOrdersEvent.createCheckout(billing: $billing, shipping: $shipping, customerNote: $customerNote, paymentMethods: $paymentMethods, paymentData: $paymentData, totPoint: $totPoint)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'MyOrdersEvent.createCheckout'))
+      ..add(DiagnosticsProperty('billing', billing))
+      ..add(DiagnosticsProperty('shipping', shipping))
+      ..add(DiagnosticsProperty('customerNote', customerNote))
+      ..add(DiagnosticsProperty('paymentMethods', paymentMethods))
+      ..add(DiagnosticsProperty('paymentData', paymentData))
+      ..add(DiagnosticsProperty('totPoint', totPoint));
   }
 
   @override
@@ -327,12 +361,20 @@ class _$_CreateCheckout implements _CreateCheckout {
             (identical(other.paymentMethods, paymentMethods) ||
                 other.paymentMethods == paymentMethods) &&
             const DeepCollectionEquality()
-                .equals(other._paymentData, _paymentData));
+                .equals(other._paymentData, _paymentData) &&
+            (identical(other.totPoint, totPoint) ||
+                other.totPoint == totPoint));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, billing, shipping, customerNote,
-      paymentMethods, const DeepCollectionEquality().hash(_paymentData));
+  int get hashCode => Object.hash(
+      runtimeType,
+      billing,
+      shipping,
+      customerNote,
+      paymentMethods,
+      const DeepCollectionEquality().hash(_paymentData),
+      totPoint);
 
   @JsonKey(ignore: true)
   @override
@@ -349,11 +391,12 @@ class _$_CreateCheckout implements _CreateCheckout {
             Shipping? shipping,
             String? customerNote,
             String? paymentMethods,
-            List<String>? paymentData)
+            List<String>? paymentData,
+            int totPoint)
         createCheckout,
   }) {
     return createCheckout(
-        billing, shipping, customerNote, paymentMethods, paymentData);
+        billing, shipping, customerNote, paymentMethods, paymentData, totPoint);
   }
 
   @override
@@ -365,11 +408,12 @@ class _$_CreateCheckout implements _CreateCheckout {
             Shipping? shipping,
             String? customerNote,
             String? paymentMethods,
-            List<String>? paymentData)?
+            List<String>? paymentData,
+            int totPoint)?
         createCheckout,
   }) {
     return createCheckout?.call(
-        billing, shipping, customerNote, paymentMethods, paymentData);
+        billing, shipping, customerNote, paymentMethods, paymentData, totPoint);
   }
 
   @override
@@ -377,13 +421,13 @@ class _$_CreateCheckout implements _CreateCheckout {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetch,
     TResult Function(Billing? billing, Shipping? shipping, String? customerNote,
-            String? paymentMethods, List<String>? paymentData)?
+            String? paymentMethods, List<String>? paymentData, int totPoint)?
         createCheckout,
     required TResult orElse(),
   }) {
     if (createCheckout != null) {
-      return createCheckout(
-          billing, shipping, customerNote, paymentMethods, paymentData);
+      return createCheckout(billing, shipping, customerNote, paymentMethods,
+          paymentData, totPoint);
     }
     return orElse();
   }
@@ -426,13 +470,15 @@ abstract class _CreateCheckout implements MyOrdersEvent {
       final Shipping? shipping,
       final String? customerNote,
       final String? paymentMethods,
-      final List<String>? paymentData) = _$_CreateCheckout;
+      final List<String>? paymentData,
+      final int totPoint) = _$_CreateCheckout;
 
   Billing? get billing;
   Shipping? get shipping;
   String? get customerNote;
   String? get paymentMethods;
   List<String>? get paymentData;
+  int get totPoint;
   @JsonKey(ignore: true)
   _$$_CreateCheckoutCopyWith<_$_CreateCheckout> get copyWith =>
       throw _privateConstructorUsedError;
@@ -527,12 +573,18 @@ class __$$_InitialCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Initial implements _Initial {
+class _$_Initial with DiagnosticableTreeMixin implements _Initial {
   const _$_Initial();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'MyOrdersState.initial()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'MyOrdersState.initial'));
   }
 
   @override
@@ -640,12 +692,18 @@ class __$$_LoadingCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Loading implements _Loading {
+class _$_Loading with DiagnosticableTreeMixin implements _Loading {
   const _$_Loading();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'MyOrdersState.loading()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'MyOrdersState.loading'));
   }
 
   @override
@@ -777,15 +835,23 @@ class __$$_LoadedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Loaded implements _Loaded {
+class _$_Loaded with DiagnosticableTreeMixin implements _Loaded {
   const _$_Loaded(this.response);
 
   @override
   final MyOrdersResponse response;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'MyOrdersState.loaded(response: $response)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'MyOrdersState.loaded'))
+      ..add(DiagnosticsProperty('response', response));
   }
 
   @override
@@ -906,12 +972,18 @@ class __$$_ErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Error implements _Error {
+class _$_Error with DiagnosticableTreeMixin implements _Error {
   const _$_Error();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'MyOrdersState.error()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'MyOrdersState.error'));
   }
 
   @override

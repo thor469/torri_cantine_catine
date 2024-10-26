@@ -7,6 +7,7 @@ import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
 import 'package:torri_cantine_app/my_orders/my_orders/list_all_orders/list_all_orders_bloc.dart';
 import 'package:torri_cantine_app/my_orders/my_orders/list_all_orders/model/response/list_all_orders_response.dart';
 import 'package:torri_cantine_app/points_balance_screen/bloc/points_bloc.dart';
+import 'package:torri_cantine_app/points_balance_screen/model/response/point_response.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 
 class PointsBalance extends StatefulWidget {
@@ -23,11 +24,13 @@ class PointsBalance extends StatefulWidget {
 }
 
 class _PointsBalanceState extends State<PointsBalance> {
-  final int totalPoints = 180;
+  int totalPoints = 0;
   bool _isDescending = true;
   LocalStorage storage = LocalStorage();
   bool firstLoad = true;
-
+  bool firstLoad1 = true;
+  PointMaxValueResponse? maxPoint = PointMaxValueResponse(points: 200, money: 5);
+  double moneyDiscount = 0;
 
   List<Map<String, dynamic>> orders = [];
 
@@ -65,6 +68,8 @@ class _PointsBalanceState extends State<PointsBalance> {
       if (mounted) {
         context.read<PointsBloc>().add(const PointsEvent.fetch());
         context.read<ListAllOrdersBloc>().add(ListAllOrdersEvent.fetch(customerId));
+        moneyDiscount = await context.read<PointsBloc>().getMoneyDiscountAvaible() ?? 0;
+        maxPoint = await context.read<PointsBloc>().getPointsMaxValues();
       }
     });
     super.initState();
@@ -108,7 +113,7 @@ class _PointsBalanceState extends State<PointsBalance> {
           body: BlocBuilder<PointsBloc, PointsState>(
             builder: (context, state) => state.maybeWhen(
                 loading: (){
-                  return  Center(
+                  return  const Center(
                     child: CircularProgressIndicator(
                       color: Color.fromARGB(255, 161, 29, 51),
                     ),
@@ -116,6 +121,18 @@ class _PointsBalanceState extends State<PointsBalance> {
                 },
                 loaded: (numericId) {
                   if(numericId != ""){
+                    if(firstLoad1){
+                      totalPoints = int.tryParse(numericId) ?? 0;
+                      if(totalPoints > 200){
+                        WidgetsBinding.instance.addPostFrameCallback((_) async{
+                          setState(() {
+                            totalPoints = 200;
+                          });
+                        });
+                      }
+                      firstLoad1 = false;
+                    }
+
                     return Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -123,11 +140,11 @@ class _PointsBalanceState extends State<PointsBalance> {
                           Padding(
                             padding: const EdgeInsets.only(top: 40),
                             child: Text(
-                              '$numericId',
+                              '$totalPoints',
                               style: const TextStyle(
                                 fontSize: 52,
                                 fontWeight: FontWeight.bold,
-                                color: Color.fromARGB(255, 26, 118, 193),
+                                color: const Color.fromARGB(255, 161, 29, 51),
                               ),
                             ),
                           ),
@@ -139,91 +156,92 @@ class _PointsBalanceState extends State<PointsBalance> {
                           ),
                           const SizedBox(height: 16),
                           //TODO DECIDERE LE SCONTISTICHE COME FUNZIONANO, INTEGRAZIONI BE DA RICHIEDERE
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          //   children: [
-                          //     Text('Equivalenti',
-                          //         style: TCTypography.of(context).text_16.copyWith(
-                          //             color: const Color.fromARGB(255, 121, 121, 121))),
-                          //     Text(
-                          //       ' a 3,50 €',
-                          //       style: TCTypography.of(context).text_16_bold.copyWith(
-                          //         color: const Color.fromARGB(255, 26, 118, 193),
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
-                          // const SizedBox(height: 30),
-                          // Padding(
-                          //   padding: const EdgeInsets.only(
-                          //       left: 25.0, right: 25.0, bottom: 10.0, top: 10),
-                          //   child: ClipRRect(
-                          //     borderRadius: BorderRadius.circular(10),
-                          //     child: LinearProgressIndicator(
-                          //       value: totalPoints / 1000, // 1000 punti corrispondono al 100%
-                          //       minHeight: 20,
-                          //       backgroundColor: const Color.fromARGB(255, 215, 215, 215),
-                          //     ),
-                          //   ),
-                          // ),
-                          // SizedBox(
-                          //   width: MediaQuery.of(context).size.width,
-                          //   child: Padding(
-                          //     padding: const EdgeInsets.symmetric(horizontal: 20),
-                          //     child: Column(
-                          //       crossAxisAlignment: CrossAxisAlignment.start,
-                          //       children: [
-                          //         Row(
-                          //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //           children: [
-                          //             Row(
-                          //               children: [
-                          //                 Text(
-                          //                   'Mancano',
-                          //                   style: TCTypography.of(context).text_14.copyWith(
-                          //                     color: const Color.fromARGB(
-                          //                         255, 121, 121, 121),
-                          //                   ),
-                          //                 ),
-                          //                 Text(
-                          //                   ' ${1000 - totalPoints}',
-                          //                   style: TCTypography.of(context)
-                          //                       .text_16_bold
-                          //                       .copyWith(
-                          //                     color: const Color.fromARGB(255, 157, 2, 2),
-                          //                   ),
-                          //                 ),
-                          //                 Text(
-                          //                   ' pt',
-                          //                   style: TCTypography.of(context).text_14.copyWith(
-                          //                     color: const Color.fromARGB(
-                          //                         255, 121, 121, 121),
-                          //                   ),
-                          //                 ),
-                          //               ],
-                          //             ),
-                          //             Text(
-                          //               '5,00 €',
-                          //               style: TCTypography.of(context).text_16_bold.copyWith(
-                          //                 color: const Color.fromARGB(255, 157, 2, 2),
-                          //               ),
-                          //             ),
-                          //           ],
-                          //         ),
-                          //         Row(
-                          //           children: [
-                          //             Text(
-                          //               'per ricevere il prossimo sconto',
-                          //               style: TCTypography.of(context).text_14.copyWith(
-                          //                 color: const Color.fromARGB(255, 121, 121, 121),
-                          //               ),
-                          //             ),
-                          //           ],
-                          //         ),
-                          //       ],
-                          //     ),
-                          //   ),
-                          // ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('Equivalenti',
+                                  style: TCTypography.of(context).text_16.copyWith(
+                                      color: const Color.fromARGB(255, 121, 121, 121))),
+                              Text(' a ${moneyDiscount.toStringAsFixed(2)} €',
+                                style: TCTypography.of(context).text_16_bold.copyWith(
+                                  color: const Color.fromARGB(255, 161, 29, 51),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 30),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 25.0, right: 25.0, bottom: 10.0, top: 10),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: LinearProgressIndicator(
+                                value: totalPoints / (maxPoint?.points ?? 0),
+                                minHeight: 20,
+                                backgroundColor: const Color.fromARGB(255, 215, 215, 215),
+                                color: const Color.fromARGB(255, 161, 29, 51),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+
+                                      Row(
+                                        children: [
+                                          Text(
+                                            'Mancano',
+                                            style: TCTypography.of(context).text_14.copyWith(
+                                              color: const Color.fromARGB(
+                                                  255, 121, 121, 121),
+                                            ),
+                                          ),
+                                          Text(
+                                            ' ${(maxPoint?.points ?? 0) - totalPoints}',
+                                            style: TCTypography.of(context)
+                                                .text_16_bold
+                                                .copyWith(
+                                              color: const Color.fromARGB(255, 157, 2, 2),
+                                            ),
+                                          ),
+                                          Text(
+                                            ' pt',
+                                            style: TCTypography.of(context).text_14.copyWith(
+                                              color: const Color.fromARGB(
+                                                  255, 121, 121, 121),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Text(
+                                        '5,00 €',
+                                        style: TCTypography.of(context).text_16_bold.copyWith(
+                                          color: const Color.fromARGB(255, 157, 2, 2),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'per ricevere il prossimo sconto',
+                                        style: TCTypography.of(context).text_14.copyWith(
+                                          color: const Color.fromARGB(255, 121, 121, 121),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                           const Divider(
                             color: Color.fromARGB(255, 129, 129, 129),
                             height: 30,
@@ -323,7 +341,7 @@ class _PointsBalanceState extends State<PointsBalance> {
                                               trailing: Text(
                                                 '+${orders[index]['points']} pt',
                                                 style: TCTypography.of(context).text_14_bold.copyWith(
-                                                    color: const Color.fromARGB(255, 26, 118, 193)),
+                                                    color: const Color.fromARGB(255, 161, 29, 51)),
                                               ),
                                             ),
                                           );

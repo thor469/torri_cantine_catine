@@ -15,8 +15,6 @@ Map<String, dynamic> extensionsParser(dynamic input) {
   print(input);
   print(input.runtimeType);
 
-
-
   // if (input == null) return {};
   if (input.runtimeType == List<dynamic>) return { "bundles": {} } ;
 

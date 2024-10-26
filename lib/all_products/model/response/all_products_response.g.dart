@@ -32,6 +32,7 @@ _$_Product _$$_ProductFromJson(Map<String, dynamic> json) => _$_Product(
       type: json['type'] as String?,
       featured: json['featured'] as bool?,
       date_created: json['date_created'] as String?,
+      points: (json['points'] as num?)?.toInt(),
       images: (json['images'] as List<dynamic>?)
               ?.map((e) => ImageProduct.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -63,6 +64,7 @@ Map<String, dynamic> _$$_ProductToJson(_$_Product instance) =>
       'type': instance.type,
       'featured': instance.featured,
       'date_created': instance.date_created,
+      'points': instance.points,
       'images': instance.images,
       'tags': instance.tags,
       'metadata': instance.metadata,

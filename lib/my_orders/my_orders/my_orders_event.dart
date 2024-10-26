@@ -9,7 +9,7 @@ class MyOrdersEvent with _$MyOrdersEvent {
     Shipping? shipping,
     String? customerNote,
     String? paymentMethods,
-    List<String>? paymentData,
+    List<String>? paymentData,int totPoint
   ) =
       _CreateCheckout;
   

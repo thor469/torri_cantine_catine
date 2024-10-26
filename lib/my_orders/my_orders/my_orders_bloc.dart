@@ -43,7 +43,7 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent, MyOrdersState> {
       Shipping? shipping,
       String? customerNote,
       String? paymentMethod,
-      List<String>? paymentData) async* {
+      List<String>? paymentData, int totPoint) async* {
     yield const MyOrdersState.initial();
     yield const MyOrdersState.loading();
     try {
@@ -59,7 +59,7 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent, MyOrdersState> {
       );
       // ?=<id_ordine>&=<somma_punti>
     print(response.order_id);
-     await addPoint(response.order_id ?? 0);
+     await addPoint(response.order_id ?? 0, totPoint);
     yield MyOrdersState.loaded(response);
     } on ApiException catch (e) {
       print(e);
@@ -67,15 +67,15 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent, MyOrdersState> {
     }
   }
 
-  Future<void> addPoint(int orderId) async{
+  Future<void> addPoint(int orderId, int totPoint) async{
     try{
       const dep = DependencyFactoryImpl();
       Dio dio = dep.createDioForApiCart().dio;
       var codeInfo = await dio.request(
-        'wp/v2/update_order_points',
+        '/wp-json/wp/v2/update_order_points',
         queryParameters: {
           "order_id": orderId,
-          "points" : 10
+          "points" : totPoint
         },
         options: Options(
           method: 'POST',

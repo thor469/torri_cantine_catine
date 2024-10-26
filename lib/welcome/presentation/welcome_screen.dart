@@ -75,7 +75,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               }
               return null;
             },
-            orElse: () => SizedBox.shrink(),
+            orElse: () => overlayLoader.hide(context),
             error: (error) {
               overlayLoader.hide(context);
 
@@ -130,7 +130,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ],
               ),
             },
-            orElse: () => SizedBox.shrink(),
+            orElse: () => overlayLoader.hide(context),
             // orElse: () => const SizedBox(),
           ),
         ),
@@ -182,7 +182,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
             },
             // orElse: () => const SizedBox(),
-            orElse: () => const SizedBox.shrink(),
+            orElse: () => overlayLoader.hide(context),
           ),
         ),
       ],
@@ -299,22 +299,22 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        GestureDetector(
-                          onTap: () async {
-                            if (mounted) {
-                              context.read<RegistrationBloc>().add(
-                                  const RegistrationEvent
-                                      .registerWithFacebook());
-                            }
-                          },
-                          child: SizedBox(
-                              width: 40,
-                              height: 40,
-                              child: Image.asset("assets/logo_fb.png")),
-                        ),
-                        const SizedBox(
-                          width: 40,
-                        ),
+                        // GestureDetector(
+                        //   onTap: () async {
+                        //     if (mounted) {
+                        //       context.read<RegistrationBloc>().add(
+                        //           const RegistrationEvent
+                        //               .registerWithFacebook());
+                        //     }
+                        //   },
+                        //   child: SizedBox(
+                        //       width: 40,
+                        //       height: 40,
+                        //       child: Image.asset("assets/logo_fb.png")),
+                        // ),
+                        // const SizedBox(
+                        //   width: 40,
+                        // ),
                         GestureDetector(
                           onTap: () async {
                             if (await GoogleSignIn().isSignedIn() == true) {
