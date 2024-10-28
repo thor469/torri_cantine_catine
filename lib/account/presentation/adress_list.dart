@@ -455,8 +455,8 @@ class _AddressListScreenState extends State<AddressListScreen> {
               context,
               MainNavigation.newAddressFromAccount(
                 widget.customerdId,
+                false,
                 shipping.is_default,
-                true,
                 shipping,
                 'account',
                 false,
