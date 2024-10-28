@@ -68,6 +68,8 @@ class _ProductPreviewState extends State<ProductPreview> {
   List<int> initialWishList = [];
   LocalStorage storage = LocalStorage();
   double? storedRating;
+  bool isFirstLoad = true;
+  String value = "";
   // late ProductPointsCubit productPointsCubit;
   late int product_id;
 
@@ -76,16 +78,31 @@ class _ProductPreviewState extends State<ProductPreview> {
     // productPointsCubit = ProductPointsCubit();
     // productPointsCubit.getProductPoints(widget.id);
     product_id = widget.id;
-    context.read<ReviewsBloc>().add(ReviewsEvent.fetch(product_id));
+    WidgetsBinding.instance.addPostFrameCallback((_)async{
+    await getReview();
+    });
+    // context.read<ReviewsBloc>().add(ReviewsEvent.fetch(product_id));
     super.initState();
   }
 
-  // @override
-  // void dispose() {
-  //   productPointsCubit.close(); // Don't forget to close the cubit
-  //   super.dispose();
-  // }
+  Future<void> getReview() async {
+    var model = await context.read<ReviewsBloc>().getReview(product_id);
+    if (model?.reviews != null && (model?.reviews?.isNotEmpty ?? false)) {
+      // Calcolo della somma dei rating e della media
+      double sum = model?.reviews?.fold(0, (previousValue, review) => (previousValue ?? 0) + (review.rating ?? 0)) ?? 0;
+      double averageRating = sum / (model?.reviews?.length ?? 1); // Uso 1 per evitare divisione per zero
 
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        setState(() {
+          value = averageRating.toStringAsFixed(1); // Arrotonda a una cifra decimale, se necessario
+        });
+      });
+
+      print("SONO ENTRATO");
+    } else {
+      print("Nessuna recensione trovata per il prodotto: $product_id");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -236,46 +253,19 @@ class _ProductPreviewState extends State<ProductPreview> {
                             style: TCTypography.of(context).text_12.copyWith(color: Colors.grey),
                           ),
                         ),
-                        BlocBuilder<ReviewsBloc, ReviewsState>(
-                          builder: (context, state) {
-                            return state.maybeWhen(
-                                loading: () => const Center(child: SizedBox(width:25, height:25, child: CircularProgressIndicator(color: Color.fromARGB(255, 161, 29, 51),))),
-                                loaded: (model){
-                                  print("####################################################################################");
-                                  print("####################################################################################");
-                                  print(model.reviews?.length ?? 0);
-                                  String value = "";
-                                  if(model.reviews != null && (model.reviews?.isNotEmpty ?? false)){
-                                    int i = 0;
-                                    model.reviews?.forEach((e) {
-                                      i = e.rating ?? 0;
-                                    });
-                                    setState(() {
-                                      value = "${i / (model.reviews?.length ?? 0)}";
-                                    });
-                                  }
-                                  if(value != ""){
-                                    return  Row(children: [
-                                      const Icon(
-                                        Icons.star_border,
-                                        color: Color.fromARGB(
-                                            255, 13, 117, 161),
-                                        size: 18,),
-                                      Text(
-                                        '$value/ 5',
-                                        style: TCTypography.of(context).text_10.copyWith(
-                                            color: const Color.fromARGB(255, 13, 117, 161),
-                                            fontWeight: FontWeight.bold),
-                                      )
-                                    ]
-                                    );
-                                  }else{
-                                    return const SizedBox.shrink();
-                                  }
-                                },
-                                orElse: () => const SizedBox.shrink()
-                            );
-                          },
+                        Row(children: [
+                          const Icon(
+                            Icons.star_border,
+                            color: Color.fromARGB(
+                                255, 13, 117, 161),
+                            size: 18,),
+                          Text(
+                            '$value/ 5',
+                            style: TCTypography.of(context).text_10.copyWith(
+                                color: const Color.fromARGB(255, 13, 117, 161),
+                                fontWeight: FontWeight.bold),
+                          )
+                        ]
                         )
                       ],
                     ),
@@ -419,3 +409,4 @@ class _ProductPreviewState extends State<ProductPreview> {
     return tags.where((tag) => tag.name == "bio").toList().isNotEmpty;
   }
 }
+

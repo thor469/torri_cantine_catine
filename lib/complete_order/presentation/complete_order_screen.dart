@@ -133,21 +133,21 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
 
 
   getShippingMethods(postcode) async  {
-    // if (kDebugMode) {
-    //   print('getShippingMethods ');
-    // }
-    // if (kDebugMode) {
-    //   print(postcode);
-    // }
+    if (kDebugMode) {
+      print('getShippingMethods ');
+    }
+    if (kDebugMode) {
+      print(postcode);
+    }
     shippingMethodsFuture =  processShippingMethods(postcode) ;
     //shippingMethodsFuture = shippingMethods as Future<List<ShippingMethod?>>;
   }
 
 
   getPayGateway() async  {
-    // if (kDebugMode) {
-    //   print('getPayGateway ');
-    // }
+    if (kDebugMode) {
+      print('getPayGateway ');
+    }
     paymentGatewayFuture =  processPaymentGateway() ;
   }
 
@@ -806,8 +806,8 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                 });
 
 
-                                                // print('cartSummedPrice @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
-                                                // print(cartSummedPrice);
+                                                print('cartSummedPrice @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+                                                print(cartSummedPrice);
 
 
                                               }
@@ -1144,7 +1144,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                               child: GestureDetector(
                                                 onTap: () {
 
-                                                  // print('@@@ ONTAP');
+                                                  print('@@@ ONTAP');
                                                   setState(() {
                                                     paymentMethodSelected = pg[index]!.id!;
                                                     gruppoval2 = index;
@@ -1207,14 +1207,14 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                             value: index,
                                                             groupValue: gruppoval2,
                                                             onChanged: (val) {
-                                                              // print(pg[index]!.id!);
+                                                              print(pg[index]!.id!);
 
                                                               setState(() {
                                                                 paymentMethodSelected = pg[index]!.id!;
                                                                 gruppoval2 = index;
                                                               });
 
-                                                              // print(paymentMethodSelected);
+                                                              print(paymentMethodSelected);
 
                                                             }
                                                         ) ,
@@ -1622,8 +1622,10 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
 
 
       if(
-      ele.extensions?.bundles['bundled_item_data']?['is_hidden_in_cart']!=true && ele.extensions?.bundles['bundled_item_data']?['is_hidden_in_summary'] != true
+      ele.extensions?.bundles['bundled_item_data']?['is_hidden_in_cart']!=true
+          && ele.extensions?.bundles['bundled_item_data']?['is_hidden_in_summary'] != true
       ) {
+
         transactionItems.add(
             {
               "name": "${ele.name}",
@@ -1655,9 +1657,9 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
     // print(model.user.first.billing);
     // print(amountCart);
     // print(cartSummedPrice);
-    // print(shippingPrice);
-    // print(shippingPriceValue);
-    // print(double.tryParse(shippingPrice) != null?'${shippingPrice}':'xx');
+    print(shippingPrice);
+    print(shippingPriceValue);
+    print(double.tryParse(shippingPrice) != null?'${shippingPrice}':'xx');
     // print(((double.parse(cart.totals.totalPrice) / 100)+shippingPriceValue).toStringAsFixed(2));
 
     var transactions = [
@@ -1849,7 +1851,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
           note.text,
           "cod",
           [],
-          widget.totPoint
+        widget.totPoint
 
 
       ),
@@ -1868,8 +1870,12 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
             address_2: billing.address_2,
             city: billing.city,
             state: billing.state,
+            // state:
+            //     model.user.first.billing!.state,
             postcode: billing.postcode,
             country: "IT",
+            // country:
+            //     model.user.first.billing!.country,
             email: billing.email,
             phone: billing.phone,
           ):

@@ -76,7 +76,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     return PopScope(
         canPop: false,
         onPopInvoked: (didPop) {
-          // print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
+          print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
           MainNavigation.pop(context);
           //return;
         },
@@ -758,9 +758,9 @@ class _BundleItemsListState extends State<BundleItemsList> {
                            ]
                        };
 
-                       // print('fullBundleConf');
-                       // print(bundlePost);
-                       // print(bundleCartUrl);
+                       print('fullBundleConf');
+                       print(bundlePost);
+                       print(bundleCartUrl);
 
 
                        if(selectedBundleItems>=widget.minSize && selectedBundleItems<=widget.maxSize) {

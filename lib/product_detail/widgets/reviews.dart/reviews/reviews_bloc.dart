@@ -44,10 +44,28 @@ class ReviewsBloc extends Bloc<ReviewsEvent, ReviewsState> {
 
         pageNumber++;
       } while (isHunderdReview);
-      yield ReviewsState.loaded(ReviewsResponse(reviews: listReview),
+      yield ReviewsState.loaded(
+        ReviewsResponse(reviews: listReview),
       );
     } catch (e) {
       yield const ReviewsState.error();
+    }
+  }
+
+
+  Future<ReviewsResponse?> getReview(int productId) async {
+    try {
+      List<int> productIdList = [productId];
+      int pageNumber = 1;
+      List<Review> listReview = [];
+      final response = await service.getReviews(ReviewsRequest(product: productIdList, per_page: 100, page: pageNumber));
+
+      listReview.addAll(response.reviews!);
+
+      return ReviewsResponse(reviews: listReview);
+    } catch (e) {
+      print(e);
+      return null;
     }
   }
 
