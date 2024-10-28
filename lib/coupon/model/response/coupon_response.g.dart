@@ -22,11 +22,13 @@ Map<String, dynamic> _$$_CouponResponseToJson(_$_CouponResponse instance) =>
 _$_Coupon _$$_CouponFromJson(Map<String, dynamic> json) => _$_Coupon(
       code: json['code'] as String,
       amount: json['amount'] as String,
+      discount_type: json['discount_type'] as String,
       dateExpires: json['date_expires'] as String?,
     );
 
 Map<String, dynamic> _$$_CouponToJson(_$_Coupon instance) => <String, dynamic>{
       'code': instance.code,
       'amount': instance.amount,
+      'discount_type': instance.discount_type,
       'date_expires': instance.dateExpires,
     };

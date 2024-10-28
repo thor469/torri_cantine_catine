@@ -6,6 +6,6 @@ class CouponState with _$CouponState {
   const factory CouponState.loading() = _Loading;
   const factory CouponState.gotCoupon(Coupon coupon) = _Loaded;
   const factory CouponState.noCoupon() = _NoCoupon;
-  const factory CouponState.couponNotFound() = _NotFound;
-  const factory CouponState.error() = _Error;
+  const factory CouponState.couponNotFound(String error) = _NotFound;
+  const factory CouponState.error(String error) = _Error;
 }

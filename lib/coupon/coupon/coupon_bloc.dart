@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:collection/collection.dart';
@@ -38,26 +39,24 @@ class CouponBloc extends Bloc<CouponEvent, CouponState> {
 
       if (coupon != null) {
         // Check if the coupon is expired
-
-
         // If the coupon is valid, attempt to add it to the cart
         addCouponResponse? add2Cart = await addCouponToCart(coupon.code);
         print('ADD COUPON TO CART RESPONSE: $add2Cart'); // Print the add-to-cart response
 
         if (add2Cart == null) {
           print('ERROR ADDING COUPON TO CART'); // Print error message
-          yield const CouponState.error();
+          yield const CouponState.error("ERRORE NELL'AGGIUNTA DEL COUPON");
         } else {
           print('SUCCESSFULLY GOT COUPON'); // Coupon successfully processed
           yield CouponState.gotCoupon(coupon);
         }
       } else {
         print('COUPON NOT FOUND'); // Coupon was not found
-        yield const CouponState.noCoupon();
+        yield const CouponState.couponNotFound('COUPON NON TROVATO');
       }
     } catch (e) {
       print('ERROR FETCHING COUPON: $e'); // Print error
-      yield const CouponState.error();
+      yield const CouponState.error("ERRORE COUNPON NON ESISTENTE O NON VALIDO");
     }
   }
 
@@ -75,8 +74,8 @@ class CouponBloc extends Bloc<CouponEvent, CouponState> {
       if (response ==true) {
         yield const CouponState.noCoupon();
         }
-    } catch (e) {
-      yield const CouponState.error();
+    }on DioError catch (e) {
+      yield  CouponState.error(e.message);
     }
   }
 

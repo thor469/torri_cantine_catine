@@ -19,6 +19,7 @@ class Coupon with _$Coupon {
   factory Coupon({
     required final String code,
     required final String amount,
+    required final String discount_type,
     @JsonKey(name: "date_expires") String? dateExpires,
   }) = _Coupon;
 

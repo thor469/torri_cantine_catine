@@ -88,13 +88,12 @@ class _ProductPreviewState extends State<ProductPreview> {
   Future<void> getReview() async {
     var model = await context.read<ReviewsBloc>().getReview(product_id);
     if (model?.reviews != null && (model?.reviews?.isNotEmpty ?? false)) {
-      // Calcolo della somma dei rating e della media
       double sum = model?.reviews?.fold(0, (previousValue, review) => (previousValue ?? 0) + (review.rating ?? 0)) ?? 0;
-      double averageRating = sum / (model?.reviews?.length ?? 1); // Uso 1 per evitare divisione per zero
+      double averageRating = sum / (model?.reviews?.length ?? 1);
 
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         setState(() {
-          value = averageRating.toStringAsFixed(1); // Arrotonda a una cifra decimale, se necessario
+          value = averageRating.toStringAsFixed(1);
         });
       });
 

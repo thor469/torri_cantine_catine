@@ -167,6 +167,7 @@ Coupon _$CouponFromJson(Map<String, dynamic> json) {
 mixin _$Coupon {
   String get code => throw _privateConstructorUsedError;
   String get amount => throw _privateConstructorUsedError;
+  String get discount_type => throw _privateConstructorUsedError;
   @JsonKey(name: "date_expires")
   String? get dateExpires => throw _privateConstructorUsedError;
 
@@ -183,6 +184,7 @@ abstract class $CouponCopyWith<$Res> {
   $Res call(
       {String code,
       String amount,
+      String discount_type,
       @JsonKey(name: "date_expires") String? dateExpires});
 }
 
@@ -201,6 +203,7 @@ class _$CouponCopyWithImpl<$Res, $Val extends Coupon>
   $Res call({
     Object? code = null,
     Object? amount = null,
+    Object? discount_type = null,
     Object? dateExpires = freezed,
   }) {
     return _then(_value.copyWith(
@@ -211,6 +214,10 @@ class _$CouponCopyWithImpl<$Res, $Val extends Coupon>
       amount: null == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
+              as String,
+      discount_type: null == discount_type
+          ? _value.discount_type
+          : discount_type // ignore: cast_nullable_to_non_nullable
               as String,
       dateExpires: freezed == dateExpires
           ? _value.dateExpires
@@ -229,6 +236,7 @@ abstract class _$$_CouponCopyWith<$Res> implements $CouponCopyWith<$Res> {
   $Res call(
       {String code,
       String amount,
+      String discount_type,
       @JsonKey(name: "date_expires") String? dateExpires});
 }
 
@@ -244,6 +252,7 @@ class __$$_CouponCopyWithImpl<$Res>
   $Res call({
     Object? code = null,
     Object? amount = null,
+    Object? discount_type = null,
     Object? dateExpires = freezed,
   }) {
     return _then(_$_Coupon(
@@ -254,6 +263,10 @@ class __$$_CouponCopyWithImpl<$Res>
       amount: null == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
+              as String,
+      discount_type: null == discount_type
+          ? _value.discount_type
+          : discount_type // ignore: cast_nullable_to_non_nullable
               as String,
       dateExpires: freezed == dateExpires
           ? _value.dateExpires
@@ -269,6 +282,7 @@ class _$_Coupon implements _Coupon {
   _$_Coupon(
       {required this.code,
       required this.amount,
+      required this.discount_type,
       @JsonKey(name: "date_expires") this.dateExpires});
 
   factory _$_Coupon.fromJson(Map<String, dynamic> json) =>
@@ -279,12 +293,14 @@ class _$_Coupon implements _Coupon {
   @override
   final String amount;
   @override
+  final String discount_type;
+  @override
   @JsonKey(name: "date_expires")
   final String? dateExpires;
 
   @override
   String toString() {
-    return 'Coupon(code: $code, amount: $amount, dateExpires: $dateExpires)';
+    return 'Coupon(code: $code, amount: $amount, discount_type: $discount_type, dateExpires: $dateExpires)';
   }
 
   @override
@@ -294,13 +310,16 @@ class _$_Coupon implements _Coupon {
             other is _$_Coupon &&
             (identical(other.code, code) || other.code == code) &&
             (identical(other.amount, amount) || other.amount == amount) &&
+            (identical(other.discount_type, discount_type) ||
+                other.discount_type == discount_type) &&
             (identical(other.dateExpires, dateExpires) ||
                 other.dateExpires == dateExpires));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, code, amount, dateExpires);
+  int get hashCode =>
+      Object.hash(runtimeType, code, amount, discount_type, dateExpires);
 
   @JsonKey(ignore: true)
   @override
@@ -320,6 +339,7 @@ abstract class _Coupon implements Coupon {
   factory _Coupon(
       {required final String code,
       required final String amount,
+      required final String discount_type,
       @JsonKey(name: "date_expires") final String? dateExpires}) = _$_Coupon;
 
   factory _Coupon.fromJson(Map<String, dynamic> json) = _$_Coupon.fromJson;
@@ -328,6 +348,8 @@ abstract class _Coupon implements Coupon {
   String get code;
   @override
   String get amount;
+  @override
+  String get discount_type;
   @override
   @JsonKey(name: "date_expires")
   String? get dateExpires;

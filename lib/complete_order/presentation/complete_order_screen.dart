@@ -25,9 +25,9 @@ import 'package:torri_cantine_app/utilities/local_storage.dart';
 
 
 class CompleteOrderScreen extends StatefulWidget {
-  final CartResponse? cart;
+  CartResponse? cart;
   final int totPoint;
-  const CompleteOrderScreen({super.key, this.cart, required this.totPoint});
+  CompleteOrderScreen({super.key, this.cart, required this.totPoint});
 
   @override
   State<CompleteOrderScreen> createState() => _CompleteOrderScreenState();
@@ -86,6 +86,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
       moneyDiscount = await context.read<PointsBloc>().getMoneyDiscountAvaible() ?? 0;
       await initCart();
       String email = await storage.getUserEmail() ?? "";
+
       customerId = await storage.getCustomerId();
       if (mounted) {
         context.read<AccountBloc>().add(AccountEvent.fetch(email));
@@ -111,16 +112,13 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
     // var cartTotal =  taxedTotalItems;
     cartTotalValue =  taxedTotalItemsValue;
 
-
-
-    if(cartFirstLoad==true) {
-      if(widget.cart?.coupons != null) {
-        Future.delayed(Duration.zero, () { sumCouponDiscount(widget.cart!.coupons);});
-      }
-
-      cartSummedPrice = cartTotalValue ?? 0;
-      cartFirstLoad = false;
+    if(widget.cart?.coupons != null) {
+      Future.delayed(Duration.zero, () { sumCouponDiscount(widget.cart!.coupons);});
     }
+
+    cartSummedPrice = cartTotalValue ?? 0;
+    cartFirstLoad = false;
+
 
     widget.cart?.items.forEach((element) {
       if(element.extensions?.bundles['bundled_item_data']?['is_hidden_in_cart'] != true
@@ -329,71 +327,6 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
 
                           BlocBuilder<CouponBloc, CouponState>(
                             builder: (context, state) => state.maybeWhen(
-                              orElse: () {
-                                return Container(
-                                  margin: const EdgeInsets.only(bottom: 18),
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 35,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      width: 1,
-                                      color: const Color.fromARGB(96, 77, 76, 76),
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: TextField(
-                                    cursorColor: Colors.black,
-                                    controller: couponController,
-                                    decoration: InputDecoration(
-                                      suffixIcon: Container(
-                                        width: 25,
-                                        height: 35,
-                                        decoration: BoxDecoration(
-                                          color: const Color.fromARGB(255, 161, 29, 51),
-                                          borderRadius: BorderRadius.circular(7),
-                                        ),
-                                        child: IconButton(
-                                          alignment: Alignment.center,
-                                          onPressed: () {
-                                            if (couponController.text.isEmpty) {
-                                              showDialog(
-                                                context: context,
-                                                builder: (BuildContext context) {
-                                                  return AlertDialog(
-                                                    title: const Text('Errore'),
-                                                    content: const Text('Coupon non trovato!'),
-                                                    actions: [
-                                                      TextButton(
-                                                        child: const Text('OK'),
-                                                        onPressed: () {
-                                                          Navigator.of(context).pop();
-                                                        },
-                                                      ),
-                                                    ],
-                                                  );
-                                                },
-                                              );
-                                            } else {
-                                              context.read<CouponBloc>().add(
-                                                CouponEvent.fetch(couponController.text),
-                                              );
-                                            }
-                                          },
-                                          icon: const Icon(
-                                            size: 20,
-                                            Icons.done,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                      hintText: "Codice coupon o Gift Card",
-                                      hintStyle: const TextStyle(color: Colors.grey, fontSize: 13),
-                                      border: InputBorder.none,
-                                      contentPadding: const EdgeInsets.only(left: 10),
-                                    ),
-                                  ),
-                                );
-                              },
                               loading: () {
                                 return const Center(
                                   child: CircularProgressIndicator(
@@ -401,70 +334,14 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                   ),
                                 );
                               },
-                              couponNotFound: () {
-                                return Container(
-                                  margin: const EdgeInsets.only(bottom: 18),
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 35,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      width: 1,
-                                      color: const Color.fromARGB(96, 77, 76, 76),
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: TextField(
-                                    cursorColor: Colors.black,
-                                    controller: couponController,
-                                    decoration: InputDecoration(
-                                      suffixIcon: Container(
-                                        width: 25,
-                                        height: 35,
-                                        decoration: BoxDecoration(
-                                          color: const Color.fromARGB(255, 161, 29, 51),
-                                          borderRadius: BorderRadius.circular(7),
-                                        ),
-                                        child: IconButton(
-                                          alignment: Alignment.center,
-                                          onPressed: () {
-                                            if (couponController.text.isEmpty) {
-                                              showDialog(
-                                                context: context,
-                                                builder: (BuildContext context) {
-                                                  return AlertDialog(
-                                                    title: const Text('Errore'),
-                                                    content: const Text('Coupon non trovato!'),
-                                                    actions: [
-                                                      TextButton(
-                                                        child: const Text('OK'),
-                                                        onPressed: () {
-                                                          Navigator.of(context).pop();
-                                                        },
-                                                      ),
-                                                    ],
-                                                  );
-                                                },
-                                              );
-                                            } else {
-                                              context.read<CouponBloc>().add(
-                                                CouponEvent.fetch(couponController.text),
-                                              );
-                                            }
-                                          },
-                                          icon: const Icon(
-                                            size: 20,
-                                            Icons.done,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                      hintText: "Codice coupon o Gift Card",
-                                      hintStyle: const TextStyle(color: Colors.grey, fontSize: 13),
-                                      border: InputBorder.none,
-                                      contentPadding: const EdgeInsets.only(left: 10),
-                                    ),
-                                  ),
-                                );
+                              orElse: () {
+                                return buildCupon("");
+                              },
+                              couponNotFound: (error) {
+                                return buildCupon(error);
+                              },
+                              error: (error){
+                                return buildCupon(error);
                               },
                               gotCoupon: (coupons) {
                                 // Apply the coupon and update the UI with the discount
@@ -472,6 +349,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                   sumCouponDiscount(widget.cart?.coupons);
                                   setState(() {
                                     appliedCoupon = double.tryParse(coupons.amount)!;
+
                                   });
                                   // Show the success dialog here
 
@@ -479,6 +357,44 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
 
                                 return Column(
                                   children: [
+                                    // Remove Coupon Button
+                                  Container(
+                                  alignment: Alignment.topLeft,
+                                  height: 34,
+                                  child: InputChip(
+                                    label: Text(
+                                      coupons.code,
+                                      style: const TextStyle(color: Colors.white),
+                                    ),
+                                    deleteIconColor: Colors.white,
+                                    backgroundColor: const Color.fromARGB(255, 161, 29, 51),
+                                    shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                                    ),
+                                    onDeleted: () {
+                                      context.read<CouponBloc>().add(
+                                        CouponEvent.delete(coupons.code),
+                                      );
+                                    },
+                                    onPressed: null,
+                                    onSelected: null,
+                                  ),
+                                ),
+                                    // if (appliedCoupon > 0) // Show button only if a coupon is applied
+                                    //   PrimaryButton(
+                                    //     ontap: () {
+                                    //       // Dispatch an event to remove the coupon via the bloc
+                                    //       BlocProvider.of<CouponBloc>(context).add(CouponEvent.delete(appliedCouponCode ?? ""));
+                                    //
+                                    //       // Update the state after the coupon is removed
+                                    //       setState(() {
+                                    //         appliedCoupon = 0.0; // Reset applied coupon amount
+                                    //         appliedCouponCode = null; // Reset the coupon code
+                                    //         // Optionally, you can reset other related values here if needed
+                                    //       });
+                                    //     },
+                                    //     text: 'Rimuovi Coupon',
+                                    //   ),
                                     (widget.cart?.coupons?.isEmpty ?? false)
                                         ? const SizedBox()
                                         : Container(
@@ -1479,35 +1395,17 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                 ),
                               ),
 
-                              // Remove Coupon Button
-                              if (appliedCoupon > 0) // Show button only if a coupon is applied
-                                ElevatedButton(
-                                  onPressed: () {
-                                    // Dispatch an event to remove the coupon via the bloc
-                                    BlocProvider.of<CouponBloc>(context).add(CouponEvent.delete(appliedCouponCode ?? ""));
 
-                                    // Update the state after the coupon is removed
-                                    setState(() {
-                                      appliedCoupon = 0.0; // Reset applied coupon amount
-                                      appliedCouponCode = null; // Reset the coupon code
-                                      // Optionally, you can reset other related values here if needed
-                                    });
-                                  },
-                                  child: const Text(
-                                    "Rimuovi Coupon",
-                                    style: TextStyle(color: Color.fromARGB(255, 158, 29, 48)),
-                                  ),
-                                ),
                             ],
                           ),
 
-                          const Text(
-                            "Creando questo account confermi di aver letto, compreso e accettato i nostri Termini di servizio e la Politica della Privacy",
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 127, 127, 127),
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold),
-                          ),
+                          // const Text(
+                          //   "Creando questo account confermi di aver letto, compreso e accettato i nostri Termini di servizio e la Politica della Privacy",
+                          //   style: TextStyle(
+                          //       color: Color.fromARGB(255, 127, 127, 127),
+                          //       fontSize: 12,
+                          //       fontWeight: FontWeight.bold),
+                          // ),
                           Padding(
                             padding: const EdgeInsets.only(top: 20.0, bottom: 40),
                             child: Row(
@@ -1931,4 +1829,65 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
       default:
     }
   }
+
+  Widget buildCupon(String error){
+    return Column(
+      children: [
+        Container(
+          margin: const EdgeInsets.only(bottom: 18),
+          width: MediaQuery.of(context).size.width,
+          height: 35,
+          decoration: BoxDecoration(
+            border: Border.all(
+              width: 1,
+              color: const Color.fromARGB(96, 77, 76, 76),
+            ),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: TextField(
+            cursorColor: Colors.black,
+            controller: couponController,
+            decoration: InputDecoration(
+              suffixIcon: Container(
+                width: 25,
+                height: 35,
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 161, 29, 51),
+                  borderRadius: BorderRadius.circular(7),
+                ),
+                child: IconButton(
+                  alignment: Alignment.center,
+                  onPressed: () {
+                    if (couponController.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Inserisci un cupon'),
+                        elevation: 1,
+                      ));
+                    } else {
+                      context.read<CouponBloc>().add(CouponEvent.fetch(couponController.text),
+                      );
+                    }
+                  },
+                  icon: const Icon(
+                    size: 20,
+                    Icons.done,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              hintText: "Codice coupon o Gift Card",
+              hintStyle: const TextStyle(color: Colors.grey, fontSize: 13),
+              border: InputBorder.none,
+              contentPadding: const EdgeInsets.only(left: 10),
+            ),
+          ),
+        ),
+        if(error != "")...[
+          Text(error)
+        ]
+      ],
+    );
+  }
+
+
 }

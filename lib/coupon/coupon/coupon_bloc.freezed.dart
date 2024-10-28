@@ -22,8 +22,8 @@ mixin _$CouponState {
     required TResult Function() loading,
     required TResult Function(Coupon coupon) gotCoupon,
     required TResult Function() noCoupon,
-    required TResult Function() couponNotFound,
-    required TResult Function() error,
+    required TResult Function(String error) couponNotFound,
+    required TResult Function(String error) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -32,8 +32,8 @@ mixin _$CouponState {
     TResult? Function()? loading,
     TResult? Function(Coupon coupon)? gotCoupon,
     TResult? Function()? noCoupon,
-    TResult? Function()? couponNotFound,
-    TResult? Function()? error,
+    TResult? Function(String error)? couponNotFound,
+    TResult? Function(String error)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -42,8 +42,8 @@ mixin _$CouponState {
     TResult Function()? loading,
     TResult Function(Coupon coupon)? gotCoupon,
     TResult Function()? noCoupon,
-    TResult Function()? couponNotFound,
-    TResult Function()? error,
+    TResult Function(String error)? couponNotFound,
+    TResult Function(String error)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -139,8 +139,8 @@ class _$_Initial implements _Initial {
     required TResult Function() loading,
     required TResult Function(Coupon coupon) gotCoupon,
     required TResult Function() noCoupon,
-    required TResult Function() couponNotFound,
-    required TResult Function() error,
+    required TResult Function(String error) couponNotFound,
+    required TResult Function(String error) error,
   }) {
     return initial();
   }
@@ -152,8 +152,8 @@ class _$_Initial implements _Initial {
     TResult? Function()? loading,
     TResult? Function(Coupon coupon)? gotCoupon,
     TResult? Function()? noCoupon,
-    TResult? Function()? couponNotFound,
-    TResult? Function()? error,
+    TResult? Function(String error)? couponNotFound,
+    TResult? Function(String error)? error,
   }) {
     return initial?.call();
   }
@@ -165,8 +165,8 @@ class _$_Initial implements _Initial {
     TResult Function()? loading,
     TResult Function(Coupon coupon)? gotCoupon,
     TResult Function()? noCoupon,
-    TResult Function()? couponNotFound,
-    TResult Function()? error,
+    TResult Function(String error)? couponNotFound,
+    TResult Function(String error)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -264,8 +264,8 @@ class _$_Loading implements _Loading {
     required TResult Function() loading,
     required TResult Function(Coupon coupon) gotCoupon,
     required TResult Function() noCoupon,
-    required TResult Function() couponNotFound,
-    required TResult Function() error,
+    required TResult Function(String error) couponNotFound,
+    required TResult Function(String error) error,
   }) {
     return loading();
   }
@@ -277,8 +277,8 @@ class _$_Loading implements _Loading {
     TResult? Function()? loading,
     TResult? Function(Coupon coupon)? gotCoupon,
     TResult? Function()? noCoupon,
-    TResult? Function()? couponNotFound,
-    TResult? Function()? error,
+    TResult? Function(String error)? couponNotFound,
+    TResult? Function(String error)? error,
   }) {
     return loading?.call();
   }
@@ -290,8 +290,8 @@ class _$_Loading implements _Loading {
     TResult Function()? loading,
     TResult Function(Coupon coupon)? gotCoupon,
     TResult Function()? noCoupon,
-    TResult Function()? couponNotFound,
-    TResult Function()? error,
+    TResult Function(String error)? couponNotFound,
+    TResult Function(String error)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -424,8 +424,8 @@ class _$_Loaded implements _Loaded {
     required TResult Function() loading,
     required TResult Function(Coupon coupon) gotCoupon,
     required TResult Function() noCoupon,
-    required TResult Function() couponNotFound,
-    required TResult Function() error,
+    required TResult Function(String error) couponNotFound,
+    required TResult Function(String error) error,
   }) {
     return gotCoupon(coupon);
   }
@@ -437,8 +437,8 @@ class _$_Loaded implements _Loaded {
     TResult? Function()? loading,
     TResult? Function(Coupon coupon)? gotCoupon,
     TResult? Function()? noCoupon,
-    TResult? Function()? couponNotFound,
-    TResult? Function()? error,
+    TResult? Function(String error)? couponNotFound,
+    TResult? Function(String error)? error,
   }) {
     return gotCoupon?.call(coupon);
   }
@@ -450,8 +450,8 @@ class _$_Loaded implements _Loaded {
     TResult Function()? loading,
     TResult Function(Coupon coupon)? gotCoupon,
     TResult Function()? noCoupon,
-    TResult Function()? couponNotFound,
-    TResult Function()? error,
+    TResult Function(String error)? couponNotFound,
+    TResult Function(String error)? error,
     required TResult orElse(),
   }) {
     if (gotCoupon != null) {
@@ -555,8 +555,8 @@ class _$_NoCoupon implements _NoCoupon {
     required TResult Function() loading,
     required TResult Function(Coupon coupon) gotCoupon,
     required TResult Function() noCoupon,
-    required TResult Function() couponNotFound,
-    required TResult Function() error,
+    required TResult Function(String error) couponNotFound,
+    required TResult Function(String error) error,
   }) {
     return noCoupon();
   }
@@ -568,8 +568,8 @@ class _$_NoCoupon implements _NoCoupon {
     TResult? Function()? loading,
     TResult? Function(Coupon coupon)? gotCoupon,
     TResult? Function()? noCoupon,
-    TResult? Function()? couponNotFound,
-    TResult? Function()? error,
+    TResult? Function(String error)? couponNotFound,
+    TResult? Function(String error)? error,
   }) {
     return noCoupon?.call();
   }
@@ -581,8 +581,8 @@ class _$_NoCoupon implements _NoCoupon {
     TResult Function()? loading,
     TResult Function(Coupon coupon)? gotCoupon,
     TResult Function()? noCoupon,
-    TResult Function()? couponNotFound,
-    TResult Function()? error,
+    TResult Function(String error)? couponNotFound,
+    TResult Function(String error)? error,
     required TResult orElse(),
   }) {
     if (noCoupon != null) {
@@ -644,6 +644,8 @@ abstract class _$$_NotFoundCopyWith<$Res> {
   factory _$$_NotFoundCopyWith(
           _$_NotFound value, $Res Function(_$_NotFound) then) =
       __$$_NotFoundCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String error});
 }
 
 /// @nodoc
@@ -653,26 +655,50 @@ class __$$_NotFoundCopyWithImpl<$Res>
   __$$_NotFoundCopyWithImpl(
       _$_NotFound _value, $Res Function(_$_NotFound) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$_NotFound(
+      null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_NotFound implements _NotFound {
-  const _$_NotFound();
+  const _$_NotFound(this.error);
+
+  @override
+  final String error;
 
   @override
   String toString() {
-    return 'CouponState.couponNotFound()';
+    return 'CouponState.couponNotFound(error: $error)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_NotFound);
+        (other.runtimeType == runtimeType &&
+            other is _$_NotFound &&
+            (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_NotFoundCopyWith<_$_NotFound> get copyWith =>
+      __$$_NotFoundCopyWithImpl<_$_NotFound>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -681,10 +707,10 @@ class _$_NotFound implements _NotFound {
     required TResult Function() loading,
     required TResult Function(Coupon coupon) gotCoupon,
     required TResult Function() noCoupon,
-    required TResult Function() couponNotFound,
-    required TResult Function() error,
+    required TResult Function(String error) couponNotFound,
+    required TResult Function(String error) error,
   }) {
-    return couponNotFound();
+    return couponNotFound(this.error);
   }
 
   @override
@@ -694,10 +720,10 @@ class _$_NotFound implements _NotFound {
     TResult? Function()? loading,
     TResult? Function(Coupon coupon)? gotCoupon,
     TResult? Function()? noCoupon,
-    TResult? Function()? couponNotFound,
-    TResult? Function()? error,
+    TResult? Function(String error)? couponNotFound,
+    TResult? Function(String error)? error,
   }) {
-    return couponNotFound?.call();
+    return couponNotFound?.call(this.error);
   }
 
   @override
@@ -707,12 +733,12 @@ class _$_NotFound implements _NotFound {
     TResult Function()? loading,
     TResult Function(Coupon coupon)? gotCoupon,
     TResult Function()? noCoupon,
-    TResult Function()? couponNotFound,
-    TResult Function()? error,
+    TResult Function(String error)? couponNotFound,
+    TResult Function(String error)? error,
     required TResult orElse(),
   }) {
     if (couponNotFound != null) {
-      return couponNotFound();
+      return couponNotFound(this.error);
     }
     return orElse();
   }
@@ -762,13 +788,20 @@ class _$_NotFound implements _NotFound {
 }
 
 abstract class _NotFound implements CouponState {
-  const factory _NotFound() = _$_NotFound;
+  const factory _NotFound(final String error) = _$_NotFound;
+
+  String get error;
+  @JsonKey(ignore: true)
+  _$$_NotFoundCopyWith<_$_NotFound> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class _$$_ErrorCopyWith<$Res> {
   factory _$$_ErrorCopyWith(_$_Error value, $Res Function(_$_Error) then) =
       __$$_ErrorCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String error});
 }
 
 /// @nodoc
@@ -777,26 +810,50 @@ class __$$_ErrorCopyWithImpl<$Res>
     implements _$$_ErrorCopyWith<$Res> {
   __$$_ErrorCopyWithImpl(_$_Error _value, $Res Function(_$_Error) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$_Error(
+      null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_Error implements _Error {
-  const _$_Error();
+  const _$_Error(this.error);
+
+  @override
+  final String error;
 
   @override
   String toString() {
-    return 'CouponState.error()';
+    return 'CouponState.error(error: $error)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Error);
+        (other.runtimeType == runtimeType &&
+            other is _$_Error &&
+            (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_ErrorCopyWith<_$_Error> get copyWith =>
+      __$$_ErrorCopyWithImpl<_$_Error>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -805,10 +862,10 @@ class _$_Error implements _Error {
     required TResult Function() loading,
     required TResult Function(Coupon coupon) gotCoupon,
     required TResult Function() noCoupon,
-    required TResult Function() couponNotFound,
-    required TResult Function() error,
+    required TResult Function(String error) couponNotFound,
+    required TResult Function(String error) error,
   }) {
-    return error();
+    return error(this.error);
   }
 
   @override
@@ -818,10 +875,10 @@ class _$_Error implements _Error {
     TResult? Function()? loading,
     TResult? Function(Coupon coupon)? gotCoupon,
     TResult? Function()? noCoupon,
-    TResult? Function()? couponNotFound,
-    TResult? Function()? error,
+    TResult? Function(String error)? couponNotFound,
+    TResult? Function(String error)? error,
   }) {
-    return error?.call();
+    return error?.call(this.error);
   }
 
   @override
@@ -831,12 +888,12 @@ class _$_Error implements _Error {
     TResult Function()? loading,
     TResult Function(Coupon coupon)? gotCoupon,
     TResult Function()? noCoupon,
-    TResult Function()? couponNotFound,
-    TResult Function()? error,
+    TResult Function(String error)? couponNotFound,
+    TResult Function(String error)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error();
+      return error(this.error);
     }
     return orElse();
   }
@@ -886,7 +943,12 @@ class _$_Error implements _Error {
 }
 
 abstract class _Error implements CouponState {
-  const factory _Error() = _$_Error;
+  const factory _Error(final String error) = _$_Error;
+
+  String get error;
+  @JsonKey(ignore: true)
+  _$$_ErrorCopyWith<_$_Error> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
