@@ -27,7 +27,7 @@ class _OrderDetailState extends State<OrderDetail> {
     return PopScope(
         canPop: false,
         onPopInvoked: (didPop) {
-          print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
+          // print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
           MainNavigation.pop(context);
           //return;
         },

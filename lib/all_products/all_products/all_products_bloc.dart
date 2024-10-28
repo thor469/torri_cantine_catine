@@ -68,7 +68,7 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
           }
 
           products.addAll(response.products as Iterable<Product>);
-          print("${response.products} sorted by $currentOrderBy $currentOrder");
+          // print("${response.products} sorted by $currentOrderBy $currentOrder");
 
           // Check if we've loaded all products or not
           if (response.products!.length < apiTopValue) {

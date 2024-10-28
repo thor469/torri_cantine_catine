@@ -7,10 +7,11 @@ import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/app/utilitys/tc_typography.dart';
 import 'package:torri_cantine_app/cart/add_product_to_cart/add_product_to_cart_bloc.dart';
 import 'package:torri_cantine_app/cart/cubit/cart_badge_cubit_cubit.dart';
+import 'package:torri_cantine_app/product_detail/widgets/reviews.dart/model/response/reviews_response.dart';
+import 'package:torri_cantine_app/product_detail/widgets/reviews.dart/reviews/reviews_bloc.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 
-import '../../product_detail/widgets/reviews.dart/model/response/reviews_response.dart';
-import '../../product_detail/widgets/reviews.dart/reviews/reviews_bloc.dart';
+
 
 
 
@@ -88,9 +89,9 @@ class _ProductPreviewState extends State<ProductPreview> {
 
   @override
   Widget build(BuildContext context) {
-    String avg = (widget.average_rating!) == '0.00'
-        ? '-'
-        : double.parse(widget.average_rating ?? "-").toStringAsFixed(1);
+    // String avg = (widget.average_rating!) == '0.00'
+    //     ? '-'
+    //     : double.parse(widget.average_rating ?? "-").toStringAsFixed(1);
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 5),
       child: GestureDetector(
@@ -124,9 +125,9 @@ class _ProductPreviewState extends State<ProductPreview> {
                         child: Container(
                           width: 48,
                           height: 27,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Colors.white,
-                            borderRadius: const BorderRadius.all(
+                            borderRadius:  BorderRadius.all(
                                 Radius.circular(10)),
                           ),
                           child: Row(
@@ -150,7 +151,7 @@ class _ProductPreviewState extends State<ProductPreview> {
                             right: 15,
                             child: GestureDetector(
                               onTap: () {
-                                BlocProvider.of<ProductsWishlistedCubit>(context).wishListed(widget.id);
+                                context.read<ProductsWishlistedCubit>().wishListed(widget.id);
                               },
                               child: Row(
                                 children: [
@@ -235,30 +236,47 @@ class _ProductPreviewState extends State<ProductPreview> {
                             style: TCTypography.of(context).text_12.copyWith(color: Colors.grey),
                           ),
                         ),
-                        widget.average_rating != '0.00'
-                            ? Row(
-                          children: [
-                            const Icon(
-                              Icons.star_border,
-                              color: Color.fromARGB(
-                                  255, 13, 117, 161),
-                              size: 18,
-                            ),
-
-                            Text(
-                              '$avg / 5',
-                              style: TCTypography.of(context)
-                                  .text_10
-                                  .copyWith(
-                                  color: const Color.fromARGB(
-                                      255, 13, 117, 161),
-                                  fontWeight: FontWeight.bold),
-                            ),
-
-
-                          ],
+                        BlocBuilder<ReviewsBloc, ReviewsState>(
+                          builder: (context, state) {
+                            return state.maybeWhen(
+                                loading: () => const Center(child: SizedBox(width:25, height:25, child: CircularProgressIndicator(color: Color.fromARGB(255, 161, 29, 51),))),
+                                loaded: (model){
+                                  print("####################################################################################");
+                                  print("####################################################################################");
+                                  print(model.reviews?.length ?? 0);
+                                  String value = "";
+                                  if(model.reviews != null && (model.reviews?.isNotEmpty ?? false)){
+                                    int i = 0;
+                                    model.reviews?.forEach((e) {
+                                      i = e.rating ?? 0;
+                                    });
+                                    setState(() {
+                                      value = "${i / (model.reviews?.length ?? 0)}";
+                                    });
+                                  }
+                                  if(value != ""){
+                                    return  Row(children: [
+                                      const Icon(
+                                        Icons.star_border,
+                                        color: Color.fromARGB(
+                                            255, 13, 117, 161),
+                                        size: 18,),
+                                      Text(
+                                        '$value/ 5',
+                                        style: TCTypography.of(context).text_10.copyWith(
+                                            color: const Color.fromARGB(255, 13, 117, 161),
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    ]
+                                    );
+                                  }else{
+                                    return const SizedBox.shrink();
+                                  }
+                                },
+                                orElse: () => const SizedBox.shrink()
+                            );
+                          },
                         )
-                            : const SizedBox(),
                       ],
                     ),
                   )

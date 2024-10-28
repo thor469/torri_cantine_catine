@@ -32,7 +32,7 @@ class _CategoriesDetailScreenState extends State<CategoriesDetailScreen> {
     return PopScope(
         canPop: false,
         onPopInvoked: (didPop) {
-          print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
+          // print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
           MainNavigation.pop(context);
           //return;
         },

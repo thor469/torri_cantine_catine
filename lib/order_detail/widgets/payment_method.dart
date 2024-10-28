@@ -27,8 +27,8 @@ class _PaymentMethodState extends State<PaymentMethod> {
       case 'cod':  { payMethodName = 'Contrassegno' ; break;}
     }
 
-    print('widget.order.discount_total');
-    print(widget.order.discountTotal);
+    // print('widget.order.discount_total');
+    // print(widget.order.discountTotal);
 
     String shippingTotal = (double.tryParse(widget.order.shippingTotal)! + double.tryParse(widget.order.shippingTax)! ).toStringAsFixed(2).replaceAll('.', '.');
 

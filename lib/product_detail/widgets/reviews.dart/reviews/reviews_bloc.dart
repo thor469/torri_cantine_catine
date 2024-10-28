@@ -44,8 +44,7 @@ class ReviewsBloc extends Bloc<ReviewsEvent, ReviewsState> {
 
         pageNumber++;
       } while (isHunderdReview);
-      yield ReviewsState.loaded(
-        ReviewsResponse(reviews: listReview),
+      yield ReviewsState.loaded(ReviewsResponse(reviews: listReview),
       );
     } catch (e) {
       yield const ReviewsState.error();

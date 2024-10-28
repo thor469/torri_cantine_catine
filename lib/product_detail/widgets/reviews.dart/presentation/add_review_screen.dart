@@ -65,16 +65,16 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
         BlocListener<LoginBloc, LoginState>(
           listener: (context, state) => state.maybeWhen(
             loggedIn: (user) => {
-              print('MultiBlocListener loggedin'),
-              print(user),
+              // print('MultiBlocListener loggedin'),
+              // print(user),
               Future.delayed(Duration.zero,(){setState(() {
                 isLoggedIn = true;
               });
               }),
             },
             error: (error) {
-              print('MultiBlocListener error');
-              print(error);
+              // print('MultiBlocListener error');
+              // print(error);
               Future.delayed(Duration.zero,(){setState(() {
                 isLoggedIn = false;
               });
@@ -88,7 +88,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
       PopScope(
           canPop: false,
           onPopInvoked: (didPop) {
-            print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
+            // print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
             MainNavigation.pop(context);
             //return;
           },

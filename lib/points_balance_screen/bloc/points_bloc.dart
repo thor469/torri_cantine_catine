@@ -38,7 +38,9 @@ class PointsBloc extends Bloc<PointsEvent, PointsState> {
       // AddressResponse data = AddressResponse.fromJson(codeInfo.data);
       yield PointsState.loaded(codeInfo.data);
     } on DioError catch (e){
-      print(e.message);
+      if (kDebugMode) {
+        print(e.message);
+      }
       yield const PointsState.error();
     }
   }
@@ -57,11 +59,15 @@ class PointsBloc extends Bloc<PointsEvent, PointsState> {
         }
       );
       // AddressResponse data = AddressResponse.fromJson(codeInfo.data);
-      print(codeInfo.data);
+      if (kDebugMode) {
+        print(codeInfo.data);
+      }
       return codeInfo.data;
     }
     catch (e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       return null;
     }
   }
