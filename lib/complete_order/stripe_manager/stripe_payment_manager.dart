@@ -81,9 +81,9 @@ abstract class StripePaymentManager {
 
   static Future<String> _getClientSecret(amount, currency) async {
 
-   // print(amount);
-   // print(currency);
-   // print(AppConfig.secretKeyStripe);
+   print(amount);
+   print(currency);
+   print(AppConfig.secretKeyStripe);
 
     Dio dio= Dio();
     var response = await dio.post(AppConfig.stripeEndPoint,

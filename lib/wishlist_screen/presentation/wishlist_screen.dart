@@ -99,7 +99,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
     return PopScope(
         canPop: false,
         onPopInvoked: (didPop) {
-          // print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
+          print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
           MainNavigation.pop(context);
           //return;
         },

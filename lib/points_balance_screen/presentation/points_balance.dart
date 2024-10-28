@@ -83,7 +83,7 @@ class _PointsBalanceState extends State<PointsBalance> {
     return PopScope(
         canPop: false,
         onPopInvoked: (didPop) {
-          // print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
+          print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
           MainNavigation.pop(context);
           //return;
         },

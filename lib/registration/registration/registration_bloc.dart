@@ -155,12 +155,12 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
       storage.setUserName(userCredential.user!.email ?? "");
       storage.setPassword(getPassword(userCredential.user!.email ?? ""));
 
-      // print('@@##### USER CREDENTIAL ########################');
-      // print(userCredential);
-      // print(userCredential.user);
-      // print('---');
-      // print(userCredential.additionalUserInfo);
-      // print('---------------');
+      print('@@##### USER CREDENTIAL ########################');
+      print(userCredential);
+      print(userCredential.user);
+      print('---');
+      print(userCredential.additionalUserInfo);
+      print('---------------');
 
       String userDisplayName = '';
       if(userCredential.user!.displayName==null) {

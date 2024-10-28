@@ -42,7 +42,7 @@ class _NotificationPageState extends State<NotificationPage> {
     return PopScope(
         canPop: false,
         onPopInvoked: (didPop) {
-          // print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
+          print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
           MainNavigation.pop(context);
           //return;
         },

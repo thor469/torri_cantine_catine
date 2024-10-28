@@ -68,7 +68,7 @@ class _HighlightsState extends State<Highlights> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height / 2.5,
             child: ListView.builder(
-              shrinkWrap: true,
+              // shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               itemCount: widget.products.length + (widget.isLoading ? 1 : 0),
               itemBuilder: (context, index) {

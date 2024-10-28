@@ -50,7 +50,7 @@ class _SlideBannersState extends State<SlideBanners> {
   Widget build(BuildContext context) {
 
 
-    // print('#@#!@#@##!@#!@#@!# !@# CUSTOM POSTS ###################################');
+    print('#@#!@#@##!@#!@#@!# !@# CUSTOM POSTS ###################################');
     //Future.delayed(Duration.zero, fetchCustomPosts);
 
     return Container(
@@ -67,8 +67,8 @@ class _SlideBannersState extends State<SlideBanners> {
               );
             } else if (snapshot.hasData) {
 
-              // print('@#@#@#@ SNAPSHOT DATA');
-              // print(snapshot.data);
+              print('@#@#@#@ SNAPSHOT DATA');
+              print(snapshot.data);
               var snapdata = snapshot.data;
 
               return Center(
@@ -173,7 +173,7 @@ class _SlideBannersState extends State<SlideBanners> {
 Future<List<WpCustomBanner?>> getCustomPosts() async {
 
   List<WpCustomBanner?> banners = [];
-  // print(' getCustomPosts()');
+  print(' getCustomPosts()');
   //DIO API
   const dep = DependencyFactoryImpl();
   Dio dio= dep.createDioForApi().dio;

@@ -38,7 +38,7 @@ class _MainScreenState extends State<MainScreen> {
       if (mounted) {
         context.read<AccountBloc>().add(AccountEvent.fetch(email));
 
-        // print('this init state');
+        print('this init state');
         BlocListener<AccountBloc, AccountState> (
           listener: (BuildContext context, AccountState state) {
             state.maybeWhen(
