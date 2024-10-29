@@ -56,7 +56,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     LocalStorage token = LocalStorage();
-    LoadingOverlay overlayLoader = LoadingOverlay();
+    // LoadingOverlay overlayLoader = LoadingOverlay();
     bool _isMessageShown = false;
 
     bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
@@ -64,8 +64,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       listeners: [
         BlocListener<LoginBloc, LoginState>(
           listener: (context, state) => state.maybeWhen(
-            initial: () => overlayLoader.show(context),
-            loading: () => overlayLoader.show(context),
+            // initial: () => overlayLoader.show(context),
+            loading: () => const CircularProgressIndicator(
+              color: Color.fromARGB(255, 161, 29, 51),
+            ),
             loggedIn: (userDatas) async {
               await token.setTokenId(userDatas.token ?? "");
               await token.setUserEmail(userDatas.email ?? "");
@@ -75,26 +77,21 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               }
               return null;
             },
-            orElse: () => overlayLoader.hide(context),
+            orElse: () => SizedBox(),
             error: (error) {
-              overlayLoader.hide(context);
-
-              String message = error;
-
-              // Check if the error message contains 'incorrect_password' and if the message has not been shown yet
-              if (message.contains('incorrect_password') && !_isMessageShown) {
-                message = 'Questo indirizzo e-mail è già registrato sul sito. clicca sul tasto accedi ed inserisci le credenziali.';
-                _isMessageShown = true; // Set the flag to true after showing the message
-
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text(message),
+              // overlayLoader.hide(context);
+              if(error.contains("incorrect_password")){
+                return ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                  content: Text("Password errata"),
                   elevation: 1,
                 ));
-              } else {
-                // Directly proceed to home if the message was shown before
-                context.read<RegistrationBloc>().add(
-                    const RegistrationEvent
-                        .registerWithGoogle());
+              } else if(error.contains("invalid_email")){
+                return ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                  content: Text("Email non registrata"),
+                  elevation: 1,
+                ));
               }
             },
           ),
@@ -102,6 +99,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         BlocListener<CartBloc, CartState>(
           listener: (context, state) => state.maybeWhen(
             loaded: (response) {
+              // overlayLoader.hide(context);
+
               context.read<CartBadgeCubitCubit>().emit(response.totalItems);
               //overlayLoader.hide();
               MainNavigation.replace(
@@ -113,7 +112,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               return null;
             },
             error: (error) {
-              overlayLoader.hide(context);
+              // overlayLoader.hide(context);
               final snackBar = SnackBar(
                 content: Text(error),
                 elevation: 1,
@@ -122,7 +121,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             },
             cartEmpty: () => {
               context.read<CartBadgeCubitCubit>().emit(0),
-              overlayLoader.hide(context),
+              // overlayLoader.hide(context),
               MainNavigation.replace(
                 context,
                 [
@@ -130,7 +129,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ],
               ),
             },
-            orElse: () => overlayLoader.hide(context),
+            orElse: () => SizedBox(),
             // orElse: () => const SizedBox(),
           ),
         ),
@@ -138,14 +137,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           bloc: context.read<RegistrationBloc>(),
           listener: (context, state) => state.maybeWhen(
             initial: () {
-              overlayLoader.show(context);
+              // overlayLoader.show(context);
             },
             loadedWithGoogle: (response, username, password) => {
 
               context
                   .read<LoginBloc>()
                   .add(LoginEvent.login(username, password, fcmtoken)),
-              overlayLoader.hide(context),
+              // overlayLoader.hide(context),
               MainNavigation.push(context, const MainNavigation.home()),
 
             },
@@ -154,11 +153,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               //overlayLoader.hide(context),
               MainNavigation.push(
                 context, const MainNavigation.thirdRegistration()),
-              overlayLoader.hide(context),
+              // overlayLoader.hide(context),
             },
 
             error: (error, errorCode) async {
-              overlayLoader.hide(context);
+              // overlayLoader.hide(context);
               final username = await storage.getUserName();
               final password = await storage.getPassword();
               final fcmToken = await storage.getFCMToken();
@@ -178,11 +177,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 }
               }
-              overlayLoader.hide(context);
+              // overlayLoader.hide(context);
 
             },
             // orElse: () => const SizedBox(),
-            orElse: () => overlayLoader.hide(context),
+            orElse: () => SizedBox(),
           ),
         ),
       ],
@@ -316,21 +315,21 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         //   width: 40,
                         // ),
                         GestureDetector(
-                          onTap: () async {
-                            if (await GoogleSignIn().isSignedIn() == true) {
-                              if (mounted) {
-                                context.read<RegistrationBloc>().add(
-                                    const RegistrationEvent
-                                        .registerWithGoogle());
-                              }
-                            } else if (mounted) {
-                              context
-                                  .read<LoginBloc>()
-                                  .add(const LoginEvent.loginWithGoogle());
-                              //     MainNavigation.push(
-                              // context, const MainNavigation.home());}
-                            }
-                          },
+                          // onTap: () async {
+                          //   if (await GoogleSignIn().isSignedIn() == true) {
+                          //     if (mounted) {
+                          //       context.read<RegistrationBloc>().add(
+                          //           const RegistrationEvent
+                          //               .registerWithGoogle());
+                          //     }
+                          //   } else if (mounted) {
+                          //     context
+                          //         .read<LoginBloc>()
+                          //         .add(const LoginEvent.loginWithGoogle());
+                          //     //     MainNavigation.push(
+                          //     // context, const MainNavigation.home());}
+                          //   }
+                          // },
                           child: SizedBox(
                               width: 40,
                               height: 40,
@@ -346,7 +345,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           visible: isIOS,
                           child: GestureDetector(
                             onTap: () {
-                              overlayLoader.show(context);
+                              // overlayLoader.show(context);
                               context.read<RegistrationBloc>().add(
                                   const RegistrationEvent.registerWithApple());
 
@@ -406,45 +405,45 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   }
 }
 
-class LoadingOverlay {
-  OverlayEntry? overlay;
-
-  LoadingOverlay({this.overlay});
-
-  void show(BuildContext context) {
-    if (overlay == null) {
-      overlay = OverlayEntry(
-        // replace with your own layout
-        builder: (context) => const ColoredBox(
-          color: Color(0x80000000),
-          child: Center(
-            child: Center(
-              child: CircularProgressIndicator(
-                color: Color.fromARGB(255, 161, 29, 51),
-              ),
-            ),
-          ),
-        ),
-      );
-
-      Overlay.of(context).insert(overlay!);
-    }
-  }
-
-  void hide(BuildContext context) {
-    print('#################################### HIDE OVERLAY');
-    print(this.overlay);
-
-    // print('HIDE OVERLAY');
-    //
-    // print(Overlay.of(context).context   );
-    // print(overlay);
-    // print(overlay!=null);
-    // print(overlay.runtimeType);
-
-    if (overlay != null) {
-      overlay!.remove();
-      overlay = null;
-    }
-  }
-}
+// class LoadingOverlay {
+//   OverlayEntry? overlay;
+//
+//   LoadingOverlay({this.overlay});
+//
+//   void show(BuildContext context) {
+//     if (overlay == null) {
+//       overlay = OverlayEntry(
+//         // replace with your own layout
+//         builder: (context) => const ColoredBox(
+//           color: Color(0x80000000),
+//           child: Center(
+//             child: Center(
+//               child: CircularProgressIndicator(
+//                 color: Color.fromARGB(255, 161, 29, 51),
+//               ),
+//             ),
+//           ),
+//         ),
+//       );
+//
+//       Overlay.of(context).insert(overlay!);
+//     }
+//   }
+//
+//   void hide(BuildContext context) {
+//     print('#################################### HIDE OVERLAY');
+//     print(this.overlay);
+//
+//     // print('HIDE OVERLAY');
+//     //
+//     // print(Overlay.of(context).context   );
+//     // print(overlay);
+//     // print(overlay!=null);
+//     // print(overlay.runtimeType);
+//
+//     if (overlay != null) {
+//       overlay!.remove();
+//       overlay = null;
+//     }
+//   }
+// }
