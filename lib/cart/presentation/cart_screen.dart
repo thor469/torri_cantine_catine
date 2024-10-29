@@ -442,9 +442,11 @@ class _CartScreenState extends State<CartScreen> {
                                     int point = 0;
                                     for(var item in cart.items){
                                       for(var i = 0; i < (item.quantity ?? 0); i++) {
-                                        String price = '${item.prices?.price.substring(0, (item.prices?.price.length ?? 0) - 2)}.${item.prices?.price.substring((item.prices?.price.length ?? 0) - 2)}';
-                                        double ap = double.tryParse(price) ?? 0;
-                                        point += ap.toInt();
+                                        if(item.prices?.price != "0"){
+                                          String price = '${item.prices?.price.substring(0, (item.prices?.price.length ?? 0) - 2)}.${item.prices?.price.substring((item.prices?.price.length ?? 0) - 2)}';
+                                          double ap = double.tryParse(price) ?? 0;
+                                          point += ap.toInt();
+                                        }
                                       }
                                     }
                                     MainNavigation.push(context, MainNavigation.completeOrder(point, cart));

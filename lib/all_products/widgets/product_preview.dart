@@ -79,7 +79,7 @@ class _ProductPreviewState extends State<ProductPreview> {
     // productPointsCubit.getProductPoints(widget.id);
     product_id = widget.id;
     WidgetsBinding.instance.addPostFrameCallback((_)async{
-    await getReview();
+      await getReview();
     });
     // context.read<ReviewsBloc>().add(ReviewsEvent.fetch(product_id));
     super.initState();
@@ -92,9 +92,7 @@ class _ProductPreviewState extends State<ProductPreview> {
       double averageRating = sum / (model?.reviews?.length ?? 1);
 
       WidgetsBinding.instance.addPostFrameCallback((_) async {
-        setState(() {
           value = averageRating.toStringAsFixed(1);
-        });
       });
 
       print("SONO ENTRATO");

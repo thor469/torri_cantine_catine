@@ -395,22 +395,22 @@ class _FirstRegistrScreenState extends State<FirstRegistrScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        GestureDetector(
-                          onTap: () {
-                            if (mounted) {
-                              context.read<RegistrationBloc>().add(
-                                  const RegistrationEvent
-                                      .registerWithFacebook());
-                            }
-                          },
-                          child: SizedBox(
-                              width: 40,
-                              height: 40,
-                              child: Image.asset("assets/logo_fb.png")),
-                        ),
-                        const SizedBox(
-                          width: 40,
-                        ),
+                        // GestureDetector(
+                        //   onTap: () {
+                        //     if (mounted) {
+                        //       context.read<RegistrationBloc>().add(
+                        //           const RegistrationEvent
+                        //               .registerWithFacebook());
+                        //     }
+                        //   },
+                        //   child: SizedBox(
+                        //       width: 40,
+                        //       height: 40,
+                        //       child: Image.asset("assets/logo_fb.png")),
+                        // ),
+                        // const SizedBox(
+                        //   width: 40,
+                        // ),
                         GestureDetector(
                             child: SizedBox(
                                 width: 40,

@@ -82,7 +82,7 @@ class PaymentGateway {
   String? id;
   String? title;
   String? description;
-  int? order;
+  String? order;
   bool? enabled;
   String? methodTitle;
   String? methodDescription;
