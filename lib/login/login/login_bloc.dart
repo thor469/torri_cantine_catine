@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -41,7 +42,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   Stream<LoginState> _login(
       String username, String password, String? fcmToken) async* {
-    yield const LoginState.initial();
+    // yield const LoginState.initial();
     yield const LoginState.loading();
     try {
       final response = await service.login(
@@ -59,8 +60,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
         FirebaseMessaging.instance.getToken().then((value) {
           String? token = value;
-          print('FCMToken:' + token!);
-          print('DeviceID:' + deviceId!);
+          if (kDebugMode) {
+            print('FCMToken:' + token!);
+          }
+          if (kDebugMode) {
+            print('DeviceID:' + deviceId!);
+          }
           storage.setFCMToken(token!);
         });
         notificationService.insertToken(InsertNotificationRequest(token: token.trim(), deviceId: deviceId.trim(), userId: 165));
@@ -70,14 +75,22 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       storage.setUserName(username);
       storage.setPassword(password);
 
-      print('_login response');
-      print(response);
+      if (kDebugMode) {
+        print('_login response');
+      }
+      if (kDebugMode) {
+        print(response);
+      }
 
       yield LoginState.loggedIn(response);
     } on ApiException catch (e) {
-      print('#### LoginState.error');
-      print(e);
-      yield const LoginState.loading();
+      if (kDebugMode) {
+        print('#### LoginState.error');
+      }
+      if (kDebugMode) {
+        print(e);
+      }
+      // yield const LoginState.loading();
       yield LoginState.error('${e.body?['code']}');
     }
   }
