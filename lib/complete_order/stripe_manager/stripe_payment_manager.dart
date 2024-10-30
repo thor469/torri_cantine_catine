@@ -4,51 +4,37 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:torri_cantine_app/account/model/response/add_address_response.dart';
 import 'package:torri_cantine_app/app/app_config.dart';
+import 'package:torri_cantine_app/app/dependency_injection/dependency_factory_impl.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/my_orders/model/request/my_orders_request.dart';
 import 'package:torri_cantine_app/my_orders/my_orders/my_orders_bloc.dart';
 
 abstract class StripePaymentManager {
 
-  static Future <void> makePayment(int amount, String currency,BuildContext context,UserAddress shipping, UserAddress billing, int customerId, int totPoint) async{
+  static Future <void> makePayment(int amount, String currency,BuildContext context,UserAddress shipping, UserAddress billing, int customerId, int totPoint, int orderId) async{
   try {
-    String clientSecret = await _getClientSecret((amount).toString(), currency);
-    await  _initializePaymentSheet(clientSecret,billing ,customerId);
+    String clientSecret = await _getClientSecret((amount).toString(), currency, orderId);
+    await  _initializePaymentSheet(clientSecret, billing ,customerId);
     await Stripe.instance.presentPaymentSheet();
+
      // ignore: use_build_context_synchronously
-      context.read<MyOrdersBloc>().add(
-          MyOrdersEvent.createCheckout(
-              Billing(
-                first_name: billing.first_name,
-                last_name: billing.last_name,
-                company: billing.company,
-                address_1: billing.address_1,
-                address_2: billing.address_2,
-                city: billing.city,
-                state: billing.state,
-                postcode: billing.postcode,
-                country: "IT",
-                email: billing.email,
-                phone: billing.phone,
-              ),
-              Shipping(
-                first_name: shipping.first_name,
-                last_name: shipping.last_name,
-                company: shipping.company,
-                address_1: shipping.address_1,
-                address_2: shipping.address_2,
-                city: shipping.city,
-                state: shipping.state,
-                postcode: shipping.postcode,
-                country: "IT",
-                phone: shipping.phone,
-              ),
-              "",
-              "stripe",
-              [],
-              totPoint
-          ),
-        );
+    // await Stripe.instance.confirmPayment(paymentIntentClientSecret: clientSecret,);
+
+
+    const dep = DependencyFactoryImpl();
+    Dio dio = dep.createDioForApiCart().dio;
+    var codeInfo = await dio.request(
+      '/wp-json/wc/v3/orders/$orderId',
+      data: {
+        // "transaction_id" : "",
+        "status": "processing",
+      },
+      options: Options(
+        method: 'PUT',
+      ),
+    );
+
+
 // ignore: use_build_context_synchronously
     _showSuccess(context);
   } catch(err){
@@ -59,7 +45,7 @@ abstract class StripePaymentManager {
   //whsec_dOfPsPoemTpFViFSfkh3B61rBiCZZtz2
   } 
   static Future<void> _initializePaymentSheet(String clientSecret, UserAddress billing, int customerId) async {
-   await Stripe.instance.initPaymentSheet(
+    var a = await Stripe.instance.initPaymentSheet(
       paymentSheetParameters: SetupPaymentSheetParameters(
         customerEphemeralKeySecret: "",
         customerId: customerId.toString(),
@@ -77,9 +63,10 @@ abstract class StripePaymentManager {
               address: Address(city: billing.city, country: "IT", line1: billing.address_1, line2: billing.address_2, postalCode: billing.postcode, state: billing.state,)
             ),
       ));
+    print(a?.image ?? "");
   }
 
-  static Future<String> _getClientSecret(amount, currency) async {
+  static Future<String> _getClientSecret(amount, currency, int orderId) async {
 
    print(amount);
    print(currency);
@@ -96,6 +83,9 @@ abstract class StripePaymentManager {
      data: {
           'amount': amount,
           'currency': currency,
+          'metadata': {
+            'order_id': orderId
+          }
         }
         );
       return response.data['client_secret'];

@@ -38,12 +38,7 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent, MyOrdersState> {
     }
   }
 
-  Stream<MyOrdersState> _createCheckout(
-      Billing? billing,
-      Shipping? shipping,
-      String? customerNote,
-      String? paymentMethod,
-      List<String>? paymentData, int totPoint) async* {
+  Stream<MyOrdersState> _createCheckout(Billing? billing, Shipping? shipping, String? customerNote, String? paymentMethod, List<String>? paymentData, int totPoint) async* {
     yield const MyOrdersState.initial();
     yield const MyOrdersState.loading();
     try {
@@ -86,6 +81,30 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent, MyOrdersState> {
       if (kDebugMode) {
         print(e.message);
       }
+    }
+  }
+
+
+  Future<int?> createCheckOutForStripe(Billing? billing, Shipping? shipping, String? customerNote, String? paymentMethod, List<String>? paymentData, int totPoint) async {
+    try {
+      final response = await service.postOrdersData(
+        MyOrdersRequest(
+            billing_address: billing,
+            shipping_address: shipping,
+            create_account: false,
+            customer_note: customerNote,
+            payment_method: paymentMethod,
+            payment_data: paymentData
+        ),
+      );
+      // ?=<id_ordine>&=<somma_punti>
+      print(response.order_id);
+      await addPoint(response.order_id ?? 0, totPoint);
+      return response.order_id;
+    } on ApiException catch (e) {
+
+      print(e.body["order_id"]);
+      return e.body["order_id"];
     }
   }
 

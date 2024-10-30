@@ -21,83 +21,6 @@ Future<addCouponResponse?> addCouponToCart(String couponCode) async {
 
   Dio dio= dep.createDioForApi().dio;
 
-
-
-
-  // var test = await dio.request(
-  //   '/wp-json/wc/store/v1/cart/',
-  //   options: Options(
-  //     method: 'GET',
-  //   ),
-  // );
-  //print('@@@@@ CART STATUS ');
-  //printWrapped((test.toString()));
-  // print(jsonDecode(test.data)!['coupons']);
-  // print(jsonDecode(test.data)!['coupons'].length);
-  // print(jsonDecode(test.data)!['items']);
-  //print('//@@@@@ CART STATUS ');
-
-  // var delete = await dio.request(
-  //   '/wp-json/wc/store/v1/cart/coupons?code=$couponCode',
-  //   options: Options(
-  //     method: 'DELETE',
-  //   ),
-  // );
-  //
-  // print('delete');
-  // print(delete);
-  //
-  // await Future.delayed(Duration(seconds: 1));
-
-  //print('addCouponToCart');
-  //print(couponCode);
-
-  // var response = await dio.post(
-  //   '/wp-json/wc/store/v1/cart/coupons?code=$couponCode',
-  //   queryParameters: {
-  //     "code": "$couponCode"
-  //   }
-  // );
-  //
-  // // print(response);
-  // // print(response.statusCode);
-  // // print('addCouponToCart error');
-  // // print(response.statusMessage);
-  //
-  // print('##################################');
-  // //print(response.data);
-  // print(response.statusCode);
-  // print('##################################');
-  // if (
-  // response.statusCode == 201 ||
-  //     response.statusCode == 200
-  // ) {
-  //   //printWrapped(json.encode(response.data));
-  //   print('addCouponToCart completed 1');
-  //   return addCouponResponse.fromJson(response.data);
-  // }
-  //
-  // if (
-  // response.statusCode == 400 &&
-  //     response!.data['code']! == 'woocommerce_rest_cart_coupon_error'
-  //     && response!.data['message'].contains('stato applicato')
-  // ) {
-  //   var codeInfo = await dio.request(
-  //     '/wp-json/wc/store/v1/cart/coupons?code=$couponCode',
-  //     options: Options(
-  //       method: 'GET',
-  //     ),
-  //   );
-  //   printWrapped(json.encode(codeInfo.data));
-  //   print('addCouponToCart completed 2');
-  //   return addCouponResponse.fromJson(codeInfo.data);
-  //
-  // }  else {
-  //   print('addCouponToCart error');
-  //   print(response.statusMessage);
-  // }
-
-
   try {
     var delete = await dio.delete(
       '/wp-json/wc/store/v1/cart/coupons?code=$couponCode',
@@ -109,54 +32,24 @@ Future<addCouponResponse?> addCouponToCart(String couponCode) async {
     await Future.delayed(Duration(seconds: 1));
 
 
-    // print(response);
-    // print(response.statusCode);
-    // print('addCouponToCart error');
-    // print(response.statusMessage);
-
-    // print('##################################');
-    // print(json.encode(response.data));
-    // print(response.statusCode);
-    // print('##################################');
-
-
-
     try {
 
       var response = await dio.post(
         '/wp-json/wc/store/v1/cart/coupons?code=$couponCode',
-
       );
 
-      // print(response);
-      // print(response.statusCode);
-      // print('addCouponToCart error');
-      // print(response.statusMessage);
-
-      // print('##################################');
-      // print(json.encode(response.data));
-      // print(response.statusCode);
-      // print('##################################');
       if (response.statusCode == 201 || response.statusCode == 200) {
-        //printWrapped(json.encode(response.data));
 
         var couponInfo = response.data[0];
         return addCouponResponse.fromJson(response.data);
       }
       else {
-        // print('addCouponToCart error');
-        // print(response.statusMessage);
       }
 
 
     } on DioError catch (e) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx and is also not 304.
-      //print('ERROR POST /wp-json/wc/store/v1/cart/coupons?code=$couponCode');
+
       if (e.response != null) {
-        // print(e.response!.data);
-        // print(e.response!.data['code']);
-        // print(e.response!.data['message']);
 
 
         if (
@@ -171,89 +64,53 @@ Future<addCouponResponse?> addCouponToCart(String couponCode) async {
             ),
           );
           var couponInfo = codeInfo.data[0];
-
-          // printWrapped(json.encode(codeInfo.data));
-
-          // print( couponInfo.runtimeType );
-          //
-          // print('addCouponToCart completed 2');
           return addCouponResponse.fromJson(couponInfo);
         }
 
       } else {
-        // Something happened in setting up or sending the request that triggered an Error
-       // print(e.requestOptions);
-       // print(e.message);
       }
-
-
     }
 
 
   }
 
   on DioError catch (e) {
-    // The request was made and the server responded with a status code
-    // that falls out of the range of 2xx and is also not 304.
-    //print('ERROR DELETE /wp-json/wc/store/v1/cart/coupons?code=$couponCode');
     if (e.response != null) {
-      // print(e.response!.data);
-      // print(e.response!.headers);
-      // print(e.response!.requestOptions);
     } else {
-      // Something happened in setting up or sending the request that triggered an Error
-      // print(e.requestOptions);
-      // print(e.message);
     }
 
 
   }
 
-
-
-  // print('//doGetWlProducts');
-  // print(wishListProducts);
-  //print('addCouponToCart completed 3');
   return null;
 }
 
-// To parse this JSON data, do
-//
-//     final couponResponse = couponResponseFromJson(jsonString);
 
 Future<bool> deleteCouponFromCart(String couponCode) async {
   const dep = DependencyFactoryImpl();
   Dio dio = dep.createDioForApi().dio;
 
   try {
-    // Attempt to delete the coupon from the cart
     var delete = await dio.delete(
       '/wp-json/wc/store/v1/cart/coupons?code=$couponCode',
     );
-
-    // If the request was successful, return true
     if (delete.statusCode == 200 || delete.statusCode == 204) {
       print('Coupon deleted successfully');
       return true;
     } else {
-      // If the server responded but with an unexpected status code, log it
       print('Failed to delete coupon: ${delete.statusMessage}');
       return false;
     }
   } on DioError catch (e) {
-    // Handle DioError for different scenarios
     if (e.response != null) {
-      // The request was made and the server responded with a status code outside the 2xx range
       print('Error deleting coupon: ${e.response!.data}');
       print('Status code: ${e.response!.statusCode}');
       return false;
     } else {
-      // Something happened in setting up the request that triggered an error
       print('Request setup error: ${e.message}');
       return false;
     }
   } catch (e) {
-    // Catch any other exceptions
     print('Unexpected error: $e');
     return false;
   }
