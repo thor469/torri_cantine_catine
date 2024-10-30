@@ -251,7 +251,7 @@ class _SecondRegistrScreenState extends State<SecondRegistrScreen> {
                               child: Padding(
                             padding: const EdgeInsets.only(top: 15.0),
                             child: Text(
-                              "Creando questo account confermi di aver letto, comrpeso e accettato i nostri Termini di servizio e la Politica della privacy.",
+                              "Creando questo account confermi di aver letto, compreso e accettato i nostri Termini di servizio e la Politica della privacy.",
                               style: TCTypography.of(context)
                                   .text_12_bold
                                   .copyWith(
