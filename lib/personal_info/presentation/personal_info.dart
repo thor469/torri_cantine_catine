@@ -33,17 +33,17 @@ class _PersonalInfoState extends State<PersonalInfo> {
   LocalStorage storage = LocalStorage();
 
   bool validation() {
-    if (controller['name'].text.isEmpty) {
+    if (controller['name'].text.isEmpty && widget.user.user.first.first_name.trim() == "") {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Inserire un nome"), elevation: 1),
       );
       return false;
-    } else if (controller['surname'].text.isEmpty) {
+    } else if (controller['surname'].text.isEmpty && widget.user.user.first.last_name.trim() == "") {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Inserire un cognome"), elevation: 1),
       );
       return false;
-    } else if (controller['phoneNumber'].text.isEmpty) {
+    } else if (controller['phoneNumber'].text.isEmpty && widget.user.user.first.billing!.phone!.trim() == "") {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
             content: Text("Inserire un numero di telefono"), elevation: 1),
@@ -157,13 +157,13 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                 context.read<UpdateCustomerBloc>().add(
                                   UpdateCustomerEvent.update(
                                     id: widget.user.user.first.id,
-                                    firstName: controller['name'].text == ""
+                                    firstName: controller['name'].text.trim() == ""
                                         ? widget.user.user.first.first_name
                                         : controller['name'].text,
-                                    lastName: controller['surname'] == ""
+                                    lastName: controller['surname'].text.trim() == ""
                                         ? widget.user.user.first.last_name
                                         : controller['surname'].text,
-                                    phone: controller['phoneNumber'].text == ""
+                                    phone: controller['phoneNumber'].text.trim() == ""
                                         ? widget.user.user.first.billing!.phone!
                                         : controller['phoneNumber'].text,
                                   ),
