@@ -8,4 +8,5 @@ class AccountState with _$AccountState {
   const factory AccountState.loaded(AccountResponse response) = _Loaded;
   const factory AccountState.error() = _Error;
   const factory AccountState.loadedAddress(AddressResponse response) = _LoadedAddress;
+  const factory AccountState.deletedAddress() = _DeletedAddress;
 }
