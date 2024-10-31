@@ -41,28 +41,36 @@ class _AddressListScreenState extends State<AddressListScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color.fromARGB(255, 244, 244, 244),
+Widget build(BuildContext context) {
+return Scaffold(
+  backgroundColor: Color.fromARGB(255, 244, 244, 244),
 
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60),
-        child: SubPageAppbar(
-          onTap: () {
-            MainNavigation.push(context, MainNavigation.account(true));
+  appBar: PreferredSize(
+    preferredSize: const Size.fromHeight(60),
+    child: SubPageAppbar(
+      onTap: () {
+        MainNavigation.push(context, MainNavigation.account(true));
+      },
+      text: "I MIEI INDIRIZZI",
+    ),
+  ),
+  drawer: Drawer(child: MenuScreen()),
+  floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
+  floatingActionButton: FloatingButton(),
+  bottomNavigationBar: BottomBanvigationMenu(
+    scaffoldKey: GlobalKey(),
+    initialSelectedIndex: 0,
+    context: context,
+  ),
+  body: BlocListener<AccountBloc, AccountState>(
+      listener: (context, state) {
+        state.maybeWhen<void>(
+          deletedAddress: () {
+            context.read<AccountBloc>().add(const AccountEvent.fetchAddress());
           },
-          text: "I MIEI INDIRIZZI",
-        ),
-      ),
-      drawer: Drawer(child: MenuScreen()),
-      floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
-      floatingActionButton: FloatingButton(),
-      bottomNavigationBar: BottomBanvigationMenu(
-        scaffoldKey: GlobalKey(),
-        initialSelectedIndex: 0,
-        context: context,
-      ),
-      body: BlocBuilder<AccountBloc, AccountState>(
+          orElse: () {},
+        );},
+      child:  BlocBuilder<AccountBloc, AccountState>(
         builder: (context, state) => state.maybeWhen(
           loading: () => const Center(
             child: CircularProgressIndicator(
@@ -89,8 +97,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
                       model.billing.isEmpty
                           ? GestureDetector(
                         onTap: (){
-                          MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, true, false, null, "account", true,null, null));
-                        },
+                          MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, true, false, null, "account", true,null, null));},
                         child: const Row(
                           children: [
                             Text(
@@ -154,9 +161,9 @@ class _AddressListScreenState extends State<AddressListScreen> {
                                         selectedBillingIndex = index;
                                       });
                                       await _updateDefaultAddress(
-                                        model.billing[index],
-                                        "billing",
-                                        model.billing[index].id
+                                          model.billing[index],
+                                          "billing",
+                                          model.billing[index].id
                                       );
                                     },
                                   );
@@ -250,9 +257,9 @@ class _AddressListScreenState extends State<AddressListScreen> {
                                         selectedShippingIndex = index;
                                       });
                                       await _updateDefaultAddress(
-                                        model.shipping[index],
-                                        "shipping",
-                                        model.shipping[index].id
+                                          model.shipping[index],
+                                          "shipping",
+                                          model.shipping[index].id
                                       );
                                     },
                                   );
@@ -299,12 +306,12 @@ class _AddressListScreenState extends State<AddressListScreen> {
                       colorText: Colors.white,
                       ontap: () {
                         MainNavigation.push(context, MainNavigation.newAddressFromAccount(
-                          widget.customerdId,
-                          false,
-                          true,
-                          null,
-                          'account',
-                          true,
+                            widget.customerdId,
+                            false,
+                            true,
+                            null,
+                            'account',
+                            true,
                             null, null
                         ),
                         );
@@ -317,8 +324,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
           },
           orElse: () => const SizedBox(),
         ),
-      ),
-    );
+      )));
   }
 
   // Metodo per aggiornare l'indirizzo predefinito
@@ -412,7 +418,8 @@ class _AddressListScreenState extends State<AddressListScreen> {
           text: "Elimina",
           colorText: Colors.white,
           ontap: () async {
-            context.read<AccountBloc>().deleteAddress(
+            context.read<AccountBloc>().add(
+                AccountEvent.deleteAddress(
               AddAddressRequest(
                   first_name: billing.first_name,
                   last_name: billing.last_name,
@@ -430,7 +437,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
                   is_default: billing.is_default
               ),
                 billing.id
-            );
+            ));
 
 
           },
@@ -473,7 +480,8 @@ class _AddressListScreenState extends State<AddressListScreen> {
           text: "Elimina",
           colorText: Colors.white,
           ontap: ()  async {
-            context.read<AccountBloc>().deleteAddress(
+            context.read<AccountBloc>().add(
+                AccountEvent.deleteAddress(
                 AddAddressRequest(
                     first_name: shipping.first_name,
                     last_name: shipping.last_name,
@@ -491,7 +499,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
                     is_default: shipping.is_default
                 ),
                 shipping.id
-            );
+            ));
           },
         ),
       ],
