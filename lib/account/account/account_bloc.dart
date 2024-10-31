@@ -28,6 +28,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
       fetch: _account,
       fetchAddress: getAddress,
       updateAddress: updateAddress,
+      deleteAddress: deleteAddress
     );
   }
 
@@ -164,12 +165,14 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
           method: 'DELETE',
         ),
       );
-      AddressResponse data = AddressResponse.fromJson(codeInfo.data);
-      getAddress();
+      // AddressResponse data = AddressResponse.fromJson(codeInfo.data);
+      // getAddress();
+      yield  const AccountState.deletedAddress();
     }on DioError catch(e){
       if (kDebugMode) {
         print(e.message);
       }
+      yield const AccountState.error();
     }
   }
 

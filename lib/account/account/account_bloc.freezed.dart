@@ -22,6 +22,8 @@ mixin _$AccountEvent {
     required TResult Function() fetchAddress,
     required TResult Function(AddAddressRequest request, String id)
         updateAddress,
+    required TResult Function(AddAddressRequest request, String id)
+        deleteAddress,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,6 +31,7 @@ mixin _$AccountEvent {
     TResult? Function(String email)? fetch,
     TResult? Function()? fetchAddress,
     TResult? Function(AddAddressRequest request, String id)? updateAddress,
+    TResult? Function(AddAddressRequest request, String id)? deleteAddress,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -36,6 +39,7 @@ mixin _$AccountEvent {
     TResult Function(String email)? fetch,
     TResult Function()? fetchAddress,
     TResult Function(AddAddressRequest request, String id)? updateAddress,
+    TResult Function(AddAddressRequest request, String id)? deleteAddress,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -44,6 +48,7 @@ mixin _$AccountEvent {
     required TResult Function(_Fetch value) fetch,
     required TResult Function(_FetchAddress value) fetchAddress,
     required TResult Function(_UpdateAddress value) updateAddress,
+    required TResult Function(_DeleteAddress value) deleteAddress,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -51,6 +56,7 @@ mixin _$AccountEvent {
     TResult? Function(_Fetch value)? fetch,
     TResult? Function(_FetchAddress value)? fetchAddress,
     TResult? Function(_UpdateAddress value)? updateAddress,
+    TResult? Function(_DeleteAddress value)? deleteAddress,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -58,6 +64,7 @@ mixin _$AccountEvent {
     TResult Function(_Fetch value)? fetch,
     TResult Function(_FetchAddress value)? fetchAddress,
     TResult Function(_UpdateAddress value)? updateAddress,
+    TResult Function(_DeleteAddress value)? deleteAddress,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -155,6 +162,8 @@ class _$_Fetch with DiagnosticableTreeMixin implements _Fetch {
     required TResult Function() fetchAddress,
     required TResult Function(AddAddressRequest request, String id)
         updateAddress,
+    required TResult Function(AddAddressRequest request, String id)
+        deleteAddress,
   }) {
     return fetch(email);
   }
@@ -165,6 +174,7 @@ class _$_Fetch with DiagnosticableTreeMixin implements _Fetch {
     TResult? Function(String email)? fetch,
     TResult? Function()? fetchAddress,
     TResult? Function(AddAddressRequest request, String id)? updateAddress,
+    TResult? Function(AddAddressRequest request, String id)? deleteAddress,
   }) {
     return fetch?.call(email);
   }
@@ -175,6 +185,7 @@ class _$_Fetch with DiagnosticableTreeMixin implements _Fetch {
     TResult Function(String email)? fetch,
     TResult Function()? fetchAddress,
     TResult Function(AddAddressRequest request, String id)? updateAddress,
+    TResult Function(AddAddressRequest request, String id)? deleteAddress,
     required TResult orElse(),
   }) {
     if (fetch != null) {
@@ -189,6 +200,7 @@ class _$_Fetch with DiagnosticableTreeMixin implements _Fetch {
     required TResult Function(_Fetch value) fetch,
     required TResult Function(_FetchAddress value) fetchAddress,
     required TResult Function(_UpdateAddress value) updateAddress,
+    required TResult Function(_DeleteAddress value) deleteAddress,
   }) {
     return fetch(this);
   }
@@ -199,6 +211,7 @@ class _$_Fetch with DiagnosticableTreeMixin implements _Fetch {
     TResult? Function(_Fetch value)? fetch,
     TResult? Function(_FetchAddress value)? fetchAddress,
     TResult? Function(_UpdateAddress value)? updateAddress,
+    TResult? Function(_DeleteAddress value)? deleteAddress,
   }) {
     return fetch?.call(this);
   }
@@ -209,6 +222,7 @@ class _$_Fetch with DiagnosticableTreeMixin implements _Fetch {
     TResult Function(_Fetch value)? fetch,
     TResult Function(_FetchAddress value)? fetchAddress,
     TResult Function(_UpdateAddress value)? updateAddress,
+    TResult Function(_DeleteAddress value)? deleteAddress,
     required TResult orElse(),
   }) {
     if (fetch != null) {
@@ -275,6 +289,8 @@ class _$_FetchAddress with DiagnosticableTreeMixin implements _FetchAddress {
     required TResult Function() fetchAddress,
     required TResult Function(AddAddressRequest request, String id)
         updateAddress,
+    required TResult Function(AddAddressRequest request, String id)
+        deleteAddress,
   }) {
     return fetchAddress();
   }
@@ -285,6 +301,7 @@ class _$_FetchAddress with DiagnosticableTreeMixin implements _FetchAddress {
     TResult? Function(String email)? fetch,
     TResult? Function()? fetchAddress,
     TResult? Function(AddAddressRequest request, String id)? updateAddress,
+    TResult? Function(AddAddressRequest request, String id)? deleteAddress,
   }) {
     return fetchAddress?.call();
   }
@@ -295,6 +312,7 @@ class _$_FetchAddress with DiagnosticableTreeMixin implements _FetchAddress {
     TResult Function(String email)? fetch,
     TResult Function()? fetchAddress,
     TResult Function(AddAddressRequest request, String id)? updateAddress,
+    TResult Function(AddAddressRequest request, String id)? deleteAddress,
     required TResult orElse(),
   }) {
     if (fetchAddress != null) {
@@ -309,6 +327,7 @@ class _$_FetchAddress with DiagnosticableTreeMixin implements _FetchAddress {
     required TResult Function(_Fetch value) fetch,
     required TResult Function(_FetchAddress value) fetchAddress,
     required TResult Function(_UpdateAddress value) updateAddress,
+    required TResult Function(_DeleteAddress value) deleteAddress,
   }) {
     return fetchAddress(this);
   }
@@ -319,6 +338,7 @@ class _$_FetchAddress with DiagnosticableTreeMixin implements _FetchAddress {
     TResult? Function(_Fetch value)? fetch,
     TResult? Function(_FetchAddress value)? fetchAddress,
     TResult? Function(_UpdateAddress value)? updateAddress,
+    TResult? Function(_DeleteAddress value)? deleteAddress,
   }) {
     return fetchAddress?.call(this);
   }
@@ -329,6 +349,7 @@ class _$_FetchAddress with DiagnosticableTreeMixin implements _FetchAddress {
     TResult Function(_Fetch value)? fetch,
     TResult Function(_FetchAddress value)? fetchAddress,
     TResult Function(_UpdateAddress value)? updateAddress,
+    TResult Function(_DeleteAddress value)? deleteAddress,
     required TResult orElse(),
   }) {
     if (fetchAddress != null) {
@@ -437,6 +458,8 @@ class _$_UpdateAddress with DiagnosticableTreeMixin implements _UpdateAddress {
     required TResult Function() fetchAddress,
     required TResult Function(AddAddressRequest request, String id)
         updateAddress,
+    required TResult Function(AddAddressRequest request, String id)
+        deleteAddress,
   }) {
     return updateAddress(request, id);
   }
@@ -447,6 +470,7 @@ class _$_UpdateAddress with DiagnosticableTreeMixin implements _UpdateAddress {
     TResult? Function(String email)? fetch,
     TResult? Function()? fetchAddress,
     TResult? Function(AddAddressRequest request, String id)? updateAddress,
+    TResult? Function(AddAddressRequest request, String id)? deleteAddress,
   }) {
     return updateAddress?.call(request, id);
   }
@@ -457,6 +481,7 @@ class _$_UpdateAddress with DiagnosticableTreeMixin implements _UpdateAddress {
     TResult Function(String email)? fetch,
     TResult Function()? fetchAddress,
     TResult Function(AddAddressRequest request, String id)? updateAddress,
+    TResult Function(AddAddressRequest request, String id)? deleteAddress,
     required TResult orElse(),
   }) {
     if (updateAddress != null) {
@@ -471,6 +496,7 @@ class _$_UpdateAddress with DiagnosticableTreeMixin implements _UpdateAddress {
     required TResult Function(_Fetch value) fetch,
     required TResult Function(_FetchAddress value) fetchAddress,
     required TResult Function(_UpdateAddress value) updateAddress,
+    required TResult Function(_DeleteAddress value) deleteAddress,
   }) {
     return updateAddress(this);
   }
@@ -481,6 +507,7 @@ class _$_UpdateAddress with DiagnosticableTreeMixin implements _UpdateAddress {
     TResult? Function(_Fetch value)? fetch,
     TResult? Function(_FetchAddress value)? fetchAddress,
     TResult? Function(_UpdateAddress value)? updateAddress,
+    TResult? Function(_DeleteAddress value)? deleteAddress,
   }) {
     return updateAddress?.call(this);
   }
@@ -491,6 +518,7 @@ class _$_UpdateAddress with DiagnosticableTreeMixin implements _UpdateAddress {
     TResult Function(_Fetch value)? fetch,
     TResult Function(_FetchAddress value)? fetchAddress,
     TResult Function(_UpdateAddress value)? updateAddress,
+    TResult Function(_DeleteAddress value)? deleteAddress,
     required TResult orElse(),
   }) {
     if (updateAddress != null) {
@@ -512,6 +540,182 @@ abstract class _UpdateAddress implements AccountEvent {
 }
 
 /// @nodoc
+abstract class _$$_DeleteAddressCopyWith<$Res> {
+  factory _$$_DeleteAddressCopyWith(
+          _$_DeleteAddress value, $Res Function(_$_DeleteAddress) then) =
+      __$$_DeleteAddressCopyWithImpl<$Res>;
+  @useResult
+  $Res call({AddAddressRequest request, String id});
+
+  $AddAddressRequestCopyWith<$Res> get request;
+}
+
+/// @nodoc
+class __$$_DeleteAddressCopyWithImpl<$Res>
+    extends _$AccountEventCopyWithImpl<$Res, _$_DeleteAddress>
+    implements _$$_DeleteAddressCopyWith<$Res> {
+  __$$_DeleteAddressCopyWithImpl(
+      _$_DeleteAddress _value, $Res Function(_$_DeleteAddress) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? request = null,
+    Object? id = null,
+  }) {
+    return _then(_$_DeleteAddress(
+      null == request
+          ? _value.request
+          : request // ignore: cast_nullable_to_non_nullable
+              as AddAddressRequest,
+      null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AddAddressRequestCopyWith<$Res> get request {
+    return $AddAddressRequestCopyWith<$Res>(_value.request, (value) {
+      return _then(_value.copyWith(request: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_DeleteAddress with DiagnosticableTreeMixin implements _DeleteAddress {
+  const _$_DeleteAddress(this.request, this.id);
+
+  @override
+  final AddAddressRequest request;
+  @override
+  final String id;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'AccountEvent.deleteAddress(request: $request, id: $id)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'AccountEvent.deleteAddress'))
+      ..add(DiagnosticsProperty('request', request))
+      ..add(DiagnosticsProperty('id', id));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_DeleteAddress &&
+            (identical(other.request, request) || other.request == request) &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, request, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_DeleteAddressCopyWith<_$_DeleteAddress> get copyWith =>
+      __$$_DeleteAddressCopyWithImpl<_$_DeleteAddress>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String email) fetch,
+    required TResult Function() fetchAddress,
+    required TResult Function(AddAddressRequest request, String id)
+        updateAddress,
+    required TResult Function(AddAddressRequest request, String id)
+        deleteAddress,
+  }) {
+    return deleteAddress(request, id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String email)? fetch,
+    TResult? Function()? fetchAddress,
+    TResult? Function(AddAddressRequest request, String id)? updateAddress,
+    TResult? Function(AddAddressRequest request, String id)? deleteAddress,
+  }) {
+    return deleteAddress?.call(request, id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String email)? fetch,
+    TResult Function()? fetchAddress,
+    TResult Function(AddAddressRequest request, String id)? updateAddress,
+    TResult Function(AddAddressRequest request, String id)? deleteAddress,
+    required TResult orElse(),
+  }) {
+    if (deleteAddress != null) {
+      return deleteAddress(request, id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Fetch value) fetch,
+    required TResult Function(_FetchAddress value) fetchAddress,
+    required TResult Function(_UpdateAddress value) updateAddress,
+    required TResult Function(_DeleteAddress value) deleteAddress,
+  }) {
+    return deleteAddress(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Fetch value)? fetch,
+    TResult? Function(_FetchAddress value)? fetchAddress,
+    TResult? Function(_UpdateAddress value)? updateAddress,
+    TResult? Function(_DeleteAddress value)? deleteAddress,
+  }) {
+    return deleteAddress?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Fetch value)? fetch,
+    TResult Function(_FetchAddress value)? fetchAddress,
+    TResult Function(_UpdateAddress value)? updateAddress,
+    TResult Function(_DeleteAddress value)? deleteAddress,
+    required TResult orElse(),
+  }) {
+    if (deleteAddress != null) {
+      return deleteAddress(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DeleteAddress implements AccountEvent {
+  const factory _DeleteAddress(
+      final AddAddressRequest request, final String id) = _$_DeleteAddress;
+
+  AddAddressRequest get request;
+  String get id;
+  @JsonKey(ignore: true)
+  _$$_DeleteAddressCopyWith<_$_DeleteAddress> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$AccountState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
@@ -521,6 +725,7 @@ mixin _$AccountState {
     required TResult Function(AccountResponse response) loaded,
     required TResult Function() error,
     required TResult Function(AddressResponse response) loadedAddress,
+    required TResult Function() deletedAddress,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -531,6 +736,7 @@ mixin _$AccountState {
     TResult? Function(AccountResponse response)? loaded,
     TResult? Function()? error,
     TResult? Function(AddressResponse response)? loadedAddress,
+    TResult? Function()? deletedAddress,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -541,6 +747,7 @@ mixin _$AccountState {
     TResult Function(AccountResponse response)? loaded,
     TResult Function()? error,
     TResult Function(AddressResponse response)? loadedAddress,
+    TResult Function()? deletedAddress,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -552,6 +759,7 @@ mixin _$AccountState {
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
     required TResult Function(_LoadedAddress value) loadedAddress,
+    required TResult Function(_DeletedAddress value) deletedAddress,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -562,6 +770,7 @@ mixin _$AccountState {
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
     TResult? Function(_LoadedAddress value)? loadedAddress,
+    TResult? Function(_DeletedAddress value)? deletedAddress,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -572,6 +781,7 @@ mixin _$AccountState {
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
     TResult Function(_LoadedAddress value)? loadedAddress,
+    TResult Function(_DeletedAddress value)? deletedAddress,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -644,6 +854,7 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
     required TResult Function(AccountResponse response) loaded,
     required TResult Function() error,
     required TResult Function(AddressResponse response) loadedAddress,
+    required TResult Function() deletedAddress,
   }) {
     return initial();
   }
@@ -657,6 +868,7 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
     TResult? Function(AccountResponse response)? loaded,
     TResult? Function()? error,
     TResult? Function(AddressResponse response)? loadedAddress,
+    TResult? Function()? deletedAddress,
   }) {
     return initial?.call();
   }
@@ -670,6 +882,7 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
     TResult Function(AccountResponse response)? loaded,
     TResult Function()? error,
     TResult Function(AddressResponse response)? loadedAddress,
+    TResult Function()? deletedAddress,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -687,6 +900,7 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
     required TResult Function(_LoadedAddress value) loadedAddress,
+    required TResult Function(_DeletedAddress value) deletedAddress,
   }) {
     return initial(this);
   }
@@ -700,6 +914,7 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
     TResult? Function(_LoadedAddress value)? loadedAddress,
+    TResult? Function(_DeletedAddress value)? deletedAddress,
   }) {
     return initial?.call(this);
   }
@@ -713,6 +928,7 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
     TResult Function(_LoadedAddress value)? loadedAddress,
+    TResult Function(_DeletedAddress value)? deletedAddress,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -775,6 +991,7 @@ class _$_Loading with DiagnosticableTreeMixin implements _Loading {
     required TResult Function(AccountResponse response) loaded,
     required TResult Function() error,
     required TResult Function(AddressResponse response) loadedAddress,
+    required TResult Function() deletedAddress,
   }) {
     return loading();
   }
@@ -788,6 +1005,7 @@ class _$_Loading with DiagnosticableTreeMixin implements _Loading {
     TResult? Function(AccountResponse response)? loaded,
     TResult? Function()? error,
     TResult? Function(AddressResponse response)? loadedAddress,
+    TResult? Function()? deletedAddress,
   }) {
     return loading?.call();
   }
@@ -801,6 +1019,7 @@ class _$_Loading with DiagnosticableTreeMixin implements _Loading {
     TResult Function(AccountResponse response)? loaded,
     TResult Function()? error,
     TResult Function(AddressResponse response)? loadedAddress,
+    TResult Function()? deletedAddress,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -818,6 +1037,7 @@ class _$_Loading with DiagnosticableTreeMixin implements _Loading {
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
     required TResult Function(_LoadedAddress value) loadedAddress,
+    required TResult Function(_DeletedAddress value) deletedAddress,
   }) {
     return loading(this);
   }
@@ -831,6 +1051,7 @@ class _$_Loading with DiagnosticableTreeMixin implements _Loading {
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
     TResult? Function(_LoadedAddress value)? loadedAddress,
+    TResult? Function(_DeletedAddress value)? deletedAddress,
   }) {
     return loading?.call(this);
   }
@@ -844,6 +1065,7 @@ class _$_Loading with DiagnosticableTreeMixin implements _Loading {
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
     TResult Function(_LoadedAddress value)? loadedAddress,
+    TResult Function(_DeletedAddress value)? deletedAddress,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -907,6 +1129,7 @@ class _$_NotLogged with DiagnosticableTreeMixin implements _NotLogged {
     required TResult Function(AccountResponse response) loaded,
     required TResult Function() error,
     required TResult Function(AddressResponse response) loadedAddress,
+    required TResult Function() deletedAddress,
   }) {
     return notLogged();
   }
@@ -920,6 +1143,7 @@ class _$_NotLogged with DiagnosticableTreeMixin implements _NotLogged {
     TResult? Function(AccountResponse response)? loaded,
     TResult? Function()? error,
     TResult? Function(AddressResponse response)? loadedAddress,
+    TResult? Function()? deletedAddress,
   }) {
     return notLogged?.call();
   }
@@ -933,6 +1157,7 @@ class _$_NotLogged with DiagnosticableTreeMixin implements _NotLogged {
     TResult Function(AccountResponse response)? loaded,
     TResult Function()? error,
     TResult Function(AddressResponse response)? loadedAddress,
+    TResult Function()? deletedAddress,
     required TResult orElse(),
   }) {
     if (notLogged != null) {
@@ -950,6 +1175,7 @@ class _$_NotLogged with DiagnosticableTreeMixin implements _NotLogged {
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
     required TResult Function(_LoadedAddress value) loadedAddress,
+    required TResult Function(_DeletedAddress value) deletedAddress,
   }) {
     return notLogged(this);
   }
@@ -963,6 +1189,7 @@ class _$_NotLogged with DiagnosticableTreeMixin implements _NotLogged {
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
     TResult? Function(_LoadedAddress value)? loadedAddress,
+    TResult? Function(_DeletedAddress value)? deletedAddress,
   }) {
     return notLogged?.call(this);
   }
@@ -976,6 +1203,7 @@ class _$_NotLogged with DiagnosticableTreeMixin implements _NotLogged {
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
     TResult Function(_LoadedAddress value)? loadedAddress,
+    TResult Function(_DeletedAddress value)? deletedAddress,
     required TResult orElse(),
   }) {
     if (notLogged != null) {
@@ -1076,6 +1304,7 @@ class _$_Loaded with DiagnosticableTreeMixin implements _Loaded {
     required TResult Function(AccountResponse response) loaded,
     required TResult Function() error,
     required TResult Function(AddressResponse response) loadedAddress,
+    required TResult Function() deletedAddress,
   }) {
     return loaded(response);
   }
@@ -1089,6 +1318,7 @@ class _$_Loaded with DiagnosticableTreeMixin implements _Loaded {
     TResult? Function(AccountResponse response)? loaded,
     TResult? Function()? error,
     TResult? Function(AddressResponse response)? loadedAddress,
+    TResult? Function()? deletedAddress,
   }) {
     return loaded?.call(response);
   }
@@ -1102,6 +1332,7 @@ class _$_Loaded with DiagnosticableTreeMixin implements _Loaded {
     TResult Function(AccountResponse response)? loaded,
     TResult Function()? error,
     TResult Function(AddressResponse response)? loadedAddress,
+    TResult Function()? deletedAddress,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -1119,6 +1350,7 @@ class _$_Loaded with DiagnosticableTreeMixin implements _Loaded {
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
     required TResult Function(_LoadedAddress value) loadedAddress,
+    required TResult Function(_DeletedAddress value) deletedAddress,
   }) {
     return loaded(this);
   }
@@ -1132,6 +1364,7 @@ class _$_Loaded with DiagnosticableTreeMixin implements _Loaded {
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
     TResult? Function(_LoadedAddress value)? loadedAddress,
+    TResult? Function(_DeletedAddress value)? deletedAddress,
   }) {
     return loaded?.call(this);
   }
@@ -1145,6 +1378,7 @@ class _$_Loaded with DiagnosticableTreeMixin implements _Loaded {
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
     TResult Function(_LoadedAddress value)? loadedAddress,
+    TResult Function(_DeletedAddress value)? deletedAddress,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -1211,6 +1445,7 @@ class _$_Error with DiagnosticableTreeMixin implements _Error {
     required TResult Function(AccountResponse response) loaded,
     required TResult Function() error,
     required TResult Function(AddressResponse response) loadedAddress,
+    required TResult Function() deletedAddress,
   }) {
     return error();
   }
@@ -1224,6 +1459,7 @@ class _$_Error with DiagnosticableTreeMixin implements _Error {
     TResult? Function(AccountResponse response)? loaded,
     TResult? Function()? error,
     TResult? Function(AddressResponse response)? loadedAddress,
+    TResult? Function()? deletedAddress,
   }) {
     return error?.call();
   }
@@ -1237,6 +1473,7 @@ class _$_Error with DiagnosticableTreeMixin implements _Error {
     TResult Function(AccountResponse response)? loaded,
     TResult Function()? error,
     TResult Function(AddressResponse response)? loadedAddress,
+    TResult Function()? deletedAddress,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -1254,6 +1491,7 @@ class _$_Error with DiagnosticableTreeMixin implements _Error {
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
     required TResult Function(_LoadedAddress value) loadedAddress,
+    required TResult Function(_DeletedAddress value) deletedAddress,
   }) {
     return error(this);
   }
@@ -1267,6 +1505,7 @@ class _$_Error with DiagnosticableTreeMixin implements _Error {
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
     TResult? Function(_LoadedAddress value)? loadedAddress,
+    TResult? Function(_DeletedAddress value)? deletedAddress,
   }) {
     return error?.call(this);
   }
@@ -1280,6 +1519,7 @@ class _$_Error with DiagnosticableTreeMixin implements _Error {
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
     TResult Function(_LoadedAddress value)? loadedAddress,
+    TResult Function(_DeletedAddress value)? deletedAddress,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -1382,6 +1622,7 @@ class _$_LoadedAddress with DiagnosticableTreeMixin implements _LoadedAddress {
     required TResult Function(AccountResponse response) loaded,
     required TResult Function() error,
     required TResult Function(AddressResponse response) loadedAddress,
+    required TResult Function() deletedAddress,
   }) {
     return loadedAddress(response);
   }
@@ -1395,6 +1636,7 @@ class _$_LoadedAddress with DiagnosticableTreeMixin implements _LoadedAddress {
     TResult? Function(AccountResponse response)? loaded,
     TResult? Function()? error,
     TResult? Function(AddressResponse response)? loadedAddress,
+    TResult? Function()? deletedAddress,
   }) {
     return loadedAddress?.call(response);
   }
@@ -1408,6 +1650,7 @@ class _$_LoadedAddress with DiagnosticableTreeMixin implements _LoadedAddress {
     TResult Function(AccountResponse response)? loaded,
     TResult Function()? error,
     TResult Function(AddressResponse response)? loadedAddress,
+    TResult Function()? deletedAddress,
     required TResult orElse(),
   }) {
     if (loadedAddress != null) {
@@ -1425,6 +1668,7 @@ class _$_LoadedAddress with DiagnosticableTreeMixin implements _LoadedAddress {
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
     required TResult Function(_LoadedAddress value) loadedAddress,
+    required TResult Function(_DeletedAddress value) deletedAddress,
   }) {
     return loadedAddress(this);
   }
@@ -1438,6 +1682,7 @@ class _$_LoadedAddress with DiagnosticableTreeMixin implements _LoadedAddress {
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
     TResult? Function(_LoadedAddress value)? loadedAddress,
+    TResult? Function(_DeletedAddress value)? deletedAddress,
   }) {
     return loadedAddress?.call(this);
   }
@@ -1451,6 +1696,7 @@ class _$_LoadedAddress with DiagnosticableTreeMixin implements _LoadedAddress {
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
     TResult Function(_LoadedAddress value)? loadedAddress,
+    TResult Function(_DeletedAddress value)? deletedAddress,
     required TResult orElse(),
   }) {
     if (loadedAddress != null) {
@@ -1468,4 +1714,144 @@ abstract class _LoadedAddress implements AccountState {
   @JsonKey(ignore: true)
   _$$_LoadedAddressCopyWith<_$_LoadedAddress> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_DeletedAddressCopyWith<$Res> {
+  factory _$$_DeletedAddressCopyWith(
+          _$_DeletedAddress value, $Res Function(_$_DeletedAddress) then) =
+      __$$_DeletedAddressCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_DeletedAddressCopyWithImpl<$Res>
+    extends _$AccountStateCopyWithImpl<$Res, _$_DeletedAddress>
+    implements _$$_DeletedAddressCopyWith<$Res> {
+  __$$_DeletedAddressCopyWithImpl(
+      _$_DeletedAddress _value, $Res Function(_$_DeletedAddress) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_DeletedAddress
+    with DiagnosticableTreeMixin
+    implements _DeletedAddress {
+  const _$_DeletedAddress();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'AccountState.deletedAddress()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'AccountState.deletedAddress'));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_DeletedAddress);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() notLogged,
+    required TResult Function(AccountResponse response) loaded,
+    required TResult Function() error,
+    required TResult Function(AddressResponse response) loadedAddress,
+    required TResult Function() deletedAddress,
+  }) {
+    return deletedAddress();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function()? notLogged,
+    TResult? Function(AccountResponse response)? loaded,
+    TResult? Function()? error,
+    TResult? Function(AddressResponse response)? loadedAddress,
+    TResult? Function()? deletedAddress,
+  }) {
+    return deletedAddress?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? notLogged,
+    TResult Function(AccountResponse response)? loaded,
+    TResult Function()? error,
+    TResult Function(AddressResponse response)? loadedAddress,
+    TResult Function()? deletedAddress,
+    required TResult orElse(),
+  }) {
+    if (deletedAddress != null) {
+      return deletedAddress();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_NotLogged value) notLogged,
+    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_Error value) error,
+    required TResult Function(_LoadedAddress value) loadedAddress,
+    required TResult Function(_DeletedAddress value) deletedAddress,
+  }) {
+    return deletedAddress(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_NotLogged value)? notLogged,
+    TResult? Function(_Loaded value)? loaded,
+    TResult? Function(_Error value)? error,
+    TResult? Function(_LoadedAddress value)? loadedAddress,
+    TResult? Function(_DeletedAddress value)? deletedAddress,
+  }) {
+    return deletedAddress?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_NotLogged value)? notLogged,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(_Error value)? error,
+    TResult Function(_LoadedAddress value)? loadedAddress,
+    TResult Function(_DeletedAddress value)? deletedAddress,
+    required TResult orElse(),
+  }) {
+    if (deletedAddress != null) {
+      return deletedAddress(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DeletedAddress implements AccountState {
+  const factory _DeletedAddress() = _$_DeletedAddress;
 }

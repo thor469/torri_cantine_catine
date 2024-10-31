@@ -23,7 +23,7 @@ class CreateReviewProduct extends RequestBase with _$CreateReviewProduct {
   @override
   Map<String, dynamic> toData() {
     return {
-      "product": product_id,
+      "product_id": product_id,
       "review": review,
       "reviewer": reviewer,
       "reviewer_email": reviewer_email,
