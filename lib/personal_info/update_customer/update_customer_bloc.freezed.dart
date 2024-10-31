@@ -226,7 +226,7 @@ class __$$_UpdateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Update implements _Update {
+class _$_Update with DiagnosticableTreeMixin implements _Update {
   const _$_Update(
       {this.id,
       this.firstName,
@@ -249,8 +249,21 @@ class _$_Update implements _Update {
   final Shipping? shipping;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'UpdateCustomerEvent.update(id: $id, firstName: $firstName, lastName: $lastName, phone: $phone, billing: $billing, shipping: $shipping)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'UpdateCustomerEvent.update'))
+      ..add(DiagnosticsProperty('id', id))
+      ..add(DiagnosticsProperty('firstName', firstName))
+      ..add(DiagnosticsProperty('lastName', lastName))
+      ..add(DiagnosticsProperty('phone', phone))
+      ..add(DiagnosticsProperty('billing', billing))
+      ..add(DiagnosticsProperty('shipping', shipping));
   }
 
   @override
@@ -458,12 +471,18 @@ class __$$_InitialCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Initial implements _Initial {
+class _$_Initial with DiagnosticableTreeMixin implements _Initial {
   const _$_Initial();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'UpdateCustomerState.initial()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'UpdateCustomerState.initial'));
   }
 
   @override
@@ -571,12 +590,18 @@ class __$$_LoadingCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Loading implements _Loading {
+class _$_Loading with DiagnosticableTreeMixin implements _Loading {
   const _$_Loading();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'UpdateCustomerState.loading()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'UpdateCustomerState.loading'));
   }
 
   @override
@@ -708,15 +733,23 @@ class __$$_LoadedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Loaded implements _Loaded {
+class _$_Loaded with DiagnosticableTreeMixin implements _Loaded {
   const _$_Loaded(this.response);
 
   @override
   final UpdateCustomerResponse response;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'UpdateCustomerState.loaded(response: $response)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'UpdateCustomerState.loaded'))
+      ..add(DiagnosticsProperty('response', response));
   }
 
   @override
@@ -837,12 +870,18 @@ class __$$_ErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Error implements _Error {
+class _$_Error with DiagnosticableTreeMixin implements _Error {
   const _$_Error();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'UpdateCustomerState.error()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'UpdateCustomerState.error'));
   }
 
   @override

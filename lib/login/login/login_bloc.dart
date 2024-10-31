@@ -40,9 +40,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     );
   }
 
-  Stream<LoginState> _login(
-      String username, String password, String? fcmToken) async* {
-    // yield const LoginState.initial();
+  Stream<LoginState> _login(String username, String password, String? fcmToken) async* {
+    yield const LoginState.initial();
     yield const LoginState.loading();
     try {
       final response = await service.login(

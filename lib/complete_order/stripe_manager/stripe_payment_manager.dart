@@ -17,22 +17,24 @@ abstract class StripePaymentManager {
     await  _initializePaymentSheet(clientSecret, billing ,customerId);
     await Stripe.instance.presentPaymentSheet();
 
-     // ignore: use_build_context_synchronously
-    // await Stripe.instance.confirmPayment(paymentIntentClientSecret: clientSecret,);
+    // try{
+    //     await Stripe.instance.confirmPaymentSheetPayment();
+    // }catch (e){
+    //   print(e);
+    // }
 
-
-    const dep = DependencyFactoryImpl();
-    Dio dio = dep.createDioForApiCart().dio;
-    var codeInfo = await dio.request(
-      '/wp-json/wc/v3/orders/$orderId',
-      data: {
-        // "transaction_id" : "",
-        "status": "processing",
-      },
-      options: Options(
-        method: 'PUT',
-      ),
-    );
+    // const dep = DependencyFactoryImpl();
+    // Dio dio = dep.createDioForApiCart().dio;
+    // var codeInfo = await dio.request(
+    //   '/wp-json/wc/v3/orders/$orderId',
+    //   data: {
+    //     // "transaction_id" : "",
+    //     "status": "processing",
+    //   },
+    //   options: Options(
+    //     method: 'PUT',
+    //   ),
+    // );
 
 
 // ignore: use_build_context_synchronously
@@ -71,6 +73,7 @@ abstract class StripePaymentManager {
    print(amount);
    print(currency);
    print(AppConfig.secretKeyStripe);
+   String body = "amount=$amount&currency=$currency&metadata[order_id]=$orderId";
 
     Dio dio= Dio();
     var response = await dio.post(AppConfig.stripeEndPoint,
@@ -80,19 +83,12 @@ abstract class StripePaymentManager {
           'Content-Type': 'application/x-www-form-urlencoded'
         },       
      ),
-     data: {
-          'amount': amount,
-          'currency': currency,
-          'metadata': {
-            'order_id': orderId
-          }
-        }
-        );
+     data: body
+    );
       return response.data['client_secret'];
   }
 
   static ScaffoldFeatureController _showSuccess(BuildContext context){
-  MainNavigation.push(context, const MainNavigation.thankYou());
   return ScaffoldMessenger.of(context).showSnackBar(
        const SnackBar(
           content: Text('Pagamento avvenuto con successo'),

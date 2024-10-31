@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:torri_cantine_app/account/account/account_bloc.dart';
 import 'package:torri_cantine_app/app/common/primary_button.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
@@ -375,22 +376,32 @@ class _LoginScreenState extends State<LoginScreen> {
                         // const SizedBox(
                         //   width: 40,
                         // ),
-                        SizedBox(
-                            width: 40,
-                            height: 40,
-                            child: Image.asset("assets/logo_google.png")),
-                        Visibility(
-                          visible: isIOS,
-                            child: const SizedBox(
+                        GestureDetector(
+                          onTap: () async {
+                            if (await GoogleSignIn().isSignedIn() == true) {
+                              if (mounted) {
+                                context.read<RegistrationBloc>().add(
+                                    const RegistrationEvent
+                                        .registerWithGoogle());
+                              }
+                            } else if (mounted) {
+                              context
+                                  .read<LoginBloc>()
+                                  .add(const LoginEvent.loginWithGoogle());
+                              //     MainNavigation.push(
+                              // context, const MainNavigation.home());}
+                            }
+                          },
+                          child: SizedBox(
                               width: 40,
-                            ),
+                              height: 40,
+                              child: Image.asset("assets/logo_google.png")),
                         ),
                         Visibility(
                           visible: isIOS,
                           child: GestureDetector(
                             onTap: () {
-                              context.read<RegistrationBloc>().add(
-                                  const RegistrationEvent.registerWithApple());
+                              context.read<RegistrationBloc>().add(const RegistrationEvent.registerWithApple());
                             },
                             child: SizedBox(
                                 width: 40,

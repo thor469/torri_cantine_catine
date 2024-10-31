@@ -15,6 +15,73 @@ void printWrapped(String text) {
 }
 
 
+// Future<addCouponResponse?> addCouponToCart(String couponCode) async {
+//
+//   const dep = DependencyFactoryImpl();
+//
+//   Dio dio= dep.createDioForApi().dio;
+//
+//   try {
+//     var delete = await dio.delete(
+//       '/wp-json/wc/store/v1/cart/coupons?code=$couponCode',
+//     );
+//
+//     print('delete');
+//     print(delete);
+//
+//     await Future.delayed(Duration(seconds: 1));
+//
+//
+//     try {
+//
+//       var response = await dio.post(
+//         '/wp-json/wc/store/v1/cart/coupons?code=$couponCode',
+//       );
+//
+//       if (response.statusCode == 201 || response.statusCode == 200) {
+//
+//         var couponInfo = response.data[0];
+//         return addCouponResponse.fromJson(response.data);
+//       }
+//       else {
+//       }
+//
+//
+//     } on DioError catch (e) {
+//
+//       if (e.response != null) {
+//
+//
+//         if (
+//         e.response!.statusCode == 400 &&
+//             e.response!.data['code']! == 'woocommerce_rest_cart_coupon_error'
+//             && e.response!.data['message'].contains('stato applicato')
+//         ) {
+//           var codeInfo = await dio.request(
+//             '/wp-json/wc/store/v1/cart/coupons?code=$couponCode',
+//             options: Options(
+//               method: 'GET',
+//             ),
+//           );
+//           var couponInfo = codeInfo.data[0];
+//           return addCouponResponse.fromJson(couponInfo);
+//         }
+//
+//       } else {
+//       }
+//     }
+//   }
+//
+//   on DioError catch (e) {
+//     if (e.response != null) {
+//     } else {
+//     }
+//
+//
+//   }
+//
+//   return null;
+// }
 Future<addCouponResponse?> addCouponToCart(String couponCode) async {
 
   const dep = DependencyFactoryImpl();
@@ -22,64 +89,42 @@ Future<addCouponResponse?> addCouponToCart(String couponCode) async {
   Dio dio= dep.createDioForApi().dio;
 
   try {
-    var delete = await dio.delete(
+
+    var response = await dio.post(
       '/wp-json/wc/store/v1/cart/coupons?code=$couponCode',
     );
 
-    print('delete');
-    print(delete);
+    if (response.statusCode == 201 || response.statusCode == 200) {
 
-    await Future.delayed(Duration(seconds: 1));
-
-
-    try {
-
-      var response = await dio.post(
-        '/wp-json/wc/store/v1/cart/coupons?code=$couponCode',
-      );
-
-      if (response.statusCode == 201 || response.statusCode == 200) {
-
-        var couponInfo = response.data[0];
-        return addCouponResponse.fromJson(response.data);
-      }
-      else {
-      }
-
-
-    } on DioError catch (e) {
-
-      if (e.response != null) {
-
-
-        if (
-        e.response!.statusCode == 400 &&
-            e.response!.data['code']! == 'woocommerce_rest_cart_coupon_error'
-            && e.response!.data['message'].contains('stato applicato')
-        ) {
-          var codeInfo = await dio.request(
-            '/wp-json/wc/store/v1/cart/coupons?code=$couponCode',
-            options: Options(
-              method: 'GET',
-            ),
-          );
-          var couponInfo = codeInfo.data[0];
-          return addCouponResponse.fromJson(couponInfo);
-        }
-
-      } else {
-      }
+      var couponInfo = response.data[0];
+      return addCouponResponse.fromJson(response.data);
+    }
+    else {
     }
 
 
-  }
+  } on DioError catch (e) {
 
-  on DioError catch (e) {
     if (e.response != null) {
+
+
+      if (
+      e.response!.statusCode == 400 &&
+          e.response!.data['code']! == 'woocommerce_rest_cart_coupon_error'
+          && e.response!.data['message'].contains('stato applicato')
+      ) {
+        var codeInfo = await dio.request(
+          '/wp-json/wc/store/v1/cart/coupons?code=$couponCode',
+          options: Options(
+            method: 'GET',
+          ),
+        );
+        var couponInfo = codeInfo.data[0];
+        return addCouponResponse.fromJson(couponInfo);
+      }
+
     } else {
     }
-
-
   }
 
   return null;

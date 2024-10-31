@@ -41,6 +41,7 @@ class _CartScreenState extends State<CartScreen> {
   LocalStorage storage = LocalStorage();
   int selectedIndex = 0;
   double moneyDiscount = 0;
+  bool isFirstLoad = true;
 
   @override
   void initState() {
@@ -211,7 +212,15 @@ class _CartScreenState extends State<CartScreen> {
                   color: Color.fromARGB(255, 161, 29, 51),
                 ),
               ),
-              cartEmpty: () => const Center(child: Text('Non ci sono elementi')),
+              cartEmpty: ()  {
+                if(isFirstLoad){
+                  WidgetsBinding.instance.addPostFrameCallback((_) async{
+                    await storage.setTotalCartItems(0);
+                  });
+                  isFirstLoad = false;
+                }
+                return  Center(child: Text('Non ci sono elementi'));
+              },
               notLogged: () => SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,

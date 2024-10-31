@@ -315,21 +315,21 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         //   width: 40,
                         // ),
                         GestureDetector(
-                          // onTap: () async {
-                          //   if (await GoogleSignIn().isSignedIn() == true) {
-                          //     if (mounted) {
-                          //       context.read<RegistrationBloc>().add(
-                          //           const RegistrationEvent
-                          //               .registerWithGoogle());
-                          //     }
-                          //   } else if (mounted) {
-                          //     context
-                          //         .read<LoginBloc>()
-                          //         .add(const LoginEvent.loginWithGoogle());
-                          //     //     MainNavigation.push(
-                          //     // context, const MainNavigation.home());}
-                          //   }
-                          // },
+                          onTap: () async {
+                            if (await GoogleSignIn().isSignedIn() == true) {
+                              if (mounted) {
+                                context.read<RegistrationBloc>().add(
+                                    const RegistrationEvent
+                                        .registerWithGoogle());
+                              }
+                            } else if (mounted) {
+                              context
+                                  .read<LoginBloc>()
+                                  .add(const LoginEvent.loginWithGoogle());
+                              //     MainNavigation.push(
+                              // context, const MainNavigation.home());}
+                            }
+                          },
                           child: SizedBox(
                               width: 40,
                               height: 40,

@@ -136,7 +136,7 @@ class __$$_LoginCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Login implements _Login {
+class _$_Login with DiagnosticableTreeMixin implements _Login {
   const _$_Login(this.username, this.password, this.fcmToken);
 
   @override
@@ -147,8 +147,18 @@ class _$_Login implements _Login {
   final String? fcmToken;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'LoginEvent.login(username: $username, password: $password, fcmToken: $fcmToken)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'LoginEvent.login'))
+      ..add(DiagnosticsProperty('username', username))
+      ..add(DiagnosticsProperty('password', password))
+      ..add(DiagnosticsProperty('fcmToken', fcmToken));
   }
 
   @override
@@ -285,12 +295,18 @@ class __$$_LogoutCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Logout implements _Logout {
+class _$_Logout with DiagnosticableTreeMixin implements _Logout {
   const _$_Logout();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'LoginEvent.logout()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'LoginEvent.logout'));
   }
 
   @override
@@ -408,12 +424,20 @@ class __$$_LoginWithGoogleCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_LoginWithGoogle implements _LoginWithGoogle {
+class _$_LoginWithGoogle
+    with DiagnosticableTreeMixin
+    implements _LoginWithGoogle {
   const _$_LoginWithGoogle();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'LoginEvent.loginWithGoogle()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'LoginEvent.loginWithGoogle'));
   }
 
   @override
@@ -531,12 +555,20 @@ class __$$_LoginWithAppleCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_LoginWithApple implements _LoginWithApple {
+class _$_LoginWithApple
+    with DiagnosticableTreeMixin
+    implements _LoginWithApple {
   const _$_LoginWithApple();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'LoginEvent.loginWithApple()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'LoginEvent.loginWithApple'));
   }
 
   @override
@@ -654,12 +686,20 @@ class __$$_LoginWithFacebookCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_LoginWithFacebook implements _LoginWithFacebook {
+class _$_LoginWithFacebook
+    with DiagnosticableTreeMixin
+    implements _LoginWithFacebook {
   const _$_LoginWithFacebook();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'LoginEvent.loginWithFacebook()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'LoginEvent.loginWithFacebook'));
   }
 
   @override
@@ -848,12 +888,18 @@ class __$$_InitialCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Initial implements _Initial {
+class _$_Initial with DiagnosticableTreeMixin implements _Initial {
   const _$_Initial();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'LoginState.initial()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'LoginState.initial'));
   }
 
   @override
@@ -961,12 +1007,18 @@ class __$$_LoadingCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Loading implements _Loading {
+class _$_Loading with DiagnosticableTreeMixin implements _Loading {
   const _$_Loading();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'LoginState.loading()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'LoginState.loading'));
   }
 
   @override
@@ -1100,15 +1152,23 @@ class __$$_LoggedInCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_LoggedIn implements _LoggedIn {
+class _$_LoggedIn with DiagnosticableTreeMixin implements _LoggedIn {
   const _$_LoggedIn(this.userDatas);
 
   @override
   final LoginResponse userDatas;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'LoginState.loggedIn(userDatas: $userDatas)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'LoginState.loggedIn'))
+      ..add(DiagnosticsProperty('userDatas', userDatas));
   }
 
   @override
@@ -1244,15 +1304,23 @@ class __$$_ErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Error implements _Error {
+class _$_Error with DiagnosticableTreeMixin implements _Error {
   const _$_Error(this.error);
 
   @override
   final String error;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'LoginState.error(error: $error)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'LoginState.error'))
+      ..add(DiagnosticsProperty('error', error));
   }
 
   @override

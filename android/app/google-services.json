@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "683059644780-sct1s5amm0utdkcl1vku144h4pdlfvc3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.torri_cantine_app",
+            "certificate_hash": "75ed5868d7877453c8338c58e1b10a76451b7a90"
+          }
+        },
+        {
           "client_id": "683059644780-t7ltk88mmf52smbrffugltgp47go6cks.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -63,6 +71,14 @@
           "android_info": {
             "package_name": "com.torricantine.torristore",
             "certificate_hash": "3dba56a327c491d4fad1ff45c7b49f886d66e83b"
+          }
+        },
+        {
+          "client_id": "683059644780-cjb3db51mqthuiv05v0socaqum5srqqd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.torricantine.torristore",
+            "certificate_hash": "75ed5868d7877453c8338c58e1b10a76451b7a90"
           }
         },
         {
@@ -125,6 +141,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "683059644780-s0to0fpk6i379a1hh1ctlr2vil8pumgr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.torricantine.torristore.staging",
+            "certificate_hash": "75ed5868d7877453c8338c58e1b10a76451b7a90"
+          }
+        },
         {
           "client_id": "683059644780-t7ltk88mmf52smbrffugltgp47go6cks.apps.googleusercontent.com",
           "client_type": 3

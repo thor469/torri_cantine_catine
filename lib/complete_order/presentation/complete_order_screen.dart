@@ -50,12 +50,9 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   int? gruppoval = 0;
   int? gruppoval2 = 0;
   String paymentMethodSelected = "";
-
-
   List<ShippingMethod> shippingMethods =[] ;
   late Future<List<ShippingMethod?>> shippingMethodsFuture ;
   late Future<List<PaymentGateway?>> paymentGatewayFuture ;
-
   String shippingPrice = 'GRATIS';
   double shippingPriceValue = 0.0;
   double cartSummedPrice = 0.0;
@@ -81,36 +78,33 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   double moneyDiscount = 0;
   bool isCartNullOrRefreshed = false;
   bool isFirsCouponLoad = true;
+  final GlobalKey<ScaffoldState> newKey = GlobalKey();
+  int selectedIndex = 0;
+  double appliedCoupon = 0.0;
 
   int? amountCart;
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       moneyDiscount = await context.read<PointsBloc>().getMoneyDiscountAvaible() ?? 0;
-      if(mounted){
-        if (widget.cart == null) {
-          context.read<CartBloc>().add(const CartEvent.fetch());
-          isCartNullOrRefreshed = true;
-        }else{
-          await initCart(widget.cart!);
-        }
-      }
-
-      String email = await storage.getUserEmail() ?? "";
-
+      await checkCart();
       customerId = await storage.getCustomerId();
-      if (mounted) {
-        // context.read<AccountBloc>().add(AccountEvent.fetch(email));
-        context.read<AccountBloc>().add(const AccountEvent.fetchAddress());
-      }
+      context.read<AccountBloc>().add(const AccountEvent.fetchAddress());
+      getPayGateway();
     });
-
-    //getShippingMethods('66034');
-    getPayGateway();
-
     super.initState();
   }
 
+  Future<void> checkCart() async{
+    if (widget.cart == null) {
+      context.read<CartBloc>().add(const CartEvent.fetch());
+      setState(() {
+        isCartNullOrRefreshed = true;
+      });
+    }else{
+      await initCart(widget.cart!);
+    }
+  }
 
   Future<void> initCart(CartResponse cart) async{
     setState(() {
@@ -119,16 +113,19 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
       }else{
         taxedTotalItems =(int.tryParse((cart.totals.totalItems ?? "0"))! + int.tryParse(cart.totals.totalItemsTax ?? "0")! ).toString();
       }
-      if(cart.totals.totalDiscount != ""){
+      if(cart.totals.totalDiscount != "0"){
         taxedTotalItems = (int.tryParse(taxedTotalItems ?? "0")! - (int.tryParse(cart.totals.totalDiscount ?? "0")! + int.tryParse(cart.totals.totalDiscountTax ?? "0")!)).toString();
       }
-      taxedTotalItemsValue = double.tryParse('${taxedTotalItems?.substring(0, (taxedTotalItems?.length ?? 0) - 2)}.${taxedTotalItems?.substring((taxedTotalItems?.length ?? 0) - 2)}')!;
-      taxedTotalItems = '${taxedTotalItems?.substring(0,(taxedTotalItems?.length ?? 0) -2 )},${taxedTotalItems?.substring((taxedTotalItems?.length ?? 0) -2)}';
+
+      if(taxedTotalItems != "0"){
+        taxedTotalItemsValue = double.tryParse('${taxedTotalItems?.substring(0, (taxedTotalItems?.length ?? 0) - 2)}.${taxedTotalItems?.substring((taxedTotalItems?.length ?? 0) - 2)}')!;
+        taxedTotalItems = '${taxedTotalItems?.substring(0,(taxedTotalItems?.length ?? 0) -2 )},${taxedTotalItems?.substring((taxedTotalItems?.length ?? 0) -2)}';
+      }
       // var cartTotal =  taxedTotalItems;
       cartTotalValue =  taxedTotalItemsValue;
 
-      if(cart.coupons != null) {
-        Future.delayed(Duration.zero, () { sumCouponDiscount(cart.coupons);});
+      if(cart.coupons != null && cart.coupons!.isNotEmpty) {
+        sumCouponDiscount(cart.coupons);
       }
 
       cartSummedPrice = cartTotalValue ?? 0;
@@ -144,7 +141,6 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
     });
   }
 
-
   getShippingMethods(postcode) async  {
     if (kDebugMode) {
       print('getShippingMethods ');
@@ -153,9 +149,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
       print(postcode);
     }
     shippingMethodsFuture =  processShippingMethods(postcode) ;
-    //shippingMethodsFuture = shippingMethods as Future<List<ShippingMethod?>>;
   }
-
 
   getPayGateway() async  {
     if (kDebugMode) {
@@ -163,11 +157,6 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
     }
     paymentGatewayFuture =  processPaymentGateway() ;
   }
-
-  final GlobalKey<ScaffoldState> _key = GlobalKey();
-  int selectedIndex = 0;
-  double appliedCoupon = 0.0;
-
 
   static _dockedFabLocation(context) {
     if (MediaQuery.of(context).viewInsets.bottom != 0) {
@@ -177,24 +166,21 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
     }
   }
 
-
-
-  void sumCouponDiscount(CouponResponse) {
-    int _couponTotalInt =0 ;
-    double _couponTotalValue= 0.0;
-    String _couponTotal = '0.0';
-    CouponResponse!.forEach((cp){
-      _couponTotalInt += int.tryParse(cp?.totals!.totalDiscount??'0')! ;
-      _couponTotalInt += int.tryParse(cp?.totals!.totalDiscountTax??'0')! ;
+  Future<void> sumCouponDiscount(List<Coupon?>? couponResponse) async{
+    int couponTotalInt_ =0 ;
+    double couponTotalValue_= 0.0;
+    String couponTotal_ = '0.0';
+    couponResponse!.forEach((cp){
+      couponTotalInt_ += int.tryParse(cp?.totals.totalDiscount??'0')! ;
+      couponTotalInt_ += int.tryParse(cp?.totals.totalDiscountTax??'0')! ;
     });
-    _couponTotalValue = double.tryParse((_couponTotalInt/100).toString())!;
-    _couponTotal = _couponTotalValue.toStringAsFixed(2).replaceAll('.', ',');
+    couponTotalValue_ = double.tryParse((couponTotalInt_/100).toString())!;
+    couponTotal_ = couponTotalValue_.toStringAsFixed(2).replaceAll('.', ',');
     setState(() {
-      couponTotalInt = _couponTotalInt;
-      couponTotalValue = _couponTotalValue;
-      couponTotal = _couponTotal;
+      couponTotalInt = couponTotalInt_;
+      couponTotalValue = couponTotalValue_;
+      couponTotal = couponTotal_;
     });
-
   }
 
 
@@ -209,15 +195,13 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
       ),
       child: Scaffold(
         backgroundColor: Colors.white,
-        key: _key,
+        key: newKey,
         floatingActionButtonLocation: _dockedFabLocation(context),
-        //floatingActionButtonLocation: _dockedFabLocation(context),
         floatingActionButton: const FloatingButton(),
         bottomNavigationBar: BottomBanvigationMenu(
-          scaffoldKey: _key,
+          scaffoldKey: newKey,
           initialSelectedIndex: 0,
           context: context,
-          //notifyParent: () => refresh(selectedindex),
         ),
         appBar: AppBar(
           toolbarHeight: MediaQuery.of(context).size.height * 0.07,
@@ -251,19 +235,13 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
             ),
             loaded: (cart) {
               if(isCartNullOrRefreshed){
-                initCart(cart) ;
+                WidgetsBinding.instance.addPostFrameCallback((_)async{
+                  await initCart(cart);
+                });
               }
               return BlocBuilder<AccountBloc, AccountState>(
                 builder: (context, state) => state.maybeWhen(
                   orElse: () => const SizedBox(),
-                  initial: () {
-                    firstLoad = true;
-                    return const Center(
-                      child: CircularProgressIndicator(
-                        color: Color.fromARGB(255, 161, 29, 51),
-                      ),
-                    );
-                  },
                   loading: () => const Center(
                     child: CircularProgressIndicator(
                       color: Color.fromARGB(255, 161, 29, 51),
@@ -364,31 +342,29 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                         return buildCupon(error);
                                       },
                                       gotCoupon: (coupons) {
-                                        // Apply the coupon and update the UI with the discount
-                                        Future.delayed(Duration.zero, () {
-                                          sumCouponDiscount(cart?.coupons);
+
+                                        if(isFirsCouponLoad){
+                                          context.read<CartBloc>().add(const CartEvent.fetch());
+                                          sumCouponDiscount(cart.coupons);
                                           setState(() {
                                             appliedCoupon = double.tryParse(coupons.amount)!;
+                                            isFirsCouponLoad = false;
+                                            isCartNullOrRefreshed = true;
+                                            couponController.text = "";
                                           });
-                                          // Show the success dialog here
-
-                                        });
+                                        }
 
                                         return Column(
                                           children: [
                                             buildCupon(""),
-                                            // Remove Coupon Button
-                                            // if (appliedCoupon > 0) // Show button only if a coupon is applied
+                                            // if (appliedCoupon > 0)
                                             //   PrimaryButton(
                                             //     ontap: () {
-                                            //       // Dispatch an event to remove the coupon via the bloc
-                                            //       BlocProvider.of<CouponBloc>(context).add(CouponEvent.delete(appliedCouponCode ?? ""));
-                                            //
-                                            //       // Update the state after the coupon is removed
+                                            //       context.read<CouponBloc>().add(CouponEvent.delete(appliedCouponCode ?? ""));
+                                            //       context.read<CartBloc>().add(CartEvent.fetch());
                                             //       setState(() {
-                                            //         appliedCoupon = 0.0; // Reset applied coupon amount
-                                            //         appliedCouponCode = null; // Reset the coupon code
-                                            //         // Optionally, you can reset other related values here if needed
+                                            //         appliedCoupon = 0.0;
+                                            //         appliedCouponCode = null;
                                             //       });
                                             //     },
                                             //     text: 'Rimuovi Coupon',
@@ -420,8 +396,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                         borderRadius: BorderRadius.all(Radius.circular(20)),
                                                       ),
                                                       onDeleted: () {
-                                                        context.read<CouponBloc>().add(
-                                                          CouponEvent.delete(couponItem.code),
+                                                        context.read<CouponBloc>().add(CouponEvent.delete(couponItem.code)
                                                         );
                                                       },
                                                       onPressed: null,
@@ -1246,16 +1221,14 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                         ],
                                       ),
 
-                                      // Coupon BlocBuilder for handling coupon logic
                                       BlocBuilder<CouponBloc, CouponState>(
                                         builder: (context, state) {
                                           return state.maybeWhen(
                                             orElse: () {
-                                              // Reset the appliedCoupon to 0.0 when no coupon is applied
                                               Future.delayed(Duration.zero, () {
                                                 setState(() {
                                                   appliedCoupon = 0.0;
-                                                  appliedCouponCode = null; // Reset the coupon code
+                                                  appliedCouponCode = null;
                                                 });
                                               });
                                               return const SizedBox();
@@ -1269,7 +1242,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                               if (isPercentageDiscount) {
                                                 discount = (double.tryParse(coupons.amount) ?? 0.0) / 100 * (cartTotalValue ?? 0);
                                               } else {
-                                                discount = double.tryParse(coupons.amount) ?? 0.0;
+                                                discount = (double.tryParse(coupons.amount) ?? 0.0)/ 100;
                                               }
                                               // Check conditions for applying coupon
 
@@ -1302,11 +1275,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                 });
                                               }
 
-                                              if(isFirsCouponLoad){
-                                                context.read<CartBloc>().add(const CartEvent.fetch());
-                                                isFirsCouponLoad = false;
-                                                couponController.text = "";
-                                              }
+
 
                                               // Display the applied coupon discount
                                               return Padding(
@@ -1336,7 +1305,6 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                         },
                                       ),
 
-                                      // Delivery Price Section
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
@@ -1459,15 +1427,16 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                     text: "EFFETTUA ORDINE",
                                     colorText: Colors.white,
                                     disabled: !(model.shipping.isNotEmpty ||  gruppoval==null),
-                                    ontap: () {
+                                    ontap: () async{
                                       //print(paymentMethodSelected);
-                                      payWithMethodSelected(
+                                      await payWithMethodSelected(
                                           paymentMethodSelected,
                                           selectedShippingAddress!,
                                           selectedBillingAddress!,
                                           cart,
                                           customerId
                                       );
+
                                     },
                                   ),
                                 ]),
@@ -1536,32 +1505,15 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
             }
         );
       }
-// if(
-      // ele.extensions?.bundles?.bundledItemData?.isHiddenInCart!=true
-      //     && ele.extensions?.bundles?.bundledItemData?.isHiddenInSummary != true
-      // ) {
-      //
-      //   transactionItems.add(
-      //       {
-      //         "name": "${ele.name}",
-      //         "quantity": ele.quantity,
-      //         "price": '${(double.parse(ele.prices!.price) / 100).toStringAsFixed(2)}',
-      //         "currency": "EUR"
-      //       }
-      //   );
-      // }
+
 
 
     });
 
-    // print(model.user.first.shipping);
-    // print(model.user.first.billing);
-    // print(amountCart);
-    // print(cartSummedPrice);
+
     print(shippingPrice);
     print(shippingPriceValue);
     print(double.tryParse(shippingPrice) != null?'${shippingPrice}':'xx');
-    // print(((double.parse(cart.totals.totalPrice) / 100)+shippingPriceValue).toStringAsFixed(2));
 
     var transactions = [
       {
@@ -1812,7 +1764,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
     );
   }
 
-  void payWithMethodSelected(String paymentMethod, UserAddress shipping, UserAddress billing, CartResponse cart, int customerId) async{
+  Future<void> payWithMethodSelected(String paymentMethod, UserAddress shipping, UserAddress billing, CartResponse cart, int customerId) async{
     //int stripeAmount = ((amountCart ?? 0) - (int.tryParse((appliedCoupon * 100).toString()) ?? 0));
     int stripeAmount = ((int.tryParse((cartSummedPrice * 100).toStringAsFixed(0) ) ?? 0) - (couponTotalInt));
 
@@ -1871,7 +1823,11 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
         );
          if(mounted){
            if(orderId != null){
-             StripePaymentManager.makePayment(stripeAmount, "EUR", context, shipping, billing, customerId, widget.totPoint, orderId);
+             await StripePaymentManager.makePayment(stripeAmount, "EUR", context, shipping, billing, customerId, widget.totPoint, orderId);
+             for(Coupon? item in cart.coupons ?? []){
+               context.read<CouponBloc>().add(CouponEvent.delete(item?.code ?? ""),);
+             }
+             MainNavigation.push(context, const MainNavigation.thankYou());
            }
          }
         break;
@@ -1919,9 +1875,10 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                         elevation: 1,
                       ));
                     } else {
-                      isFirsCouponLoad = true;
-                        context.read<CouponBloc>().add(CouponEvent.fetch(couponController.text),
-                      );
+                      context.read<CouponBloc>().add(CouponEvent.fetch(couponController.text));
+                      setState(() {
+                        isFirsCouponLoad = true;
+                      });
                     }
                   },
                   icon: const Icon(

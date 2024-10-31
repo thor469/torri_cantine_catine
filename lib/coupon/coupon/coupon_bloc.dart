@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:collection/collection.dart';
+import 'package:torri_cantine_app/app/dependency_injection/dependency_factory_impl.dart';
+import 'package:torri_cantine_app/coupon/model/response/add_coupon_response.dart';
 
 import '../model/request/coupon_request.dart';
 import '../model/response/coupon_response.dart';
@@ -26,54 +28,82 @@ class CouponBloc extends Bloc<CouponEvent, CouponState> {
     );
   }
 
+  Future<AddCouponResponse?> addCoupon(String code) async{
+    const dep = DependencyFactoryImpl();
+    Dio dio = dep.createDioForApiCart().dio;
+    try{
+      var response = await dio.post('/wp-json/wc/store/v1/cart/coupons', data: {"code": code});
+      return AddCouponResponse.fromJson(response.data);
+    }on DioError catch(e){
+      print(e.message);
+      return null;
+    }
+  }
+
+  Future<List<Coupons>?> getCoupon(String code) async{
+    const dep = DependencyFactoryImpl();
+    Dio dio = dep.createDioForApiCart().dio;
+    try{
+      var response = await dio.get('/wp-json/wc/store/v1/cart/coupons', queryParameters: {"code": code});
+      //RIMAPPARE
+      print(response.statusCode);
+      final List<Coupons> couponsList = (response.data as List).map((json) => Coupons.fromJson(json as Map<String, dynamic>)).toList();
+      return couponsList;
+    }on DioError catch(e){
+      print(e);
+      return null;
+    }
+  }
+
+
   Stream<CouponState> _coupon(String code) async* {
-    yield const CouponState.initial();
     yield const CouponState.loading();
-
     try {
-      final response = await service.getCoupon(CouponRequest());
-      print('COUPON RESPONSE: $response'); // Printing the response
-
-      var coupon = response.coupons!.firstWhereOrNull((element) => element.code == code);
-      print('FILTERED COUPON: $coupon'); // Printing the coupon if found
-
-      if (coupon != null) {
-        // Check if the coupon is expired
-        // If the coupon is valid, attempt to add it to the cart
-        addCouponResponse? add2Cart = await addCouponToCart(coupon.code);
-        print('ADD COUPON TO CART RESPONSE: $add2Cart'); // Print the add-to-cart response
-
-        if (add2Cart == null) {
-          print('ERROR ADDING COUPON TO CART'); // Print error message
-          yield const CouponState.error("ERRORE NELL'AGGIUNTA DEL COUPON");
-        } else {
-          print('SUCCESSFULLY GOT COUPON'); // Coupon successfully processed
-          yield CouponState.gotCoupon(coupon);
+      AddCouponResponse? add2Cart = await addCoupon(code);
+      if (add2Cart != null) {
+        final response = await getCoupon(code);
+        var coupon = response?.firstWhereOrNull((element) => element.code == code);
+        if (coupon != null) {
+            yield CouponState.gotCoupon(Coupon(code: coupon.code, amount: "${int.parse(coupon.totals.totalDiscountTax)  + int.parse(coupon.totals.totalDiscount)}", discount_type: coupon.discountType));
         }
-      } else {
-        print('COUPON NOT FOUND'); // Coupon was not found
-        yield const CouponState.couponNotFound('COUPON NON TROVATO');
+        else {
+          yield const CouponState.couponNotFound('COUPON NON TROVATO');
+        }
+      }else{
+        yield const CouponState.error("ERRORE NELL'AGGIUNTA DEL COUPON");
       }
     } catch (e) {
-      print('ERROR FETCHING COUPON: $e'); // Print error
+      print('ERROR FETCHING COUPON: $e');
       yield const CouponState.error("ERRORE COUNPON NON ESISTENTE O NON VALIDO");
     }
   }
 
 
+  Future<bool> deleteCoupon(String code) async{
+    const dep = DependencyFactoryImpl();
+    Dio dio = dep.createDioForApiCart().dio;
+    try{
+      var response = await dio.delete('/wp-json/wc/store/v1/cart/coupons/$code');
+      if(response.statusCode == 204){
+        return true;
+      }
+      return false;
+    }on DioError catch(e){
+      print(e.message);
+      return false;
+    }
+  }
+
 
   Stream<CouponState> _delete(String code) async* {
-    yield const CouponState.initial();
     yield const CouponState.loading();
     try {
-      final response = await deleteCouponFromCart(code);
-
-      print('#### DELETE COUPON FROM CART ####################');
-      print(response);
-
-      if (response ==true) {
+      final response = await deleteCoupon(code);
+      if(response){
         yield const CouponState.noCoupon();
-        }
+      }else{
+        yield const CouponState.error("ERRORE NELL'ELIMINAZIONE DEL COUPON");
+      }
     }on DioError catch (e) {
       yield  CouponState.error(e.message);
     }

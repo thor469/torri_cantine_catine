@@ -167,7 +167,20 @@ Coupon _$CouponFromJson(Map<String, dynamic> json) {
 mixin _$Coupon {
   String get code => throw _privateConstructorUsedError;
   String get amount => throw _privateConstructorUsedError;
-  String get discount_type => throw _privateConstructorUsedError;
+  String get discount_type =>
+      throw _privateConstructorUsedError; //TODO MAPPA NULLABLE
+//     required final TotalsDisc? totals
+//   totals": {
+//   "total_discount": "820",
+//   "total_discount_tax": "180",
+//   "currency_code": "EUR",
+//   "currency_symbol": "€",
+//   "currency_minor_unit": 2,
+//   "currency_decimal_separator": ",",
+//   "currency_thousand_separator": ".",
+//   "currency_prefix": "",
+//   "currency_suffix": "€"
+// },
   @JsonKey(name: "date_expires")
   String? get dateExpires => throw _privateConstructorUsedError;
 
@@ -294,6 +307,19 @@ class _$_Coupon implements _Coupon {
   final String amount;
   @override
   final String discount_type;
+//TODO MAPPA NULLABLE
+//     required final TotalsDisc? totals
+//   totals": {
+//   "total_discount": "820",
+//   "total_discount_tax": "180",
+//   "currency_code": "EUR",
+//   "currency_symbol": "€",
+//   "currency_minor_unit": 2,
+//   "currency_decimal_separator": ",",
+//   "currency_thousand_separator": ".",
+//   "currency_prefix": "",
+//   "currency_suffix": "€"
+// },
   @override
   @JsonKey(name: "date_expires")
   final String? dateExpires;
@@ -350,7 +376,19 @@ abstract class _Coupon implements Coupon {
   String get amount;
   @override
   String get discount_type;
-  @override
+  @override //TODO MAPPA NULLABLE
+//     required final TotalsDisc? totals
+//   totals": {
+//   "total_discount": "820",
+//   "total_discount_tax": "180",
+//   "currency_code": "EUR",
+//   "currency_symbol": "€",
+//   "currency_minor_unit": 2,
+//   "currency_decimal_separator": ",",
+//   "currency_thousand_separator": ".",
+//   "currency_prefix": "",
+//   "currency_suffix": "€"
+// },
   @JsonKey(name: "date_expires")
   String? get dateExpires;
   @override
