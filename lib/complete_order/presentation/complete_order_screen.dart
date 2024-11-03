@@ -189,6 +189,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
     return BlocListener<MyOrdersBloc, MyOrdersState>(
       listener: (context, state) => state.maybeWhen(
         loaded: (response) => {
+        storage.setTotalCartItems(0),
           MainNavigation.push(context, const MainNavigation.thankYou()),
         },
         orElse: () => const SizedBox(),
@@ -1633,6 +1634,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
 
                 ),
               );
+              storage.setTotalCartItems(0);
               const MainNavigation.thankYou();
               if (kDebugMode) {
                 print("onSuccess: $params");
@@ -1827,6 +1829,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
              for(Coupon? item in cart.coupons ?? []){
                context.read<CouponBloc>().add(CouponEvent.delete(item?.code ?? ""),);
              }
+             storage.setTotalCartItems(0);
              MainNavigation.push(context, const MainNavigation.thankYou());
            }
          }
