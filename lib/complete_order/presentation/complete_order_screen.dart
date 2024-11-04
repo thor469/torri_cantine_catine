@@ -373,38 +373,40 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                             (cart.coupons?.isEmpty ?? false)
                                                 ? const SizedBox()
                                                 : Container(
-                                              height: (cart.coupons?.length ?? 0) * 34,
-                                              padding: const EdgeInsets.symmetric(horizontal: 8),
-                                              margin: const EdgeInsets.symmetric(vertical: 18.0),
-                                              child: ListView.builder(
-                                                physics: const NeverScrollableScrollPhysics(),
-                                                scrollDirection: Axis.vertical,
-                                                shrinkWrap: true,
-                                                itemCount: cart.coupons?.length ?? 0,
-                                                itemBuilder: (context, index) {
-                                                  final couponItem = cart.coupons![index];
-                                                  return Container(
-                                                    alignment: Alignment.topLeft,
-                                                    height: 34,
-                                                    child: InputChip(
-                                                      label: Text(
-                                                        couponItem!.code,
-                                                        style: const TextStyle(color: Colors.white),
-                                                      ),
-                                                      deleteIconColor: Colors.white,
-                                                      backgroundColor: const Color.fromARGB(255, 13, 117, 161),
-                                                      shape: const RoundedRectangleBorder(
-                                                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                                                      ),
-                                                      onDeleted: () {
-                                                        context.read<CouponBloc>().add(CouponEvent.delete(couponItem.code)
-                                                        );
-                                                      },
-                                                      onPressed: null,
-                                                      onSelected: null,
-                                                    ),
-                                                  );
-                                                },
+                                              height: (cart.coupons?.length ?? 0) * 24,
+                                              child: Row(
+                                                children: [
+                                                  ListView.builder(
+                                                    physics: const NeverScrollableScrollPhysics(),
+                                                    scrollDirection: Axis.horizontal,
+                                                    shrinkWrap: true,
+                                                    itemCount: cart.coupons?.length ?? 0,
+                                                    itemBuilder: (context, index) {
+                                                      final couponItem = cart.coupons![index];
+                                                      return Container(
+                                                        alignment: Alignment.topLeft,
+                                                        height: 34,
+                                                        child: InputChip(
+                                                          label: Text(
+                                                            couponItem!.code,
+                                                            style: const TextStyle(color: Colors.white),
+                                                          ),
+                                                          deleteIconColor: Colors.white,
+                                                          backgroundColor: const Color.fromARGB(255, 161, 29, 51),
+                                                          shape: const RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                                                          ),
+                                                          onDeleted: () {
+                                                            context.read<CouponBloc>().add(CouponEvent.delete(couponItem.code)
+                                                            );
+                                                          },
+                                                          onPressed: null,
+                                                          onSelected: null,
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                           ],

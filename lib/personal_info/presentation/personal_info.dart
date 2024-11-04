@@ -136,15 +136,15 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             TCTypography.of(context).text_14,
                             controller['phoneNumber'], null),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5),
-                        child: inputController(
-                            "Dati Di Nascita",
-                            "DD/MM/YYYY",
-                            TCTypography.of(context).text_14_bold,
-                            TCTypography.of(context).text_14,
-                            birthDayController, true),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(top: 5),
+                      //   child: inputController(
+                      //       "Dati Di Nascita",
+                      //       "DD/MM/YYYY",
+                      //       TCTypography.of(context).text_14_bold,
+                      //       TCTypography.of(context).text_14,
+                      //       birthDayController, true),
+                      // ),
                       // Expanded(
                       //   child: Container( height: 20,),
                       // ),
