@@ -1631,12 +1631,8 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
               address_2: billing.address_2,
               city: billing.city,
               state: billing.state,
-              // state:
-              //     model.user.first.billing!.state,
               postcode: billing.postcode,
               country: "IT",
-              // country:
-              //     model.user.first.billing!.country,
               email: billing.email,
               phone: billing.phone,
             ):
@@ -1667,7 +1663,8 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
             note.text,
             "stripe_cc",
             [],
-            widget.totPoint
+            widget.totPoint,
+           true
         );
          if(mounted){
            if(orderId != null){

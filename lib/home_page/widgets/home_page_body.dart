@@ -26,7 +26,7 @@ class _HomePageBodyState extends State<HomePageBody> {
 
   @override
   void initState() {
-    //context.read<AllProductsBloc>().add(const AllProductsEvent.fetch(page: 1));
+    context.read<AllProductsBloc>().add(const AllProductsEvent.fetch(page: 1));
     context.read<CategoriesBloc>().add(const CategoriesEvent.fetch());
     //getProductsFormStorage();
 
@@ -43,10 +43,7 @@ class _HomePageBodyState extends State<HomePageBody> {
 
   @override
   Widget build(BuildContext context) {
-    //print('##### HERE ###################');
-
     return BlocBuilder<AllProductsBloc, AllProductsState>(
-
         builder: (context, state) =>
             state.maybeWhen(
               loading: (products, page) {

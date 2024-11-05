@@ -25,7 +25,7 @@ mixin _$MyOrdersEvent {
             Shipping? shipping,
             String? customerNote,
             String? paymentMethods,
-            List<String>? paymentData,
+            List<Map<String, dynamic>>? paymentData,
             int totPoint)
         createCheckout,
   }) =>
@@ -39,7 +39,7 @@ mixin _$MyOrdersEvent {
             Shipping? shipping,
             String? customerNote,
             String? paymentMethods,
-            List<String>? paymentData,
+            List<Map<String, dynamic>>? paymentData,
             int totPoint)?
         createCheckout,
   }) =>
@@ -48,8 +48,13 @@ mixin _$MyOrdersEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetch,
     TResult Function()? loading,
-    TResult Function(Billing? billing, Shipping? shipping, String? customerNote,
-            String? paymentMethods, List<String>? paymentData, int totPoint)?
+    TResult Function(
+            Billing? billing,
+            Shipping? shipping,
+            String? customerNote,
+            String? paymentMethods,
+            List<Map<String, dynamic>>? paymentData,
+            int totPoint)?
         createCheckout,
     required TResult orElse(),
   }) =>
@@ -145,7 +150,7 @@ class _$_Fetch with DiagnosticableTreeMixin implements _Fetch {
             Shipping? shipping,
             String? customerNote,
             String? paymentMethods,
-            List<String>? paymentData,
+            List<Map<String, dynamic>>? paymentData,
             int totPoint)
         createCheckout,
   }) {
@@ -162,7 +167,7 @@ class _$_Fetch with DiagnosticableTreeMixin implements _Fetch {
             Shipping? shipping,
             String? customerNote,
             String? paymentMethods,
-            List<String>? paymentData,
+            List<Map<String, dynamic>>? paymentData,
             int totPoint)?
         createCheckout,
   }) {
@@ -174,8 +179,13 @@ class _$_Fetch with DiagnosticableTreeMixin implements _Fetch {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetch,
     TResult Function()? loading,
-    TResult Function(Billing? billing, Shipping? shipping, String? customerNote,
-            String? paymentMethods, List<String>? paymentData, int totPoint)?
+    TResult Function(
+            Billing? billing,
+            Shipping? shipping,
+            String? customerNote,
+            String? paymentMethods,
+            List<Map<String, dynamic>>? paymentData,
+            int totPoint)?
         createCheckout,
     required TResult orElse(),
   }) {
@@ -273,7 +283,7 @@ class _$_Load with DiagnosticableTreeMixin implements _Load {
             Shipping? shipping,
             String? customerNote,
             String? paymentMethods,
-            List<String>? paymentData,
+            List<Map<String, dynamic>>? paymentData,
             int totPoint)
         createCheckout,
   }) {
@@ -290,7 +300,7 @@ class _$_Load with DiagnosticableTreeMixin implements _Load {
             Shipping? shipping,
             String? customerNote,
             String? paymentMethods,
-            List<String>? paymentData,
+            List<Map<String, dynamic>>? paymentData,
             int totPoint)?
         createCheckout,
   }) {
@@ -302,8 +312,13 @@ class _$_Load with DiagnosticableTreeMixin implements _Load {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetch,
     TResult Function()? loading,
-    TResult Function(Billing? billing, Shipping? shipping, String? customerNote,
-            String? paymentMethods, List<String>? paymentData, int totPoint)?
+    TResult Function(
+            Billing? billing,
+            Shipping? shipping,
+            String? customerNote,
+            String? paymentMethods,
+            List<Map<String, dynamic>>? paymentData,
+            int totPoint)?
         createCheckout,
     required TResult orElse(),
   }) {
@@ -363,7 +378,7 @@ abstract class _$$_CreateCheckoutCopyWith<$Res> {
       Shipping? shipping,
       String? customerNote,
       String? paymentMethods,
-      List<String>? paymentData,
+      List<Map<String, dynamic>>? paymentData,
       int totPoint});
 
   $BillingCopyWith<$Res>? get billing;
@@ -408,7 +423,7 @@ class __$$_CreateCheckoutCopyWithImpl<$Res>
       freezed == paymentData
           ? _value._paymentData
           : paymentData // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<Map<String, dynamic>>?,
       null == totPoint
           ? _value.totPoint
           : totPoint // ignore: cast_nullable_to_non_nullable
@@ -446,8 +461,13 @@ class __$$_CreateCheckoutCopyWithImpl<$Res>
 class _$_CreateCheckout
     with DiagnosticableTreeMixin
     implements _CreateCheckout {
-  const _$_CreateCheckout(this.billing, this.shipping, this.customerNote,
-      this.paymentMethods, final List<String>? paymentData, this.totPoint)
+  const _$_CreateCheckout(
+      this.billing,
+      this.shipping,
+      this.customerNote,
+      this.paymentMethods,
+      final List<Map<String, dynamic>>? paymentData,
+      this.totPoint)
       : _paymentData = paymentData;
 
   @override
@@ -458,9 +478,9 @@ class _$_CreateCheckout
   final String? customerNote;
   @override
   final String? paymentMethods;
-  final List<String>? _paymentData;
+  final List<Map<String, dynamic>>? _paymentData;
   @override
-  List<String>? get paymentData {
+  List<Map<String, dynamic>>? get paymentData {
     final value = _paymentData;
     if (value == null) return null;
     // ignore: implicit_dynamic_type
@@ -532,7 +552,7 @@ class _$_CreateCheckout
             Shipping? shipping,
             String? customerNote,
             String? paymentMethods,
-            List<String>? paymentData,
+            List<Map<String, dynamic>>? paymentData,
             int totPoint)
         createCheckout,
   }) {
@@ -550,7 +570,7 @@ class _$_CreateCheckout
             Shipping? shipping,
             String? customerNote,
             String? paymentMethods,
-            List<String>? paymentData,
+            List<Map<String, dynamic>>? paymentData,
             int totPoint)?
         createCheckout,
   }) {
@@ -563,8 +583,13 @@ class _$_CreateCheckout
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetch,
     TResult Function()? loading,
-    TResult Function(Billing? billing, Shipping? shipping, String? customerNote,
-            String? paymentMethods, List<String>? paymentData, int totPoint)?
+    TResult Function(
+            Billing? billing,
+            Shipping? shipping,
+            String? customerNote,
+            String? paymentMethods,
+            List<Map<String, dynamic>>? paymentData,
+            int totPoint)?
         createCheckout,
     required TResult orElse(),
   }) {
@@ -616,14 +641,14 @@ abstract class _CreateCheckout implements MyOrdersEvent {
       final Shipping? shipping,
       final String? customerNote,
       final String? paymentMethods,
-      final List<String>? paymentData,
+      final List<Map<String, dynamic>>? paymentData,
       final int totPoint) = _$_CreateCheckout;
 
   Billing? get billing;
   Shipping? get shipping;
   String? get customerNote;
   String? get paymentMethods;
-  List<String>? get paymentData;
+  List<Map<String, dynamic>>? get paymentData;
   int get totPoint;
   @JsonKey(ignore: true)
   _$$_CreateCheckoutCopyWith<_$_CreateCheckout> get copyWith =>

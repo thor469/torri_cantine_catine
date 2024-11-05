@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    context.read<AllProductsBloc>().add(const AllProductsEvent.fetch(page: 1));
+    // context.read<AllProductsBloc>().add(const AllProductsEvent.fetch(page: 1));
     readTabState();
     super.initState();
   }
@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
         //return;
       },
       child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 244, 244, 244),
+        backgroundColor: const Color.fromARGB(255, 244, 244, 244),
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: Colors.white,

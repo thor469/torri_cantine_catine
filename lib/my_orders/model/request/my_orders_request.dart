@@ -13,7 +13,7 @@ class MyOrdersRequest extends RequestBase with _$MyOrdersRequest {
     String? customer_note,
     bool? create_account,
     String? payment_method,
-    List? payment_data,
+    List<Map<String, dynamic>>? payment_data,
     Map? extensions,
   }) = _MyOrdersRequest;
 
@@ -31,7 +31,7 @@ class MyOrdersRequest extends RequestBase with _$MyOrdersRequest {
       "customer_note": customer_note,
       "create_account": false,
       "payment_method": payment_method,
-      "payment_data": [],
+      "payment_data": payment_data,
     };
   }
 }

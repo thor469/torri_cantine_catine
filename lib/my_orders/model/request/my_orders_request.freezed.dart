@@ -25,7 +25,8 @@ mixin _$MyOrdersRequest {
   String? get customer_note => throw _privateConstructorUsedError;
   bool? get create_account => throw _privateConstructorUsedError;
   String? get payment_method => throw _privateConstructorUsedError;
-  List<dynamic>? get payment_data => throw _privateConstructorUsedError;
+  List<Map<String, dynamic>>? get payment_data =>
+      throw _privateConstructorUsedError;
   Map<dynamic, dynamic>? get extensions => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -46,7 +47,7 @@ abstract class $MyOrdersRequestCopyWith<$Res> {
       String? customer_note,
       bool? create_account,
       String? payment_method,
-      List<dynamic>? payment_data,
+      List<Map<String, dynamic>>? payment_data,
       Map<dynamic, dynamic>? extensions});
 
   $BillingCopyWith<$Res>? get billing_address;
@@ -98,7 +99,7 @@ class _$MyOrdersRequestCopyWithImpl<$Res, $Val extends MyOrdersRequest>
       payment_data: freezed == payment_data
           ? _value.payment_data
           : payment_data // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>?,
+              as List<Map<String, dynamic>>?,
       extensions: freezed == extensions
           ? _value.extensions
           : extensions // ignore: cast_nullable_to_non_nullable
@@ -145,7 +146,7 @@ abstract class _$$_MyOrdersRequestCopyWith<$Res>
       String? customer_note,
       bool? create_account,
       String? payment_method,
-      List<dynamic>? payment_data,
+      List<Map<String, dynamic>>? payment_data,
       Map<dynamic, dynamic>? extensions});
 
   @override
@@ -197,7 +198,7 @@ class __$$_MyOrdersRequestCopyWithImpl<$Res>
       payment_data: freezed == payment_data
           ? _value._payment_data
           : payment_data // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>?,
+              as List<Map<String, dynamic>>?,
       extensions: freezed == extensions
           ? _value._extensions
           : extensions // ignore: cast_nullable_to_non_nullable
@@ -215,7 +216,7 @@ class _$_MyOrdersRequest extends _MyOrdersRequest {
       this.customer_note,
       this.create_account,
       this.payment_method,
-      final List<dynamic>? payment_data,
+      final List<Map<String, dynamic>>? payment_data,
       final Map<dynamic, dynamic>? extensions})
       : _payment_data = payment_data,
         _extensions = extensions,
@@ -234,9 +235,9 @@ class _$_MyOrdersRequest extends _MyOrdersRequest {
   final bool? create_account;
   @override
   final String? payment_method;
-  final List<dynamic>? _payment_data;
+  final List<Map<String, dynamic>>? _payment_data;
   @override
-  List<dynamic>? get payment_data {
+  List<Map<String, dynamic>>? get payment_data {
     final value = _payment_data;
     if (value == null) return null;
     // ignore: implicit_dynamic_type
@@ -311,7 +312,7 @@ abstract class _MyOrdersRequest extends MyOrdersRequest {
       final String? customer_note,
       final bool? create_account,
       final String? payment_method,
-      final List<dynamic>? payment_data,
+      final List<Map<String, dynamic>>? payment_data,
       final Map<dynamic, dynamic>? extensions}) = _$_MyOrdersRequest;
   _MyOrdersRequest._() : super._();
 
@@ -329,7 +330,7 @@ abstract class _MyOrdersRequest extends MyOrdersRequest {
   @override
   String? get payment_method;
   @override
-  List<dynamic>? get payment_data;
+  List<Map<String, dynamic>>? get payment_data;
   @override
   Map<dynamic, dynamic>? get extensions;
   @override

@@ -10,7 +10,7 @@ class MyOrdersEvent with _$MyOrdersEvent {
     Shipping? shipping,
     String? customerNote,
     String? paymentMethods,
-    List<String>? paymentData,int totPoint
+    List<Map<String, dynamic>>? paymentData,int totPoint
   ) =
       _CreateCheckout;
 

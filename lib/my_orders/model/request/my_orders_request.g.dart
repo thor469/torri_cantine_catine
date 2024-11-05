@@ -17,7 +17,9 @@ _$_MyOrdersRequest _$$_MyOrdersRequestFromJson(Map<String, dynamic> json) =>
       customer_note: json['customer_note'] as String?,
       create_account: json['create_account'] as bool?,
       payment_method: json['payment_method'] as String?,
-      payment_data: json['payment_data'] as List<dynamic>?,
+      payment_data: (json['payment_data'] as List<dynamic>?)
+          ?.map((e) => e as Map<String, dynamic>)
+          .toList(),
       extensions: json['extensions'] as Map<String, dynamic>?,
     );
 
