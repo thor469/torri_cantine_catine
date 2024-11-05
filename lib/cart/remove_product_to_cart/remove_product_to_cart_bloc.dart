@@ -30,8 +30,7 @@ class RemoveProductToCartBloc
     LocalStorage storage = LocalStorage();
     yield const RemoveProductToCartState.loading();
     try {
-      final response = await service.removeProductToCart(
-          RemoveProductToCartRequest(key: key, quantity: quantity));
+      final response = await service.removeProductToCart(RemoveProductToCartRequest(key: key, quantity: quantity));
       await storage.setTotalCartItems(response.totalItems);
       yield RemoveProductToCartState.removeProduct(response);
     } on ApiException catch (e) {

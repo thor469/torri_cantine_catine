@@ -46,9 +46,7 @@ class _CartScreenState extends State<CartScreen> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      // String email = await storage.getUserEmail() ?? "";
       if (mounted) {
-        // context.read<AccountBloc>().add(AccountEvent.fetch(email));
         context.read<CartBloc>().add(const CartEvent.fetch());
         moneyDiscount = await context.read<PointsBloc>().getMoneyDiscountAvaible() ?? 0;
       }
@@ -66,9 +64,7 @@ class _CartScreenState extends State<CartScreen> {
     return PopScope(
         canPop: false,
         onPopInvoked: (didPop) {
-          print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
           MainNavigation.pop(context);
-          //return;
         },
         child:Scaffold(
           backgroundColor: Color.fromARGB(255, 244, 244, 244),
@@ -82,10 +78,6 @@ class _CartScreenState extends State<CartScreen> {
                 text: "CARRELLO",
                 onTap: widget.fromMenu
                     ?  (){ MainNavigation.pop(context); }
-                // ? () => MainNavigation.push(
-                //       context,
-                //       const MainNavigation.menu(),
-                //     )
                     : widget.fromCompleteOrder
                     ? () => MainNavigation.push(
                   context,
@@ -97,10 +89,6 @@ class _CartScreenState extends State<CartScreen> {
                   const MainNavigation.home(),
                 )
                     :(){ MainNavigation.pop(context); }
-              // : () => MainNavigation.push(
-              //       context,
-              //       const MainNavigation.home(),
-              //     ),
             ),
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -111,7 +99,6 @@ class _CartScreenState extends State<CartScreen> {
             scaffoldKey: _key,
             initialSelectedIndex:6,
             context: context,
-            //notifyParent: () => refresh(selectedindex),
           ) : widget.fromHomePage
               ? const SizedBox()
               : Container(
@@ -132,13 +119,6 @@ class _CartScreenState extends State<CartScreen> {
                 GestureDetector(
                   onTap: () {
                     _key.currentState!.openDrawer();
-                    // setState(() {
-                    //   selectedIndex = 3;
-                    // });
-                    // MainNavigation.push(
-                    //   context,
-                    //   const MainNavigation.menu(),
-                    // );
                   },
                   child: MenuBottomItem(
                     text: 'Menu',
@@ -202,11 +182,6 @@ class _CartScreenState extends State<CartScreen> {
           ),
           body: BlocBuilder<CartBloc, CartState>(
             builder: (context, state) => state.maybeWhen(
-              // initial: () => const Center(
-              //   child: CircularProgressIndicator(
-              //     color: Color.fromARGB(255, 161, 29, 51),
-              //   ),
-              // ),
               loading: () => const Center(
                 child: CircularProgressIndicator(
                   color: Color.fromARGB(255, 161, 29, 51),
@@ -219,7 +194,7 @@ class _CartScreenState extends State<CartScreen> {
                   });
                   isFirstLoad = false;
                 }
-                return  Center(child: Text('Non ci sono elementi'));
+                return  const Center(child: Text('Non ci sono elementi'));
               },
               notLogged: () => SizedBox(
                 width: MediaQuery.of(context).size.width,
@@ -244,10 +219,6 @@ class _CartScreenState extends State<CartScreen> {
               ),
               loaded: (cart) {
                 bool isDiscountEnabled = false;
-                print('#### cart loaded');
-                // print(cart.items.first.extensions?.bundles);
-
-
                 var taxedTotalItemsValue=  ((int.tryParse((cart.totals.totalItems))! + int.tryParse(cart.totals.totalItemsTax)!)/100 );
                 var taxedTotalItems=  double.tryParse(taxedTotalItemsValue.toString())!.toStringAsFixed(2).replaceAll('.', ',');
 
@@ -262,40 +233,21 @@ class _CartScreenState extends State<CartScreen> {
 
                 var subTotal = double.tryParse((taxedTotalItemsValue-cartTotalDiscountValue).toString())!.toStringAsFixed(2).replaceAll('.', ',');
 
-                // print('SUBTOTALE @#!#!#!#!#!#!#  ssubTotal');
-                // print(subTotal);
 
                 var filteredItems = [];
 
                 cart.items.forEach((element) {
-                  //print(element.name);
-                  //print(element.extensions?.bundles);
-                  //print(element.extensions?.bundles?.bundledBy);
-                  //print(element.extensions?.bundles?.values);
-                  //print(element.extensions?.bundles?['bundled_item_data'].runtimeType);
-                  //print(element.extensions?.bundles?['bundled_item_data']?.isHiddenInCart??'cccc');
-                  //print(element.extensions?.bundles?['bundled_item_data']?['is_hidden_in_cart']);
-                  //print(element.extensions?.bundles?.bundledItemData?.bundleId);
-                  //print(element.id);
-                  //print('________________________');
 
                   if(element.extensions?.bundles['bundled_item_data']?['is_hidden_in_cart'] != true
                       && element.extensions?.bundles['bundled_item_data']?['is_hidden_in_summary'] != true) {
                     filteredItems.add(element);
                   }
-                  //
-                  // if(element.extensions?.bundles?.bundledItemData?.isHiddenInCart != true
-                  //     && element.extensions?.bundles?.bundledItemData?.isHiddenInSummary != true) {
-                  //   filteredItems.add(element);
-                  // }
                 });
                 context.read<CounterSingleProductCubit>().emit({for (var e in cart.items) e.key ?? "": e.quantity ?? 0});
                 return PopScope(
                     canPop: false,
                     onPopInvoked: (didPop) {
-                      print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
                       MainNavigation.pop(context);
-                      //return;
                     },
                     child:Scaffold(
                       backgroundColor: Colors.white,
@@ -305,18 +257,10 @@ class _CartScreenState extends State<CartScreen> {
                         child: ListView.builder(
                           itemCount: filteredItems.length,
                           itemBuilder: (context, index) {
-                            // print(filteredItems[index].name);
-                            // print(filteredItems[index].extensions?.bundles?.bundledItemData?.isHiddenInCart);
-                            // print(filteredItems[index].extensions?.bundles?.bundledItemData?.isHiddenInSummary);
-                            // print(filteredItems[index].extensions?.bundles?.bundledBy);
-                            // print(filteredItems[index].extensions?.bundles?.bundledItemData?.bundleId);
-                            // print(filteredItems[index].id);
-                            // print('________________________');
                             return Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 15),
                               child: CartItem(
                                 id: filteredItems[index].id!,
-                                //name: cart.items[index].name,
                                 productDescription: filteredItems[index].name ?? "",
                                 productPrice:
                                 (double.parse(filteredItems[index].prices!.price) /
@@ -357,7 +301,6 @@ class _CartScreenState extends State<CartScreen> {
                                                   .text_16_bold),
                                           Text(
                                             "€ ${taxedTotalItems} ",
-                                            //"€ ${(double.parse(cart.totals.totalPrice) / 100).toStringAsFixed(2)} ",
                                             style: TCTypography.of(context).text_16,
                                           ),
                                         ],
@@ -407,7 +350,6 @@ class _CartScreenState extends State<CartScreen> {
                                           style: TCTypography.of(context).text_18_bold,
                                         ),
                                         Text(
-                                          //"€ ${subTotal.toStringAsFixed(2)}",
                                           "€ ${subTotal} ",
                                           style: TCTypography.of(context).text_16_bold,
                                         ),

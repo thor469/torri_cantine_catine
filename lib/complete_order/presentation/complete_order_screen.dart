@@ -17,6 +17,7 @@ import 'package:torri_cantine_app/cart/cart/cart_bloc.dart';
 import 'package:torri_cantine_app/cart/model/request/payment_gateway.dart';
 import 'package:torri_cantine_app/cart/model/request/shipping.dart';
 import 'package:torri_cantine_app/cart/model/response/cart_response.dart';
+import 'package:torri_cantine_app/cart/remove_product_to_cart/remove_product_to_cart_bloc.dart';
 import 'package:torri_cantine_app/complete_order/stripe_manager/stripe_payment_manager.dart';
 import 'package:torri_cantine_app/coupon/coupon/coupon_bloc.dart';
 import 'package:torri_cantine_app/my_orders/model/request/my_orders_request.dart';
@@ -192,6 +193,11 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
         storage.setTotalCartItems(0),
           MainNavigation.push(context, const MainNavigation.thankYou()),
         },
+        loading: () => const Center(
+          child: CircularProgressIndicator(
+            color: Color.fromARGB(255, 161, 29, 51),
+          ),
+        ),
         orElse: () => const SizedBox(),
       ),
       child: Scaffold(
@@ -607,7 +613,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                   height: containerHeight,
                                                   child: GestureDetector(
                                                     onTap: () {
-                                                      if((minAmount ==null || (minAmount!=null && valueDifference!<= 0)) ) {
+                                                      if((minAmount == null || (minAmount!=null && valueDifference!<= 0)) ) {
                                                         setState(() {
                                                           gruppoval = sm[index]!.id!;
                                                           if(shippingCostValue != null && shippingCostValue != '') {
@@ -623,9 +629,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                         });
                                                       }
                                                     },
-                                                    child:
-
-                                                    Row(
+                                                    child: Row(
                                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                             crossAxisAlignment: CrossAxisAlignment.start,
                                                             children: [
@@ -681,24 +685,13 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                                 width: 40,
                                                                 height: 40,
                                                                 child: Radio(
-                                                                    activeColor:
-                                                                        const Color
-                                                                            .fromARGB(
-                                                                            255,
-                                                                            158,
-                                                                            29,
-                                                                            48),
-                                                                    value:
-                                                                        sm[index]!
-                                                                            .id!,
-                                                                    groupValue:
-                                                                        gruppoval,
-                                                                    onChanged: (minAmount !=
-                                                                                null &&
-                                                                            valueDifference! >
-                                                                                0)
+                                                                    activeColor: const Color.fromARGB(255, 158, 29, 48),
+                                                                    value: sm[index]!.id!,
+                                                                    groupValue: gruppoval,
+                                                                    onChanged: (minAmount != null && valueDifference! > 0)
                                                                         ? null
-                                                                        : (val) {
+                                                                        : (minAmount != null && valueDifference! == 0) ? null:
+                                                                      (val) {
                                                                             setState(() {
                                                                               gruppoval = sm[index]!.id!;
                                                                               if (shippingCostValue != null && shippingCostValue != '') {
@@ -912,7 +905,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                     amountCart = int.parse(cart?.totals.totalPrice??'0');
 
                                                     switch(pg[index]?.id)  {
-                                                      case 'stripe' : {
+                                                      case 'stripe_cc' : {
                                                         pgIcon = 'assets/Ordine-carta.png';
 
                                                         break;
@@ -938,7 +931,9 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                     // print('pgIcon');
                                                     // print(pgIcon);
 
-                                                    return SizedBox(
+                                                    return pg[index]?.id == null
+                                                        ? const SizedBox.shrink()
+                                                        : SizedBox(
 
                                                       height: containerHeight,
                                                       child: GestureDetector(
@@ -1566,28 +1561,23 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
     );
   }
 
-  void paymentWithCod(UserAddress shipping, UserAddress billing) {
-    context.read<MyOrdersBloc>().add(
-      MyOrdersEvent.createCheckout(
-          billing !=null ?
-          Billing(
-            first_name: billing.first_name,
-            last_name: billing.last_name,
-            company: billing.company,
-            address_1: billing.address_1,
-            address_2: billing.address_2,
-            city: billing.city,
-            state: billing.state,
-            // state:
-            //     model.user.first.billing!.state,
-            postcode: billing.postcode,
-            country: "IT",
-            // country:
-            //     model.user.first.billing!.country,
-            email: billing.email,
-            phone: billing.phone,
-          ):
-          Billing(
+  void makeOrder(UserAddress shipping, UserAddress billing, type) {
+    context.read<MyOrdersBloc>().add(MyOrdersEvent.createCheckout(
+        billing !=null ?
+        Billing(
+          first_name: billing.first_name,
+          last_name: billing.last_name,
+          company: billing.company,
+          address_1: billing.address_1,
+          address_2: billing.address_2,
+          city: billing.city,
+          state: billing.state,
+          postcode: billing.postcode,
+          country: "IT",
+          email: billing.email,
+          phone: billing.phone,
+        ):
+        Billing(
             first_name: shipping.first_name,
             last_name: shipping.last_name,
             company: shipping.company,
@@ -1598,9 +1588,9 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
             postcode: shipping.postcode,
             country: "IT",
             phone: shipping.phone
-          ),
+        ),
 
-          Shipping(
+        Shipping(
             first_name: shipping.first_name,
             last_name: shipping.last_name,
             company: shipping.company,
@@ -1610,81 +1600,27 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
             state: shipping.state,
             postcode: shipping.postcode,
             country: "IT",
-              phone: shipping.phone
-
-          ),
-          note.text,
-          "cod",
-          [],
+            phone: shipping.phone
+        ),
+        note.text,
+        type,
+        [],
         widget.totPoint
-
-
-      ),
+    ),
     );
   }
 
-  void paymentWithBacs(UserAddress shipping, UserAddress billing) {
-    context.read<MyOrdersBloc>().add(
-      MyOrdersEvent.createCheckout(
-          billing !=null ?
-          Billing(
-            first_name: billing.first_name,
-            last_name: billing.last_name,
-            company: billing.company,
-            address_1: billing.address_1,
-            address_2: billing.address_2,
-            city: billing.city,
-            state: billing.state,
-            // state:
-            //     model.user.first.billing!.state,
-            postcode: billing.postcode,
-            country: "IT",
-            // country:
-            //     model.user.first.billing!.country,
-            email: billing.email,
-            phone: billing.phone,
-          ):
-          Billing(
-            first_name: shipping.first_name,
-            last_name: shipping.last_name,
-            company: shipping.company,
-            address_1: shipping.address_1,
-            address_2: shipping.address_2,
-            city: shipping.city,
-            state: shipping.state,
-            postcode: shipping.postcode,
-            country: "IT",
-            phone: shipping.phone
-          ),
-          Shipping(
-            first_name: shipping.first_name,
-            last_name: shipping.last_name,
-            company: shipping.company,
-            address_1: shipping.address_1,
-            address_2: shipping.address_2,
-            city: shipping.city,
-            state: billing.state,
-            postcode: shipping.postcode,
-            country: "IT",
-            phone: shipping.phone
-          ),
-          note.text,
-          "bacs",
-          [],
-          widget.totPoint
-      ),
-    );
-  }
 
   Future<void> payWithMethodSelected(String paymentMethod, UserAddress shipping, UserAddress billing, CartResponse cart, int customerId) async{
-    //int stripeAmount = ((amountCart ?? 0) - (int.tryParse((appliedCoupon * 100).toString()) ?? 0));
     int stripeAmount = ((int.tryParse((cartSummedPrice * 100).toStringAsFixed(0) ) ?? 0) - (couponTotalInt));
+    context.read<MyOrdersBloc>().add(const MyOrdersEvent.loading());
 
     switch (paymentMethod) {
       case "ppcp-gateway":
         paymentWithPayPal(shipping, billing,cart);
         break;
-      case "stripe":
+      case "stripe_cc":
+        context.read<MyOrdersBloc>().add(const MyOrdersEvent.loading());
          var orderId = await context.read<MyOrdersBloc>().createCheckOutForStripe(
             billing !=null ?
             Billing(
@@ -1729,26 +1665,26 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                 phone: shipping.phone
             ),
             note.text,
-            "stripe",
+            "stripe_cc",
             [],
             widget.totPoint
         );
          if(mounted){
            if(orderId != null){
-             await StripePaymentManager.makePayment(stripeAmount, "EUR", context, shipping, billing, customerId, widget.totPoint, orderId);
+             await StripePaymentManager.makePayment(stripeAmount, "EUR", context, shipping, billing, customerId, widget.totPoint, orderId,note.text);
              for(Coupon? item in cart.coupons ?? []){
                context.read<CouponBloc>().add(CouponEvent.delete(item?.code ?? ""),);
              }
-             storage.setTotalCartItems(0);
+             await storage.setTotalCartItems(0);
              MainNavigation.push(context, const MainNavigation.thankYou());
            }
          }
         break;
       case "bacs":
-        paymentWithBacs(shipping, billing);
+        makeOrder(shipping, billing, "bacs");
         break;
       case "cod":
-        paymentWithCod(shipping, billing);
+        makeOrder(shipping, billing, "cod");
         break;
       default:
     }

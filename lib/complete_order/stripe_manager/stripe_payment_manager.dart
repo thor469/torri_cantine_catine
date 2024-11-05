@@ -11,56 +11,56 @@ import 'package:torri_cantine_app/my_orders/my_orders/my_orders_bloc.dart';
 
 abstract class StripePaymentManager {
 
-  static Future <void> makePayment(int amount, String currency,BuildContext context,UserAddress shipping, UserAddress billing, int customerId, int totPoint, int orderId) async{
+  static Future <void> makePayment(int amount, String currency,BuildContext context,UserAddress shipping, UserAddress billing, int customerId, int totPoint, int orderId, String note) async{
   try {
     String clientSecret = await _getClientSecret((amount).toString(), currency, orderId);
     await  _initializePaymentSheet(clientSecret, billing ,customerId);
     await Stripe.instance.presentPaymentSheet();
 
-    await context.read<MyOrdersBloc>().createCheckOutForStripe(
-        billing !=null ?
-        Billing(
-          first_name: billing.first_name,
-          last_name: billing.last_name,
-          company: billing.company,
-          address_1: billing.address_1,
-          address_2: billing.address_2,
-          city: billing.city,
-          state: billing.state,
-          postcode: billing.postcode,
-          country: "IT",
-          email: billing.email,
-          phone: billing.phone,
-        ):
-        Billing(
-            first_name: shipping.first_name,
-            last_name: shipping.last_name,
-            company: shipping.company,
-            address_1: shipping.address_1,
-            address_2: shipping.address_2,
-            city: shipping.city,
-            state: shipping.state,
-            postcode: shipping.postcode,
-            country: "IT",
-            phone: shipping.phone
-        ),
-        Shipping(
-            first_name: shipping.first_name,
-            last_name: shipping.last_name,
-            company: shipping.company,
-            address_1: shipping.address_1,
-            address_2: shipping.address_2,
-            city: shipping.city,
-            state: billing.state,
-            postcode: shipping.postcode,
-            country: "IT",
-            phone: shipping.phone
-        ),
-        "note.text",
-        "stripe",
-        [],
-        0
-    );
+    // await context.read<MyOrdersBloc>().createCheckOutForStripe(
+    //     billing !=null ?
+    //     Billing(
+    //       first_name: billing.first_name,
+    //       last_name: billing.last_name,
+    //       company: billing.company,
+    //       address_1: billing.address_1,
+    //       address_2: billing.address_2,
+    //       city: billing.city,
+    //       state: billing.state,
+    //       postcode: billing.postcode,
+    //       country: "IT",
+    //       email: billing.email,
+    //       phone: billing.phone,
+    //     ):
+    //     Billing(
+    //         first_name: shipping.first_name,
+    //         last_name: shipping.last_name,
+    //         company: shipping.company,
+    //         address_1: shipping.address_1,
+    //         address_2: shipping.address_2,
+    //         city: shipping.city,
+    //         state: shipping.state,
+    //         postcode: shipping.postcode,
+    //         country: "IT",
+    //         phone: shipping.phone
+    //     ),
+    //     Shipping(
+    //         first_name: shipping.first_name,
+    //         last_name: shipping.last_name,
+    //         company: shipping.company,
+    //         address_1: shipping.address_1,
+    //         address_2: shipping.address_2,
+    //         city: shipping.city,
+    //         state: billing.state,
+    //         postcode: shipping.postcode,
+    //         country: "IT",
+    //         phone: shipping.phone
+    //     ),
+    //     note,
+    //     "stripe_cc",
+    //     [],
+    //     0
+    // );
 
     // try{
     //     await Stripe.instance.confirmPaymentSheetPayment();

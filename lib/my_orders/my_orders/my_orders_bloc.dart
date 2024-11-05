@@ -24,6 +24,7 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent, MyOrdersState> {
     yield* event.when(
       fetch: _fetch,
       createCheckout: _createCheckout,
+      loading: _loading
     );
   }
 
@@ -36,6 +37,9 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent, MyOrdersState> {
     } catch (e) {
       yield const MyOrdersState.error();
     }
+  }
+  Stream<MyOrdersState> _loading() async* {
+    yield const MyOrdersState.loading();
   }
 
   Stream<MyOrdersState> _createCheckout(Billing? billing, Shipping? shipping, String? customerNote, String? paymentMethod, List<String>? paymentData, int totPoint) async* {

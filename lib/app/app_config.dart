@@ -15,7 +15,8 @@ class AppConfig {
       defaultValue:
       flavor=='production'?';:%]vt}:Wi(:8jN([,4MRih[I(xTNt<DQs/!j)kcMP~khD8[)].NL4]5^/S,OL^-':';:%]vt}:Wi(:8jN([,4MRih[I(xTNt<DQs/!j)kcMP~khD8[)].NL4]5^/S,OL^-');
   // static const String secretKeyStripe = flavor=='production'?"sk_test_H3YaLAxpT2sAaA5ZP4orpMAI00HAQeavCJ":"sk_test_H3YaLAxpT2sAaA5ZP4orpMAI00HAQeavCJ";
-  static const String secretKeyStripe = flavor=='production'?"sk_test_H3YaLAxpT2sAaA5ZP4orpMAI00HAQeavCJ":"sk_test_51QHRcORui7MolgV0vxAtoTCKiya6JZtdPLJanvHkzAXm2LagxysQUd9qQTVjfHxhZ4kSRbQDHLOEWSxFBDqT2B27006OznFdEa";
+  // static const String secretKeyStripe = flavor=='production'?"sk_test_H3YaLAxpT2sAaA5ZP4orpMAI00HAQeavCJ":"sk_test_51QHRcORui7MolgV0vxAtoTCKiya6JZtdPLJanvHkzAXm2LagxysQUd9qQTVjfHxhZ4kSRbQDHLOEWSxFBDqT2B27006OznFdEa";
+  static const String secretKeyStripe = flavor=='production'?"sk_test_H3YaLAxpT2sAaA5ZP4orpMAI00HAQeavCJ":"sk_test_51QHl6URpwKiHzrkeYMr1oa7n0nQfqNMRC7AUn73e2y06ZvWZIIwxJ4R8YMDwhdh3QpyoV9prdffBxHuTxX0sV27500kYLjGhmc";
   static const String stripeEndPoint = flavor=='production'?"https://api.stripe.com/v1/payment_intents":"https://api.stripe.com/v1/payment_intents";
 
   static const productStatusFilter = String.fromEnvironment('productStatus',defaultValue: 'publish');
