@@ -32,16 +32,9 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       if (isNotLogged) {
         yield const CartState.notLogged();
       } else {
-
-
-
-
         if (response.items.isEmpty) {
           yield const CartState.cartEmpty();
         } else {
-
-
-          // La chiama ta api @freezed non ritorna i coupon, per ora facciamo la stessa chiamata e passiamo il nuovo risultato.
           const dep = DependencyFactoryImpl();
           Dio dio= dep.createDioForApiCart().dio;
           var codeInfo = await dio.request(
@@ -50,17 +43,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
               method: 'GET',
             ),
           );
-          // print('#### CART RESPONSE BLOC ##################################');
-          // print(response.coupons);
-          // print(codeInfo.data['coupons']);
-
-
           var newCartResponse = CartResponse.fromJson(codeInfo.data);
-          // print('#### newCartResponse ##################################');
-          // print(newCartResponse.coupons);
-
-
-
           yield CartState.loaded(newCartResponse);
         }
       }

@@ -149,7 +149,7 @@ class ProductCategories with _$ProductCategories {
 class ImageCategory with _$ImageCategory {
   factory ImageCategory({
     required int id,
-    required String src,
+    required dynamic src,
   }) = _ImageCategory;
 
   factory ImageCategory.fromJson(Map<String, dynamic> json) =>

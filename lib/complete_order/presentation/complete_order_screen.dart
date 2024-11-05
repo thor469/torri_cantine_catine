@@ -372,7 +372,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                             //   ),
                                             (cart.coupons?.isEmpty ?? false)
                                                 ? const SizedBox()
-                                                : Container(
+                                                : SizedBox(
                                               height: (cart.coupons?.length ?? 0) * 24,
                                               child: Row(
                                                 children: [
@@ -546,61 +546,6 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                         var sm = snapshot.data;
                                         double containerHeight = 66;
 
-                                        // Map<String,dynamic> updatePrices(sm) {
-                                        //
-                                        //   var shippingCost;
-                                        //   var shippingCostValue;
-                                        //   var minAmount;
-                                        //   double? minAmountValue;
-                                        //   double? valueDifference;
-                                        //
-                                        //   if(sm!.settings?.cost?.value != null) {
-                                        //     if(sm!.settings?.cost?.value != ''){
-                                        //       shippingCost = (sm!.settings?.cost?.value!)?.replaceAll(',','.');
-                                        //       shippingCost = (double.tryParse(shippingCost)! + (double.tryParse(shippingCost)!*.22) ).toStringAsFixed(2);
-                                        //       shippingCostValue = double.tryParse(shippingCost);
-                                        //     }
-                                        //   }
-                                        //
-                                        //   if(sm!.settings?.minAmount?.value != null) {
-                                        //     if(sm.settings?.minAmount?.value != ''){
-                                        //       minAmount = (sm.settings?.minAmount?.value!)?.replaceAll(',','.');
-                                        //       minAmount = (double.tryParse(minAmount)!).toStringAsFixed(2);
-                                        //       valueDifference = double.tryParse(minAmount)! - cartTotalValue!;
-                                        //       minAmountValue = double.tryParse(double.tryParse(minAmount)!.toStringAsFixed(2));
-                                        //     }
-                                        //   }
-                                        //
-                                        //   if((minAmount ==null || (minAmount!=null && valueDifference!<= 0)) ) {
-                                        //
-                                        //
-                                        //     Future.wait([]).then((value) => {
-                                        //       setState(() {
-                                        //         if(shippingCostValue != null && shippingCostValue != '') {
-                                        //           shippingPrice = shippingCost;
-                                        //           shippingPriceValue = shippingCostValue;
-                                        //           cartSummedPrice = cartTotalValue! + shippingCostValue;
-                                        //
-                                        //         } else {
-                                        //           shippingPrice = 'GRATIS';
-                                        //           shippingPriceValue =0;
-                                        //           cartSummedPrice = cartTotalValue!;
-                                        //         }
-                                        //       })
-                                        //     });
-                                        //   }
-                                        //
-                                        //
-                                        //   return {
-                                        //     'shippingCost': shippingCost,
-                                        //     'shippingCostValue' : shippingCostValue,
-                                        //     'minAmount': minAmount,
-                                        //     'minAmountValue':  minAmountValue,
-                                        //     'valueDifference':valueDifference
-                                        //   };
-                                        //
-                                        // }
-
                                         return Container(
                                             alignment: Alignment.topLeft,
                                             padding: const EdgeInsets.symmetric(vertical: 8),
@@ -618,7 +563,6 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                 double? minAmountValue;
                                                 double? valueDifference;
 
-                                                //updatePrices(sm[index]);
 
                                                 if(sm[index]!.settings?.cost?.value != null) {
                                                   if(sm[index]!.settings?.cost?.value != ''){
@@ -638,8 +582,6 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                 }
 
                                                 if(!defaultDefined  && (minAmount ==null || (minAmount!=null && valueDifference!<= 0)) ) {
-                                                  // print('defaultDefined');
-                                                  // print(sm[index]!.title!);
                                                   gruppoval = sm[index]!.id!;
 
 
@@ -659,32 +601,15 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                   });
 
                                                   defaultDefined =true;
-
                                                 }
 
-                                                // String cleanedTitle = removeAllHtmlTags('${sm[index]!.title}');
-
-                                                return Container(
-
+                                                return SizedBox(
                                                   height: containerHeight,
                                                   child: GestureDetector(
                                                     onTap: () {
-
-                                                      // print('@@@ ONTAP');
-                                                      // print(minAmount ==null || (minAmount!=null && valueDifference! <= 0));
-
                                                       if((minAmount ==null || (minAmount!=null && valueDifference!<= 0)) ) {
-
-
                                                         setState(() {
                                                           gruppoval = sm[index]!.id!;
-                                                        });
-
-                                                        // print('shippingCostValue');
-                                                        // print(shippingCostValue);
-
-
-                                                        setState(() {
                                                           if(shippingCostValue != null && shippingCostValue != '') {
                                                             shippingPrice = shippingCost;
                                                             shippingPriceValue = shippingCostValue;
@@ -696,115 +621,98 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                             cartSummedPrice = cartTotalValue!;
                                                           }
                                                         });
-
-
-                                                        print('cartSummedPrice @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
-                                                        print(cartSummedPrice);
-
-
                                                       }
                                                     },
-                                                    child: Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          SvgPicture.asset(
-                                                            "assets/Articolo-spedizione.svg",
-                                                            width: 22,
-                                                            height: 22,
-                                                          ),
-                                                          Expanded(
-                                                            child: Container(
-                                                                alignment: Alignment.topLeft,
-                                                                padding: const EdgeInsets.only(top: 0.0, left: 15),
-                                                                child:  Column(
-                                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                                  children: [
-                                                                    RichText(
-                                                                      text: TextSpan(
-                                                                        text: '',
-                                                                        style: TextStyle(color: Colors.black),
-                                                                        children: <TextSpan>[
+                                                    child:
 
-                                                                          TextSpan(
-                                                                            text: shippingCost!=null?'€ ${shippingCost} ':'',
-                                                                            style: TextStyle(
-                                                                                fontWeight: FontWeight.bold
+                                                    Row(
+                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: [
+                                                              SvgPicture.asset(
+                                                                "assets/Articolo-spedizione.svg",
+                                                                width: 22,
+                                                                height: 22,
+                                                              ),
+                                                              Expanded(
+                                                                child:
+                                                                    Container(
+                                                                        alignment: Alignment.topLeft,
+                                                                        padding: const EdgeInsets.only(top: 0.0, left: 15),
+                                                                        child:
+                                                                            Column(
+                                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                                          children: [
+                                                                            RichText(
+                                                                              text: TextSpan(
+                                                                                text: '',
+                                                                                style: const TextStyle(color: Colors.black),
+                                                                                children: <TextSpan>[
+                                                                                  TextSpan(
+                                                                                    text: shippingCost != null ? '€ ${shippingCost} ' : '',
+                                                                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                                                                  ),
+                                                                                  TextSpan(text: '${sm[index]!.title}'),
+                                                                                  TextSpan(
+                                                                                    text: minAmount != null ? ' a partire da € ${minAmount} ' : '',
+                                                                                  ),
+                                                                                ],
+                                                                              ),
                                                                             ),
-
-                                                                          ),
-                                                                          TextSpan(text: '${sm[index]!.title}'),
-
-                                                                          TextSpan(
-                                                                            text: minAmount!=null?' a partire da € ${minAmount} ':'',
-                                                                            // style: TextStyle(
-                                                                            //     fontWeight: FontWeight.bold
-                                                                            // ),
-                                                                          ),
-
-                                                                          // TextSpan(text: '|${cart.totals.totalPrice}'),
-                                                                          // TextSpan(text: '|${cart.totals.totalDiscount}'),
-                                                                          //TextSpan(text: '|${((cart.totals.totalItems)+ cart.totals.totalItems! * 0.22)}'),
-                                                                          // TextSpan(text: '|${cart.totalItems}'),
-                                                                          // TextSpan(text: '|${cart.items.first.prices?.price!}'),
-                                                                          // TextSpan(text: '|${minAmountValue!}'),
-                                                                          // TextSpan(text: '|${valueDifference!}'),
-                                                                          //TextSpan(text: '|${cart.totals.totalItems!.runtimeType}'),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    (minAmountValue !=null && valueDifference!>0)?
-                                                                    RichText(
-                                                                      text: TextSpan(
-                                                                        text: 'Mancano ',
-                                                                        style: TextStyle(color: Colors.grey),
-                                                                        children: <TextSpan>[
-
-                                                                          TextSpan(
-                                                                            text: valueDifference>0?'€ ${valueDifference.toStringAsFixed(2).replaceAll('.', ',')}':'',
-                                                                            style: TextStyle(
-                                                                                fontWeight: FontWeight.bold
-                                                                            ),
-
-                                                                          ),
-                                                                          TextSpan(text: ' per usufruire della spedizione gratuita.'),
-
-                                                                        ],
-                                                                      ),
-                                                                    )
-                                                                        :SizedBox()
-                                                                  ],
-                                                                )
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            width: 40,
-                                                            height:40,
-                                                            child: Radio(
-                                                                activeColor: const Color.fromARGB(255, 158, 29, 48),
-                                                                value: sm[index]!.id!,
-                                                                groupValue: gruppoval,
-                                                                onChanged: (minAmount!=null && valueDifference!>0) ? null : (val) {
-                                                                  setState(() {
-                                                                    gruppoval = sm[index]!.id!;
-                                                                  });
-
-                                                                  setState(() {
-                                                                    if(shippingCostValue != null && shippingCostValue != '') {
-                                                                      shippingPrice = shippingCost;
-                                                                      cartSummedPrice = cartTotalValue! + shippingCostValue;
-
-                                                                    } else {
-                                                                      shippingPrice = 'GRATIS';
-                                                                      cartSummedPrice = cartTotalValue!;
-                                                                    }
-                                                                  });
-                                                                }
-                                                            ) ,
-                                                          )
-                                                        ]
-                                                    ),
-                                                  ),
+                                                                            (minAmountValue != null && valueDifference! > 0)
+                                                                                ? RichText(
+                                                                                    text: TextSpan(
+                                                                                      text: 'Mancano ',
+                                                                                      style: TextStyle(color: Colors.grey),
+                                                                                      children: <TextSpan>[
+                                                                                        TextSpan(
+                                                                                          text: valueDifference > 0 ? '€ ${valueDifference.toStringAsFixed(2).replaceAll('.', ',')}' : '',
+                                                                                          style: const TextStyle(fontWeight: FontWeight.bold),
+                                                                                        ),
+                                                                                        TextSpan(text: ' per usufruire della spedizione gratuita.'),
+                                                                                      ],
+                                                                                    ),
+                                                                                  )
+                                                                                : SizedBox()
+                                                                          ],
+                                                                        )),
+                                                              ),
+                                                              SizedBox(
+                                                                width: 40,
+                                                                height: 40,
+                                                                child: Radio(
+                                                                    activeColor:
+                                                                        const Color
+                                                                            .fromARGB(
+                                                                            255,
+                                                                            158,
+                                                                            29,
+                                                                            48),
+                                                                    value:
+                                                                        sm[index]!
+                                                                            .id!,
+                                                                    groupValue:
+                                                                        gruppoval,
+                                                                    onChanged: (minAmount !=
+                                                                                null &&
+                                                                            valueDifference! >
+                                                                                0)
+                                                                        ? null
+                                                                        : (val) {
+                                                                            setState(() {
+                                                                              gruppoval = sm[index]!.id!;
+                                                                              if (shippingCostValue != null && shippingCostValue != '') {
+                                                                                shippingPrice = shippingCost;
+                                                                                cartSummedPrice = cartTotalValue! + shippingCostValue;
+                                                                              } else {
+                                                                                shippingPrice = 'GRATIS';
+                                                                                cartSummedPrice = cartTotalValue!;
+                                                                              }
+                                                                            });
+                                                                          }),
+                                                              )
+                                                            ]),
+                                                      ),
                                                 );
                                               },
                                             )
@@ -892,7 +800,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  Container(
+                                                  SizedBox(
                                                     width: 270,
                                                     child: Text(
                                                       "${model.shipping[index].address_1}, ${model.shipping[index].city}, ${model.shipping[index].postcode}, ${model.shipping[index].country}",
@@ -1030,7 +938,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                     // print('pgIcon');
                                                     // print(pgIcon);
 
-                                                    return Container(
+                                                    return SizedBox(
 
                                                       height: containerHeight,
                                                       child: GestureDetector(
@@ -1091,7 +999,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                                     )
                                                                 ),
                                                               ),
-                                                              Container(
+                                                              SizedBox(
                                                                 width: 40,
                                                                 height:40,
                                                                 child: Radio(

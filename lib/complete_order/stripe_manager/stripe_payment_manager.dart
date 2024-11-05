@@ -17,6 +17,51 @@ abstract class StripePaymentManager {
     await  _initializePaymentSheet(clientSecret, billing ,customerId);
     await Stripe.instance.presentPaymentSheet();
 
+    await context.read<MyOrdersBloc>().createCheckOutForStripe(
+        billing !=null ?
+        Billing(
+          first_name: billing.first_name,
+          last_name: billing.last_name,
+          company: billing.company,
+          address_1: billing.address_1,
+          address_2: billing.address_2,
+          city: billing.city,
+          state: billing.state,
+          postcode: billing.postcode,
+          country: "IT",
+          email: billing.email,
+          phone: billing.phone,
+        ):
+        Billing(
+            first_name: shipping.first_name,
+            last_name: shipping.last_name,
+            company: shipping.company,
+            address_1: shipping.address_1,
+            address_2: shipping.address_2,
+            city: shipping.city,
+            state: shipping.state,
+            postcode: shipping.postcode,
+            country: "IT",
+            phone: shipping.phone
+        ),
+        Shipping(
+            first_name: shipping.first_name,
+            last_name: shipping.last_name,
+            company: shipping.company,
+            address_1: shipping.address_1,
+            address_2: shipping.address_2,
+            city: shipping.city,
+            state: billing.state,
+            postcode: shipping.postcode,
+            country: "IT",
+            phone: shipping.phone
+        ),
+        "note.text",
+        "stripe",
+        [],
+        0
+    );
+
     // try{
     //     await Stripe.instance.confirmPaymentSheetPayment();
     // }catch (e){

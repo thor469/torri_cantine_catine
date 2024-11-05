@@ -1981,7 +1981,7 @@ ImageCategory _$ImageCategoryFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ImageCategory {
   int get id => throw _privateConstructorUsedError;
-  String get src => throw _privateConstructorUsedError;
+  dynamic get src => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -1995,7 +1995,7 @@ abstract class $ImageCategoryCopyWith<$Res> {
           ImageCategory value, $Res Function(ImageCategory) then) =
       _$ImageCategoryCopyWithImpl<$Res, ImageCategory>;
   @useResult
-  $Res call({int id, String src});
+  $Res call({int id, dynamic src});
 }
 
 /// @nodoc
@@ -2022,7 +2022,7 @@ class _$ImageCategoryCopyWithImpl<$Res, $Val extends ImageCategory>
       src: null == src
           ? _value.src
           : src // ignore: cast_nullable_to_non_nullable
-              as String,
+              as dynamic,
     ) as $Val);
   }
 }
@@ -2035,7 +2035,7 @@ abstract class _$$_ImageCategoryCopyWith<$Res>
       __$$_ImageCategoryCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String src});
+  $Res call({int id, dynamic src});
 }
 
 /// @nodoc
@@ -2060,7 +2060,7 @@ class __$$_ImageCategoryCopyWithImpl<$Res>
       src: null == src
           ? _value.src
           : src // ignore: cast_nullable_to_non_nullable
-              as String,
+              as dynamic,
     ));
   }
 }
@@ -2076,7 +2076,7 @@ class _$_ImageCategory implements _ImageCategory {
   @override
   final int id;
   @override
-  final String src;
+  final dynamic src;
 
   @override
   String toString() {
@@ -2089,12 +2089,13 @@ class _$_ImageCategory implements _ImageCategory {
         (other.runtimeType == runtimeType &&
             other is _$_ImageCategory &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.src, src) || other.src == src));
+            const DeepCollectionEquality().equals(other.src, src));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, src);
+  int get hashCode =>
+      Object.hash(runtimeType, id, const DeepCollectionEquality().hash(src));
 
   @JsonKey(ignore: true)
   @override
@@ -2111,7 +2112,7 @@ class _$_ImageCategory implements _ImageCategory {
 }
 
 abstract class _ImageCategory implements ImageCategory {
-  factory _ImageCategory({required final int id, required final String src}) =
+  factory _ImageCategory({required final int id, required final dynamic src}) =
       _$_ImageCategory;
 
   factory _ImageCategory.fromJson(Map<String, dynamic> json) =
@@ -2120,7 +2121,7 @@ abstract class _ImageCategory implements ImageCategory {
   @override
   int get id;
   @override
-  String get src;
+  dynamic get src;
   @override
   @JsonKey(ignore: true)
   _$$_ImageCategoryCopyWith<_$_ImageCategory> get copyWith =>

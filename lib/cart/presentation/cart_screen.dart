@@ -46,9 +46,9 @@ class _CartScreenState extends State<CartScreen> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      String email = await storage.getUserEmail() ?? "";
+      // String email = await storage.getUserEmail() ?? "";
       if (mounted) {
-        context.read<AccountBloc>().add(AccountEvent.fetch(email));
+        // context.read<AccountBloc>().add(AccountEvent.fetch(email));
         context.read<CartBloc>().add(const CartEvent.fetch());
         moneyDiscount = await context.read<PointsBloc>().getMoneyDiscountAvaible() ?? 0;
       }
@@ -202,11 +202,11 @@ class _CartScreenState extends State<CartScreen> {
           ),
           body: BlocBuilder<CartBloc, CartState>(
             builder: (context, state) => state.maybeWhen(
-              initial: () => const Center(
-                child: CircularProgressIndicator(
-                  color: Color.fromARGB(255, 161, 29, 51),
-                ),
-              ),
+              // initial: () => const Center(
+              //   child: CircularProgressIndicator(
+              //     color: Color.fromARGB(255, 161, 29, 51),
+              //   ),
+              // ),
               loading: () => const Center(
                 child: CircularProgressIndicator(
                   color: Color.fromARGB(255, 161, 29, 51),

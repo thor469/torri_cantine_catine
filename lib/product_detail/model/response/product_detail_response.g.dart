@@ -195,7 +195,7 @@ Map<String, dynamic> _$$_ProductCategoriesToJson(
 _$_ImageCategory _$$_ImageCategoryFromJson(Map<String, dynamic> json) =>
     _$_ImageCategory(
       id: (json['id'] as num).toInt(),
-      src: json['src'] as String,
+      src: json['src'],
     );
 
 Map<String, dynamic> _$$_ImageCategoryToJson(_$_ImageCategory instance) =>

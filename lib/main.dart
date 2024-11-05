@@ -33,7 +33,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   storage.deleteFilters();
   
-  Stripe.publishableKey = "pk_test_aNkLcRvBroToL0F9CyWydbpV00AaqoeiCr";
+  // Stripe.publishableKey = "pk_test_aNkLcRvBroToL0F9CyWydbpV00AaqoeiCr";
+  Stripe.publishableKey = "pk_test_51QHRcORui7MolgV0k2u9RG4ePtSAuNAvOzR0ghpCf6PZb8N2yoaXgKNjO7hz1GoqytAM9wh94syFVah44j6Hj1OT00qgzgMHoM";
   //"pk_test_aNkLcRvBroToL0F9CyWydbpV00AaqoeiCr";
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   FirebaseMessaging.instance.getToken().then((value) {

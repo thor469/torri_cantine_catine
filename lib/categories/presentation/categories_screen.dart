@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/floating_action_button.dart';
 import 'package:torri_cantine_app/app/common/primary_button.dart';
 import 'package:torri_cantine_app/app/common/sub_page_appbar.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/app/utilitys/tc_typography.dart';
 import 'package:torri_cantine_app/categories/categories/categories_bloc.dart';
+import 'package:torri_cantine_app/categories/model/response/categories_response.dart';
+import 'package:torri_cantine_app/product_detail/model/response/product_detail_response.dart';
 
 import '../../app/common/bottom_bar_items/bottom_bar.dart';
 
@@ -24,13 +27,57 @@ class CategoriesScreen extends StatefulWidget {
 }
 
 class _CategoriesScreenState extends State<CategoriesScreen> {
+  final ScrollController scrollController = ScrollController();
+  int currentPage = 1;
+  bool isLoading = false;
+  bool isFirstLoad = true;
+  CategoriesResponse? model;
+  final PagingController<int, ProductCategories> _pagingController = PagingController(firstPageKey: 1);
+
+
   @override
   void initState() {
-    context.read<CategoriesBloc>().add(const CategoriesEvent.fetch());
+    // context.read<CategoriesBloc>().add(const CategoriesEvent.fetch());
+    // if(isFirstLoad){
+    //   _pagingController.appendPage(response.categories!, 2);
+      _pagingController.addPageRequestListener((pageKey) {
+        _fetchPage(pageKey);
+      });
+    //   isFirstLoad = false;
+    // }
     super.initState();
   }
 
-  int selectedindex =0;
+  Future<void> _fetchPage(int pageKey) async {
+    // if(!isFirstLoad){
+      try {
+        CategoriesResponse? response = await context.read<CategoriesBloc>().getOther(pageKey, 10);
+        if (response != null && response.categories!.isNotEmpty) {
+          final isLastPage = response.categories!.length < 10;
+          if (isLastPage) {
+            _pagingController.appendLastPage(response.categories!);
+          } else {
+            final nextPageKey = pageKey + 1;
+            _pagingController.appendPage(response.categories!, nextPageKey);
+          }
+        } else {
+          _pagingController.appendLastPage([]);
+        }
+      } catch (error) {
+        print(error);
+        _pagingController.error = error;
+      }
+    // }
+  }
+
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  int selectedindex = 0;
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
   refresh(int index) {
@@ -41,174 +88,159 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return PopScope(
-        canPop: false,
-        onPopInvoked: (didPop) {
-          print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
-          MainNavigation.pop(context);
-          //return;
-        },
-        child:Scaffold(
-          backgroundColor: Color.fromARGB(255, 244, 244, 244),
-          appBar: PreferredSize(
-              preferredSize: const Size.fromHeight(kToolbarHeight),
-              child: widget.showAppBar
-                  ? SubPageAppbar(
-                text: "TUTTE LE CATEGORIE",
-                onTap: widget.fromMenu
-                    ? () { MainNavigation.pop(context); }
-                    : () => MainNavigation.pop(context),
-              )
-                  : const SizedBox()),
-          floatingActionButton: FloatingButton(),
-          floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
-          bottomNavigationBar: BottomBanvigationMenu(
-            scaffoldKey: scaffoldKey,
-            initialSelectedIndex: 0,
-            context: context,
-            //notifyParent: () => refresh(selectedindex),
+      canPop: false,
+      onPopInvoked: (didPop) {
+        MainNavigation.pop(context);
+      },
+      child: Scaffold(
+        backgroundColor: const Color.fromARGB(255, 244, 244, 244),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight),
+          child: widget.showAppBar
+              ? SubPageAppbar(
+            text: "TUTTE LE CATEGORIE",
+            onTap: widget.fromMenu
+                ? () {
+              MainNavigation.pop(context);
+            }
+                : () => MainNavigation.pop(context),
+          )
+              : const SizedBox(),
+        ),
+        floatingActionButton: FloatingButton(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
+        bottomNavigationBar: BottomBanvigationMenu(
+          scaffoldKey: scaffoldKey,
+          initialSelectedIndex: 0,
+          context: context,
+        ),
+        // body: BlocBuilder<CategoriesBloc, CategoriesState>(
+        //   builder: (context, state) => state.maybeWhen(
+        //     initial: () => SizedBox(
+        //       width: MediaQuery.of(context).size.width,
+        //       height: MediaQuery.of(context).size.height,
+        //       child: const Center(
+        //         child: CircularProgressIndicator(
+        //           color: Color.fromARGB(255, 161, 29, 51),
+        //         ),
+        //       ),
+        //     ),
+        //     loading: () => SizedBox(
+        //       width: MediaQuery.of(context).size.width,
+        //       height: MediaQuery.of(context).size.height,
+        //       child: const Center(
+        //         child: CircularProgressIndicator(
+        //           color: Color.fromARGB(255, 161, 29, 51),
+        //         ),
+        //       ),
+        //     ),
+        //     error: () => const SizedBox(),
+        //     orElse: () => const SizedBox(),
+        //     loaded: (response) {
+        //
+        //             return PagedGridView<int, ProductCategories>(
+        //               pagingController: _pagingController,
+        //               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        //                 crossAxisCount: 2,
+        //                 childAspectRatio: 0.7,
+        //               ),
+        //               builderDelegate: PagedChildBuilderDelegate<ProductCategories>(
+        //                 itemBuilder: (context, category, index) => GestureDetector(
+        //                   onTap: () {
+        //                     MainNavigation.push(
+        //                       context,
+        //                       MainNavigation.categoriesDetail(category.id),
+        //                     );
+        //                   },
+        //                   child: Padding(
+        //                     padding: const EdgeInsets.all(8.0),
+        //                     child: Card(
+        //                       elevation: 2,
+        //                       clipBehavior: Clip.antiAlias,
+        //                       child: Column(
+        //                         crossAxisAlignment: CrossAxisAlignment.stretch,
+        //                         children: <Widget>[
+        //                           Expanded(
+        //                             child: Image.network(
+        //                               category.image?.src ?? "",
+        //                               fit: BoxFit.cover,
+        //                             ),
+        //                           ),
+        //                           Padding(
+        //                             padding: const EdgeInsets.all(10.0),
+        //                             child: Text(
+        //                               category.name ?? "",
+        //                               style: TCTypography.of(context).text_14_bold,
+        //                               textAlign: TextAlign.center,
+        //                             ),
+        //                           ),
+        //                         ],
+        //                       ),
+        //                     ),
+        //                   ),
+        //                 ),
+        //               ),
+        //             );
+        //           }),
+        // ),
+        body: PagedGridView<int, ProductCategories>(
+          pagingController: _pagingController,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 0.7,
           ),
-
-          body: BlocBuilder<CategoriesBloc, CategoriesState>(
-            builder: (context, state) => state.maybeWhen(
-              initial: () => SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                child: const Center(
-                  child: CircularProgressIndicator(
-                    color: Color.fromARGB(255, 161, 29, 51),
-                  ),
-                ),
+          builderDelegate: PagedChildBuilderDelegate<ProductCategories>(
+            firstPageProgressIndicatorBuilder :  (context) => const Center(
+              child:  CircularProgressIndicator(
+                color: Color.fromARGB(255, 161, 29, 51),
               ),
-              loading: () => SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                child: const Center(
-                  child: CircularProgressIndicator(
-                    color: Color.fromARGB(255, 161, 29, 51),
-                  ),
-                ),
+            ),
+            newPageProgressIndicatorBuilder: (context) => const Center(
+              child: CircularProgressIndicator(
+                color: Color.fromARGB(255, 161, 29, 51),
               ),
-              error: () => const SizedBox(),
-              orElse: () => const SizedBox(),
-              loaded: (model) => SingleChildScrollView(
-                child: Column(
-                  children: [
-                    // Padding(
-                    //   padding:
-                    //       const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                    //   child: Container(
-                    //     width: MediaQuery.of(context).size.width,
-                    //     height: MediaQuery.of(context).size.height * 0.2,
-                    //     decoration: const BoxDecoration(
-                    //         color: Colors.amber,
-                    //         image: DecorationImage(
-                    //             fit: BoxFit.fitWidth,
-                    //             image: AssetImage("assets/background.png"))),
-                    //     child: Center(
-                    //       child: Column(mainAxisSize: MainAxisSize.min, children: [
-                    //         Text(
-                    //           "TUTTI I PRODOTTI",
-                    //           style: TCTypography.of(context)
-                    //               .text_18_bold
-                    //               .copyWith(color: Colors.white),
-                    //         ),
-                    //         // TODO check string
-                    //         Padding(
-                    //           padding: const EdgeInsets.all(8.0),
-                    //           child: Text(
-                    //             "Sfoglia il catalogo completo dei nostri articoli",
-                    //             style: TCTypography.of(context)
-                    //                 .text_12
-                    //                 .copyWith(color: Colors.white),
-                    //           ),
-                    //         ),
-                    //         Padding(
-                    //           padding: const EdgeInsets.all(8.0),
-                    //           child: Container(
-                    //             width: MediaQuery.of(context).size.width * 0.20,
-                    //             height: 20,
-                    //             decoration: BoxDecoration(
-                    //               borderRadius: BorderRadius.circular(7),
-                    //               color: const Color.fromARGB(255, 158, 29, 48),
-                    //             ),
-                    //             child: Center(
-                    //               child: PrimaryButton(
-                    //                 text: "SCOPRI",
-                    //                 ontap: () => MainNavigation.push(
-                    //                     context, const MainNavigation.products()),
-                    //               ),
-                    //             ),
-                    //           ),
-                    //         )
-                    //       ]),
-                    //     ),
-                    //   ),
-                    // ),
-                    Padding(padding: EdgeInsets.only(top:24),),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text('Tipologie',
-                            style: TCTypography.of(context).text_18_bold),
+            ),
+            itemBuilder: (context, category, index) => GestureDetector(
+              onTap: () {
+                MainNavigation.push(
+                  context,
+                  MainNavigation.categoriesDetail(category.id),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  elevation: 2,
+                  clipBehavior: Clip.antiAlias,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Expanded(
+                        child:
+                        category.image?.src != null && category.image?.src is String ?
+                        Image.network(
+                          category.image?.src ?? "",
+                          fit: BoxFit.cover,
+                        ) :
+                            const SizedBox.shrink()
                       ),
-                    ),
-                    GridView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text(
+                          category.name ?? "",
+                          style: TCTypography.of(context).text_14_bold,
+                          textAlign: TextAlign.center,
+                        ),
                       ),
-                      itemCount: model.categories?.length ?? 0,
-                      itemBuilder: (BuildContext context, int index) {
-                        return GestureDetector(
-                          onTap: () {
-                            MainNavigation.push(
-                                context,
-                                MainNavigation.categoriesDetail(
-                                    model.categories![index].id));
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Card(
-                              elevation: 2,
-                              clipBehavior: Clip.antiAlias,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Image.network(
-                                      model.categories?[index].image?.src ?? "",
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Text(
-                                      model.categories?[index].name ?? "",
-                                      style: TCTypography.of(context).text_14_bold,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    )
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        )
-
+        ),
+      ),
     );
-
-
-
   }
 }

@@ -7,11 +7,16 @@ import 'package:torri_cantine_app/categories/model/response/categories_response.
 class CategoriesService extends HttpServiceBase {
   CategoriesService(Dio dioInstance) : super(dioInstance);
 
-  Future<CategoriesResponse> getCategories(CategoriesRequest request) =>
+  Future<CategoriesResponse> getCategories(CategoriesRequest request, int page, int perPage) =>
       getQuery(
         request: request,
+        options: Options(
+          extra: {
+            "page" : page,
+            "per_page": perPage
+          }
+        ),
         mapper: (json, _) => CategoriesResponse.fromJson(json),
-        orElse: (json, data) =>
-            CategoriesResponse.fromJson({'categories': json}),
+        orElse: (json, data) => CategoriesResponse.fromJson({'categories': json}),
       );
 }
