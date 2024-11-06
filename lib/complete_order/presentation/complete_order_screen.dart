@@ -464,40 +464,41 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                               });
                                             },
                                           ),
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  SizedBox(
-                                                    width: 270,
-                                                    child: Text(
-                                                      "${model.billing[index].address_1}, ${model.billing[index].city}, ${model.billing[index].postcode}, ${model.billing[index].country}",
-                                                      maxLines: 1,
-                                                      overflow: TextOverflow.ellipsis,
-                                                      style: const TextStyle(
-                                                        fontWeight: FontWeight.bold,
-                                                        fontSize: 14,
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: Text(
+                                                        "${model.billing[index].address_1}, ${model.billing[index].city}, ${model.billing[index].postcode}, ${model.billing[index].country}",
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow.ellipsis,
+                                                        style: const TextStyle(
+                                                          fontWeight: FontWeight.bold,
+                                                          fontSize: 14,
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets.only(left: 20.0),
-                                                    child: GestureDetector(
-                                                      child: SvgPicture.asset(
-                                                        "assets/Ordine-edit.svg",
-                                                        width: 22,
-                                                        height: 22,
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(left: 20.0),
+                                                      child: GestureDetector(
+                                                        child: SvgPicture.asset(
+                                                          "assets/Ordine-edit.svg",
+                                                          width: 22,
+                                                          height: 22,
+                                                        ),
+                                                        onTap: () {
+                                                          MainNavigation.push(context, MainNavigation.newAddressFromAccount(customerId, true, false, model.billing[index], 'completeorder', false, widget.totPoint, cart));
+                                                        },
                                                       ),
-                                                      onTap: () {
-                                                        MainNavigation.push(context, MainNavigation.newAddressFromAccount(customerId, true, false, model.billing[index], 'completeorder', false, widget.totPoint, cart));
-                                                      },
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Text("${model.billing[index].first_name} ${model.billing[index].last_name}",overflow: TextOverflow.ellipsis,),
-                                            ],
+                                                  ],
+                                                ),
+                                                Text("${model.billing[index].first_name} ${model.billing[index].last_name}",overflow: TextOverflow.ellipsis,),
+                                              ],
+                                            ),
                                           ),
                                         ],
                                       );
@@ -876,40 +877,41 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                               });
                                             },
                                           ),
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  SizedBox(
-                                                    width: 270,
-                                                    child: Text(
-                                                      "${model.shipping[index].address_1}, ${model.shipping[index].city}, ${model.shipping[index].postcode}, ${model.shipping[index].country}",
-                                                      maxLines: 1,
-                                                      overflow: TextOverflow.ellipsis,
-                                                      style: const TextStyle(
-                                                        fontWeight: FontWeight.bold,
-                                                        fontSize: 14,
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: Text(
+                                                        "${model.shipping[index].address_1}, ${model.shipping[index].city}, ${model.shipping[index].postcode}, ${model.shipping[index].country}",
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow.ellipsis,
+                                                        style: const TextStyle(
+                                                          fontWeight: FontWeight.bold,
+                                                          fontSize: 14,
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets.only(left: 20.0),
-                                                    child: GestureDetector(
-                                                      child: SvgPicture.asset(
-                                                        "assets/Ordine-edit.svg",
-                                                        width: 22,
-                                                        height: 22,
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(left: 20.0),
+                                                      child: GestureDetector(
+                                                        child: SvgPicture.asset(
+                                                          "assets/Ordine-edit.svg",
+                                                          width: 22,
+                                                          height: 22,
+                                                        ),
+                                                        onTap: () {
+                                                          MainNavigation.push(context, MainNavigation.newAddressFromAccount(customerId, false, true, model.shipping[index], 'completeorder', false, widget.totPoint,  cart));
+                                                        },
                                                       ),
-                                                      onTap: () {
-                                                        MainNavigation.push(context, MainNavigation.newAddressFromAccount(customerId, false, true, model.shipping[index], 'completeorder', false, widget.totPoint,  cart));
-                                                      },
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Text("${model.shipping[index].first_name} ${model.shipping[index].last_name}", overflow: TextOverflow.ellipsis,),
-                                            ],
+                                                  ],
+                                                ),
+                                                Text("${model.shipping[index].first_name} ${model.shipping[index].last_name}", overflow: TextOverflow.ellipsis,),
+                                              ],
+                                            ),
                                           ),
                                         ],
                                       );
