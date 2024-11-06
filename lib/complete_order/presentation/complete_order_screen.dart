@@ -1701,6 +1701,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   }
 
 
+
   Future<void> payWithMethodSelected(String paymentMethod, UserAddress shipping, UserAddress billing, CartResponse cart, int customerId) async{
     int stripeAmount = ((int.tryParse((cartSummedPrice * 100).toStringAsFixed(0) ) ?? 0) - (couponTotalInt));
     context.read<MyOrdersBloc>().add(const MyOrdersEvent.loading());

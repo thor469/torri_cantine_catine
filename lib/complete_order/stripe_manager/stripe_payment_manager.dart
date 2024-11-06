@@ -4,13 +4,56 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:torri_cantine_app/account/model/response/add_address_response.dart';
 import 'package:torri_cantine_app/app/app_config.dart';
-import 'package:torri_cantine_app/app/dependency_injection/dependency_factory_impl.dart';
-import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/my_orders/model/request/my_orders_request.dart';
 import 'package:torri_cantine_app/my_orders/model/response/my_orders_response.dart';
 import 'package:torri_cantine_app/my_orders/my_orders/my_orders_bloc.dart';
 
 abstract class StripePaymentManager {
+
+  // Future<void> processPayment(BuildContext context) async {
+  //   try {
+  //     final paymentIntentData = await createPaymentIntent();
+  //
+  //     await Stripe.instance.initPaymentSheet(
+  //       paymentSheetParameters: SetupPaymentSheetParameters(
+  //         paymentIntentClientSecret: paymentIntentData['clientSecret'],
+  //         merchantDisplayName: 'Torri cantine',
+  //         applePay: const PaymentSheetApplePay(
+  //           merchantCountryCode: 'IT',
+  //         ),
+  //         googlePay: const PaymentSheetGooglePay(
+  //           merchantCountryCode: 'IT',
+  //           testEnv: true,
+  //         ),
+  //         style: ThemeMode.light,
+  //         billingDetails: const BillingDetails(
+  //           email: 'email@example.com',
+  //           phone: '+390123456789',
+  //           address: Address(
+  //             city: 'Roma',
+  //             country: 'IT',
+  //             line1: 'Via Roma, 1',
+  //             postalCode: '00100',
+  //           ),
+  //         ),
+  //       ),
+  //     );
+  //
+  //     await Stripe.instance.presentPaymentSheet();
+  //
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(content: Text('Pagamento completato con successo!')),
+  //     );
+  //   } on StripeException catch (e) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text('Errore durante il pagamento: ${e.error.localizedMessage}')),
+  //     );
+  //   } catch (e) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text('Errore imprevisto: $e')),
+  //     );
+  //   }
+  // }
 
   static Future <void> makePayment(int amount, String currency,BuildContext context,UserAddress shipping, UserAddress billing, int customerId, int totPoint, MyOrdersResponse orderId, String note) async{
   try {

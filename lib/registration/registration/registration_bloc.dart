@@ -83,16 +83,12 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
         );
         // googleUser.clearAuthCache();
 
-        yield RegistrationState.loadedWithGoogle(
-            response,
-            userCredential.user!.email ?? "",
-            getPassword(userCredential.user!.email ?? ""));
+        yield RegistrationState.loadedWithGoogle(response, userCredential.user!.email ?? "", getPassword(userCredential.user!.email ?? ""));
         // await googleSignIn.signOut();
       } on ApiException catch (e) {
         await googleUser.clearAuthCache();
         await GoogleSignIn().signOut();
-        yield RegistrationState.error(
-            getWarningMeessage(e.body['code']), e.body['code']);
+        yield RegistrationState.error(getWarningMeessage(e.body['code']), e.body['code']);
       }
     } else {
       yield const RegistrationState.error('Google sign in aborted.', "");

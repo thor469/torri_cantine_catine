@@ -180,19 +180,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         print('_loginWithGoole notificationResponse');
         print(notificationResponse);
         if (fcmToken == '') {
-          await Firebase.initializeApp(
-              options: DefaultFirebaseOptions.currentPlatform);
+          await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
           FirebaseMessaging.instance.getToken().then((value) {
             String? token = value;
             print('FCMToken:' + token!);
             print('DeviceID:' + deviceId!);
             storage.setFCMToken(token);
           });
-          notificationService.insertToken(
-              InsertNotificationRequest(token: fcmToken.trim(), deviceId: deviceId.trim(), userId: 167));
+          notificationService.insertToken(InsertNotificationRequest(token: fcmToken.trim(), deviceId: deviceId.trim(), userId: 167));
         } else {
-          notificationService.insertToken(
-              InsertNotificationRequest(token: fcmToken.trim(), deviceId: deviceId.trim(), userId: 168));
+          notificationService.insertToken(InsertNotificationRequest(token: fcmToken.trim(), deviceId: deviceId.trim(), userId: 168));
         }
 
         yield LoginState.loggedIn(response);
@@ -200,12 +197,17 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         storage.deleteUserName();
         storage.deletePassword();
         yield const LoginState.loading();
+        await GoogleSignIn().signOut();
         print('_loginWithGoole exception');
         print(e.body);
         print(e.error);
         print(e.httpCode);
         print(e.httpMessage);
-        yield LoginState.error('${e.body?['code']}');
+        if((e.body?['code'] ?? "") == "[jwt_auth] incorrect_password"){
+          yield LoginState.error('isRegisteredEmail');
+        }else{
+          yield LoginState.error('${e.body?['code']}');
+        }
       }
     }
   }

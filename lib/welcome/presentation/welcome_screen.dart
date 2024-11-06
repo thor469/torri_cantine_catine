@@ -79,7 +79,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             },
             orElse: () => SizedBox(),
             error: (error) {
-              // overlayLoader.hide(context);
+              if(error.contains("isRegisteredEmail")){
+                return ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Email già registrata, tentare altri metodi di login"),
+                      elevation: 1,
+                    ));
+              }
               if(error.contains("incorrect_password")){
                 return ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
@@ -136,14 +142,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         BlocListener<RegistrationBloc, RegistrationState>(
           bloc: context.read<RegistrationBloc>(),
           listener: (context, state) => state.maybeWhen(
+            loading: (){
+              CircularProgressIndicator(
+                color: Color.fromARGB(255, 161, 29, 51),
+              );
+            },
             initial: () {
               // overlayLoader.show(context);
             },
             loadedWithGoogle: (response, username, password) => {
 
-              context
-                  .read<LoginBloc>()
-                  .add(LoginEvent.login(username, password, fcmtoken)),
+              context.read<LoginBloc>().add(LoginEvent.login(username, password, fcmtoken)),
               // overlayLoader.hide(context),
               MainNavigation.push(context, const MainNavigation.home()),
 
@@ -161,12 +170,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               final username = await storage.getUserName();
               final password = await storage.getPassword();
               final fcmToken = await storage.getFCMToken();
+
               if (errorCode == "registration-error-email-exists") {
                 if (mounted) {
-                  context
-                      .read<LoginBloc>()
-                      .add(LoginEvent.login(username, password, fcmToken));
-
+                  context.read<LoginBloc>().add(LoginEvent.login(username, password, fcmToken));
                 }
               } else {
                 final snackBar = SnackBar(
@@ -318,14 +325,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           onTap: () async {
                             if (await GoogleSignIn().isSignedIn() == true) {
                               if (mounted) {
-                                context.read<RegistrationBloc>().add(
-                                    const RegistrationEvent
-                                        .registerWithGoogle());
+                                context.read<RegistrationBloc>().add(const RegistrationEvent.registerWithGoogle());
                               }
                             } else if (mounted) {
-                              context
-                                  .read<LoginBloc>()
-                                  .add(const LoginEvent.loginWithGoogle());
+                              context.read<LoginBloc>().add(const LoginEvent.loginWithGoogle());
                               //     MainNavigation.push(
                               // context, const MainNavigation.home());}
                             }
