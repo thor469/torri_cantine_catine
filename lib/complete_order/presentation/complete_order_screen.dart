@@ -554,7 +554,8 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                         var sm = snapshot.data;
                                         double containerHeight = 66;
 
-
+                                        var _shippingCost;
+                                        var _shippingCostValue;
                                         var _minAmount;
                                         double? _minAmountValue;
                                         double? _valueDifference;
@@ -569,6 +570,36 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                               _valueDifference = double.tryParse(_minAmount)! - cartTotalValue!;
                                               _minAmountValue = double.tryParse(double.tryParse(_minAmount)!.toStringAsFixed(2));
                                             }
+                                            if(item.settings?.cost?.value != null) {
+                                              if(item.settings?.cost?.value != ''){
+                                                _shippingCost = (item..settings?.cost?.value!)?.replaceAll(',','.');
+                                                _shippingCost = (double.tryParse(_shippingCost)! + (double.tryParse(_shippingCost)!*.22) ).toStringAsFixed(2);
+                                                _shippingCostValue = double.tryParse(_shippingCost);
+                                              }
+                                            }
+
+                                            if(!defaultDefined  && (_minAmount ==null || (_minAmount!=null && _valueDifference!<= 0)) ) {
+                                              gruppoval = item.id!;
+
+
+                                              Future.wait([]).then((value) => {
+                                                setState(() {
+                                                  if(_shippingCostValue != null && _shippingCostValue != '') {
+                                                    shippingPrice = _shippingCost;
+                                                    shippingPriceValue = _shippingCostValue;
+                                                    cartSummedPrice = cartTotalValue! + _shippingCostValue;
+
+                                                  } else {
+                                                    shippingPrice = 'GRATIS';
+                                                    shippingPriceValue =0;
+                                                    cartSummedPrice = cartTotalValue!;
+                                                  }
+                                                })
+                                              });
+
+                                              defaultDefined =true;
+                                            }
+
                                             if(_minAmount!=null && _valueDifference!<= 0){
                                               isEnabled = true;
                                               ap = item;
