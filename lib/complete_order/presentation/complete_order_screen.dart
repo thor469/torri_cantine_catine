@@ -779,7 +779,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                                     activeColor: const Color.fromARGB(255, 158, 29, 48),
                                                                     value: sm[index]!.id!,
                                                                     groupValue: gruppoval,
-                                                                    onChanged: (minAmount != null && valueDifference! == 0) ? null:
+                                                                    onChanged: (minAmount != null && valueDifference! > 0) ? null:
                                                                       (val) {
                                                                             setState(() {
                                                                               gruppoval = sm[index]!.id!;
