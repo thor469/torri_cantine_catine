@@ -82,6 +82,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   final GlobalKey<ScaffoldState> newKey = GlobalKey();
   int selectedIndex = 0;
   double appliedCoupon = 0.0;
+  bool isEnabled = false;
 
   int? amountCart;
   @override
@@ -552,6 +553,93 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                         var sm = snapshot.data;
                                         double containerHeight = 66;
 
+
+                                        var _minAmount;
+                                        double? _minAmountValue;
+                                        double? _valueDifference;
+                                        var ap;
+                                        var min;
+
+                                        for(var item in sm ?? []){
+                                          if(item!.settings?.minAmount?.value != null) {
+                                            if(item!.settings?.minAmount?.value != ''){
+                                              _minAmount = (item!.settings?.minAmount?.value!)?.replaceAll(',','.');
+                                              _minAmount = (double.tryParse(_minAmount)!).toStringAsFixed(2);
+                                              _valueDifference = double.tryParse(_minAmount)! - cartTotalValue!;
+                                              _minAmountValue = double.tryParse(double.tryParse(_minAmount)!.toStringAsFixed(2));
+                                            }
+                                            if(_minAmount!=null && _valueDifference!<= 0){
+                                              isEnabled = true;
+                                              ap = item;
+                                              min = _minAmount;
+                                            }
+                                          }
+                                        }
+
+
+                                        if(isEnabled){
+                                          return SizedBox(
+                                            height: containerHeight,
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                shippingPrice = 'GRATIS';
+                                                shippingPriceValue =0;
+                                                cartSummedPrice = cartTotalValue!;
+                                              },
+                                              child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    SvgPicture.asset(
+                                                      "assets/Articolo-spedizione.svg",
+                                                      width: 22,
+                                                      height: 22,
+                                                    ),
+                                                    Expanded(
+                                                      child:
+                                                      Container(
+                                                          alignment: Alignment.topLeft,
+                                                          padding: const EdgeInsets.only(top: 0.0, left: 15),
+                                                          child:
+                                                          Column(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: [
+                                                              RichText(
+                                                                text: TextSpan(
+                                                                  text: '',
+                                                                  style: const TextStyle(color: Colors.black),
+                                                                  children: <TextSpan>[
+                                                                    TextSpan(text: '${ap.title}'),
+                                                                    TextSpan(
+                                                                      text: min != null ? ' a partire da € ${min} ' : '',
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          )),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 40,
+                                                      height: 40,
+                                                      child: Radio(
+                                                          activeColor: const Color.fromARGB(255, 158, 29, 48),
+                                                          value: ap.id!,
+                                                          groupValue: gruppoval,
+                                                          onChanged:
+                                                              (val) {
+                                                            setState(() {
+                                                              gruppoval = ap.id!;
+                                                              shippingPrice = 'GRATIS';
+                                                              cartSummedPrice = cartTotalValue!;
+                                                            });
+                                                          }),
+                                                    )
+                                                  ]),
+                                            ),
+                                          );
+                                        }
+
                                         return Container(
                                             alignment: Alignment.topLeft,
                                             padding: const EdgeInsets.symmetric(vertical: 8),
@@ -608,6 +696,8 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
 
                                                   defaultDefined =true;
                                                 }
+
+
 
                                                 return SizedBox(
                                                   height: containerHeight,
@@ -688,9 +778,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                                     activeColor: const Color.fromARGB(255, 158, 29, 48),
                                                                     value: sm[index]!.id!,
                                                                     groupValue: gruppoval,
-                                                                    onChanged: (minAmount != null && valueDifference! > 0)
-                                                                        ? null
-                                                                        : (minAmount != null && valueDifference! == 0) ? null:
+                                                                    onChanged: (minAmount != null && valueDifference! == 0) ? null:
                                                                       (val) {
                                                                             setState(() {
                                                                               gruppoval = sm[index]!.id!;
@@ -931,7 +1019,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                     // print('pgIcon');
                                                     // print(pgIcon);
 
-                                                    return pg[index]?.id == null
+                                                    return pg[index]?.title == null
                                                         ? const SizedBox.shrink()
                                                         : SizedBox(
 

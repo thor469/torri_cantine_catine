@@ -23,6 +23,7 @@ mixin _$MyOrdersResponse {
   int? get order_id => throw _privateConstructorUsedError;
   int? get customer_id => throw _privateConstructorUsedError;
   String? get total => throw _privateConstructorUsedError;
+  String? get order_number => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +37,8 @@ abstract class $MyOrdersResponseCopyWith<$Res> {
           MyOrdersResponse value, $Res Function(MyOrdersResponse) then) =
       _$MyOrdersResponseCopyWithImpl<$Res, MyOrdersResponse>;
   @useResult
-  $Res call({int? order_id, int? customer_id, String? total});
+  $Res call(
+      {int? order_id, int? customer_id, String? total, String? order_number});
 }
 
 /// @nodoc
@@ -55,6 +57,7 @@ class _$MyOrdersResponseCopyWithImpl<$Res, $Val extends MyOrdersResponse>
     Object? order_id = freezed,
     Object? customer_id = freezed,
     Object? total = freezed,
+    Object? order_number = freezed,
   }) {
     return _then(_value.copyWith(
       order_id: freezed == order_id
@@ -69,6 +72,10 @@ class _$MyOrdersResponseCopyWithImpl<$Res, $Val extends MyOrdersResponse>
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
               as String?,
+      order_number: freezed == order_number
+          ? _value.order_number
+          : order_number // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -81,7 +88,8 @@ abstract class _$$_MyOrdersResponseCopyWith<$Res>
       __$$_MyOrdersResponseCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int? order_id, int? customer_id, String? total});
+  $Res call(
+      {int? order_id, int? customer_id, String? total, String? order_number});
 }
 
 /// @nodoc
@@ -98,6 +106,7 @@ class __$$_MyOrdersResponseCopyWithImpl<$Res>
     Object? order_id = freezed,
     Object? customer_id = freezed,
     Object? total = freezed,
+    Object? order_number = freezed,
   }) {
     return _then(_$_MyOrdersResponse(
       order_id: freezed == order_id
@@ -112,6 +121,10 @@ class __$$_MyOrdersResponseCopyWithImpl<$Res>
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
               as String?,
+      order_number: freezed == order_number
+          ? _value.order_number
+          : order_number // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -119,7 +132,8 @@ class __$$_MyOrdersResponseCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_MyOrdersResponse implements _MyOrdersResponse {
-  _$_MyOrdersResponse({this.order_id, this.customer_id, this.total});
+  _$_MyOrdersResponse(
+      {this.order_id, this.customer_id, this.total, this.order_number});
 
   factory _$_MyOrdersResponse.fromJson(Map<String, dynamic> json) =>
       _$$_MyOrdersResponseFromJson(json);
@@ -130,27 +144,28 @@ class _$_MyOrdersResponse implements _MyOrdersResponse {
   final int? customer_id;
   @override
   final String? total;
+  @override
+  final String? order_number;
 
   @override
   String toString() {
-    return 'MyOrdersResponse(order_id: $order_id, customer_id: $customer_id, total: $total)';
+    return 'MyOrdersResponse(order_id: $order_id, customer_id: $customer_id, total: $total, order_number: $order_number)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_MyOrdersResponse &&
-            (identical(other.order_id, order_id) ||
-                other.order_id == order_id) &&
-            (identical(other.customer_id, customer_id) ||
-                other.customer_id == customer_id) &&
-            (identical(other.total, total) || other.total == total));
+        (other.runtimeType == runtimeType && other is _$_MyOrdersResponse &&
+            (identical(other.order_id, order_id) || other.order_id == order_id) &&
+            (identical(other.customer_id, customer_id) || other.customer_id == customer_id) &&
+            (identical(other.total, total) || other.total == total) &&
+            (identical(other.order_number, order_number) || other.order_number == order_number));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, order_id, customer_id, total);
+  int get hashCode =>
+      Object.hash(runtimeType, order_id, customer_id, total, order_number);
 
   @JsonKey(ignore: true)
   @override
@@ -170,7 +185,8 @@ abstract class _MyOrdersResponse implements MyOrdersResponse {
   factory _MyOrdersResponse(
       {final int? order_id,
       final int? customer_id,
-      final String? total}) = _$_MyOrdersResponse;
+      final String? total,
+      final String? order_number}) = _$_MyOrdersResponse;
 
   factory _MyOrdersResponse.fromJson(Map<String, dynamic> json) =
       _$_MyOrdersResponse.fromJson;
@@ -181,6 +197,8 @@ abstract class _MyOrdersResponse implements MyOrdersResponse {
   int? get customer_id;
   @override
   String? get total;
+  @override
+  String? get order_number;
   @override
   @JsonKey(ignore: true)
   _$$_MyOrdersResponseCopyWith<_$_MyOrdersResponse> get copyWith =>

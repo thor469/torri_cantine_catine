@@ -7,15 +7,17 @@ import 'package:torri_cantine_app/app/app_config.dart';
 import 'package:torri_cantine_app/app/dependency_injection/dependency_factory_impl.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/my_orders/model/request/my_orders_request.dart';
+import 'package:torri_cantine_app/my_orders/model/response/my_orders_response.dart';
 import 'package:torri_cantine_app/my_orders/my_orders/my_orders_bloc.dart';
 
 abstract class StripePaymentManager {
 
-  static Future <void> makePayment(int amount, String currency,BuildContext context,UserAddress shipping, UserAddress billing, int customerId, int totPoint, int orderId, String note) async{
+  static Future <void> makePayment(int amount, String currency,BuildContext context,UserAddress shipping, UserAddress billing, int customerId, int totPoint, MyOrdersResponse orderId, String note) async{
   try {
-    var clientSecret = await _getClientSecret((amount).toString(), currency, orderId);
+    var clientSecret = await _getClientSecret((amount).toString(), currency, orderId.order_id ?? 0, shipping, orderId.order_number ?? "", customerId);
     await  _initializePaymentSheet(clientSecret['client_secret'], billing ,customerId);
     await Stripe.instance.presentPaymentSheet();
+
 
     await context.read<MyOrdersBloc>().createCheckOutForStripe(
         Billing(
@@ -105,12 +107,13 @@ abstract class StripePaymentManager {
     print(a?.image ?? "");
   }
 
-  static Future<dynamic> _getClientSecret(amount, currency, int orderId) async {
+  static Future<dynamic> _getClientSecret(amount, currency, int orderId, UserAddress shipping, String orderNumber, int userId) async {
 
    print(amount);
    print(currency);
    print(AppConfig.secretKeyStripe);
-   String body = "amount=$amount&currency=$currency&metadata[order_id]=$orderId";
+   String newAmount = amount.toString();
+   String body = "amount=$newAmount&capture_method=${"automatic"}&confirm=${"false"}&confirmation_method=${"automatic"}&payment_method_options[card[request_three_d_secure]]=${"any"}&payment_method_types[0]=${"card"}&currency=$currency&metadata[order_id]=$orderId&metadata[order_number]=$orderNumber&metadata[user_id]=$userId&metadata[gateway_id]=stripe_cc&metadata[webhook_id]=${AppConfig.webHookId}&shipping[address[city]]=${shipping.city}&shipping[address[country]]=${shipping.country}&shipping[address[line1]]=${shipping.address_1}&shipping[address[postal_code]]=${shipping.postcode}&shipping[address[state]]=${shipping.state}&shipping[name]=${shipping.first_name} ${shipping.last_name}";
 
     Dio dio= Dio();
     var response = await dio.post(AppConfig.stripeEndPoint,

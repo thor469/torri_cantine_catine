@@ -252,17 +252,12 @@ class CustomSearch extends SearchDelegate {
     // print('@#@@#@# searchQuery');
     // print(query);
 
-    final matchedProducts = context
-        .read<AllProductsBloc>()
-        .state
-        .maybeWhen(
+    final matchedProducts = context.read<AllProductsBloc>().state.maybeWhen(
           loaded: (model, page) => model ?? [],
           loading: (model, page) => model ?? [],
           orElse: () => [],
         )
-        .where((product) =>
-            product.name.toLowerCase().contains(query.toLowerCase()))
-        .toList();
+        .where((product) => product.name.toLowerCase().contains(query.toLowerCase())).toList();
 
     print(matchedProducts.length);
 

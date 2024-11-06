@@ -10,8 +10,9 @@ class MyOrdersResponse extends ResponseBase with _$MyOrdersResponse {
   factory MyOrdersResponse({
     int? order_id, 
     int? customer_id,
-    String? total, 
-   //  @Default(<LiStItems>[]) List<LiStItems>? line_items, 
+    String? total,
+    String? order_number,
+   //  @Default(<LiStItems>[]) List<LiStItems>? line_items,
     }) = _MyOrdersResponse;
 	
   factory MyOrdersResponse.fromJson(Map<String, dynamic> json) =>

@@ -87,6 +87,12 @@ android {
             keyAlias 'AndroidDebugKey'
             keyPassword 'android'
         }
+        release {
+            storeFile file('upload-key.jks')
+            storePassword '6581065810'
+            keyAlias 'mykey'
+            keyPassword '6581065810'
+        }
 //        release {
 ////            keyAlias keystoreProperties['keyAlias']
 ////            keyPassword keystoreProperties['keyPassword']
@@ -95,9 +101,9 @@ android {
         //}
     }
     buildTypes {
-//        release {
-//            signingConfig signingConfigs.release
-//        }
+        release {
+            signingConfig signingConfigs.release
+        }
     }
 
 

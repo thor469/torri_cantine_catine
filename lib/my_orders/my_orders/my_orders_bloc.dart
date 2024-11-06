@@ -89,7 +89,7 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent, MyOrdersState> {
   }
 
 
-  Future<int?> createCheckOutForStripe(Billing? billing, Shipping? shipping, String? customerNote, String? paymentMethod, List<Map<String, dynamic>>? paymentData, int totPoint,  bool isFirst) async {
+  Future<MyOrdersResponse?> createCheckOutForStripe(Billing? billing, Shipping? shipping, String? customerNote, String? paymentMethod, List<Map<String, dynamic>>? paymentData, int totPoint,  bool isFirst) async {
     try {
       final response = await service.postOrdersData(
         MyOrdersRequest(
@@ -104,7 +104,7 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent, MyOrdersState> {
       if(!isFirst){
         await addPoint(response.order_id ?? 0, totPoint);
       }
-      return response.order_id;
+      return response;
     } on ApiException catch (e) {
 
       print(e.body["order_id"]);
