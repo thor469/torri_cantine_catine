@@ -111,6 +111,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
 
   Future<void> initCart(CartResponse cart) async{
     setState(() {
+      filteredItems.clear();
       if(moneyDiscount >= 5.0){
         taxedTotalItems =(int.tryParse((cart.totals.totalItems ?? "0"))! + int.tryParse(cart.totals.totalItemsTax ?? "0")! - 500).toString();
       }else{
