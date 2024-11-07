@@ -343,12 +343,15 @@ class _ProductPreviewState extends State<ProductPreview> {
                         },
                       child: ElevatedButton.icon(
                         onPressed: () {
-                            setState(() {isLoading = true;});
+
                           if (widget.type == 'bundle') {
                               MainNavigation.push(context, MainNavigation.productDetail(widget.id));
                           } else {
-                            context.read<AddProductToCartBloc>().add(AddProductToCartEvent.addProduct(widget.id, 1));
-                            context.read<CartBadgeCubitCubit>().addCartItem();
+                            if (!isLoading) {
+                              setState(() {isLoading = true;});
+                              context.read<AddProductToCartBloc>().add(AddProductToCartEvent.addProduct(widget.id, 1));
+                              context.read<CartBadgeCubitCubit>().addCartItem();
+                            }
                           }
                         },
                         style: ElevatedButton.styleFrom(
