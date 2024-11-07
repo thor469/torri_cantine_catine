@@ -2,7 +2,7 @@
   "project_info": {
     "project_number": "683059644780",
     "project_id": "torricantinestore",
-    "storage_bucket": "torricantinestore.appspot.com"
+    "storage_bucket": "torricantinestore.firebasestorage.app"
   },
   "client": [
     {
@@ -13,6 +13,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "683059644780-algolua12aaao8qq3lqp1v0bgt39u4th.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.torri_cantine_app",
+            "certificate_hash": "e608849282d52174658000f10bb5b3093a87db5a"
+          }
+        },
         {
           "client_id": "683059644780-sct1s5amm0utdkcl1vku144h4pdlfvc3.apps.googleusercontent.com",
           "client_type": 1,
@@ -63,6 +71,14 @@
           "android_info": {
             "package_name": "com.torricantine.torristore",
             "certificate_hash": "71f6b71118012ed1c96c882237cc1ee745567515"
+          }
+        },
+        {
+          "client_id": "683059644780-0vq99n4ril30s6sstkv86kpaanldepbt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.torricantine.torristore",
+            "certificate_hash": "e608849282d52174658000f10bb5b3093a87db5a"
           }
         },
         {
@@ -141,6 +157,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "683059644780-n4osld6jgepm80r02elp06pigfihftrs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.torricantine.torristore.staging",
+            "certificate_hash": "e608849282d52174658000f10bb5b3093a87db5a"
+          }
+        },
         {
           "client_id": "683059644780-s0to0fpk6i379a1hh1ctlr2vil8pumgr.apps.googleusercontent.com",
           "client_type": 1,

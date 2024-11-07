@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:math';
+import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -129,25 +132,25 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
     }
   }
 
-  Stream<RegistrationState> _registerWithApple() async* {
-    LocalStorage storage = LocalStorage();
-    final AuthorizationCredentialAppleID appleCredential =
-        await SignInWithApple.getAppleIDCredential(
+  Stream<RegistrationState> _registerWithApple() async* {LocalStorage storage = LocalStorage();
+    final AuthorizationCredentialAppleID appleCredential = await SignInWithApple.getAppleIDCredential(
       scopes: [
         AppleIDAuthorizationScopes.email,
         AppleIDAuthorizationScopes.fullName
       ],
     );
 
-    final String rawNonce = generateNonce();
+    // final String rawNonce = generateNonce();
+        // rawNonce: rawNonce,
     final AuthCredential credential = OAuthProvider('apple.com').credential(
       idToken: appleCredential.identityToken,
-      rawNonce: rawNonce,
+      accessToken: appleCredential.authorizationCode
     );
 
+
+
     try {
-      final UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithCredential(credential);
+      final UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
       storage.setUserName(userCredential.user!.email ?? "");
       storage.setPassword(getPassword(userCredential.user!.email ?? ""));
 

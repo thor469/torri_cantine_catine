@@ -349,15 +349,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           child: GestureDetector(
                             onTap: () {
                               // overlayLoader.show(context);
-                              context.read<RegistrationBloc>().add(
-                                  const RegistrationEvent.registerWithApple());
+                              context.read<RegistrationBloc>().add(const RegistrationEvent.registerWithApple());
 
                               //overlayLoader.hide(context);
                             },
-                            child: SizedBox(
-                                width: 40,
-                                height: 40,
-                                child: Image.asset("assets/logo_apple.png")
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom:10.0),
+                              child: SizedBox(
+                                  width: 45,
+                                  height: 45,
+                                  child: Image.asset("assets/logo_apple.png")
+                              ),
                             ),
                           ),
                         ),

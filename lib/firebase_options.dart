@@ -27,10 +27,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -49,37 +46,48 @@ class DefaultFirebaseOptions {
     messagingSenderId: '683059644780',
     projectId: 'torricantinestore',
     authDomain: 'torricantinestore.firebaseapp.com',
-    storageBucket: 'torricantinestore.appspot.com',
+    storageBucket: 'torricantinestore.firebasestorage.app',
     measurementId: 'G-KYVSLZSFL1',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAOBvcMOccdxMdpF80dtk-NTwUM0CIp85I',
-    appId: '1:683059644780:android:08b3b6e3c2dcc74656cb49',
+    appId: '1:683059644780:android:60b2ddddb8c7cd4456cb49',
     messagingSenderId: '683059644780',
     projectId: 'torricantinestore',
-    storageBucket: 'torricantinestore.appspot.com',
+    storageBucket: 'torricantinestore.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyC-bK3WNav1WzIPK3vqZ1_lVQsOQN5hZbI',
-    appId: '1:683059644780:ios:c7f1035c2ed7ae2556cb49',
+    appId: '1:683059644780:ios:2d6996dbca63b4fd56cb49',
     messagingSenderId: '683059644780',
     projectId: 'torricantinestore',
-    storageBucket: 'torricantinestore.appspot.com',
-    androidClientId: '683059644780-tjrqhnqie2rsn7bnfj57d2u5121i3d15.apps.googleusercontent.com',
-    iosClientId: '683059644780-l3qu4btmfqvaienlkjqlp7bk4265ogr2.apps.googleusercontent.com',
-    iosBundleId: 'com.example.torriCantineApp',
+    storageBucket: 'torricantinestore.firebasestorage.app',
+    androidClientId: '683059644780-0o5nb8kbr40oj0n3u74a1m9romlijlvb.apps.googleusercontent.com',
+    iosClientId: '683059644780-lv5jd91h62tgvqg41m7btml9h2dkapfv.apps.googleusercontent.com',
+    iosBundleId: 'com.torricantineapp.torristore',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyC-bK3WNav1WzIPK3vqZ1_lVQsOQN5hZbI',
-    appId: '1:683059644780:ios:c7f1035c2ed7ae2556cb49',
+    appId: '1:683059644780:ios:883ffb835bdef32156cb49',
     messagingSenderId: '683059644780',
     projectId: 'torricantinestore',
-    storageBucket: 'torricantinestore.appspot.com',
-    androidClientId: '683059644780-tjrqhnqie2rsn7bnfj57d2u5121i3d15.apps.googleusercontent.com',
+    storageBucket: 'torricantinestore.firebasestorage.app',
+    androidClientId: '683059644780-0o5nb8kbr40oj0n3u74a1m9romlijlvb.apps.googleusercontent.com',
     iosClientId: '683059644780-l3qu4btmfqvaienlkjqlp7bk4265ogr2.apps.googleusercontent.com',
     iosBundleId: 'com.example.torriCantineApp',
   );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyDPbZQUgFE14QkX6DCUr7-2R1rKmE8C8gU',
+    appId: '1:683059644780:web:75b9e3d025cda65b56cb49',
+    messagingSenderId: '683059644780',
+    projectId: 'torricantinestore',
+    authDomain: 'torricantinestore.firebaseapp.com',
+    storageBucket: 'torricantinestore.firebasestorage.app',
+    measurementId: 'G-WJWBXNRJQ8',
+  );
+
 }
