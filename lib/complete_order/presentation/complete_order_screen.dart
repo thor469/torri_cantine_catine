@@ -380,7 +380,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                             (cart.coupons?.isEmpty ?? false)
                                                 ? const SizedBox()
                                                 : SizedBox(
-                                              height: (cart.coupons?.length ?? 0) * 24,
+                                              height: (cart.coupons?.length ?? 0) * 30,
                                               child: Row(
                                                 children: [
                                                   ListView.builder(
@@ -392,11 +392,11 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                       final couponItem = cart.coupons![index];
                                                       return Container(
                                                         alignment: Alignment.topLeft,
-                                                        height: 34,
+                                                        height: 30,
                                                         child: InputChip(
                                                           label: Text(
                                                             couponItem!.code,
-                                                            style: const TextStyle(color: Colors.white),
+                                                            style: const TextStyle(color: Colors.white, fontSize: 12),
                                                           ),
                                                           deleteIconColor: Colors.white,
                                                           backgroundColor: const Color.fromARGB(255, 161, 29, 51),
@@ -407,6 +407,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                             context.read<CouponBloc>().add(CouponEvent.delete(couponItem.code)
                                                             );
                                                           },
+                                                          padding: const EdgeInsets.only(left:5 , bottom: 3),
                                                           onPressed: null,
                                                           onSelected: null,
                                                         ),
