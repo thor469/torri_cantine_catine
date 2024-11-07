@@ -1372,8 +1372,9 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                 return state.maybeWhen(
                                                   orElse: () {
                                                     // Display total price when no coupon is applied
+                                                    double total = cartSummedPrice + shippingPriceValue;
                                                     return Text(
-                                                      "€ ${cartSummedPrice.toStringAsFixed(2).replaceAll('.', ',')}",
+                                                      "€ ${total.toStringAsFixed(2).replaceAll('.', ',')}",
                                                       style: const TextStyle(
                                                         fontSize: 16,
                                                         fontWeight: FontWeight.bold,
