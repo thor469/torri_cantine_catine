@@ -34,18 +34,21 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       } else {
         if (response.items.isEmpty) {
           yield const CartState.cartEmpty();
-        } else {
-          const dep = DependencyFactoryImpl();
-          Dio dio= dep.createDioForApiCart().dio;
-          var codeInfo = await dio.request(
-            '/wp-json/wc/store/v1/cart/',
-            options: Options(
-              method: 'GET',
-            ),
-          );
-          var newCartResponse = CartResponse.fromJson(codeInfo.data);
-          yield CartState.loaded(newCartResponse);
         }
+        // else {
+        //   const dep = DependencyFactoryImpl();
+        //   Dio dio= dep.createDioForApiCart().dio;
+        //   var codeInfo = await dio.request(
+        //     '/wp-json/wc/store/v1/cart/',
+        //     options: Options(
+        //       method: 'GET',
+        //     ),
+        //   );
+        else{
+          yield CartState.loaded(response);
+        }
+
+        // }
       }
     } on ApiException catch (e) {
       yield CartState.error(e.body);

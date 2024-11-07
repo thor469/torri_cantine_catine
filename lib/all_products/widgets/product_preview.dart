@@ -69,6 +69,7 @@ class _ProductPreviewState extends State<ProductPreview> {
   LocalStorage storage = LocalStorage();
   double? storedRating;
   bool isFirstLoad = true;
+  bool isLoading = false;
   String value = "";
   // late ProductPointsCubit productPointsCubit;
   late int product_id;
@@ -328,18 +329,26 @@ class _ProductPreviewState extends State<ProductPreview> {
                     child: SizedBox(
                       height: 24,
                       width: MediaQuery.of(context).size.width,
+                      child: BlocListener<AddProductToCartBloc, AddProductToCartState>(
+                        listener: (BuildContext context, AddProductToCartState state) {
+                          state.maybeWhen(
+                              addedProduct: (_) {
+                                setState(() {isLoading = false;});
+                              },
+                              error: () {
+                                setState(() {isLoading = false;});
+                              },
+                              orElse: () {}
+                          );
+                        },
                       child: ElevatedButton.icon(
                         onPressed: () {
+                            setState(() {isLoading = true;});
                           if (widget.type == 'bundle') {
-                            MainNavigation.push(context,
-                                MainNavigation.productDetail(widget.id));
+                              MainNavigation.push(context, MainNavigation.productDetail(widget.id));
                           } else {
-                            context.read<AddProductToCartBloc>().add(
-                                AddProductToCartEvent.addProduct(
-                                    widget.id, 1));
-                            context
-                                .read<CartBadgeCubitCubit>()
-                                .addCartItem();
+                            context.read<AddProductToCartBloc>().add(AddProductToCartEvent.addProduct(widget.id, 1));
+                            context.read<CartBadgeCubitCubit>().addCartItem();
                           }
                         },
                         style: ElevatedButton.styleFrom(
@@ -348,23 +357,32 @@ class _ProductPreviewState extends State<ProductPreview> {
                             borderRadius: BorderRadius.circular(7),
                           ),
                         ),
-                        icon: const Icon(
+                        iconAlignment: isLoading? IconAlignment.end : IconAlignment.start,
+                        icon: isLoading
+                        ? const SizedBox(
+                          width: 16,
+                          height: 16,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          ),
+                        )
+                            : const Icon(
                           Icons.shopping_cart_outlined,
                           size: 16,
                           color: Colors.white,
                         ),
-                        label: Text(
+                          label: !isLoading
+                              ? Text(
                           widget.type == 'bundle' ? 'SCEGLI' : 'AGGIUNGI',
-                          overflow: TextOverflow.visible,
-                          style: TCTypography.of(context)
-                              .text_12
-                              .copyWith(color: Colors.white),
-                        ),
+                            style: TCTypography.of(context).text_12.copyWith(color: Colors.white),
+                          )
+                              : const Text(""),
                       ),
                     ),
                   ),
                 ),
-              )
+            ))
                   : const SizedBox(),
             ],
           ),
