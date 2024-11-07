@@ -69,6 +69,7 @@ class _ProductPreviewState extends State<ProductPreview> {
   LocalStorage storage = LocalStorage();
   double? storedRating;
   bool isFirstLoad = true;
+  bool isLoading = false;
   String value = "";
   // late ProductPointsCubit productPointsCubit;
   late int product_id;
@@ -330,17 +331,19 @@ class _ProductPreviewState extends State<ProductPreview> {
                       width: MediaQuery.of(context).size.width,
                       child: ElevatedButton.icon(
                         onPressed: () {
+                          setState(() {
+                            isLoading = true;
+                          });
                           if (widget.type == 'bundle') {
                             MainNavigation.push(context,
                                 MainNavigation.productDetail(widget.id));
                           } else {
-                            context.read<AddProductToCartBloc>().add(
-                                AddProductToCartEvent.addProduct(
-                                    widget.id, 1));
-                            context
-                                .read<CartBadgeCubitCubit>()
-                                .addCartItem();
+                            context.read<AddProductToCartBloc>().add(AddProductToCartEvent.addProduct(widget.id, 1));
+                            context.read<CartBadgeCubitCubit>().addCartItem();
                           }
+                          // setState(() {
+                          //   isLoading = false;
+                          // });
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color.fromARGB(255, 161, 29, 51),
@@ -348,18 +351,28 @@ class _ProductPreviewState extends State<ProductPreview> {
                             borderRadius: BorderRadius.circular(7),
                           ),
                         ),
-                        icon: const Icon(
+                        iconAlignment: isLoading? IconAlignment.end : IconAlignment.start,
+                        icon: isLoading
+                            ?  const SizedBox(
+                          width: 16,
+                          height: 16,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          ),
+                        )
+                            : const Icon(
                           Icons.shopping_cart_outlined,
                           size: 16,
                           color: Colors.white,
                         ),
-                        label: Text(
+                        label: !isLoading? Text(
                           widget.type == 'bundle' ? 'SCEGLI' : 'AGGIUNGI',
                           overflow: TextOverflow.visible,
                           style: TCTypography.of(context)
                               .text_12
                               .copyWith(color: Colors.white),
-                        ),
+                        ) : Text("  "),
                       ),
                     ),
                   ),
