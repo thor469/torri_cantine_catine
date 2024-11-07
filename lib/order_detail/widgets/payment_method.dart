@@ -106,7 +106,7 @@ class _PaymentMethodState extends State<PaymentMethod> {
                     ),
                     const Spacer(),
                     Text(
-                      "-€ ${widget.order.discountTotal ?? "0"} ",
+                      "-€${((double.tryParse(widget.order.discountTotal) ?? 0) + (double.tryParse(widget.order.discountTax ?? '0') ?? 0)) } ",
                       style: TCTypography.of(context).text_14_bold.copyWith(
                         color: const Color.fromARGB(255, 13, 117, 161),
                       ),

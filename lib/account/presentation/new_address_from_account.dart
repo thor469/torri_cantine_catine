@@ -261,7 +261,7 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
                     .text_16_bold
                     .copyWith(color: const Color.fromARGB(255, 110, 116, 119))),
           ),
-          body: loading ? Center(child: CircularProgressIndicator(
+          body: loading ? const Center(child: CircularProgressIndicator(
             color: Color.fromARGB(255, 161, 29, 51),
           )):
           SizedBox(
@@ -701,11 +701,10 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
                             text: "SALVA LE MODIFICHE",
                             colorText: Colors.white,
                             ontap: () async {
-
-                              setState(() {
-                                loading = true;
-                              });
                               if(validation()){
+                                setState(() {
+                                  loading = true;
+                                });
                                 if(widget.isNewAddress){
                                   if(widget.editFatturazione || addOther == "fatturazione"){
                                     await confirmAddress(isDefault: indFatturaIsChecked, type: "billing");

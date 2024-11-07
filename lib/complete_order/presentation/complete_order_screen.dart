@@ -83,8 +83,9 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   int selectedIndex = 0;
   double appliedCoupon = 0.0;
   bool isEnabled = false;
-
+  // CartResponse? initedCart;
   int? amountCart;
+
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
@@ -140,6 +141,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
           filteredItems.add(element);
         }
       });
+      // initedCart = cart;
     });
   }
 
@@ -192,6 +194,11 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
       listener: (context, state) => state.maybeWhen(
         loaded: (response) => {
         storage.setTotalCartItems(0),
+          // for(Coupon? item in initedCart?.coupons ?? []){
+          //   if(item != null){
+          //     context.read<CouponBloc>().deleteCoupon(item.code)
+          //   }
+          // },
           MainNavigation.push(context, const MainNavigation.thankYou()),
         },
         loading: () => const Center(
@@ -380,7 +387,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                             (cart.coupons?.isEmpty ?? false)
                                                 ? const SizedBox()
                                                 : SizedBox(
-                                              height: (cart.coupons?.length ?? 0) * 24,
+                                              height: (cart.coupons?.length ?? 0) * 30,
                                               child: Row(
                                                 children: [
                                                   ListView.builder(
@@ -392,11 +399,11 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                       final couponItem = cart.coupons![index];
                                                       return Container(
                                                         alignment: Alignment.topLeft,
-                                                        height: 34,
+                                                        height: 30,
                                                         child: InputChip(
                                                           label: Text(
                                                             couponItem!.code,
-                                                            style: const TextStyle(color: Colors.white),
+                                                            style: const TextStyle(color: Colors.white, fontSize: 12),
                                                           ),
                                                           deleteIconColor: Colors.white,
                                                           backgroundColor: const Color.fromARGB(255, 161, 29, 51),
@@ -407,6 +414,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                             context.read<CouponBloc>().add(CouponEvent.delete(couponItem.code)
                                                             );
                                                           },
+                                                          padding: const EdgeInsets.only(left:5 , bottom: 3),
                                                           onPressed: null,
                                                           onSelected: null,
                                                         ),
@@ -1364,8 +1372,9 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                 return state.maybeWhen(
                                                   orElse: () {
                                                     // Display total price when no coupon is applied
+                                                    double total = cartSummedPrice + shippingPriceValue;
                                                     return Text(
-                                                      "€ ${cartSummedPrice.toStringAsFixed(2).replaceAll('.', ',')}",
+                                                      "€ ${total.toStringAsFixed(2).replaceAll('.', ',')}",
                                                       style: const TextStyle(
                                                         fontSize: 16,
                                                         fontWeight: FontWeight.bold,
@@ -1374,7 +1383,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                   },
                                                   gotCoupon: (coupons) {
                                                     // Calculate the total after applying the coupon
-                                                    double total = cartSummedPrice - appliedCoupon;
+                                                    double total = cartSummedPrice - appliedCoupon + shippingPriceValue;
 
                                                     // Ensure total does not go below zero
                                                     total = total < 0 ? 0 : total;
