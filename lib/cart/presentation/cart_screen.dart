@@ -296,7 +296,7 @@ class _CartScreenState extends State<CartScreen> {
                                         mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text("Somma articoli",
+                                          Text("Somma articoli:",
                                               style: TCTypography.of(context)
                                                   .text_16_bold),
                                           Text(

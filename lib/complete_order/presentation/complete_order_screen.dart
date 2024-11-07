@@ -1372,9 +1372,8 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                 return state.maybeWhen(
                                                   orElse: () {
                                                     // Display total price when no coupon is applied
-                                                    double total = cartSummedPrice + shippingPriceValue;
                                                     return Text(
-                                                      "€ ${total.toStringAsFixed(2).replaceAll('.', ',')}",
+                                                      "€ ${cartSummedPrice.toStringAsFixed(2).replaceAll('.', ',')}",
                                                       style: const TextStyle(
                                                         fontSize: 16,
                                                         fontWeight: FontWeight.bold,
@@ -1383,7 +1382,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                   },
                                                   gotCoupon: (coupons) {
                                                     // Calculate the total after applying the coupon
-                                                    double total = cartSummedPrice - appliedCoupon + shippingPriceValue;
+                                                    double total = cartSummedPrice + shippingPriceValue;
 
                                                     // Ensure total does not go below zero
                                                     total = total < 0 ? 0 : total;
