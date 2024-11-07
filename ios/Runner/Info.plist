@@ -44,6 +44,8 @@
 	<true/>
 	<key>MinimumOSVersion</key>
 	<string>12.0</string>
+	<key>NSFaceIDUsageDescription</key>
+    <string>Face ID is used to improve sign-in experience</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Accesso per la modifica della foto del profilo utente</string>
 	<key>NSPhotoLibraryUsageDescription</key>

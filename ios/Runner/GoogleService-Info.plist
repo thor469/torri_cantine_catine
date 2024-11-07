@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>683059644780-l3qu4btmfqvaienlkjqlp7bk4265ogr2.apps.googleusercontent.com</string>
+	<string>683059644780-lv5jd91h62tgvqg41m7btml9h2dkapfv.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.683059644780-l3qu4btmfqvaienlkjqlp7bk4265ogr2</string>
+	<string>com.googleusercontent.apps.683059644780-lv5jd91h62tgvqg41m7btml9h2dkapfv</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>683059644780-0o5nb8kbr40oj0n3u74a1m9romlijlvb.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.torriCantineApp</string>
+	<string>com.torricantineapp.torristore</string>
 	<key>PROJECT_ID</key>
 	<string>torricantinestore</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:683059644780:ios:883ffb835bdef32156cb49</string>
+	<string>1:683059644780:ios:2d6996dbca63b4fd56cb49</string>
 </dict>
 </plist>

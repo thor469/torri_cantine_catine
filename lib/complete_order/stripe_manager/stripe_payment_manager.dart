@@ -57,7 +57,25 @@ abstract class StripePaymentManager {
 
   static Future <void> makePayment(int amount, String currency,BuildContext context,UserAddress shipping, UserAddress billing, int customerId, int totPoint, MyOrdersResponse orderId, String note) async{
   try {
-    var clientSecret = await _getClientSecret((amount).toString(), currency, orderId.order_id ?? 0, shipping, orderId.order_number ?? "", customerId);
+//TODO QUESTO é IL METODO FATTO
+    final paymentMethod = await Stripe.instance.createPaymentMethod(
+      params: PaymentMethodParams.card(
+          paymentMethodData: PaymentMethodData(
+              billingDetails: BillingDetails(
+                  email: billing.email,
+                  address:Address(city: billing.city, country: billing.country, line1: billing.address_1, line2: billing.address_2, postalCode: billing.postcode, state: billing.state),
+                  phone: billing.phone,
+                  name: "${billing.first_name} ${billing.last_name}"
+              ),
+              shippingDetails: ShippingDetails(
+                  address:Address(city: shipping.city, country: shipping.country, line1: shipping.address_1, line2: shipping.address_2, postalCode: shipping.postcode, state: shipping.state),
+                  phone: shipping.phone,
+                  name: "${shipping.first_name} ${shipping.last_name}"
+              ),
+          )
+      ),
+    );
+    var clientSecret = await _getClientSecret((amount).toString(), currency, orderId.order_id ?? 0, shipping, orderId.order_number ?? "", customerId, paymentMethod.customerId ?? "", paymentMethod.id);
     await  _initializePaymentSheet(clientSecret['client_secret'], billing ,customerId);
     await Stripe.instance.presentPaymentSheet();
 
@@ -150,13 +168,14 @@ abstract class StripePaymentManager {
     print(a?.image ?? "");
   }
 
-  static Future<dynamic> _getClientSecret(amount, currency, int orderId, UserAddress shipping, String orderNumber, int userId) async {
+  static Future<dynamic> _getClientSecret(amount, currency, int orderId, UserAddress shipping, String orderNumber, int userId, String customerId, String payment) async {
 
    print(amount);
    print(currency);
    print(AppConfig.secretKeyStripe);
    String newAmount = amount.toString();
-   String body = "amount=$newAmount&capture_method=${"automatic"}&confirm=${"false"}&confirmation_method=${"automatic"}&payment_method_options[card[request_three_d_secure]]=${"any"}&payment_method_types[0]=${"card"}&currency=$currency&metadata[order_id]=$orderId&metadata[order_number]=$orderNumber&metadata[user_id]=$userId&metadata[gateway_id]=stripe_cc&metadata[webhook_id]=${AppConfig.webHookId}&shipping[address[city]]=${shipping.city}&shipping[address[country]]=${shipping.country}&shipping[address[line1]]=${shipping.address_1}&shipping[address[postal_code]]=${shipping.postcode}&shipping[address[state]]=${shipping.state}&shipping[name]=${shipping.first_name} ${shipping.last_name}";
+   // String body = "amount=$newAmount&customer=$customerId&capture_method=${"automatic"}&confirm=${"false"}&confirmation_method=${"automatic"}&payment_method_options[card[request_three_d_secure]]=${"any"}&payment_method_types[0]=${"card"}&currency=$currency&metadata[order_id]=$orderId&metadata[order_number]=$orderNumber&metadata[user_id]=$userId&metadata[gateway_id]=stripe_cc&metadata[webhook_id]=${AppConfig.webHookId}&shipping[address[city]]=${shipping.city}&shipping[address[country]]=${shipping.country}&shipping[address[line1]]=${shipping.address_1}&shipping[address[postal_code]]=${shipping.postcode}&shipping[address[state]]=${shipping.state}&shipping[name]=${shipping.first_name} ${shipping.last_name}";
+   String body = "amount=$newAmount&customer=$customerId&currency=EUR&metadata[order_id]=${orderId}&metadata[gateway_id]=stripe_cc&payment_method_types[0]=card&payment_method=$payment";
 
     Dio dio= Dio();
     var response = await dio.post(AppConfig.stripeEndPoint,
