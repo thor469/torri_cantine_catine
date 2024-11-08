@@ -101,12 +101,12 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             loaded: (response) {
               context.read<CartBadgeCubitCubit>().emit(response.totalItems);
-              MainNavigation.replace(
-                context,
-                [
-                  const MainNavigation.home(),
-                ],
-              );
+              // MainNavigation.replace(
+              //   context,
+              //   [
+              //     const MainNavigation.home(),
+              //   ],
+              // );
               return null;
             },
             error: (error) {

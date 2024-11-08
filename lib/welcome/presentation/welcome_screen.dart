@@ -109,12 +109,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
               context.read<CartBadgeCubitCubit>().emit(response.totalItems);
               //overlayLoader.hide();
-              MainNavigation.replace(
-                context,
-                [
-                  const MainNavigation.home(),
-                ],
-              );
+              // MainNavigation.replace(
+              //   context,
+              //   [
+              //     const MainNavigation.home(),
+              //   ],
+              // );
               return null;
             },
             error: (error) {
