@@ -43,6 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
   };
   LocalStorage token = LocalStorage();
   bool isChecked = false;
+  bool isLoading = false;
 
 
 
@@ -70,6 +71,9 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             error: (error) {
+              setState(() {
+                isLoading = false;
+              });
               const snackBar = SnackBar(
                 content: Text("Inserire e-mail o password valide"),
                 elevation: 1,
@@ -77,6 +81,9 @@ class _LoginScreenState extends State<LoginScreen> {
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
             },
             loggedIn: (userDatas) async {
+              setState(() {
+                isLoading = false;
+              });
               await token.setTokenId(userDatas.token ?? "");
               await token.setUserEmail(userDatas.email ?? "");
               if (mounted) {
@@ -85,6 +92,12 @@ class _LoginScreenState extends State<LoginScreen> {
               return const SizedBox();
             },
             orElse: () => const SizedBox(),
+            loggedOut: (){
+              setState(() {
+                isLoading = false;
+              });
+              return null;
+            }
           ),
         ),
         BlocListener<CartBloc, CartState>(
@@ -290,8 +303,27 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   PrimaryButton(
-                      text: "ACCEDI",
+                      // disabled: isLoading,
+                      icon: isLoading ?
+                      const Center(
+                        child: SizedBox(
+                          width: 16,
+                          height: 16,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          ),
+                        ),
+                      )
+                          : null,
+                      text: isLoading? "": "ACCEDI",
                       ontap: () async {
+                        if(isLoading){
+                          return;
+                        }
+                        setState(() {
+                          isLoading = true;
+                        });
                         context.read<LoginBloc>().add(LoginEvent.login(_controllers['email'].text, _controllers['password'].text, await token.getFCMToken()));
                         // if (mounted) {
                         //   MainNavigation.replace(

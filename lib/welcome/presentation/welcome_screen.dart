@@ -160,9 +160,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           bloc: context.read<RegistrationBloc>(),
           listener: (context, state) => state.maybeWhen(
             loading: (){
-              CircularProgressIndicator(
-                color: Color.fromARGB(255, 161, 29, 51),
-              );
+              // const CircularProgressIndicator(
+              //   color: Color.fromARGB(255, 161, 29, 51),
+              // );
             },
             initial: () {
               // overlayLoader.show(context);
