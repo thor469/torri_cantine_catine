@@ -107,6 +107,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     await storage.deleteUserEmail();
 
     await DefaultCacheManager().emptyCache();
+    yield const LoginState.loggedOut();
   }
 
   Stream<LoginState> _loginWithApple() async* {

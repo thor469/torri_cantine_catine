@@ -14,7 +14,7 @@ class CategoriesCarousel extends StatefulWidget {
 class _CategoriesCarouselState extends State<CategoriesCarousel> {
   @override
   void initState() {
-    context.read<CategoriesBloc>().add(const CategoriesEvent.fetch());
+    // context.read<CategoriesBloc>().add(const CategoriesEvent.fetch());
     super.initState();
   }
 

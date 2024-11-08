@@ -806,6 +806,7 @@ mixin _$LoginState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(LoginResponse userDatas) loggedIn,
+    required TResult Function() loggedOut,
     required TResult Function(String error) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -814,6 +815,7 @@ mixin _$LoginState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(LoginResponse userDatas)? loggedIn,
+    TResult? Function()? loggedOut,
     TResult? Function(String error)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -822,6 +824,7 @@ mixin _$LoginState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(LoginResponse userDatas)? loggedIn,
+    TResult Function()? loggedOut,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) =>
@@ -831,6 +834,7 @@ mixin _$LoginState {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_LoggedIn value) loggedIn,
+    required TResult Function(_LoggedOut value) loggedOut,
     required TResult Function(_Error value) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -839,6 +843,7 @@ mixin _$LoginState {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_LoggedIn value)? loggedIn,
+    TResult? Function(_LoggedOut value)? loggedOut,
     TResult? Function(_Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -847,6 +852,7 @@ mixin _$LoginState {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_LoggedIn value)? loggedIn,
+    TResult Function(_LoggedOut value)? loggedOut,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) =>
@@ -917,6 +923,7 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(LoginResponse userDatas) loggedIn,
+    required TResult Function() loggedOut,
     required TResult Function(String error) error,
   }) {
     return initial();
@@ -928,6 +935,7 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(LoginResponse userDatas)? loggedIn,
+    TResult? Function()? loggedOut,
     TResult? Function(String error)? error,
   }) {
     return initial?.call();
@@ -939,6 +947,7 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(LoginResponse userDatas)? loggedIn,
+    TResult Function()? loggedOut,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) {
@@ -954,6 +963,7 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_LoggedIn value) loggedIn,
+    required TResult Function(_LoggedOut value) loggedOut,
     required TResult Function(_Error value) error,
   }) {
     return initial(this);
@@ -965,6 +975,7 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_LoggedIn value)? loggedIn,
+    TResult? Function(_LoggedOut value)? loggedOut,
     TResult? Function(_Error value)? error,
   }) {
     return initial?.call(this);
@@ -976,6 +987,7 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_LoggedIn value)? loggedIn,
+    TResult Function(_LoggedOut value)? loggedOut,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -1036,6 +1048,7 @@ class _$_Loading with DiagnosticableTreeMixin implements _Loading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(LoginResponse userDatas) loggedIn,
+    required TResult Function() loggedOut,
     required TResult Function(String error) error,
   }) {
     return loading();
@@ -1047,6 +1060,7 @@ class _$_Loading with DiagnosticableTreeMixin implements _Loading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(LoginResponse userDatas)? loggedIn,
+    TResult? Function()? loggedOut,
     TResult? Function(String error)? error,
   }) {
     return loading?.call();
@@ -1058,6 +1072,7 @@ class _$_Loading with DiagnosticableTreeMixin implements _Loading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(LoginResponse userDatas)? loggedIn,
+    TResult Function()? loggedOut,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) {
@@ -1073,6 +1088,7 @@ class _$_Loading with DiagnosticableTreeMixin implements _Loading {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_LoggedIn value) loggedIn,
+    required TResult Function(_LoggedOut value) loggedOut,
     required TResult Function(_Error value) error,
   }) {
     return loading(this);
@@ -1084,6 +1100,7 @@ class _$_Loading with DiagnosticableTreeMixin implements _Loading {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_LoggedIn value)? loggedIn,
+    TResult? Function(_LoggedOut value)? loggedOut,
     TResult? Function(_Error value)? error,
   }) {
     return loading?.call(this);
@@ -1095,6 +1112,7 @@ class _$_Loading with DiagnosticableTreeMixin implements _Loading {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_LoggedIn value)? loggedIn,
+    TResult Function(_LoggedOut value)? loggedOut,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -1195,6 +1213,7 @@ class _$_LoggedIn with DiagnosticableTreeMixin implements _LoggedIn {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(LoginResponse userDatas) loggedIn,
+    required TResult Function() loggedOut,
     required TResult Function(String error) error,
   }) {
     return loggedIn(userDatas);
@@ -1206,6 +1225,7 @@ class _$_LoggedIn with DiagnosticableTreeMixin implements _LoggedIn {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(LoginResponse userDatas)? loggedIn,
+    TResult? Function()? loggedOut,
     TResult? Function(String error)? error,
   }) {
     return loggedIn?.call(userDatas);
@@ -1217,6 +1237,7 @@ class _$_LoggedIn with DiagnosticableTreeMixin implements _LoggedIn {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(LoginResponse userDatas)? loggedIn,
+    TResult Function()? loggedOut,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) {
@@ -1232,6 +1253,7 @@ class _$_LoggedIn with DiagnosticableTreeMixin implements _LoggedIn {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_LoggedIn value) loggedIn,
+    required TResult Function(_LoggedOut value) loggedOut,
     required TResult Function(_Error value) error,
   }) {
     return loggedIn(this);
@@ -1243,6 +1265,7 @@ class _$_LoggedIn with DiagnosticableTreeMixin implements _LoggedIn {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_LoggedIn value)? loggedIn,
+    TResult? Function(_LoggedOut value)? loggedOut,
     TResult? Function(_Error value)? error,
   }) {
     return loggedIn?.call(this);
@@ -1254,6 +1277,7 @@ class _$_LoggedIn with DiagnosticableTreeMixin implements _LoggedIn {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_LoggedIn value)? loggedIn,
+    TResult Function(_LoggedOut value)? loggedOut,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -1271,6 +1295,132 @@ abstract class _LoggedIn implements LoginState {
   @JsonKey(ignore: true)
   _$$_LoggedInCopyWith<_$_LoggedIn> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_LoggedOutCopyWith<$Res> {
+  factory _$$_LoggedOutCopyWith(
+          _$_LoggedOut value, $Res Function(_$_LoggedOut) then) =
+      __$$_LoggedOutCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_LoggedOutCopyWithImpl<$Res>
+    extends _$LoginStateCopyWithImpl<$Res, _$_LoggedOut>
+    implements _$$_LoggedOutCopyWith<$Res> {
+  __$$_LoggedOutCopyWithImpl(
+      _$_LoggedOut _value, $Res Function(_$_LoggedOut) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_LoggedOut with DiagnosticableTreeMixin implements _LoggedOut {
+  const _$_LoggedOut();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'LoginState.loggedOut()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'LoginState.loggedOut'));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_LoggedOut);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(LoginResponse userDatas) loggedIn,
+    required TResult Function() loggedOut,
+    required TResult Function(String error) error,
+  }) {
+    return loggedOut();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(LoginResponse userDatas)? loggedIn,
+    TResult? Function()? loggedOut,
+    TResult? Function(String error)? error,
+  }) {
+    return loggedOut?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(LoginResponse userDatas)? loggedIn,
+    TResult Function()? loggedOut,
+    TResult Function(String error)? error,
+    required TResult orElse(),
+  }) {
+    if (loggedOut != null) {
+      return loggedOut();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_LoggedIn value) loggedIn,
+    required TResult Function(_LoggedOut value) loggedOut,
+    required TResult Function(_Error value) error,
+  }) {
+    return loggedOut(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_LoggedIn value)? loggedIn,
+    TResult? Function(_LoggedOut value)? loggedOut,
+    TResult? Function(_Error value)? error,
+  }) {
+    return loggedOut?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_LoggedIn value)? loggedIn,
+    TResult Function(_LoggedOut value)? loggedOut,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (loggedOut != null) {
+      return loggedOut(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LoggedOut implements LoginState {
+  const factory _LoggedOut() = _$_LoggedOut;
 }
 
 /// @nodoc
@@ -1346,6 +1496,7 @@ class _$_Error with DiagnosticableTreeMixin implements _Error {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(LoginResponse userDatas) loggedIn,
+    required TResult Function() loggedOut,
     required TResult Function(String error) error,
   }) {
     return error(this.error);
@@ -1357,6 +1508,7 @@ class _$_Error with DiagnosticableTreeMixin implements _Error {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(LoginResponse userDatas)? loggedIn,
+    TResult? Function()? loggedOut,
     TResult? Function(String error)? error,
   }) {
     return error?.call(this.error);
@@ -1368,6 +1520,7 @@ class _$_Error with DiagnosticableTreeMixin implements _Error {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(LoginResponse userDatas)? loggedIn,
+    TResult Function()? loggedOut,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) {
@@ -1383,6 +1536,7 @@ class _$_Error with DiagnosticableTreeMixin implements _Error {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_LoggedIn value) loggedIn,
+    required TResult Function(_LoggedOut value) loggedOut,
     required TResult Function(_Error value) error,
   }) {
     return error(this);
@@ -1394,6 +1548,7 @@ class _$_Error with DiagnosticableTreeMixin implements _Error {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_LoggedIn value)? loggedIn,
+    TResult? Function(_LoggedOut value)? loggedOut,
     TResult? Function(_Error value)? error,
   }) {
     return error?.call(this);
@@ -1405,6 +1560,7 @@ class _$_Error with DiagnosticableTreeMixin implements _Error {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_LoggedIn value)? loggedIn,
+    TResult Function(_LoggedOut value)? loggedOut,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {

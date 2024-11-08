@@ -24,6 +24,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   LocalStorage storage = LocalStorage();
   late String fcmtoken;
   bool isOverlayHiding = false;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -65,13 +66,26 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         BlocListener<LoginBloc, LoginState>(
           listener: (context, state) => state.maybeWhen(
             // initial: () => overlayLoader.show(context),
-            loading: () => const CircularProgressIndicator(
-              color: Color.fromARGB(255, 161, 29, 51),
-            ),
+            loading: (){
+              setState(() {
+                isLoading = true;
+              });
+            },
+            loggedOut : (){
+              setState(() {
+                isLoading = false;
+              });
+            }
+            // => const CircularProgressIndicator(
+            //   color: Color.fromARGB(255, 161, 29, 51),
+            // )
+            ,
             loggedIn: (userDatas) async {
               await token.setTokenId(userDatas.token ?? "");
               await token.setUserEmail(userDatas.email ?? "");
-
+              setState(() {
+                isLoading = false;
+              });
               if (mounted) {
                 MainNavigation.push(context, const MainNavigation.home());
               }
@@ -79,6 +93,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             },
             orElse: () => SizedBox(),
             error: (error) {
+              setState(() {
+                isLoading = false;
+              });
               if(error.contains("isRegisteredEmail")){
                 return ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
@@ -109,12 +126,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
               context.read<CartBadgeCubitCubit>().emit(response.totalItems);
               //overlayLoader.hide();
-              MainNavigation.replace(
-                context,
-                [
-                  const MainNavigation.home(),
-                ],
-              );
+              // MainNavigation.replace(
+              //   context,
+              //   [
+              //     const MainNavigation.home(),
+              //   ],
+              // );
               return null;
             },
             error: (error) {
@@ -143,9 +160,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           bloc: context.read<RegistrationBloc>(),
           listener: (context, state) => state.maybeWhen(
             loading: (){
-              CircularProgressIndicator(
-                color: Color.fromARGB(255, 161, 29, 51),
-              );
+              // const CircularProgressIndicator(
+              //   color: Color.fromARGB(255, 161, 29, 51),
+              // );
             },
             initial: () {
               // overlayLoader.show(context);
@@ -194,7 +211,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       ],
       child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 227, 231, 233),
-        body: SizedBox(
+        body: isLoading?
+        const Center(
+          child:  CircularProgressIndicator(
+            color: Color.fromARGB(255, 161, 29, 51),
+          ),
+        ):
+        SizedBox(
 
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,

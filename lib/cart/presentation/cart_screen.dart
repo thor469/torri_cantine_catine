@@ -47,7 +47,7 @@ class _CartScreenState extends State<CartScreen> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       if (mounted) {
-        // context.read<CartBloc>().add(const CartEvent.fetch());
+        context.read<CartBloc>().add(const CartEvent.fetch());
         moneyDiscount = await context.read<PointsBloc>().getMoneyDiscountAvaible() ?? 0;
       }
     });
