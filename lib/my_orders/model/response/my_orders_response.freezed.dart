@@ -155,11 +155,15 @@ class _$_MyOrdersResponse implements _MyOrdersResponse {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_MyOrdersResponse &&
-            (identical(other.order_id, order_id) || other.order_id == order_id) &&
-            (identical(other.customer_id, customer_id) || other.customer_id == customer_id) &&
+        (other.runtimeType == runtimeType &&
+            other is _$_MyOrdersResponse &&
+            (identical(other.order_id, order_id) ||
+                other.order_id == order_id) &&
+            (identical(other.customer_id, customer_id) ||
+                other.customer_id == customer_id) &&
             (identical(other.total, total) || other.total == total) &&
-            (identical(other.order_number, order_number) || other.order_number == order_number));
+            (identical(other.order_number, order_number) ||
+                other.order_number == order_number));
   }
 
   @JsonKey(ignore: true)
