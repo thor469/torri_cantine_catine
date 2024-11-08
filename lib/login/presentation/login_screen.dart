@@ -80,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
               await token.setTokenId(userDatas.token ?? "");
               await token.setUserEmail(userDatas.email ?? "");
               if (mounted) {
-                context.read<CartBloc>().add(const CartEvent.fetch());
+                // context.read<CartBloc>().add(const CartEvent.fetch());
               }
               return const SizedBox();
             },
