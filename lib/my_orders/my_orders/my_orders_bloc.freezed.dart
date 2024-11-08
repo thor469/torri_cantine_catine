@@ -20,6 +20,7 @@ mixin _$MyOrdersEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() fetch,
     required TResult Function() loading,
+    required TResult Function(MyOrdersResponse response) loaded,
     required TResult Function(
             Billing? billing,
             Shipping? shipping,
@@ -34,6 +35,7 @@ mixin _$MyOrdersEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? fetch,
     TResult? Function()? loading,
+    TResult? Function(MyOrdersResponse response)? loaded,
     TResult? Function(
             Billing? billing,
             Shipping? shipping,
@@ -48,6 +50,7 @@ mixin _$MyOrdersEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetch,
     TResult Function()? loading,
+    TResult Function(MyOrdersResponse response)? loaded,
     TResult Function(
             Billing? billing,
             Shipping? shipping,
@@ -63,6 +66,7 @@ mixin _$MyOrdersEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_Fetch value) fetch,
     required TResult Function(_Load value) loading,
+    required TResult Function(_LoadedCart value) loaded,
     required TResult Function(_CreateCheckout value) createCheckout,
   }) =>
       throw _privateConstructorUsedError;
@@ -70,6 +74,7 @@ mixin _$MyOrdersEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Fetch value)? fetch,
     TResult? Function(_Load value)? loading,
+    TResult? Function(_LoadedCart value)? loaded,
     TResult? Function(_CreateCheckout value)? createCheckout,
   }) =>
       throw _privateConstructorUsedError;
@@ -77,6 +82,7 @@ mixin _$MyOrdersEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Fetch value)? fetch,
     TResult Function(_Load value)? loading,
+    TResult Function(_LoadedCart value)? loaded,
     TResult Function(_CreateCheckout value)? createCheckout,
     required TResult orElse(),
   }) =>
@@ -145,6 +151,7 @@ class _$_Fetch with DiagnosticableTreeMixin implements _Fetch {
   TResult when<TResult extends Object?>({
     required TResult Function() fetch,
     required TResult Function() loading,
+    required TResult Function(MyOrdersResponse response) loaded,
     required TResult Function(
             Billing? billing,
             Shipping? shipping,
@@ -162,6 +169,7 @@ class _$_Fetch with DiagnosticableTreeMixin implements _Fetch {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? fetch,
     TResult? Function()? loading,
+    TResult? Function(MyOrdersResponse response)? loaded,
     TResult? Function(
             Billing? billing,
             Shipping? shipping,
@@ -179,6 +187,7 @@ class _$_Fetch with DiagnosticableTreeMixin implements _Fetch {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetch,
     TResult Function()? loading,
+    TResult Function(MyOrdersResponse response)? loaded,
     TResult Function(
             Billing? billing,
             Shipping? shipping,
@@ -200,6 +209,7 @@ class _$_Fetch with DiagnosticableTreeMixin implements _Fetch {
   TResult map<TResult extends Object?>({
     required TResult Function(_Fetch value) fetch,
     required TResult Function(_Load value) loading,
+    required TResult Function(_LoadedCart value) loaded,
     required TResult Function(_CreateCheckout value) createCheckout,
   }) {
     return fetch(this);
@@ -210,6 +220,7 @@ class _$_Fetch with DiagnosticableTreeMixin implements _Fetch {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Fetch value)? fetch,
     TResult? Function(_Load value)? loading,
+    TResult? Function(_LoadedCart value)? loaded,
     TResult? Function(_CreateCheckout value)? createCheckout,
   }) {
     return fetch?.call(this);
@@ -220,6 +231,7 @@ class _$_Fetch with DiagnosticableTreeMixin implements _Fetch {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Fetch value)? fetch,
     TResult Function(_Load value)? loading,
+    TResult Function(_LoadedCart value)? loaded,
     TResult Function(_CreateCheckout value)? createCheckout,
     required TResult orElse(),
   }) {
@@ -278,6 +290,7 @@ class _$_Load with DiagnosticableTreeMixin implements _Load {
   TResult when<TResult extends Object?>({
     required TResult Function() fetch,
     required TResult Function() loading,
+    required TResult Function(MyOrdersResponse response) loaded,
     required TResult Function(
             Billing? billing,
             Shipping? shipping,
@@ -295,6 +308,7 @@ class _$_Load with DiagnosticableTreeMixin implements _Load {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? fetch,
     TResult? Function()? loading,
+    TResult? Function(MyOrdersResponse response)? loaded,
     TResult? Function(
             Billing? billing,
             Shipping? shipping,
@@ -312,6 +326,7 @@ class _$_Load with DiagnosticableTreeMixin implements _Load {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetch,
     TResult Function()? loading,
+    TResult Function(MyOrdersResponse response)? loaded,
     TResult Function(
             Billing? billing,
             Shipping? shipping,
@@ -333,6 +348,7 @@ class _$_Load with DiagnosticableTreeMixin implements _Load {
   TResult map<TResult extends Object?>({
     required TResult Function(_Fetch value) fetch,
     required TResult Function(_Load value) loading,
+    required TResult Function(_LoadedCart value) loaded,
     required TResult Function(_CreateCheckout value) createCheckout,
   }) {
     return loading(this);
@@ -343,6 +359,7 @@ class _$_Load with DiagnosticableTreeMixin implements _Load {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Fetch value)? fetch,
     TResult? Function(_Load value)? loading,
+    TResult? Function(_LoadedCart value)? loaded,
     TResult? Function(_CreateCheckout value)? createCheckout,
   }) {
     return loading?.call(this);
@@ -353,6 +370,7 @@ class _$_Load with DiagnosticableTreeMixin implements _Load {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Fetch value)? fetch,
     TResult Function(_Load value)? loading,
+    TResult Function(_LoadedCart value)? loaded,
     TResult Function(_CreateCheckout value)? createCheckout,
     required TResult orElse(),
   }) {
@@ -365,6 +383,191 @@ class _$_Load with DiagnosticableTreeMixin implements _Load {
 
 abstract class _Load implements MyOrdersEvent {
   const factory _Load() = _$_Load;
+}
+
+/// @nodoc
+abstract class _$$_LoadedCartCopyWith<$Res> {
+  factory _$$_LoadedCartCopyWith(
+          _$_LoadedCart value, $Res Function(_$_LoadedCart) then) =
+      __$$_LoadedCartCopyWithImpl<$Res>;
+  @useResult
+  $Res call({MyOrdersResponse response});
+
+  $MyOrdersResponseCopyWith<$Res> get response;
+}
+
+/// @nodoc
+class __$$_LoadedCartCopyWithImpl<$Res>
+    extends _$MyOrdersEventCopyWithImpl<$Res, _$_LoadedCart>
+    implements _$$_LoadedCartCopyWith<$Res> {
+  __$$_LoadedCartCopyWithImpl(
+      _$_LoadedCart _value, $Res Function(_$_LoadedCart) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? response = null,
+  }) {
+    return _then(_$_LoadedCart(
+      null == response
+          ? _value.response
+          : response // ignore: cast_nullable_to_non_nullable
+              as MyOrdersResponse,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $MyOrdersResponseCopyWith<$Res> get response {
+    return $MyOrdersResponseCopyWith<$Res>(_value.response, (value) {
+      return _then(_value.copyWith(response: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_LoadedCart with DiagnosticableTreeMixin implements _LoadedCart {
+  const _$_LoadedCart(this.response);
+
+  @override
+  final MyOrdersResponse response;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'MyOrdersEvent.loaded(response: $response)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'MyOrdersEvent.loaded'))
+      ..add(DiagnosticsProperty('response', response));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_LoadedCart &&
+            (identical(other.response, response) ||
+                other.response == response));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, response);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_LoadedCartCopyWith<_$_LoadedCart> get copyWith =>
+      __$$_LoadedCartCopyWithImpl<_$_LoadedCart>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() fetch,
+    required TResult Function() loading,
+    required TResult Function(MyOrdersResponse response) loaded,
+    required TResult Function(
+            Billing? billing,
+            Shipping? shipping,
+            String? customerNote,
+            String? paymentMethods,
+            List<Map<String, dynamic>>? paymentData,
+            int totPoint)
+        createCheckout,
+  }) {
+    return loaded(response);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? fetch,
+    TResult? Function()? loading,
+    TResult? Function(MyOrdersResponse response)? loaded,
+    TResult? Function(
+            Billing? billing,
+            Shipping? shipping,
+            String? customerNote,
+            String? paymentMethods,
+            List<Map<String, dynamic>>? paymentData,
+            int totPoint)?
+        createCheckout,
+  }) {
+    return loaded?.call(response);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? fetch,
+    TResult Function()? loading,
+    TResult Function(MyOrdersResponse response)? loaded,
+    TResult Function(
+            Billing? billing,
+            Shipping? shipping,
+            String? customerNote,
+            String? paymentMethods,
+            List<Map<String, dynamic>>? paymentData,
+            int totPoint)?
+        createCheckout,
+    required TResult orElse(),
+  }) {
+    if (loaded != null) {
+      return loaded(response);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Fetch value) fetch,
+    required TResult Function(_Load value) loading,
+    required TResult Function(_LoadedCart value) loaded,
+    required TResult Function(_CreateCheckout value) createCheckout,
+  }) {
+    return loaded(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Fetch value)? fetch,
+    TResult? Function(_Load value)? loading,
+    TResult? Function(_LoadedCart value)? loaded,
+    TResult? Function(_CreateCheckout value)? createCheckout,
+  }) {
+    return loaded?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Fetch value)? fetch,
+    TResult Function(_Load value)? loading,
+    TResult Function(_LoadedCart value)? loaded,
+    TResult Function(_CreateCheckout value)? createCheckout,
+    required TResult orElse(),
+  }) {
+    if (loaded != null) {
+      return loaded(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LoadedCart implements MyOrdersEvent {
+  const factory _LoadedCart(final MyOrdersResponse response) = _$_LoadedCart;
+
+  MyOrdersResponse get response;
+  @JsonKey(ignore: true)
+  _$$_LoadedCartCopyWith<_$_LoadedCart> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -547,6 +750,7 @@ class _$_CreateCheckout
   TResult when<TResult extends Object?>({
     required TResult Function() fetch,
     required TResult Function() loading,
+    required TResult Function(MyOrdersResponse response) loaded,
     required TResult Function(
             Billing? billing,
             Shipping? shipping,
@@ -565,6 +769,7 @@ class _$_CreateCheckout
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? fetch,
     TResult? Function()? loading,
+    TResult? Function(MyOrdersResponse response)? loaded,
     TResult? Function(
             Billing? billing,
             Shipping? shipping,
@@ -583,6 +788,7 @@ class _$_CreateCheckout
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetch,
     TResult Function()? loading,
+    TResult Function(MyOrdersResponse response)? loaded,
     TResult Function(
             Billing? billing,
             Shipping? shipping,
@@ -605,6 +811,7 @@ class _$_CreateCheckout
   TResult map<TResult extends Object?>({
     required TResult Function(_Fetch value) fetch,
     required TResult Function(_Load value) loading,
+    required TResult Function(_LoadedCart value) loaded,
     required TResult Function(_CreateCheckout value) createCheckout,
   }) {
     return createCheckout(this);
@@ -615,6 +822,7 @@ class _$_CreateCheckout
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Fetch value)? fetch,
     TResult? Function(_Load value)? loading,
+    TResult? Function(_LoadedCart value)? loaded,
     TResult? Function(_CreateCheckout value)? createCheckout,
   }) {
     return createCheckout?.call(this);
@@ -625,6 +833,7 @@ class _$_CreateCheckout
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Fetch value)? fetch,
     TResult Function(_Load value)? loading,
+    TResult Function(_LoadedCart value)? loaded,
     TResult Function(_CreateCheckout value)? createCheckout,
     required TResult orElse(),
   }) {

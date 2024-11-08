@@ -5,6 +5,7 @@ part of 'my_orders_bloc.dart';
 class MyOrdersEvent with _$MyOrdersEvent {
   const factory MyOrdersEvent.fetch() = _Fetch;
   const factory MyOrdersEvent.loading() = _Load;
+  const factory MyOrdersEvent.loaded(MyOrdersResponse response) = _LoadedCart;
   const factory MyOrdersEvent.createCheckout(
     Billing? billing,
     Shipping? shipping,
@@ -13,6 +14,4 @@ class MyOrdersEvent with _$MyOrdersEvent {
     List<Map<String, dynamic>>? paymentData,int totPoint
   ) =
       _CreateCheckout;
-
-
 }

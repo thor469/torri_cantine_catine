@@ -24,7 +24,8 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent, MyOrdersState> {
     yield* event.when(
       fetch: _fetch,
       createCheckout: _createCheckout,
-      loading: _loading
+      loading: _loading,
+      loaded: _loadedCart,
     );
   }
 
@@ -64,6 +65,10 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent, MyOrdersState> {
       print(e);
       yield const MyOrdersState.error();
     }
+  }
+
+  Stream<MyOrdersState> _loadedCart(MyOrdersResponse response) async* {
+    yield  MyOrdersState.loaded(response);
   }
 
   Future<void> addPoint(int orderId, int totPoint) async{
@@ -111,5 +116,8 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent, MyOrdersState> {
       return e.body["order_id"];
     }
   }
+
+
+
 
 }

@@ -21,6 +21,7 @@ import 'package:torri_cantine_app/cart/remove_product_to_cart/remove_product_to_
 import 'package:torri_cantine_app/complete_order/stripe_manager/stripe_payment_manager.dart';
 import 'package:torri_cantine_app/coupon/coupon/coupon_bloc.dart';
 import 'package:torri_cantine_app/my_orders/model/request/my_orders_request.dart';
+import 'package:torri_cantine_app/my_orders/model/response/my_orders_response.dart';
 import 'package:torri_cantine_app/my_orders/my_orders/my_orders_bloc.dart';
 import 'package:torri_cantine_app/points_balance_screen/bloc/points_bloc.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
@@ -1752,21 +1753,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
         break;
       case "stripe_cc":
         context.read<MyOrdersBloc>().add(const MyOrdersEvent.loading());
-         var orderId = await context.read<MyOrdersBloc>().createCheckOutForStripe(
-            billing !=null ?
-            Billing(
-              first_name: billing.first_name,
-              last_name: billing.last_name,
-              company: billing.company,
-              address_1: billing.address_1,
-              address_2: billing.address_2,
-              city: billing.city,
-              state: billing.state,
-              postcode: billing.postcode,
-              country: "IT",
-              email: billing.email,
-              phone: billing.phone,
-            ):
+        MyOrdersResponse? orderId = await context.read<MyOrdersBloc>().createCheckOutForStripe(
             Billing(
                 first_name: shipping.first_name,
                 last_name: shipping.last_name,
@@ -1797,16 +1784,19 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
             widget.totPoint,
            true
         );
-         if(mounted){
-           if(orderId != null){
-             await StripePaymentManager.makePayment(stripeAmount, "EUR", context, shipping, billing, customerId, widget.totPoint, orderId,note.text);
-             for(Coupon? item in cart.coupons ?? []){
-               context.read<CouponBloc>().add(CouponEvent.delete(item?.code ?? ""),);
-             }
-             await storage.setTotalCartItems(0);
-             MainNavigation.push(context, const MainNavigation.thankYou());
-           }
-         }
+            if(mounted){
+          var response = await StripePaymentManager.makePayment(
+              context,
+              (orderId?.customer_id ?? 0),
+              orderId!.billing_address!,
+              orderId!.payment_result!.redirect_url!.replaceAll("#response=", ""));
+          if(response){
+            if(mounted){
+              MainNavigation.push(context, const MainNavigation.thankYou());
+            }
+            storage.setTotalCartItems(0);
+          }
+        }
         break;
       case "bacs":
         makeOrder(shipping, billing, "bacs");
