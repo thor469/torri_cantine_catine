@@ -32,7 +32,7 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
 
   Stream<AllProductsState> _fetch(int? page, String? orderBy, String? order) async* {
     List<Product> products = [];  // Clear the list at the beginning of the fetch.
-    AllProductsResponse response;
+    AllProductsResponse? response;
 
     LocalStorage storage = LocalStorage();
 
