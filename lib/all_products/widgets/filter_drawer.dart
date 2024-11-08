@@ -475,9 +475,9 @@ class _FilterDrawerState extends State<FilterDrawer> {
                                   horizontal: 16.0),
                               child: RangeSlider(
                                 inactiveColor: Colors.grey,
+                                activeColor: const Color.fromARGB(255, 161, 29, 51),
                                 values: currentRangeValues,
                                 max: max(maxPrice(products ?? <Product>[]),currentRangeValues.end),
-
                                 //max: 120,
                                 min: 0,
                                 divisions: 100,
