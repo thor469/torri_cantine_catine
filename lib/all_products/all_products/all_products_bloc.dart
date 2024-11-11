@@ -132,7 +132,7 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
           //print('@@##@@ THOU SHALL NOT PASS');
           stop =true;
           pageNew= 0;
-          yield AllProductsState.loading(products ?? [], pageNew);
+          yield AllProductsState.loaded(products ?? [], pageNew);
           //yield AllProductsState.loaded(products ?? [], pageNew);
         } else {
           print('still loading...${pageNew}');
