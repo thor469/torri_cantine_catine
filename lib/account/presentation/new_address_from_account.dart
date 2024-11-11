@@ -102,13 +102,14 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
         elevation: 1,
       ));
       return false;
-    }if (companyController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Inserisci nome dell'azienda"),
-        elevation: 1,
-      ));
-      return false;
     }
+    // if (companyController.text.isEmpty) {
+    //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+    //     content: Text("Inserisci nome dell'azienda"),
+    //     elevation: 1,
+    //   ));
+    //   return false;
+    // }
     if (phoneController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Inserisci numero di telefono'),
