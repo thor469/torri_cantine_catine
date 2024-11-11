@@ -8,8 +8,9 @@ class OrderDrawer extends StatefulWidget {
   Map<String, bool>? categoriesMap;
   Map<String, bool>? tagsMap;
   final VoidCallback? onClose;
+  final Function(bool? asc, bool? desc, bool? pop, bool? date, bool? rating)? onFilterSelected;
 
-  OrderDrawer({super.key, this.categoriesMap, this.tagsMap, this.onClose});
+  OrderDrawer({super.key, this.categoriesMap, this.tagsMap, this.onClose, this.onFilterSelected});
 
   @override
   State<OrderDrawer> createState() => _OrderDrawerState();
@@ -52,6 +53,7 @@ class _OrderDrawerState extends State<OrderDrawer> {
                     orderBy: "price",
                   ),
                 ),
+                widget.onFilterSelected!(true, false, false, false, false),
                 widget.onClose!(),
                 // Navigator.push(
                 //     context,
@@ -80,13 +82,14 @@ class _OrderDrawerState extends State<OrderDrawer> {
               ),
               onTap: () => {
                 context.read<AllProductsBloc>().add(
-                  AllProductsEvent.fetch(
+                  const AllProductsEvent.fetch(
                     page: 1,
                     order: "desc",
                     orderBy: "price",
 
                   ),
                 ),
+                widget.onFilterSelected!(false, true, false, false, false),
                 widget.onClose!(),
                 // Navigator.push(
                 //     context,
@@ -115,13 +118,14 @@ class _OrderDrawerState extends State<OrderDrawer> {
               ),
               onTap: () => {
                 context.read<AllProductsBloc>().add(
-                  AllProductsEvent.fetch(
+                  const AllProductsEvent.fetch(
                     page: 1,
                     order: "desc",
                     orderBy: "popularity",
 
                   ),
                 ),
+                widget.onFilterSelected!(false, false, true, false, false),
                 widget.onClose!(),
                 // Navigator.push(
                 //   context,
@@ -152,12 +156,13 @@ class _OrderDrawerState extends State<OrderDrawer> {
               ),
               onTap: () => {
                 context.read<AllProductsBloc>().add(
-                  AllProductsEvent.fetch(
+                  const AllProductsEvent.fetch(
                     page: 1,
                     order: "desc",
                     orderBy: "date",
                   ),
                 ),
+                widget.onFilterSelected!(false, false, false, true, false),
                 widget.onClose!(),
                 // Navigator.push(
                 //   context,
@@ -188,12 +193,13 @@ class _OrderDrawerState extends State<OrderDrawer> {
               ),
               onTap: () => {
                 context.read<AllProductsBloc>().add(
-                  AllProductsEvent.fetch(
+                  const AllProductsEvent.fetch(
                     page: 1,
                     order: "desc",
                     orderBy: "rating",
                   ),
                 ),
+                widget.onFilterSelected!(false, false, false, false, true),
                 widget.onClose!(),
                 // Navigator.push(
                 //   context,

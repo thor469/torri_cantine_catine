@@ -74,7 +74,7 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
           if (response.products!.length < apiTopValue) {
             stop = true; // Stop fetching if fewer products than requested
             pageNew = 0; // Reset page number
-            yield AllProductsState.loading(products ?? [], pageNew);
+            yield AllProductsState.loaded(products ?? [], pageNew);
           } else {
             print('Still loading... Page: $pageNew');
             yield AllProductsState.loading(products ?? [], pageNew);
@@ -85,7 +85,6 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
           stop = true;
           yield AllProductsState.loading(products ?? [], pageNew);
         }
-
       } catch (e) {
         print('AllProductsBloc error: $e');
         yield const AllProductsState.error();

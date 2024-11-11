@@ -246,150 +246,185 @@ class _ProductsState extends State<Products> {
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              GestureDetector(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 40.0),
-                                  child: widget.orderAsc == true
-                                      ? Row(
-                                          children: [
-                                            Text(
-                                              "PREZZO:BASSO-ALTO",
-                                              style: TCTypography.of(context)
-                                                  .text_14_bold
-                                                  .copyWith(
-                                                    color: const Color.fromARGB(
-                                                        255, 113, 112, 112),
-                                                  ),
-                                            ),
-                                            const Icon(
-                                              Icons
-                                                  .keyboard_arrow_down_outlined,
-                                              color: Color.fromARGB(
-                                                  255, 113, 112, 112),
+                              BlocBuilder<AllProductsBloc, AllProductsState>(
+                                  builder: (context, state) {
+                                    return state.maybeWhen(
+                                        orElse: (){return const SizedBox();},
+                                        loading: (model, pageNumber){return const Center(
+                                            child: Padding(padding: EdgeInsets.only(left: 40.0),
+                                                child: SizedBox(height: 18, width: 18,
+                                                    child: CircularProgressIndicator(color: Color.fromARGB(255, 161, 29, 51),
+                                                    )
+                                                )
                                             )
-                                          ],
-                                        )
-                                      : widget.orderDesc == true
-                                          ? Row(
-                                              children: [
-                                                Text("PREZZO:ALTO-BASSO",
-                                                    style:
-                                                        TCTypography.of(context)
+                                        );},
+                                        loaded: (model, pageNumber){
+                                          return GestureDetector(
+                                              child: Padding(
+                                                padding:
+                                                const EdgeInsets.only(left: 40.0),
+                                                child: widget.orderAsc == true
+                                                    ? Row(
+                                                  children: [
+                                                    Text(
+                                                      "PREZZO:BASSO-ALTO",
+                                                      style:
+                                                      TCTypography.of(context)
+                                                          .text_14_bold
+                                                          .copyWith(
+                                                        color: const Color
+                                                            .fromARGB(
+                                                            255,
+                                                            113,
+                                                            112,
+                                                            112),
+                                                      ),
+                                                    ),
+                                                    const Icon(
+                                                      Icons
+                                                          .keyboard_arrow_down_outlined,
+                                                      color: Color.fromARGB(
+                                                          255, 113, 112, 112),
+                                                    )
+                                                  ],
+                                                )
+                                                    : widget.orderDesc == true
+                                                    ? Row(
+                                                  children: [
+                                                    Text("PREZZO:ALTO-BASSO",
+                                                        style:
+                                                        TCTypography.of(
+                                                            context)
                                                             .text_14_bold
                                                             .copyWith(
-                                                              color: const Color
-                                                                  .fromARGB(
-                                                                  255,
-                                                                  113,
-                                                                  112,
-                                                                  112),
-                                                            )),
-                                                const Icon(
-                                                  Icons
-                                                      .keyboard_arrow_down_outlined,
-                                                  color: Color.fromARGB(
-                                                      255, 113, 112, 112),
+                                                          color: const Color
+                                                              .fromARGB(
+                                                              255,
+                                                              113,
+                                                              112,
+                                                              112),
+                                                        )),
+                                                    const Icon(
+                                                      Icons
+                                                          .keyboard_arrow_down_outlined,
+                                                      color: Color.fromARGB(
+                                                          255, 113, 112, 112),
+                                                    )
+                                                  ],
                                                 )
-                                              ],
-                                            )
-                                          : widget.orderDate == true
-                                              ? Row(children: [
+                                                    : widget.orderDate == true
+                                                    ? Row(children: [
                                                   Text(
                                                     "DATA:PIÙ RECENTI",
                                                     style:
-                                                        TCTypography.of(context)
-                                                            .text_14_bold
-                                                            .copyWith(
-                                                              color: const Color
-                                                                  .fromARGB(
-                                                                  255,
-                                                                  113,
-                                                                  112,
-                                                                  112),
-                                                            ),
+                                                    TCTypography.of(
+                                                        context)
+                                                        .text_14_bold
+                                                        .copyWith(
+                                                      color: const Color
+                                                          .fromARGB(
+                                                          255,
+                                                          113,
+                                                          112,
+                                                          112),
+                                                    ),
                                                   ),
                                                   const Icon(
                                                     Icons
                                                         .keyboard_arrow_down_outlined,
                                                     color: Color.fromARGB(
-                                                        255, 113, 112, 112),
+                                                        255,
+                                                        113,
+                                                        112,
+                                                        112),
                                                   )
                                                 ])
-                                              : widget.orderRating == true
-                                                  ? Row(
-                                                      children: [
-                                                        Text("RATING MIGLIORE",
-                                                            style: TCTypography
-                                                                    .of(context)
-                                                                .text_14_bold
-                                                                .copyWith(
-                                                                  color: const Color
-                                                                      .fromARGB(
-                                                                      255,
-                                                                      113,
-                                                                      112,
-                                                                      112),
-                                                                )),
-                                                        const Icon(
-                                                          Icons
-                                                              .keyboard_arrow_down_outlined,
-                                                          color: Color.fromARGB(
+                                                    : widget.orderRating == true
+                                                    ? Row(
+                                                  children: [
+                                                    Text(
+                                                        "RATING MIGLIORE",
+                                                        style: TCTypography.of(
+                                                            context)
+                                                            .text_14_bold
+                                                            .copyWith(
+                                                          color: const Color
+                                                              .fromARGB(
                                                               255,
                                                               113,
                                                               112,
                                                               112),
-                                                        )
-                                                      ],
+                                                        )),
+                                                    const Icon(
+                                                      Icons
+                                                          .keyboard_arrow_down_outlined,
+                                                      color: Color
+                                                          .fromARGB(
+                                                          255,
+                                                          113,
+                                                          112,
+                                                          112),
                                                     )
-                                                  : widget.orderPop == true
-                                                      ? Row(
-                                                          children: [
-                                                            Text(
-                                                              "I PIÙ VENDUTI",
-                                                              style: TCTypography
-                                                                      .of(context)
-                                                                  .text_14_bold
-                                                                  .copyWith(
-                                                                    color: const Color
-                                                                        .fromARGB(
-                                                                        255,
-                                                                        113,
-                                                                        112,
-                                                                        112),
-                                                                  ),
-                                                            )
-                                                          ],
+                                                  ],
+                                                )
+                                                    : widget.orderPop ==
+                                                    true
+                                                    ? Row(
+                                                  children: [
+                                                    Text(
+                                                      "I PIÙ VENDUTI",
+                                                      style: TCTypography.of(
+                                                          context)
+                                                          .text_14_bold
+                                                          .copyWith(
+                                                        color: const Color
+                                                            .fromARGB(
+                                                            255,
+                                                            113,
+                                                            112,
+                                                            112),
+                                                      ),
+                                                    )
+                                                  ],
+                                                )
+                                                    : Text(
+                                                  "ORDINA",
+                                                  style: TCTypography.of(
+                                                      context)
+                                                      .text_14_bold
+                                                      .copyWith(
+                                                      color: const Color
+                                                          .fromARGB(
+                                                          255,
+                                                          113,
+                                                          112,
+                                                          112)),
+                                                ),
+                                              ),
+                                              onTap: () {
+                                                bottomSheetController =
+                                                    Scaffold.of(context)
+                                                        .showBottomSheet(
+                                                            (context) => setDrawer == 1
+                                                            ? OrderDrawer(
+                                                          categoriesMap: widget
+                                                              .categoriesMap,
+                                                          tagsMap:
+                                                          widget.tagsMap,
+                                                          onClose: () {
+                                                            bottomSheetController
+                                                                ?.close();
+                                                          },
+                                                         onFilterSelected: _setFilter,
                                                         )
-                                                      : Text(
-                                                          "ORDINA",
-                                                          style: TCTypography
-                                                                  .of(context)
-                                                              .text_14_bold
-                                                              .copyWith(
-                                                                  color: const Color
-                                                                      .fromARGB(
-                                                                      255,
-                                                                      113,
-                                                                      112,
-                                                                      112)),
-                                                        ),
-                                ),
-                              onTap: () {
-                                bottomSheetController = Scaffold.of(context).showBottomSheet(
-                                      (context) => setDrawer == 1
-                                          ? OrderDrawer(
-                                        categoriesMap: widget.categoriesMap,
-                                        tagsMap: widget.tagsMap,
-                                        onClose: () {
-                                          bottomSheetController?.close();
-                                        },
-                                      )
-                                          : FilterDrawer()
-                                );
-                                setState(() {
-                                  setDrawer = 1;
-                                });
-                              }),
+                                                            : FilterDrawer());
+                                                setState(() {
+                                                  setDrawer = 1;
+                                                });
+                                              });
+                                        });
+                                  }
+                              ),
                               GestureDetector(
                                 child: Padding(
                                   padding: const EdgeInsets.only(right: 40.0),
@@ -445,7 +480,7 @@ class _ProductsState extends State<Products> {
                             loading: (model, pageNumber) {
                               if (model.isEmpty) {
                                 return SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.75,
+                                  height: MediaQuery.of(context).size.height * 0.80,
                                   child: const Center(
                                     child: CircularProgressIndicator(
                                       color: Color.fromARGB(255, 161, 29, 51),
@@ -623,5 +658,14 @@ class _ProductsState extends State<Products> {
       }
     }
     return tagsId;
+  }
+  void _setFilter(bool? asc, bool? desc, bool? pop, bool? date, bool? rating) {
+    setState(() {
+      widget.orderAsc = asc;
+      widget.orderDesc = desc;
+      widget.orderPop = pop;
+      widget.orderDate = date;
+      widget.orderRating = rating;
+    });
   }
 }
