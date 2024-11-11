@@ -20,7 +20,7 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
   final AllProductsService service;
   AllProductsBloc(this.service) : super(const _Initial());
 
-  int apiTopValue = 35;
+  int apiTopValue = 10;
 
 
   @override
