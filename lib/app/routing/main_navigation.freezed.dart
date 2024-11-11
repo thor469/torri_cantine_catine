@@ -56,6 +56,9 @@ mixin _$MainNavigation {
             CartResponse? cart)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
+    required TResult Function(
+            List<Map<String, Object>> transaction, Function succes)
+        paypal,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -97,6 +100,8 @@ mixin _$MainNavigation {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
+    TResult? Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -138,6 +143,8 @@ mixin _$MainNavigation {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
+    TResult Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -168,6 +175,7 @@ mixin _$MainNavigation {
     required TResult Function(_MyAddressFromAccountScreen value)
         newAddressFromAccount,
     required TResult Function(_MyAddressListScreen value) addressList,
+    required TResult Function(_PayPal value) paypal,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -196,6 +204,7 @@ mixin _$MainNavigation {
     TResult? Function(_WishlistScreen value)? wishList,
     TResult? Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult? Function(_MyAddressListScreen value)? addressList,
+    TResult? Function(_PayPal value)? paypal,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -224,6 +233,7 @@ mixin _$MainNavigation {
     TResult Function(_WishlistScreen value)? wishList,
     TResult Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult Function(_MyAddressListScreen value)? addressList,
+    TResult Function(_PayPal value)? paypal,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -321,6 +331,9 @@ class _$_Home implements _Home {
             CartResponse? cart)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
+    required TResult Function(
+            List<Map<String, Object>> transaction, Function succes)
+        paypal,
   }) {
     return home();
   }
@@ -365,6 +378,8 @@ class _$_Home implements _Home {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
+    TResult? Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
   }) {
     return home?.call();
   }
@@ -409,6 +424,8 @@ class _$_Home implements _Home {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
+    TResult Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
     required TResult orElse(),
   }) {
     if (home != null) {
@@ -445,6 +462,7 @@ class _$_Home implements _Home {
     required TResult Function(_MyAddressFromAccountScreen value)
         newAddressFromAccount,
     required TResult Function(_MyAddressListScreen value) addressList,
+    required TResult Function(_PayPal value) paypal,
   }) {
     return home(this);
   }
@@ -476,6 +494,7 @@ class _$_Home implements _Home {
     TResult? Function(_WishlistScreen value)? wishList,
     TResult? Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult? Function(_MyAddressListScreen value)? addressList,
+    TResult? Function(_PayPal value)? paypal,
   }) {
     return home?.call(this);
   }
@@ -507,6 +526,7 @@ class _$_Home implements _Home {
     TResult Function(_WishlistScreen value)? wishList,
     TResult Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult Function(_MyAddressListScreen value)? addressList,
+    TResult Function(_PayPal value)? paypal,
     required TResult orElse(),
   }) {
     if (home != null) {
@@ -595,6 +615,9 @@ class _$_Welcome implements _Welcome {
             CartResponse? cart)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
+    required TResult Function(
+            List<Map<String, Object>> transaction, Function succes)
+        paypal,
   }) {
     return welcome();
   }
@@ -639,6 +662,8 @@ class _$_Welcome implements _Welcome {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
+    TResult? Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
   }) {
     return welcome?.call();
   }
@@ -683,6 +708,8 @@ class _$_Welcome implements _Welcome {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
+    TResult Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
     required TResult orElse(),
   }) {
     if (welcome != null) {
@@ -719,6 +746,7 @@ class _$_Welcome implements _Welcome {
     required TResult Function(_MyAddressFromAccountScreen value)
         newAddressFromAccount,
     required TResult Function(_MyAddressListScreen value) addressList,
+    required TResult Function(_PayPal value) paypal,
   }) {
     return welcome(this);
   }
@@ -750,6 +778,7 @@ class _$_Welcome implements _Welcome {
     TResult? Function(_WishlistScreen value)? wishList,
     TResult? Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult? Function(_MyAddressListScreen value)? addressList,
+    TResult? Function(_PayPal value)? paypal,
   }) {
     return welcome?.call(this);
   }
@@ -781,6 +810,7 @@ class _$_Welcome implements _Welcome {
     TResult Function(_WishlistScreen value)? wishList,
     TResult Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult Function(_MyAddressListScreen value)? addressList,
+    TResult Function(_PayPal value)? paypal,
     required TResult orElse(),
   }) {
     if (welcome != null) {
@@ -868,6 +898,9 @@ class _$_Login implements _Login {
             CartResponse? cart)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
+    required TResult Function(
+            List<Map<String, Object>> transaction, Function succes)
+        paypal,
   }) {
     return login();
   }
@@ -912,6 +945,8 @@ class _$_Login implements _Login {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
+    TResult? Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
   }) {
     return login?.call();
   }
@@ -956,6 +991,8 @@ class _$_Login implements _Login {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
+    TResult Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
     required TResult orElse(),
   }) {
     if (login != null) {
@@ -992,6 +1029,7 @@ class _$_Login implements _Login {
     required TResult Function(_MyAddressFromAccountScreen value)
         newAddressFromAccount,
     required TResult Function(_MyAddressListScreen value) addressList,
+    required TResult Function(_PayPal value) paypal,
   }) {
     return login(this);
   }
@@ -1023,6 +1061,7 @@ class _$_Login implements _Login {
     TResult? Function(_WishlistScreen value)? wishList,
     TResult? Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult? Function(_MyAddressListScreen value)? addressList,
+    TResult? Function(_PayPal value)? paypal,
   }) {
     return login?.call(this);
   }
@@ -1054,6 +1093,7 @@ class _$_Login implements _Login {
     TResult Function(_WishlistScreen value)? wishList,
     TResult Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult Function(_MyAddressListScreen value)? addressList,
+    TResult Function(_PayPal value)? paypal,
     required TResult orElse(),
   }) {
     if (login != null) {
@@ -1143,6 +1183,9 @@ class _$_Products implements _Products {
             CartResponse? cart)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
+    required TResult Function(
+            List<Map<String, Object>> transaction, Function succes)
+        paypal,
   }) {
     return products();
   }
@@ -1187,6 +1230,8 @@ class _$_Products implements _Products {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
+    TResult? Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
   }) {
     return products?.call();
   }
@@ -1231,6 +1276,8 @@ class _$_Products implements _Products {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
+    TResult Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
     required TResult orElse(),
   }) {
     if (products != null) {
@@ -1267,6 +1314,7 @@ class _$_Products implements _Products {
     required TResult Function(_MyAddressFromAccountScreen value)
         newAddressFromAccount,
     required TResult Function(_MyAddressListScreen value) addressList,
+    required TResult Function(_PayPal value) paypal,
   }) {
     return products(this);
   }
@@ -1298,6 +1346,7 @@ class _$_Products implements _Products {
     TResult? Function(_WishlistScreen value)? wishList,
     TResult? Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult? Function(_MyAddressListScreen value)? addressList,
+    TResult? Function(_PayPal value)? paypal,
   }) {
     return products?.call(this);
   }
@@ -1329,6 +1378,7 @@ class _$_Products implements _Products {
     TResult Function(_WishlistScreen value)? wishList,
     TResult Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult Function(_MyAddressListScreen value)? addressList,
+    TResult Function(_PayPal value)? paypal,
     required TResult orElse(),
   }) {
     if (products != null) {
@@ -1418,6 +1468,9 @@ class _$_FirstRegistration implements _FirstRegistration {
             CartResponse? cart)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
+    required TResult Function(
+            List<Map<String, Object>> transaction, Function succes)
+        paypal,
   }) {
     return firstRegistration();
   }
@@ -1462,6 +1515,8 @@ class _$_FirstRegistration implements _FirstRegistration {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
+    TResult? Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
   }) {
     return firstRegistration?.call();
   }
@@ -1506,6 +1561,8 @@ class _$_FirstRegistration implements _FirstRegistration {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
+    TResult Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
     required TResult orElse(),
   }) {
     if (firstRegistration != null) {
@@ -1542,6 +1599,7 @@ class _$_FirstRegistration implements _FirstRegistration {
     required TResult Function(_MyAddressFromAccountScreen value)
         newAddressFromAccount,
     required TResult Function(_MyAddressListScreen value) addressList,
+    required TResult Function(_PayPal value) paypal,
   }) {
     return firstRegistration(this);
   }
@@ -1573,6 +1631,7 @@ class _$_FirstRegistration implements _FirstRegistration {
     TResult? Function(_WishlistScreen value)? wishList,
     TResult? Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult? Function(_MyAddressListScreen value)? addressList,
+    TResult? Function(_PayPal value)? paypal,
   }) {
     return firstRegistration?.call(this);
   }
@@ -1604,6 +1663,7 @@ class _$_FirstRegistration implements _FirstRegistration {
     TResult Function(_WishlistScreen value)? wishList,
     TResult Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult Function(_MyAddressListScreen value)? addressList,
+    TResult Function(_PayPal value)? paypal,
     required TResult orElse(),
   }) {
     if (firstRegistration != null) {
@@ -1727,6 +1787,9 @@ class _$_SecondRegistration implements _SecondRegistration {
             CartResponse? cart)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
+    required TResult Function(
+            List<Map<String, Object>> transaction, Function succes)
+        paypal,
   }) {
     return secondRegistration(registrationDatas);
   }
@@ -1771,6 +1834,8 @@ class _$_SecondRegistration implements _SecondRegistration {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
+    TResult? Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
   }) {
     return secondRegistration?.call(registrationDatas);
   }
@@ -1815,6 +1880,8 @@ class _$_SecondRegistration implements _SecondRegistration {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
+    TResult Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
     required TResult orElse(),
   }) {
     if (secondRegistration != null) {
@@ -1851,6 +1918,7 @@ class _$_SecondRegistration implements _SecondRegistration {
     required TResult Function(_MyAddressFromAccountScreen value)
         newAddressFromAccount,
     required TResult Function(_MyAddressListScreen value) addressList,
+    required TResult Function(_PayPal value) paypal,
   }) {
     return secondRegistration(this);
   }
@@ -1882,6 +1950,7 @@ class _$_SecondRegistration implements _SecondRegistration {
     TResult? Function(_WishlistScreen value)? wishList,
     TResult? Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult? Function(_MyAddressListScreen value)? addressList,
+    TResult? Function(_PayPal value)? paypal,
   }) {
     return secondRegistration?.call(this);
   }
@@ -1913,6 +1982,7 @@ class _$_SecondRegistration implements _SecondRegistration {
     TResult Function(_WishlistScreen value)? wishList,
     TResult Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult Function(_MyAddressListScreen value)? addressList,
+    TResult Function(_PayPal value)? paypal,
     required TResult orElse(),
   }) {
     if (secondRegistration != null) {
@@ -2008,6 +2078,9 @@ class _$_ThirdRegistration implements _ThirdRegistration {
             CartResponse? cart)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
+    required TResult Function(
+            List<Map<String, Object>> transaction, Function succes)
+        paypal,
   }) {
     return thirdRegistration();
   }
@@ -2052,6 +2125,8 @@ class _$_ThirdRegistration implements _ThirdRegistration {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
+    TResult? Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
   }) {
     return thirdRegistration?.call();
   }
@@ -2096,6 +2171,8 @@ class _$_ThirdRegistration implements _ThirdRegistration {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
+    TResult Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
     required TResult orElse(),
   }) {
     if (thirdRegistration != null) {
@@ -2132,6 +2209,7 @@ class _$_ThirdRegistration implements _ThirdRegistration {
     required TResult Function(_MyAddressFromAccountScreen value)
         newAddressFromAccount,
     required TResult Function(_MyAddressListScreen value) addressList,
+    required TResult Function(_PayPal value) paypal,
   }) {
     return thirdRegistration(this);
   }
@@ -2163,6 +2241,7 @@ class _$_ThirdRegistration implements _ThirdRegistration {
     TResult? Function(_WishlistScreen value)? wishList,
     TResult? Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult? Function(_MyAddressListScreen value)? addressList,
+    TResult? Function(_PayPal value)? paypal,
   }) {
     return thirdRegistration?.call(this);
   }
@@ -2194,6 +2273,7 @@ class _$_ThirdRegistration implements _ThirdRegistration {
     TResult Function(_WishlistScreen value)? wishList,
     TResult Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult Function(_MyAddressListScreen value)? addressList,
+    TResult Function(_PayPal value)? paypal,
     required TResult orElse(),
   }) {
     if (thirdRegistration != null) {
@@ -2341,6 +2421,9 @@ class _$_Cart implements _Cart {
             CartResponse? cart)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
+    required TResult Function(
+            List<Map<String, Object>> transaction, Function succes)
+        paypal,
   }) {
     return cart(showAppBar, fromMenu, fromCompleteOrder, fromHomePage);
   }
@@ -2385,6 +2468,8 @@ class _$_Cart implements _Cart {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
+    TResult? Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
   }) {
     return cart?.call(showAppBar, fromMenu, fromCompleteOrder, fromHomePage);
   }
@@ -2429,6 +2514,8 @@ class _$_Cart implements _Cart {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
+    TResult Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
     required TResult orElse(),
   }) {
     if (cart != null) {
@@ -2465,6 +2552,7 @@ class _$_Cart implements _Cart {
     required TResult Function(_MyAddressFromAccountScreen value)
         newAddressFromAccount,
     required TResult Function(_MyAddressListScreen value) addressList,
+    required TResult Function(_PayPal value) paypal,
   }) {
     return cart(this);
   }
@@ -2496,6 +2584,7 @@ class _$_Cart implements _Cart {
     TResult? Function(_WishlistScreen value)? wishList,
     TResult? Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult? Function(_MyAddressListScreen value)? addressList,
+    TResult? Function(_PayPal value)? paypal,
   }) {
     return cart?.call(this);
   }
@@ -2527,6 +2616,7 @@ class _$_Cart implements _Cart {
     TResult Function(_WishlistScreen value)? wishList,
     TResult Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult Function(_MyAddressListScreen value)? addressList,
+    TResult Function(_PayPal value)? paypal,
     required TResult orElse(),
   }) {
     if (cart != null) {
@@ -2684,6 +2774,9 @@ class _$_MyOrders implements _MyOrders {
             CartResponse? cart)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
+    required TResult Function(
+            List<Map<String, Object>> transaction, Function succes)
+        paypal,
   }) {
     return myOrders(fromMenu, fromAccount, fromThankScreen, fromOrderDetails);
   }
@@ -2728,6 +2821,8 @@ class _$_MyOrders implements _MyOrders {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
+    TResult? Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
   }) {
     return myOrders?.call(
         fromMenu, fromAccount, fromThankScreen, fromOrderDetails);
@@ -2773,6 +2868,8 @@ class _$_MyOrders implements _MyOrders {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
+    TResult Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
     required TResult orElse(),
   }) {
     if (myOrders != null) {
@@ -2809,6 +2906,7 @@ class _$_MyOrders implements _MyOrders {
     required TResult Function(_MyAddressFromAccountScreen value)
         newAddressFromAccount,
     required TResult Function(_MyAddressListScreen value) addressList,
+    required TResult Function(_PayPal value) paypal,
   }) {
     return myOrders(this);
   }
@@ -2840,6 +2938,7 @@ class _$_MyOrders implements _MyOrders {
     TResult? Function(_WishlistScreen value)? wishList,
     TResult? Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult? Function(_MyAddressListScreen value)? addressList,
+    TResult? Function(_PayPal value)? paypal,
   }) {
     return myOrders?.call(this);
   }
@@ -2871,6 +2970,7 @@ class _$_MyOrders implements _MyOrders {
     TResult Function(_WishlistScreen value)? wishList,
     TResult Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult Function(_MyAddressListScreen value)? addressList,
+    TResult Function(_PayPal value)? paypal,
     required TResult orElse(),
   }) {
     if (myOrders != null) {
@@ -3005,6 +3105,9 @@ class _$_PointsBalance implements _PointsBalance {
             CartResponse? cart)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
+    required TResult Function(
+            List<Map<String, Object>> transaction, Function succes)
+        paypal,
   }) {
     return pointsBalance(fromMenu, fromAccount);
   }
@@ -3049,6 +3152,8 @@ class _$_PointsBalance implements _PointsBalance {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
+    TResult? Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
   }) {
     return pointsBalance?.call(fromMenu, fromAccount);
   }
@@ -3093,6 +3198,8 @@ class _$_PointsBalance implements _PointsBalance {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
+    TResult Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
     required TResult orElse(),
   }) {
     if (pointsBalance != null) {
@@ -3129,6 +3236,7 @@ class _$_PointsBalance implements _PointsBalance {
     required TResult Function(_MyAddressFromAccountScreen value)
         newAddressFromAccount,
     required TResult Function(_MyAddressListScreen value) addressList,
+    required TResult Function(_PayPal value) paypal,
   }) {
     return pointsBalance(this);
   }
@@ -3160,6 +3268,7 @@ class _$_PointsBalance implements _PointsBalance {
     TResult? Function(_WishlistScreen value)? wishList,
     TResult? Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult? Function(_MyAddressListScreen value)? addressList,
+    TResult? Function(_PayPal value)? paypal,
   }) {
     return pointsBalance?.call(this);
   }
@@ -3191,6 +3300,7 @@ class _$_PointsBalance implements _PointsBalance {
     TResult Function(_WishlistScreen value)? wishList,
     TResult Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult Function(_MyAddressListScreen value)? addressList,
+    TResult Function(_PayPal value)? paypal,
     required TResult orElse(),
   }) {
     if (pointsBalance != null) {
@@ -3313,6 +3423,9 @@ class _$_Account implements _Account {
             CartResponse? cart)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
+    required TResult Function(
+            List<Map<String, Object>> transaction, Function succes)
+        paypal,
   }) {
     return account(fromMenu);
   }
@@ -3357,6 +3470,8 @@ class _$_Account implements _Account {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
+    TResult? Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
   }) {
     return account?.call(fromMenu);
   }
@@ -3401,6 +3516,8 @@ class _$_Account implements _Account {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
+    TResult Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
     required TResult orElse(),
   }) {
     if (account != null) {
@@ -3437,6 +3554,7 @@ class _$_Account implements _Account {
     required TResult Function(_MyAddressFromAccountScreen value)
         newAddressFromAccount,
     required TResult Function(_MyAddressListScreen value) addressList,
+    required TResult Function(_PayPal value) paypal,
   }) {
     return account(this);
   }
@@ -3468,6 +3586,7 @@ class _$_Account implements _Account {
     TResult? Function(_WishlistScreen value)? wishList,
     TResult? Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult? Function(_MyAddressListScreen value)? addressList,
+    TResult? Function(_PayPal value)? paypal,
   }) {
     return account?.call(this);
   }
@@ -3499,6 +3618,7 @@ class _$_Account implements _Account {
     TResult Function(_WishlistScreen value)? wishList,
     TResult Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult Function(_MyAddressListScreen value)? addressList,
+    TResult Function(_PayPal value)? paypal,
     required TResult orElse(),
   }) {
     if (account != null) {
@@ -3593,6 +3713,9 @@ class _$_Notification implements _Notification {
             CartResponse? cart)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
+    required TResult Function(
+            List<Map<String, Object>> transaction, Function succes)
+        paypal,
   }) {
     return notification();
   }
@@ -3637,6 +3760,8 @@ class _$_Notification implements _Notification {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
+    TResult? Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
   }) {
     return notification?.call();
   }
@@ -3681,6 +3806,8 @@ class _$_Notification implements _Notification {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
+    TResult Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
     required TResult orElse(),
   }) {
     if (notification != null) {
@@ -3717,6 +3844,7 @@ class _$_Notification implements _Notification {
     required TResult Function(_MyAddressFromAccountScreen value)
         newAddressFromAccount,
     required TResult Function(_MyAddressListScreen value) addressList,
+    required TResult Function(_PayPal value) paypal,
   }) {
     return notification(this);
   }
@@ -3748,6 +3876,7 @@ class _$_Notification implements _Notification {
     TResult? Function(_WishlistScreen value)? wishList,
     TResult? Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult? Function(_MyAddressListScreen value)? addressList,
+    TResult? Function(_PayPal value)? paypal,
   }) {
     return notification?.call(this);
   }
@@ -3779,6 +3908,7 @@ class _$_Notification implements _Notification {
     TResult Function(_WishlistScreen value)? wishList,
     TResult Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult Function(_MyAddressListScreen value)? addressList,
+    TResult Function(_PayPal value)? paypal,
     required TResult orElse(),
   }) {
     if (notification != null) {
@@ -3904,6 +4034,9 @@ class _$_OrderDetail implements _OrderDetail {
             CartResponse? cart)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
+    required TResult Function(
+            List<Map<String, Object>> transaction, Function succes)
+        paypal,
   }) {
     return orderDetail(order);
   }
@@ -3948,6 +4081,8 @@ class _$_OrderDetail implements _OrderDetail {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
+    TResult? Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
   }) {
     return orderDetail?.call(order);
   }
@@ -3992,6 +4127,8 @@ class _$_OrderDetail implements _OrderDetail {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
+    TResult Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
     required TResult orElse(),
   }) {
     if (orderDetail != null) {
@@ -4028,6 +4165,7 @@ class _$_OrderDetail implements _OrderDetail {
     required TResult Function(_MyAddressFromAccountScreen value)
         newAddressFromAccount,
     required TResult Function(_MyAddressListScreen value) addressList,
+    required TResult Function(_PayPal value) paypal,
   }) {
     return orderDetail(this);
   }
@@ -4059,6 +4197,7 @@ class _$_OrderDetail implements _OrderDetail {
     TResult? Function(_WishlistScreen value)? wishList,
     TResult? Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult? Function(_MyAddressListScreen value)? addressList,
+    TResult? Function(_PayPal value)? paypal,
   }) {
     return orderDetail?.call(this);
   }
@@ -4090,6 +4229,7 @@ class _$_OrderDetail implements _OrderDetail {
     TResult Function(_WishlistScreen value)? wishList,
     TResult Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult Function(_MyAddressListScreen value)? addressList,
+    TResult Function(_PayPal value)? paypal,
     required TResult orElse(),
   }) {
     if (orderDetail != null) {
@@ -4233,6 +4373,9 @@ class _$_CompleteOrder implements _CompleteOrder {
             CartResponse? cart)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
+    required TResult Function(
+            List<Map<String, Object>> transaction, Function succes)
+        paypal,
   }) {
     return completeOrder(totPoint, this.cart);
   }
@@ -4277,6 +4420,8 @@ class _$_CompleteOrder implements _CompleteOrder {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
+    TResult? Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
   }) {
     return completeOrder?.call(totPoint, this.cart);
   }
@@ -4321,6 +4466,8 @@ class _$_CompleteOrder implements _CompleteOrder {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
+    TResult Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
     required TResult orElse(),
   }) {
     if (completeOrder != null) {
@@ -4357,6 +4504,7 @@ class _$_CompleteOrder implements _CompleteOrder {
     required TResult Function(_MyAddressFromAccountScreen value)
         newAddressFromAccount,
     required TResult Function(_MyAddressListScreen value) addressList,
+    required TResult Function(_PayPal value) paypal,
   }) {
     return completeOrder(this);
   }
@@ -4388,6 +4536,7 @@ class _$_CompleteOrder implements _CompleteOrder {
     TResult? Function(_WishlistScreen value)? wishList,
     TResult? Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult? Function(_MyAddressListScreen value)? addressList,
+    TResult? Function(_PayPal value)? paypal,
   }) {
     return completeOrder?.call(this);
   }
@@ -4419,6 +4568,7 @@ class _$_CompleteOrder implements _CompleteOrder {
     TResult Function(_WishlistScreen value)? wishList,
     TResult Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult Function(_MyAddressListScreen value)? addressList,
+    TResult Function(_PayPal value)? paypal,
     required TResult orElse(),
   }) {
     if (completeOrder != null) {
@@ -4551,6 +4701,9 @@ class _$_Categories implements _Categories {
             CartResponse? cart)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
+    required TResult Function(
+            List<Map<String, Object>> transaction, Function succes)
+        paypal,
   }) {
     return categories(showAppBar, fromMenu);
   }
@@ -4595,6 +4748,8 @@ class _$_Categories implements _Categories {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
+    TResult? Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
   }) {
     return categories?.call(showAppBar, fromMenu);
   }
@@ -4639,6 +4794,8 @@ class _$_Categories implements _Categories {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
+    TResult Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
     required TResult orElse(),
   }) {
     if (categories != null) {
@@ -4675,6 +4832,7 @@ class _$_Categories implements _Categories {
     required TResult Function(_MyAddressFromAccountScreen value)
         newAddressFromAccount,
     required TResult Function(_MyAddressListScreen value) addressList,
+    required TResult Function(_PayPal value) paypal,
   }) {
     return categories(this);
   }
@@ -4706,6 +4864,7 @@ class _$_Categories implements _Categories {
     TResult? Function(_WishlistScreen value)? wishList,
     TResult? Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult? Function(_MyAddressListScreen value)? addressList,
+    TResult? Function(_PayPal value)? paypal,
   }) {
     return categories?.call(this);
   }
@@ -4737,6 +4896,7 @@ class _$_Categories implements _Categories {
     TResult Function(_WishlistScreen value)? wishList,
     TResult Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult Function(_MyAddressListScreen value)? addressList,
+    TResult Function(_PayPal value)? paypal,
     required TResult orElse(),
   }) {
     if (categories != null) {
@@ -4860,6 +5020,9 @@ class _$_AddReview implements _AddReview {
             CartResponse? cart)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
+    required TResult Function(
+            List<Map<String, Object>> transaction, Function succes)
+        paypal,
   }) {
     return addReview(product_id);
   }
@@ -4904,6 +5067,8 @@ class _$_AddReview implements _AddReview {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
+    TResult? Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
   }) {
     return addReview?.call(product_id);
   }
@@ -4948,6 +5113,8 @@ class _$_AddReview implements _AddReview {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
+    TResult Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
     required TResult orElse(),
   }) {
     if (addReview != null) {
@@ -4984,6 +5151,7 @@ class _$_AddReview implements _AddReview {
     required TResult Function(_MyAddressFromAccountScreen value)
         newAddressFromAccount,
     required TResult Function(_MyAddressListScreen value) addressList,
+    required TResult Function(_PayPal value) paypal,
   }) {
     return addReview(this);
   }
@@ -5015,6 +5183,7 @@ class _$_AddReview implements _AddReview {
     TResult? Function(_WishlistScreen value)? wishList,
     TResult? Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult? Function(_MyAddressListScreen value)? addressList,
+    TResult? Function(_PayPal value)? paypal,
   }) {
     return addReview?.call(this);
   }
@@ -5046,6 +5215,7 @@ class _$_AddReview implements _AddReview {
     TResult Function(_WishlistScreen value)? wishList,
     TResult Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult Function(_MyAddressListScreen value)? addressList,
+    TResult Function(_PayPal value)? paypal,
     required TResult orElse(),
   }) {
     if (addReview != null) {
@@ -5167,6 +5337,9 @@ class _$_ProductDetail implements _ProductDetail {
             CartResponse? cart)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
+    required TResult Function(
+            List<Map<String, Object>> transaction, Function succes)
+        paypal,
   }) {
     return productDetail(productId);
   }
@@ -5211,6 +5384,8 @@ class _$_ProductDetail implements _ProductDetail {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
+    TResult? Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
   }) {
     return productDetail?.call(productId);
   }
@@ -5255,6 +5430,8 @@ class _$_ProductDetail implements _ProductDetail {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
+    TResult Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
     required TResult orElse(),
   }) {
     if (productDetail != null) {
@@ -5291,6 +5468,7 @@ class _$_ProductDetail implements _ProductDetail {
     required TResult Function(_MyAddressFromAccountScreen value)
         newAddressFromAccount,
     required TResult Function(_MyAddressListScreen value) addressList,
+    required TResult Function(_PayPal value) paypal,
   }) {
     return productDetail(this);
   }
@@ -5322,6 +5500,7 @@ class _$_ProductDetail implements _ProductDetail {
     TResult? Function(_WishlistScreen value)? wishList,
     TResult? Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult? Function(_MyAddressListScreen value)? addressList,
+    TResult? Function(_PayPal value)? paypal,
   }) {
     return productDetail?.call(this);
   }
@@ -5353,6 +5532,7 @@ class _$_ProductDetail implements _ProductDetail {
     TResult Function(_WishlistScreen value)? wishList,
     TResult Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult Function(_MyAddressListScreen value)? addressList,
+    TResult Function(_PayPal value)? paypal,
     required TResult orElse(),
   }) {
     if (productDetail != null) {
@@ -5483,6 +5663,9 @@ class _$_PersonalInfo implements _PersonalInfo {
             CartResponse? cart)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
+    required TResult Function(
+            List<Map<String, Object>> transaction, Function succes)
+        paypal,
   }) {
     return personalInfo(user);
   }
@@ -5527,6 +5710,8 @@ class _$_PersonalInfo implements _PersonalInfo {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
+    TResult? Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
   }) {
     return personalInfo?.call(user);
   }
@@ -5571,6 +5756,8 @@ class _$_PersonalInfo implements _PersonalInfo {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
+    TResult Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
     required TResult orElse(),
   }) {
     if (personalInfo != null) {
@@ -5607,6 +5794,7 @@ class _$_PersonalInfo implements _PersonalInfo {
     required TResult Function(_MyAddressFromAccountScreen value)
         newAddressFromAccount,
     required TResult Function(_MyAddressListScreen value) addressList,
+    required TResult Function(_PayPal value) paypal,
   }) {
     return personalInfo(this);
   }
@@ -5638,6 +5826,7 @@ class _$_PersonalInfo implements _PersonalInfo {
     TResult? Function(_WishlistScreen value)? wishList,
     TResult? Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult? Function(_MyAddressListScreen value)? addressList,
+    TResult? Function(_PayPal value)? paypal,
   }) {
     return personalInfo?.call(this);
   }
@@ -5669,6 +5858,7 @@ class _$_PersonalInfo implements _PersonalInfo {
     TResult Function(_WishlistScreen value)? wishList,
     TResult Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult Function(_MyAddressListScreen value)? addressList,
+    TResult Function(_PayPal value)? paypal,
     required TResult orElse(),
   }) {
     if (personalInfo != null) {
@@ -5789,6 +5979,9 @@ class _$_CategoriesDetail implements _CategoriesDetail {
             CartResponse? cart)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
+    required TResult Function(
+            List<Map<String, Object>> transaction, Function succes)
+        paypal,
   }) {
     return categoriesDetail(id);
   }
@@ -5833,6 +6026,8 @@ class _$_CategoriesDetail implements _CategoriesDetail {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
+    TResult? Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
   }) {
     return categoriesDetail?.call(id);
   }
@@ -5877,6 +6072,8 @@ class _$_CategoriesDetail implements _CategoriesDetail {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
+    TResult Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
     required TResult orElse(),
   }) {
     if (categoriesDetail != null) {
@@ -5913,6 +6110,7 @@ class _$_CategoriesDetail implements _CategoriesDetail {
     required TResult Function(_MyAddressFromAccountScreen value)
         newAddressFromAccount,
     required TResult Function(_MyAddressListScreen value) addressList,
+    required TResult Function(_PayPal value) paypal,
   }) {
     return categoriesDetail(this);
   }
@@ -5944,6 +6142,7 @@ class _$_CategoriesDetail implements _CategoriesDetail {
     TResult? Function(_WishlistScreen value)? wishList,
     TResult? Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult? Function(_MyAddressListScreen value)? addressList,
+    TResult? Function(_PayPal value)? paypal,
   }) {
     return categoriesDetail?.call(this);
   }
@@ -5975,6 +6174,7 @@ class _$_CategoriesDetail implements _CategoriesDetail {
     TResult Function(_WishlistScreen value)? wishList,
     TResult Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult Function(_MyAddressListScreen value)? addressList,
+    TResult Function(_PayPal value)? paypal,
     required TResult orElse(),
   }) {
     if (categoriesDetail != null) {
@@ -6069,6 +6269,9 @@ class _$_ThankYou implements _ThankYou {
             CartResponse? cart)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
+    required TResult Function(
+            List<Map<String, Object>> transaction, Function succes)
+        paypal,
   }) {
     return thankYou();
   }
@@ -6113,6 +6316,8 @@ class _$_ThankYou implements _ThankYou {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
+    TResult? Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
   }) {
     return thankYou?.call();
   }
@@ -6157,6 +6362,8 @@ class _$_ThankYou implements _ThankYou {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
+    TResult Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
     required TResult orElse(),
   }) {
     if (thankYou != null) {
@@ -6193,6 +6400,7 @@ class _$_ThankYou implements _ThankYou {
     required TResult Function(_MyAddressFromAccountScreen value)
         newAddressFromAccount,
     required TResult Function(_MyAddressListScreen value) addressList,
+    required TResult Function(_PayPal value) paypal,
   }) {
     return thankYou(this);
   }
@@ -6224,6 +6432,7 @@ class _$_ThankYou implements _ThankYou {
     TResult? Function(_WishlistScreen value)? wishList,
     TResult? Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult? Function(_MyAddressListScreen value)? addressList,
+    TResult? Function(_PayPal value)? paypal,
   }) {
     return thankYou?.call(this);
   }
@@ -6255,6 +6464,7 @@ class _$_ThankYou implements _ThankYou {
     TResult Function(_WishlistScreen value)? wishList,
     TResult Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult Function(_MyAddressListScreen value)? addressList,
+    TResult Function(_PayPal value)? paypal,
     required TResult orElse(),
   }) {
     if (thankYou != null) {
@@ -6342,6 +6552,9 @@ class _$_Menu implements _Menu {
             CartResponse? cart)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
+    required TResult Function(
+            List<Map<String, Object>> transaction, Function succes)
+        paypal,
   }) {
     return menu();
   }
@@ -6386,6 +6599,8 @@ class _$_Menu implements _Menu {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
+    TResult? Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
   }) {
     return menu?.call();
   }
@@ -6430,6 +6645,8 @@ class _$_Menu implements _Menu {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
+    TResult Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
     required TResult orElse(),
   }) {
     if (menu != null) {
@@ -6466,6 +6683,7 @@ class _$_Menu implements _Menu {
     required TResult Function(_MyAddressFromAccountScreen value)
         newAddressFromAccount,
     required TResult Function(_MyAddressListScreen value) addressList,
+    required TResult Function(_PayPal value) paypal,
   }) {
     return menu(this);
   }
@@ -6497,6 +6715,7 @@ class _$_Menu implements _Menu {
     TResult? Function(_WishlistScreen value)? wishList,
     TResult? Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult? Function(_MyAddressListScreen value)? addressList,
+    TResult? Function(_PayPal value)? paypal,
   }) {
     return menu?.call(this);
   }
@@ -6528,6 +6747,7 @@ class _$_Menu implements _Menu {
     TResult Function(_WishlistScreen value)? wishList,
     TResult Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult Function(_MyAddressListScreen value)? addressList,
+    TResult Function(_PayPal value)? paypal,
     required TResult orElse(),
   }) {
     if (menu != null) {
@@ -6653,6 +6873,9 @@ class _$_WishlistScreen implements _WishlistScreen {
             CartResponse? cart)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
+    required TResult Function(
+            List<Map<String, Object>> transaction, Function succes)
+        paypal,
   }) {
     return wishList(fromMenu, fromAccount);
   }
@@ -6697,6 +6920,8 @@ class _$_WishlistScreen implements _WishlistScreen {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
+    TResult? Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
   }) {
     return wishList?.call(fromMenu, fromAccount);
   }
@@ -6741,6 +6966,8 @@ class _$_WishlistScreen implements _WishlistScreen {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
+    TResult Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
     required TResult orElse(),
   }) {
     if (wishList != null) {
@@ -6777,6 +7004,7 @@ class _$_WishlistScreen implements _WishlistScreen {
     required TResult Function(_MyAddressFromAccountScreen value)
         newAddressFromAccount,
     required TResult Function(_MyAddressListScreen value) addressList,
+    required TResult Function(_PayPal value) paypal,
   }) {
     return wishList(this);
   }
@@ -6808,6 +7036,7 @@ class _$_WishlistScreen implements _WishlistScreen {
     TResult? Function(_WishlistScreen value)? wishList,
     TResult? Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult? Function(_MyAddressListScreen value)? addressList,
+    TResult? Function(_PayPal value)? paypal,
   }) {
     return wishList?.call(this);
   }
@@ -6839,6 +7068,7 @@ class _$_WishlistScreen implements _WishlistScreen {
     TResult Function(_WishlistScreen value)? wishList,
     TResult Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult Function(_MyAddressListScreen value)? addressList,
+    TResult Function(_PayPal value)? paypal,
     required TResult orElse(),
   }) {
     if (wishList != null) {
@@ -7068,6 +7298,9 @@ class _$_MyAddressFromAccountScreen implements _MyAddressFromAccountScreen {
             CartResponse? cart)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
+    required TResult Function(
+            List<Map<String, Object>> transaction, Function succes)
+        paypal,
   }) {
     return newAddressFromAccount(id, editFatturazione, editShipping, user,
         returnPage, isNewAddress, point, this.cart);
@@ -7113,6 +7346,8 @@ class _$_MyAddressFromAccountScreen implements _MyAddressFromAccountScreen {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
+    TResult? Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
   }) {
     return newAddressFromAccount?.call(id, editFatturazione, editShipping, user,
         returnPage, isNewAddress, point, this.cart);
@@ -7158,6 +7393,8 @@ class _$_MyAddressFromAccountScreen implements _MyAddressFromAccountScreen {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
+    TResult Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
     required TResult orElse(),
   }) {
     if (newAddressFromAccount != null) {
@@ -7195,6 +7432,7 @@ class _$_MyAddressFromAccountScreen implements _MyAddressFromAccountScreen {
     required TResult Function(_MyAddressFromAccountScreen value)
         newAddressFromAccount,
     required TResult Function(_MyAddressListScreen value) addressList,
+    required TResult Function(_PayPal value) paypal,
   }) {
     return newAddressFromAccount(this);
   }
@@ -7226,6 +7464,7 @@ class _$_MyAddressFromAccountScreen implements _MyAddressFromAccountScreen {
     TResult? Function(_WishlistScreen value)? wishList,
     TResult? Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult? Function(_MyAddressListScreen value)? addressList,
+    TResult? Function(_PayPal value)? paypal,
   }) {
     return newAddressFromAccount?.call(this);
   }
@@ -7257,6 +7496,7 @@ class _$_MyAddressFromAccountScreen implements _MyAddressFromAccountScreen {
     TResult Function(_WishlistScreen value)? wishList,
     TResult Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult Function(_MyAddressListScreen value)? addressList,
+    TResult Function(_PayPal value)? paypal,
     required TResult orElse(),
   }) {
     if (newAddressFromAccount != null) {
@@ -7393,6 +7633,9 @@ class _$_MyAddressListScreen implements _MyAddressListScreen {
             CartResponse? cart)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
+    required TResult Function(
+            List<Map<String, Object>> transaction, Function succes)
+        paypal,
   }) {
     return addressList(id);
   }
@@ -7437,6 +7680,8 @@ class _$_MyAddressListScreen implements _MyAddressListScreen {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
+    TResult? Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
   }) {
     return addressList?.call(id);
   }
@@ -7481,6 +7726,8 @@ class _$_MyAddressListScreen implements _MyAddressListScreen {
             CartResponse? cart)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
+    TResult Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
     required TResult orElse(),
   }) {
     if (addressList != null) {
@@ -7517,6 +7764,7 @@ class _$_MyAddressListScreen implements _MyAddressListScreen {
     required TResult Function(_MyAddressFromAccountScreen value)
         newAddressFromAccount,
     required TResult Function(_MyAddressListScreen value) addressList,
+    required TResult Function(_PayPal value) paypal,
   }) {
     return addressList(this);
   }
@@ -7548,6 +7796,7 @@ class _$_MyAddressListScreen implements _MyAddressListScreen {
     TResult? Function(_WishlistScreen value)? wishList,
     TResult? Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult? Function(_MyAddressListScreen value)? addressList,
+    TResult? Function(_PayPal value)? paypal,
   }) {
     return addressList?.call(this);
   }
@@ -7579,6 +7828,7 @@ class _$_MyAddressListScreen implements _MyAddressListScreen {
     TResult Function(_WishlistScreen value)? wishList,
     TResult Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
     TResult Function(_MyAddressListScreen value)? addressList,
+    TResult Function(_PayPal value)? paypal,
     required TResult orElse(),
   }) {
     if (addressList != null) {
@@ -7594,6 +7844,339 @@ abstract class _MyAddressListScreen implements MainNavigation {
   int get id;
   @JsonKey(ignore: true)
   _$$_MyAddressListScreenCopyWith<_$_MyAddressListScreen> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_PayPalCopyWith<$Res> {
+  factory _$$_PayPalCopyWith(_$_PayPal value, $Res Function(_$_PayPal) then) =
+      __$$_PayPalCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<Map<String, Object>> transaction, Function succes});
+}
+
+/// @nodoc
+class __$$_PayPalCopyWithImpl<$Res>
+    extends _$MainNavigationCopyWithImpl<$Res, _$_PayPal>
+    implements _$$_PayPalCopyWith<$Res> {
+  __$$_PayPalCopyWithImpl(_$_PayPal _value, $Res Function(_$_PayPal) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? transaction = null,
+    Object? succes = null,
+  }) {
+    return _then(_$_PayPal(
+      null == transaction
+          ? _value._transaction
+          : transaction // ignore: cast_nullable_to_non_nullable
+              as List<Map<String, Object>>,
+      null == succes
+          ? _value.succes
+          : succes // ignore: cast_nullable_to_non_nullable
+              as Function,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_PayPal implements _PayPal {
+  const _$_PayPal(final List<Map<String, Object>> transaction, this.succes)
+      : _transaction = transaction;
+
+  final List<Map<String, Object>> _transaction;
+  @override
+  List<Map<String, Object>> get transaction {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_transaction);
+  }
+
+  @override
+  final Function succes;
+
+  @override
+  String toString() {
+    return 'MainNavigation.paypal(transaction: $transaction, succes: $succes)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_PayPal &&
+            const DeepCollectionEquality()
+                .equals(other._transaction, _transaction) &&
+            (identical(other.succes, succes) || other.succes == succes));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_transaction), succes);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_PayPalCopyWith<_$_PayPal> get copyWith =>
+      __$$_PayPalCopyWithImpl<_$_PayPal>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() home,
+    required TResult Function() welcome,
+    required TResult Function() login,
+    required TResult Function() products,
+    required TResult Function() firstRegistration,
+    required TResult Function(List<String> registrationDatas)
+        secondRegistration,
+    required TResult Function() thirdRegistration,
+    required TResult Function(bool showAppBar, bool fromMenu,
+            bool fromCompleteOrder, bool fromHomePage)
+        cart,
+    required TResult Function(bool fromMenu, bool fromAccount,
+            bool fromThankScreen, bool fromOrderDetails)
+        myOrders,
+    required TResult Function(bool fromMenu, bool fromAccount) pointsBalance,
+    required TResult Function(bool fromMenu) account,
+    required TResult Function() notification,
+    required TResult Function(Order order) orderDetail,
+    required TResult Function(int totPoint, CartResponse? cart) completeOrder,
+    required TResult Function(bool showAppBar, bool fromMenu) categories,
+    required TResult Function(int product_id) addReview,
+    required TResult Function(int productId) productDetail,
+    required TResult Function(AccountResponse user) personalInfo,
+    required TResult Function(int id) categoriesDetail,
+    required TResult Function() thankYou,
+    required TResult Function() menu,
+    required TResult Function(bool fromMenu, bool fromAccount) wishList,
+    required TResult Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point,
+            CartResponse? cart)
+        newAddressFromAccount,
+    required TResult Function(int id) addressList,
+    required TResult Function(
+            List<Map<String, Object>> transaction, Function succes)
+        paypal,
+  }) {
+    return paypal(transaction, succes);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? home,
+    TResult? Function()? welcome,
+    TResult? Function()? login,
+    TResult? Function()? products,
+    TResult? Function()? firstRegistration,
+    TResult? Function(List<String> registrationDatas)? secondRegistration,
+    TResult? Function()? thirdRegistration,
+    TResult? Function(bool showAppBar, bool fromMenu, bool fromCompleteOrder,
+            bool fromHomePage)?
+        cart,
+    TResult? Function(bool fromMenu, bool fromAccount, bool fromThankScreen,
+            bool fromOrderDetails)?
+        myOrders,
+    TResult? Function(bool fromMenu, bool fromAccount)? pointsBalance,
+    TResult? Function(bool fromMenu)? account,
+    TResult? Function()? notification,
+    TResult? Function(Order order)? orderDetail,
+    TResult? Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult? Function(bool showAppBar, bool fromMenu)? categories,
+    TResult? Function(int product_id)? addReview,
+    TResult? Function(int productId)? productDetail,
+    TResult? Function(AccountResponse user)? personalInfo,
+    TResult? Function(int id)? categoriesDetail,
+    TResult? Function()? thankYou,
+    TResult? Function()? menu,
+    TResult? Function(bool fromMenu, bool fromAccount)? wishList,
+    TResult? Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point,
+            CartResponse? cart)?
+        newAddressFromAccount,
+    TResult? Function(int id)? addressList,
+    TResult? Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
+  }) {
+    return paypal?.call(transaction, succes);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? home,
+    TResult Function()? welcome,
+    TResult Function()? login,
+    TResult Function()? products,
+    TResult Function()? firstRegistration,
+    TResult Function(List<String> registrationDatas)? secondRegistration,
+    TResult Function()? thirdRegistration,
+    TResult Function(bool showAppBar, bool fromMenu, bool fromCompleteOrder,
+            bool fromHomePage)?
+        cart,
+    TResult Function(bool fromMenu, bool fromAccount, bool fromThankScreen,
+            bool fromOrderDetails)?
+        myOrders,
+    TResult Function(bool fromMenu, bool fromAccount)? pointsBalance,
+    TResult Function(bool fromMenu)? account,
+    TResult Function()? notification,
+    TResult Function(Order order)? orderDetail,
+    TResult Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult Function(bool showAppBar, bool fromMenu)? categories,
+    TResult Function(int product_id)? addReview,
+    TResult Function(int productId)? productDetail,
+    TResult Function(AccountResponse user)? personalInfo,
+    TResult Function(int id)? categoriesDetail,
+    TResult Function()? thankYou,
+    TResult Function()? menu,
+    TResult Function(bool fromMenu, bool fromAccount)? wishList,
+    TResult Function(
+            int id,
+            bool editFatturazione,
+            bool editShipping,
+            UserAddress? user,
+            String returnPage,
+            bool isNewAddress,
+            int? point,
+            CartResponse? cart)?
+        newAddressFromAccount,
+    TResult Function(int id)? addressList,
+    TResult Function(List<Map<String, Object>> transaction, Function succes)?
+        paypal,
+    required TResult orElse(),
+  }) {
+    if (paypal != null) {
+      return paypal(transaction, succes);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Home value) home,
+    required TResult Function(_Welcome value) welcome,
+    required TResult Function(_Login value) login,
+    required TResult Function(_Products value) products,
+    required TResult Function(_FirstRegistration value) firstRegistration,
+    required TResult Function(_SecondRegistration value) secondRegistration,
+    required TResult Function(_ThirdRegistration value) thirdRegistration,
+    required TResult Function(_Cart value) cart,
+    required TResult Function(_MyOrders value) myOrders,
+    required TResult Function(_PointsBalance value) pointsBalance,
+    required TResult Function(_Account value) account,
+    required TResult Function(_Notification value) notification,
+    required TResult Function(_OrderDetail value) orderDetail,
+    required TResult Function(_CompleteOrder value) completeOrder,
+    required TResult Function(_Categories value) categories,
+    required TResult Function(_AddReview value) addReview,
+    required TResult Function(_ProductDetail value) productDetail,
+    required TResult Function(_PersonalInfo value) personalInfo,
+    required TResult Function(_CategoriesDetail value) categoriesDetail,
+    required TResult Function(_ThankYou value) thankYou,
+    required TResult Function(_Menu value) menu,
+    required TResult Function(_WishlistScreen value) wishList,
+    required TResult Function(_MyAddressFromAccountScreen value)
+        newAddressFromAccount,
+    required TResult Function(_MyAddressListScreen value) addressList,
+    required TResult Function(_PayPal value) paypal,
+  }) {
+    return paypal(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Home value)? home,
+    TResult? Function(_Welcome value)? welcome,
+    TResult? Function(_Login value)? login,
+    TResult? Function(_Products value)? products,
+    TResult? Function(_FirstRegistration value)? firstRegistration,
+    TResult? Function(_SecondRegistration value)? secondRegistration,
+    TResult? Function(_ThirdRegistration value)? thirdRegistration,
+    TResult? Function(_Cart value)? cart,
+    TResult? Function(_MyOrders value)? myOrders,
+    TResult? Function(_PointsBalance value)? pointsBalance,
+    TResult? Function(_Account value)? account,
+    TResult? Function(_Notification value)? notification,
+    TResult? Function(_OrderDetail value)? orderDetail,
+    TResult? Function(_CompleteOrder value)? completeOrder,
+    TResult? Function(_Categories value)? categories,
+    TResult? Function(_AddReview value)? addReview,
+    TResult? Function(_ProductDetail value)? productDetail,
+    TResult? Function(_PersonalInfo value)? personalInfo,
+    TResult? Function(_CategoriesDetail value)? categoriesDetail,
+    TResult? Function(_ThankYou value)? thankYou,
+    TResult? Function(_Menu value)? menu,
+    TResult? Function(_WishlistScreen value)? wishList,
+    TResult? Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
+    TResult? Function(_MyAddressListScreen value)? addressList,
+    TResult? Function(_PayPal value)? paypal,
+  }) {
+    return paypal?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Home value)? home,
+    TResult Function(_Welcome value)? welcome,
+    TResult Function(_Login value)? login,
+    TResult Function(_Products value)? products,
+    TResult Function(_FirstRegistration value)? firstRegistration,
+    TResult Function(_SecondRegistration value)? secondRegistration,
+    TResult Function(_ThirdRegistration value)? thirdRegistration,
+    TResult Function(_Cart value)? cart,
+    TResult Function(_MyOrders value)? myOrders,
+    TResult Function(_PointsBalance value)? pointsBalance,
+    TResult Function(_Account value)? account,
+    TResult Function(_Notification value)? notification,
+    TResult Function(_OrderDetail value)? orderDetail,
+    TResult Function(_CompleteOrder value)? completeOrder,
+    TResult Function(_Categories value)? categories,
+    TResult Function(_AddReview value)? addReview,
+    TResult Function(_ProductDetail value)? productDetail,
+    TResult Function(_PersonalInfo value)? personalInfo,
+    TResult Function(_CategoriesDetail value)? categoriesDetail,
+    TResult Function(_ThankYou value)? thankYou,
+    TResult Function(_Menu value)? menu,
+    TResult Function(_WishlistScreen value)? wishList,
+    TResult Function(_MyAddressFromAccountScreen value)? newAddressFromAccount,
+    TResult Function(_MyAddressListScreen value)? addressList,
+    TResult Function(_PayPal value)? paypal,
+    required TResult orElse(),
+  }) {
+    if (paypal != null) {
+      return paypal(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PayPal implements MainNavigation {
+  const factory _PayPal(
+          final List<Map<String, Object>> transaction, final Function succes) =
+      _$_PayPal;
+
+  List<Map<String, Object>> get transaction;
+  Function get succes;
+  @JsonKey(ignore: true)
+  _$$_PayPalCopyWith<_$_PayPal> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

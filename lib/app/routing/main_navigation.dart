@@ -33,6 +33,7 @@ abstract class MainNavigation with _$MainNavigation {
   const factory MainNavigation.wishList(bool fromMenu, bool fromAccount) =_WishlistScreen;
   const factory MainNavigation.newAddressFromAccount(int id, bool editFatturazione, bool editShipping, UserAddress? user, String returnPage, bool isNewAddress, int? point, CartResponse? cart) =_MyAddressFromAccountScreen;
   const factory MainNavigation.addressList(int id) = _MyAddressListScreen;
+  const factory MainNavigation.paypal(List<Map<String, Object>> transaction, Function succes) = _PayPal;
 
   static void push(BuildContext context, MainNavigation page) => MainNavigationNotification.push(page).dispatch(context);
 

@@ -9,7 +9,7 @@ part of 'insert_notification_response.dart';
 _$_InsertNotificationResponse _$$_InsertNotificationResponseFromJson(
         Map<String, dynamic> json) =>
     _$_InsertNotificationResponse(
-      id: (json['id'] as num).toInt(),
+      id: json['id'] as String,
     );
 
 Map<String, dynamic> _$$_InsertNotificationResponseToJson(

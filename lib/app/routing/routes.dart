@@ -23,4 +23,5 @@ class Routes {
   static const addReview ='addReview';
   static const wishList = 'wishList';
   static const personalInfo = 'personalInfo';
+  static const paypal = 'paypal';
 }

@@ -34,6 +34,7 @@ class PushNotificationConfig {
 
     //_firebaseMessaging.subscribeToTopic("");
 
+
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;

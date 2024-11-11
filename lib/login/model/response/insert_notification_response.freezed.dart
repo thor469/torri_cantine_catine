@@ -21,7 +21,7 @@ InsertNotificationResponse _$InsertNotificationResponseFromJson(
 
 /// @nodoc
 mixin _$InsertNotificationResponse {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +36,7 @@ abstract class $InsertNotificationResponseCopyWith<$Res> {
       _$InsertNotificationResponseCopyWithImpl<$Res,
           InsertNotificationResponse>;
   @useResult
-  $Res call({int id});
+  $Res call({String id});
 }
 
 /// @nodoc
@@ -59,7 +59,7 @@ class _$InsertNotificationResponseCopyWithImpl<$Res,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ) as $Val);
   }
 }
@@ -73,7 +73,7 @@ abstract class _$$_InsertNotificationResponseCopyWith<$Res>
       __$$_InsertNotificationResponseCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id});
+  $Res call({String id});
 }
 
 /// @nodoc
@@ -95,7 +95,7 @@ class __$$_InsertNotificationResponseCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -109,7 +109,7 @@ class _$_InsertNotificationResponse implements _InsertNotificationResponse {
       _$$_InsertNotificationResponseFromJson(json);
 
   @override
-  final int id;
+  final String id;
 
   @override
   String toString() {
@@ -145,14 +145,14 @@ class _$_InsertNotificationResponse implements _InsertNotificationResponse {
 
 abstract class _InsertNotificationResponse
     implements InsertNotificationResponse {
-  factory _InsertNotificationResponse({required final int id}) =
+  factory _InsertNotificationResponse({required final String id}) =
       _$_InsertNotificationResponse;
 
   factory _InsertNotificationResponse.fromJson(Map<String, dynamic> json) =
       _$_InsertNotificationResponse.fromJson;
 
   @override
-  int get id;
+  String get id;
   @override
   @JsonKey(ignore: true)
   _$$_InsertNotificationResponseCopyWith<_$_InsertNotificationResponse>

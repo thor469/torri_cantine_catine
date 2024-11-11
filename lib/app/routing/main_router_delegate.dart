@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_paypal/flutter_paypal.dart';
 import 'package:torri_cantine_app/account/presentation/account.dart';
 import 'package:torri_cantine_app/account/presentation/adress_list.dart';
 import 'package:torri_cantine_app/account/presentation/new_address_from_account.dart';
+import 'package:torri_cantine_app/app/app_config.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation_stack.dart';
+import 'package:torri_cantine_app/my_orders/my_orders/my_orders_bloc.dart';
 import 'package:torri_cantine_app/personal_info/presentation/personal_info.dart';
 import 'package:torri_cantine_app/points_balance_screen/presentation/points_balance.dart';
 import 'package:torri_cantine_app/all_products/presentation/products_screen.dart';
@@ -219,6 +222,27 @@ class MainRouterDelegate extends RouterDelegate<MainNavigationStack>
               personalInfo: (user) => FadePage(
                 key: ValueKey('newAddress_${entry.key}'),
                 child: PersonalInfo(user: user),
+              ),
+              paypal: (transactions, onSuccess) => FadePage(
+                child: UsePaypal(
+                  sandboxMode: true,
+                  clientId: "ASBdrtn0TP5f_ZJDIoG3KRrFU4Nz_3F24_qhUsqBlsX6JicBbPI_P69QbkH5OS04tPMsE6CaGzYN_xzQ",
+                  secretKey: "EJxM8zvtOgHnbar24Ay1thq2pExa6NHA_mJeELmfBZVwkGw4pW8qIsxl1h-s0-og3yUT8DUM9o9sXeDu",
+                  returnURL: "${AppConfig.baseUrl}/return",
+                  cancelURL: "${AppConfig.baseUrl}/cancel",
+                  transactions: transactions,
+                  note: "Contattaci per ogni esigenza.",
+                  onSuccess: (Map params) => onSuccess(),
+                  onError: (error) {
+                    print("onError: $error");
+                    Navigator.of(context).pop();
+                  },
+                  onCancel: (params) {
+                    print('cancelled: $params');
+                    Navigator.of(context).pop();
+                  },
+
+                ),
               ),
               newAddressFromAccount: (id, editFatturazione, editShipping, existingAddress, returnPage, isNewAddress, point, cart) => FadePage(
                 key: ValueKey('newAddressFromAccount_${entry.key}'),
