@@ -64,6 +64,7 @@ class _ProductsState extends State<Products> {
   var filterMaps = null;
   var priceFilterMaps = null;
   var loadMore = true;
+  PersistentBottomSheetController? bottomSheetController;
 
   @override
   void initState() {
@@ -373,21 +374,22 @@ class _ProductsState extends State<Products> {
                                                                       112)),
                                                         ),
                                 ),
-                                onTap: () {
-                                  //Scaffold.of(context).openDrawer();
-                                  Scaffold.of(context).showBottomSheet(
+                              onTap: () {
+                                bottomSheetController = Scaffold.of(context).showBottomSheet(
                                       (context) => setDrawer == 1
                                           ? OrderDrawer(
-                                              categoriesMap:
-                                                  widget.categoriesMap,
-                                              tagsMap: widget.tagsMap,
-                                            )
-                                          : FilterDrawer());
-                                  setState(() {
-                                    setDrawer = 1;
-                                  });
-                                },
-                              ),
+                                        categoriesMap: widget.categoriesMap,
+                                        tagsMap: widget.tagsMap,
+                                        onClose: () {
+                                          bottomSheetController?.close();
+                                        },
+                                      )
+                                          : FilterDrawer()
+                                );
+                                setState(() {
+                                  setDrawer = 1;
+                                });
+                              }),
                               GestureDetector(
                                 child: Padding(
                                   padding: const EdgeInsets.only(right: 40.0),
@@ -419,10 +421,10 @@ class _ProductsState extends State<Products> {
                             ]),
                       ),
                       RefreshIndicator(
-                      color: Color.fromARGB(255, 161, 29, 51),
+                      color: const Color.fromARGB(255, 161, 29, 51),
                         displacement: 20,
                         onRefresh: () async {
-                          context.read<AllProductsBloc>().add(AllProductsEvent.fetch());
+                          context.read<AllProductsBloc>().add(const AllProductsEvent.fetch());
                         },
                         child: BlocConsumer<AllProductsBloc, AllProductsState>(
                           bloc: context.read<AllProductsBloc>(),
@@ -442,9 +444,9 @@ class _ProductsState extends State<Products> {
                             error: () => const SizedBox(),
                             loading: (model, pageNumber) {
                               if (model.isEmpty) {
-                                return const Padding(
-                                  padding: EdgeInsets.only(top: 24),
-                                  child: Center(
+                                return SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.75,
+                                  child: const Center(
                                     child: CircularProgressIndicator(
                                       color: Color.fromARGB(255, 161, 29, 51),
                                     ),

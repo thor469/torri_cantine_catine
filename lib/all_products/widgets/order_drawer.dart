@@ -7,8 +7,9 @@ import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
 class OrderDrawer extends StatefulWidget {
   Map<String, bool>? categoriesMap;
   Map<String, bool>? tagsMap;
+  final VoidCallback? onClose;
 
-  OrderDrawer({super.key, this.categoriesMap, this.tagsMap});
+  OrderDrawer({super.key, this.categoriesMap, this.tagsMap, this.onClose});
 
   @override
   State<OrderDrawer> createState() => _OrderDrawerState();
@@ -22,9 +23,7 @@ class _OrderDrawerState extends State<OrderDrawer> {
         children: [
           ListTile(
             leading: GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
+                onTap: widget.onClose,
                 child: const Icon(Icons.cancel_outlined)),
             title: Text(
               "ORDINA",
@@ -47,22 +46,23 @@ class _OrderDrawerState extends State<OrderDrawer> {
               ),
               onTap: () => {
                 context.read<AllProductsBloc>().add(
-                  AllProductsEvent.fetch(
+                  const AllProductsEvent.fetch(
                     page: 1,
                     order: "asc",
                     orderBy: "price",
                   ),
                 ),
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => Products(
-                          orderAsc: true,
-                          categoriesMap: widget.categoriesMap,
-                          tagsMap: widget.tagsMap,
-                          fromMenu: true,
-                          showAppBar: true,
-                        ))),
+                widget.onClose!(),
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => Products(
+                //           orderAsc: true,
+                //           categoriesMap: widget.categoriesMap,
+                //           tagsMap: widget.tagsMap,
+                //           fromMenu: true,
+                //           showAppBar: true,
+                //         ))),
               }),
           const Divider(
             color: Color.fromARGB(255, 138, 137, 137),
@@ -87,16 +87,17 @@ class _OrderDrawerState extends State<OrderDrawer> {
 
                   ),
                 ),
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => Products(
-                          orderDesc: true,
-                          categoriesMap: widget.categoriesMap,
-                          tagsMap: widget.tagsMap,
-                          fromMenu: true,
-                          showAppBar: true,
-                        ))),
+                widget.onClose!(),
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => Products(
+                //           orderDesc: true,
+                //           categoriesMap: widget.categoriesMap,
+                //           tagsMap: widget.tagsMap,
+                //           fromMenu: true,
+                //           showAppBar: true,
+                //         ))),
               }),
           const Divider(
             color: Color.fromARGB(255, 138, 137, 137),
@@ -121,18 +122,19 @@ class _OrderDrawerState extends State<OrderDrawer> {
 
                   ),
                 ),
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Products(
-                      orderDate: true,
-                      categoriesMap: widget.categoriesMap,
-                      tagsMap: widget.tagsMap,
-                      fromMenu: true,
-                      showAppBar: true,
-                    ),
-                  ),
-                ),
+                widget.onClose!(),
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => Products(
+                //       orderDate: true,
+                //       categoriesMap: widget.categoriesMap,
+                //       tagsMap: widget.tagsMap,
+                //       fromMenu: true,
+                //       showAppBar: true,
+                //     ),
+                //   ),
+                // ),
               }),
           const Divider(
             color: Color.fromARGB(255, 138, 137, 137),
@@ -156,18 +158,19 @@ class _OrderDrawerState extends State<OrderDrawer> {
                     orderBy: "date",
                   ),
                 ),
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Products(
-                      orderDate: true,
-                      categoriesMap: widget.categoriesMap,
-                      tagsMap: widget.tagsMap,
-                      fromMenu: true,
-                      showAppBar: true,
-                    ),
-                  ),
-                ),
+                widget.onClose!(),
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => Products(
+                //       orderDate: true,
+                //       categoriesMap: widget.categoriesMap,
+                //       tagsMap: widget.tagsMap,
+                //       fromMenu: true,
+                //       showAppBar: true,
+                //     ),
+                //   ),
+                // ),
               }),
           const Divider(
             color: Color.fromARGB(255, 138, 137, 137),
@@ -191,18 +194,19 @@ class _OrderDrawerState extends State<OrderDrawer> {
                     orderBy: "rating",
                   ),
                 ),
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Products(
-                      orderRating: true,
-                      categoriesMap: widget.categoriesMap,
-                      tagsMap: widget.tagsMap,
-                      fromMenu: true,
-                      showAppBar: true,
-                    ),
-                  ),
-                ),
+                widget.onClose!(),
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => Products(
+                //       orderRating: true,
+                //       categoriesMap: widget.categoriesMap,
+                //       tagsMap: widget.tagsMap,
+                //       fromMenu: true,
+                //       showAppBar: true,
+                //     ),
+                //   ),
+                // ),
               }),
         ],
       ),
