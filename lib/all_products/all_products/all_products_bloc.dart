@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:torri_cantine_app/all_products/model/request/all_products_request.dart';
@@ -29,7 +30,6 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
   ) async* {
     yield* event.when(fetch: _fetch, filterProducts: _filterProducts, wishListProducts: _wishListsProducts);
   }
-
   Stream<AllProductsState> _fetch(int? page, String? orderBy, String? order) async* {
     List<Product> products = [];  // Clear the list at the beginning of the fetch.
     AllProductsResponse? response;
@@ -94,6 +94,27 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
     }
   }
 
+  Future<AllProductsResponse?> fetch(int page, int perPage, String? orderBy, String? order) async{
+    // List<Product> products = [];
+    AllProductsResponse? response;
+    // int pageNew = 1;
+      try {
+      response = await service.getAllProducts(AllProductsRequest(
+        maxPages: perPage,
+        pageNumber: page ?? 1,
+        order: order ?? "desc",
+        orderBy: orderBy ?? "date",
+        catalogVisibility: '${AppConfig.catalogVisibilityFilter}',
+        productStatus: '${AppConfig.productStatusFilter}',
+      ));
+      return response;
+      // products.addAll(response.products as Iterable<Product>);
+      // return products;
+    } on DioError catch (e) {
+        print(e.message);
+        return null;
+      }
+  }
 
   Stream<AllProductsState> _filterProducts(int? page, String? categories,
       String? tags, String? minPrice, String? maxPrice, catalogVisibility) async* {
