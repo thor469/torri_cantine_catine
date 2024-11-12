@@ -35,7 +35,7 @@ class _FilterDrawerState extends State<FilterDrawer> {
   @override
   void initState(){
     // context.read<CategoriesBloc>().add(const CategoriesEvent.fetch());
-    // context.read<ProductTagsBloc>().add(const ProductTagsEvent.fetch());
+    context.read<ProductTagsBloc>().add(const ProductTagsEvent.fetch());
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       final filterMaps = await storage.getFilters();
       if (filterMaps != null) {
