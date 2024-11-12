@@ -34,8 +34,8 @@ class _FilterDrawerState extends State<FilterDrawer> {
 
   @override
   void initState(){
-    context.read<CategoriesBloc>().add(const CategoriesEvent.fetch());
-    context.read<ProductTagsBloc>().add(const ProductTagsEvent.fetch());
+    // context.read<CategoriesBloc>().add(const CategoriesEvent.fetch());
+    // context.read<ProductTagsBloc>().add(const ProductTagsEvent.fetch());
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       final filterMaps = await storage.getFilters();
       if (filterMaps != null) {
@@ -458,6 +458,76 @@ class _FilterDrawerState extends State<FilterDrawer> {
                           ),
                         ),
                     loading: (products, page)  {
+                      if(products.isEmpty) {
+                        return Center(
+                          child: CircularProgressIndicator(
+                            color: Color.fromARGB(255, 161, 29, 51),
+                          ),
+                        );
+                      }
+
+
+                      storage.setPriceFilters(currentRangeValues);
+                      return Column(
+                        children: [
+                          Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16.0),
+                              child: RangeSlider(
+                                inactiveColor: Colors.grey,
+                                activeColor: const Color.fromARGB(255, 161, 29, 51),
+                                values: currentRangeValues,
+                                max: max(maxPrice(products ?? <Product>[]),currentRangeValues.end),
+                                //max: 120,
+                                min: 0,
+                                divisions: 100,
+                                labels: RangeLabels(
+                                  "€ ${currentRangeValues.start.round()}",
+                                  "€ ${currentRangeValues.end.round()}",
+                                ),
+                                onChanged: (RangeValues values) {
+                                  setState(() {
+                                    currentRangeValues = values;
+                                    print('storage.getPriceFilters()');
+
+                                    storage.setPriceFilters(values);
+
+
+                                    print(storage.getPriceFilters());
+                                  });
+                                },
+                              )),
+                          Padding(
+                            padding:
+                            const EdgeInsets.symmetric(horizontal: 32),
+                            child: Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "€ 0,00",
+                                    style: TCTypography.of(context)
+                                        .text_12_bold
+                                        .copyWith(
+                                      color: const Color.fromARGB(
+                                          255, 113, 112, 112),
+                                    ),
+                                  ),
+                                  Text(
+                                    "${maxPrice(products ?? <Product>[])} €",
+                                    style: TCTypography.of(context)
+                                        .text_12_bold
+                                        .copyWith(
+                                      color: const Color.fromARGB(
+                                          255, 113, 112, 112),
+                                    ),
+                                  )
+                                ]),
+                          ),
+                        ],
+                      );
+                    },
+                    loaded: (products, page)  {
                       if(products.isEmpty) {
                         return Center(
                           child: CircularProgressIndicator(

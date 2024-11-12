@@ -20,7 +20,7 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
   final AllProductsService service;
   AllProductsBloc(this.service) : super(const _Initial());
 
-  int apiTopValue = 35;
+  int apiTopValue = 10;
 
 
   @override
@@ -132,7 +132,7 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
           //print('@@##@@ THOU SHALL NOT PASS');
           stop =true;
           pageNew= 0;
-          yield AllProductsState.loading(products ?? [], pageNew);
+          yield AllProductsState.loaded(products ?? [], pageNew);
           //yield AllProductsState.loaded(products ?? [], pageNew);
         } else {
           print('still loading...${pageNew}');
