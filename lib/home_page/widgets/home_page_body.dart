@@ -58,6 +58,9 @@ class _HomePageBodyState extends State<HomePageBody> {
                   //return productsBody(storageProducts,page,page!=0);
                 }
               },
+              loaded: (products, page) {
+                return productsBody(products, page, page != 0);
+              },
               // loaded: (products, page) {
               //   //print('################ products');
               //
