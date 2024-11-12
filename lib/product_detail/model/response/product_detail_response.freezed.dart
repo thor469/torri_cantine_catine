@@ -38,7 +38,9 @@ mixin _$ProductDetailResponse {
       throw _privateConstructorUsedError; // @Default(0) int? bundle_min_size,
 // @Default(0) int? bundle_max_size,
   String? get bundle_stock_status => throw _privateConstructorUsedError;
-  String? get bundle_stock_quantity => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: parseToString)
+  String? get bundle_stock_quantity =>
+      throw _privateConstructorUsedError; // String? bundle_stock_quantity,
   List<ImageProduct>? get images => throw _privateConstructorUsedError;
   List<ProductTags>? get tags => throw _privateConstructorUsedError;
   List<MetaData>? get meta_data => throw _privateConstructorUsedError;
@@ -73,7 +75,7 @@ abstract class $ProductDetailResponseCopyWith<$Res> {
       @JsonKey(name: 'bundle_max_size', fromJson: parseInter)
       int bundle_max_size,
       String? bundle_stock_status,
-      String? bundle_stock_quantity,
+      @JsonKey(fromJson: parseToString) String? bundle_stock_quantity,
       List<ImageProduct>? images,
       List<ProductTags>? tags,
       List<MetaData>? meta_data,
@@ -220,7 +222,7 @@ abstract class _$$_ProductDetailResponseCopyWith<$Res>
       @JsonKey(name: 'bundle_max_size', fromJson: parseInter)
       int bundle_max_size,
       String? bundle_stock_status,
-      String? bundle_stock_quantity,
+      @JsonKey(fromJson: parseToString) String? bundle_stock_quantity,
       List<ImageProduct>? images,
       List<ProductTags>? tags,
       List<MetaData>? meta_data,
@@ -359,7 +361,7 @@ class _$_ProductDetailResponse implements _ProductDetailResponse {
       @JsonKey(name: 'bundle_max_size', fromJson: parseInter)
       this.bundle_max_size = 0,
       this.bundle_stock_status,
-      this.bundle_stock_quantity,
+      @JsonKey(fromJson: parseToString) this.bundle_stock_quantity,
       final List<ImageProduct>? images = const <ImageProduct>[],
       final List<ProductTags>? tags = const <ProductTags>[],
       final List<MetaData>? meta_data = const <MetaData>[],
@@ -405,8 +407,11 @@ class _$_ProductDetailResponse implements _ProductDetailResponse {
   @override
   final String? bundle_stock_status;
   @override
+  @JsonKey(fromJson: parseToString)
   final String? bundle_stock_quantity;
+// String? bundle_stock_quantity,
   final List<ImageProduct>? _images;
+// String? bundle_stock_quantity,
   @override
   @JsonKey()
   List<ImageProduct>? get images {
@@ -556,7 +561,7 @@ abstract class _ProductDetailResponse implements ProductDetailResponse {
       @JsonKey(name: 'bundle_max_size', fromJson: parseInter)
       final int bundle_max_size,
       final String? bundle_stock_status,
-      final String? bundle_stock_quantity,
+      @JsonKey(fromJson: parseToString) final String? bundle_stock_quantity,
       final List<ImageProduct>? images,
       final List<ProductTags>? tags,
       final List<MetaData>? meta_data,
@@ -596,8 +601,9 @@ abstract class _ProductDetailResponse implements ProductDetailResponse {
 // @Default(0) int? bundle_max_size,
   String? get bundle_stock_status;
   @override
+  @JsonKey(fromJson: parseToString)
   String? get bundle_stock_quantity;
-  @override
+  @override // String? bundle_stock_quantity,
   List<ImageProduct>? get images;
   @override
   List<ProductTags>? get tags;

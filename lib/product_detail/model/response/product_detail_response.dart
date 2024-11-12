@@ -20,6 +20,12 @@ int parseInter(dynamic input) {
   }
 }
 
+String? parseToString(dynamic input) {
+  if (input == null) return null;
+  return input.toString();
+}
+
+
 @freezed
 class ProductDetailResponse extends ResponseBase with _$ProductDetailResponse {
   factory ProductDetailResponse({
@@ -38,7 +44,8 @@ class ProductDetailResponse extends ResponseBase with _$ProductDetailResponse {
     // @Default(0) int? bundle_min_size,
     // @Default(0) int? bundle_max_size,
     String? bundle_stock_status,
-    String? bundle_stock_quantity,
+    @JsonKey(fromJson: parseToString) String? bundle_stock_quantity,
+    // String? bundle_stock_quantity,
 
     @Default(<ImageProduct>[]) List<ImageProduct>? images,
     @Default(<ProductTags>[]) List<ProductTags>? tags,
