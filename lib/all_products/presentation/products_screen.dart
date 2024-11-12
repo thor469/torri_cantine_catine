@@ -436,7 +436,7 @@ class _ProductsState extends State<Products> {
                                       return const Center(
                                           child: Padding(
                                               padding: EdgeInsets.only(
-                                                  left: 40.0),
+                                                  right: 40.0),
                                               child: SizedBox(
                                                   height: 18, width: 18,
                                                   child: CircularProgressIndicator(
