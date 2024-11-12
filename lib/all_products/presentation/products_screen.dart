@@ -425,35 +425,69 @@ class _ProductsState extends State<Products> {
                                         });
                                   }
                               ),
-                              GestureDetector(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 40.0),
-                                  child: Text(
-                                    "FILTRA",
-                                    style: TCTypography.of(context)
-                                        .text_14_bold
-                                        .copyWith(
-                                          color: const Color.fromARGB(
-                                              255, 113, 112, 112),
-                                        ),
-                                  ),
-                                ),
-                                onTap: () {
-                                  //Scaffold.of(context).openDrawer();
-                                  Scaffold.of(context).showBottomSheet(
-                                      (context) => setDrawer == 1
-                                          ? OrderDrawer(
-                                              categoriesMap:
-                                                  widget.categoriesMap,
-                                              tagsMap: widget.tagsMap,
-                                            )
-                                          : FilterDrawer());
-                                  setState(() {
-                                    setDrawer = 0;
-                                  });
-                                },
-                              ),
-                            ]),
+
+                              BlocBuilder<AllProductsBloc, AllProductsState>(
+                              builder: (context, state) {
+                                return state.maybeWhen(
+                                    orElse: () {
+                                      return const SizedBox();
+                                    },
+                                    loading: (model, pageNumber) {
+                                      return const Center(
+                                          child: Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: 40.0),
+                                              child: SizedBox(
+                                                  height: 18, width: 18,
+                                                  child: CircularProgressIndicator(
+                                                    color: Color.fromARGB(
+                                                        255, 161, 29, 51),
+                                                  )
+                                              )
+                                          )
+                                      );
+                                    },
+                                    loaded: (model, pageNumber) {
+                                      return GestureDetector(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 40.0),
+                                            child: Text(
+                                              "FILTRA",
+                                              style: TCTypography
+                                                  .of(context)
+                                                  .text_14_bold
+                                                  .copyWith(
+                                                color: const Color.fromARGB(
+                                                    255, 113, 112, 112),
+                                              ),
+                                            ),
+                                          ),
+                                          onTap:() {
+                                              bottomSheetController =
+                                                  Scaffold.of(context)
+                                                      .showBottomSheet(
+                                                          (context) =>
+                                                      setDrawer == 1
+                                                          ? OrderDrawer(
+                                                        categoriesMap: widget
+                                                            .categoriesMap,
+                                                        tagsMap:
+                                                        widget.tagsMap,
+                                                        onClose: () {
+                                                          bottomSheetController
+                                                              ?.close();
+                                                        },
+                                                        onFilterSelected: _setFilter,
+                                                      )
+                                                          : FilterDrawer());
+                                              setState(() {
+                                                setDrawer = 0;
+                                              });
+                                          });
+                                    }
+                                );
+                              })]),
                       ),
                       RefreshIndicator(
                       color: const Color.fromARGB(255, 161, 29, 51),
