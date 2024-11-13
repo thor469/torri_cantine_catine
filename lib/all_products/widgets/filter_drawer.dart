@@ -20,10 +20,12 @@ class FilterDrawer extends StatefulWidget {
   final void Function(int? pageKey, String? categories,
       String? tags, String? minPrice, String? maxPrice, dynamic catalogVisibility)? onFilterPage;
   final PagingController<int, Product>? pagingController;
+  final Function(bool? asc, bool? desc, bool? pop, bool? date, bool? rating)? onFilterSelected;
   FilterDrawer({
     this.onClose,
     this.onFilterPage,
     this.pagingController,
+    this.onFilterSelected,
     super.key,
   });
 
@@ -700,6 +702,7 @@ class _FilterDrawerState extends State<FilterDrawer> {
                   '${AppConfig.productStatusFilter}'
                   );
                   widget.pagingController!.refresh();
+                  widget.onFilterSelected!(false, false, false, false, false);
                   widget.onClose!();
                   // Navigator.push(
                   //   context,

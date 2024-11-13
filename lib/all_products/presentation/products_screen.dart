@@ -544,7 +544,8 @@ class _ProductsState extends State<Products> {
                                                               ?.close();
                                                         },
                                                         onFilterPage: _updateFilter,
-                                                        pagingController: _pagingController
+                                                        pagingController: _pagingController,
+                                                        onFilterSelected: _setFilter,
                                                     ));
                                             setState(() {
                                               setDrawer = 0;
