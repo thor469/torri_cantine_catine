@@ -102,7 +102,7 @@ class _ProductsState extends State<Products> {
   Future<void> _filterPage(int? pageKey, String? categories,
       String? tags, String? minPrice, String? maxPrice, catalogVisibility) async {
     try {
-      AllProductsResponse? response = await context.read<AllProductsBloc>().filterProducts(pageKey, categories, tags,  minPrice,  maxPrice, catalogVisibility);
+      AllProductsResponse? response = await context.read<AllProductsBloc>().filterProducts(pageKey, 10, categories, tags,  minPrice,  maxPrice, catalogVisibility);
       if (response != null && response.products!.isNotEmpty) {
         final isLastPage = response.products!.length < 10;
         if (isLastPage) {
