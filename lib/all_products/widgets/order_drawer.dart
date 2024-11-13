@@ -11,7 +11,7 @@ class OrderDrawer extends StatefulWidget {
   Map<String, bool>? tagsMap;
   final VoidCallback? onClose;
   final Function(bool? asc, bool? desc, bool? pop, bool? date, bool? rating)? onFilterSelected;
-  final Future<void> Function(int pageKey, String? orderBy, String? order)? onFetchPage;
+  final void Function(int pageKey, String? orderBy, String? order)? onFetchPage;
   final PagingController<int, Product>? pagingController;
 
 
@@ -58,8 +58,8 @@ class _OrderDrawerState extends State<OrderDrawer> {
                 //     orderBy: "price",
                 //   ),
                 // ),
-                widget.pagingController!.refresh(),
                 widget.onFetchPage!(1,  "asc","price"),
+                widget.pagingController!.refresh(),
                 widget.onFilterSelected!(true, false, false, false, false),
                 widget.onClose!(),
                 // Navigator.push(
@@ -96,8 +96,8 @@ class _OrderDrawerState extends State<OrderDrawer> {
                 //
                 //   ),
                 // ),
-                widget.pagingController!.refresh(),
                 widget.onFetchPage!(1,  "desc","price"),
+                widget.pagingController!.refresh(),
                 widget.onFilterSelected!(false, true, false, false, false),
                 widget.onClose!(),
                 // Navigator.push(
@@ -134,8 +134,8 @@ class _OrderDrawerState extends State<OrderDrawer> {
                 //
                 //   ),
                 // ),
-                widget.pagingController!.refresh(),
                 widget.onFetchPage!(1,  "desc","popularity"),
+                widget.pagingController!.refresh(),
                 widget.onFilterSelected!(false, false, true, false, false),
                 widget.onClose!(),
                 // Navigator.push(
@@ -173,8 +173,8 @@ class _OrderDrawerState extends State<OrderDrawer> {
                 //     orderBy: "date",
                 //   ),
                 // ),
-                widget.pagingController!.refresh(),
                 widget.onFetchPage!(1,  "desc","date"),
+                widget.pagingController!.refresh(),
                 widget.onFilterSelected!(false, false, false, true, false),
                 widget.onClose!(),
                 // Navigator.push(
@@ -212,8 +212,8 @@ class _OrderDrawerState extends State<OrderDrawer> {
                 //     orderBy: "rating",
                 //   ),
                 // ),
-                widget.pagingController!.refresh(),
                 widget.onFetchPage!(1,  "desc","rating"),
+                widget.pagingController!.refresh(),
                 widget.onFilterSelected!(false, false, false, false, true),
                 widget.onClose!(),
                 // Navigator.push(

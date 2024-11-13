@@ -68,13 +68,22 @@ class _ProductsState extends State<Products> {
   var loadMore = true;
   PersistentBottomSheetController? bottomSheetController;
   final PagingController<int, Product> _pagingController = PagingController(firstPageKey: 1);
+  final List<String> fetchTypes = ["init", "order", "filter"];
+  String? selectedOrder;
+  String? selectedOrderBy;
+  String? selectedCategories;
+  String? selectedTags;
+  String? selectedMinPrice;
+  String? selectedMaxPrice;
+  dynamic catalogVisibility;
+  String currentFetchType = "init";
 
 
   @override
   void initState() {
     scrollController = ScrollController();
     _pagingController.addPageRequestListener((pageKey) {
-      _fetchPage(pageKey, null, null);
+      _handlePageFetch(pageKey);
     });
     super.initState();
   }
@@ -463,8 +472,8 @@ class _ProductsState extends State<Products> {
                                                               ?.close();
                                                         },
                                                        onFilterSelected: _setFilter,
-                                                       onFetchPage: _fetchPage,
-                                                       pagingController: _pagingController
+                                                       onFetchPage: _updateOrder,
+                                                       pagingController: _pagingController,
                                                       )
                                                           : FilterDrawer());
                                               setState(() {
@@ -534,7 +543,7 @@ class _ProductsState extends State<Products> {
                                                           bottomSheetController
                                                               ?.close();
                                                         },
-                                                        onFilterPage: _filterPage,
+                                                        onFilterPage: _updateFilter,
                                                         pagingController: _pagingController
                                                     ));
                                             setState(() {
@@ -555,7 +564,7 @@ class _ProductsState extends State<Products> {
                         displacement: 20,
                         onRefresh: () async {
                           _pagingController.refresh();
-                          _fetchPage(1, null, null);
+                          // _fetchPage(1, null, null);
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -712,5 +721,38 @@ class _ProductsState extends State<Products> {
       widget.orderDate = date;
       widget.orderRating = rating;
     });
+  }
+
+  void _updateOrder(int pageKey, String? order, String? orderBy) {
+    currentFetchType = "order";
+    selectedOrderBy = orderBy;
+    selectedOrder = order;
+    _pagingController.refresh();
+  }
+
+  void _updateFilter(int? pageKey, String? categories, String? tags, String? minPrice, String? maxPrice, dynamic catalogVisibility) {
+    currentFetchType = "filter";
+    selectedCategories = categories;
+    selectedTags = tags;
+    selectedMinPrice = minPrice;
+    selectedMaxPrice = maxPrice;
+    this.catalogVisibility = catalogVisibility;
+    _pagingController.refresh();
+  }
+
+
+
+  void _handlePageFetch(int pageKey) {
+    switch (currentFetchType) {
+      case "init":
+        _fetchPage(pageKey, null, null);
+        break;
+      case "order":
+        _fetchPage(pageKey, selectedOrder, selectedOrderBy);
+        break;
+      case "filter":
+        _filterPage(pageKey, selectedCategories, selectedTags, selectedMinPrice, selectedMaxPrice, catalogVisibility);
+        break;
+    }
   }
 }

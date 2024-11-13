@@ -17,7 +17,7 @@ import 'package:torri_cantine_app/utilities/local_storage.dart';
 // ignore: must_be_immutable
 class FilterDrawer extends StatefulWidget {
   final VoidCallback? onClose;
-  final Future<void> Function(int? pageKey, String? categories,
+  final void Function(int? pageKey, String? categories,
       String? tags, String? minPrice, String? maxPrice, dynamic catalogVisibility)? onFilterPage;
   final PagingController<int, Product>? pagingController;
   FilterDrawer({
@@ -692,7 +692,6 @@ class _FilterDrawerState extends State<FilterDrawer> {
                   //     ));
                   storage.setFilters(categoriesMap, tagsMap);
                   storage.setPriceFilters(currentRangeValues);
-                  widget.pagingController!.refresh();
                   widget.onFilterPage!(1,
                   categoriesToString(categoriesIdMap),
                   tagsToString(tagsIdMap),
@@ -700,6 +699,7 @@ class _FilterDrawerState extends State<FilterDrawer> {
                   currentRangeValues.end.toString(),
                   '${AppConfig.productStatusFilter}'
                   );
+                  widget.pagingController!.refresh();
                   widget.onClose!();
                   // Navigator.push(
                   //   context,
