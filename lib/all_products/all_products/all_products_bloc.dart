@@ -122,9 +122,7 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
     AllProductsResponse response;
 
 
-
-
-    int pageNew =1 ;
+    int pageNew = 1;
 
     //if (page == 1) {
     if (pageNew == 1) {
@@ -133,11 +131,10 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
     }
 
     bool stop = false;
-    while(!stop) {
-
+    while (!stop) {
       try {
         response = await service.filterProducts(FiltersProducts(
-           // maxPages: -1,
+          // maxPages: -1,
             maxPages: apiTopValue,
             pageNumber: pageNew ?? 1,
             categories: categories,
@@ -148,11 +145,11 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
             productStatus: '${AppConfig.productStatusFilter}'));
         products.addAll(response.products ?? []);
 
-        if(response.products?.length ==0) {
+        if (response.products?.length == 0) {
           //yield AllProductsState.loaded(products ?? [], pageNew);
           //print('@@##@@ THOU SHALL NOT PASS');
-          stop =true;
-          pageNew= 0;
+          stop = true;
+          pageNew = 0;
           yield AllProductsState.loaded(products ?? [], pageNew);
           //yield AllProductsState.loaded(products ?? [], pageNew);
         } else {
@@ -165,28 +162,28 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
       }
       pageNew++;
     }
+  }
 
-
-
-
-    // yield const AllProductsState.initial();
-    // yield const AllProductsState.loading([],1);
-    // try {
-    //   response = await service.filterProducts(FiltersProducts(
-    //       maxPages: -1,
-    //       // pageNumber: page ?? 1,
-    //       categories: categories,
-    //       tags: tags,
-    //       minPrice: minPrice,
-    //       maxPrice: maxPrice,
-    //       catalogVisibility: '${AppConfig.catalogVisibilityFilter}',
-    //       productStatus: '${AppConfig.productStatusFilter}'));
-    //   products.addAll(response.products ?? []);
-    //
-    //   yield AllProductsState.loaded(products, page ?? 1);
-    // } catch (e) {
-    //   yield const AllProductsState.error();
-    // }
+  Future<AllProductsResponse?> filterProducts(int? page,int? perPage, String? categories,
+      String? tags, String? minPrice, String? maxPrice,
+      catalogVisibility) async {
+    // List<Product> products = [];
+    AllProductsResponse response;
+    try {
+      response = await service.filterProducts(FiltersProducts(
+          maxPages: perPage ?? 10,
+          pageNumber: page ?? 1,
+          categories: categories,
+          tags: tags,
+          minPrice: minPrice,
+          maxPrice: maxPrice,
+          catalogVisibility: '${AppConfig.catalogVisibilityFilter}',
+          productStatus: '${AppConfig.productStatusFilter}'));
+      return response;
+    } on DioError catch (e) {
+      print(e.message);
+      return null;
+    }
   }
 
   Stream<AllProductsState> _searchProducts(int? page, String query, catalogVisibility) async* {
@@ -249,5 +246,5 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
       yield const AllProductsState.error();
     }
   }
+  }
 
-}

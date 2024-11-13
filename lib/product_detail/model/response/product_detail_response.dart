@@ -22,6 +22,7 @@ int parseInter(dynamic input) {
 
 String? parseToString(dynamic input) {
   if (input == null) return null;
+  if (input is String) return input;
   return input.toString();
 }
 

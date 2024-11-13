@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:torri_cantine_app/all_products/all_products/all_products_bloc.dart';
+import 'package:torri_cantine_app/all_products/model/response/all_products_response.dart';
 import 'package:torri_cantine_app/all_products/presentation/products_screen.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
 
@@ -9,8 +11,11 @@ class OrderDrawer extends StatefulWidget {
   Map<String, bool>? tagsMap;
   final VoidCallback? onClose;
   final Function(bool? asc, bool? desc, bool? pop, bool? date, bool? rating)? onFilterSelected;
+  final void Function(int pageKey, String? orderBy, String? order)? onFetchPage;
+  final PagingController<int, Product>? pagingController;
 
-  OrderDrawer({super.key, this.categoriesMap, this.tagsMap, this.onClose, this.onFilterSelected});
+
+  OrderDrawer({super.key, this.categoriesMap, this.tagsMap, this.onClose, this.onFilterSelected, this.onFetchPage, this.pagingController});
 
   @override
   State<OrderDrawer> createState() => _OrderDrawerState();
@@ -46,13 +51,15 @@ class _OrderDrawerState extends State<OrderDrawer> {
                 ),
               ),
               onTap: () => {
-                context.read<AllProductsBloc>().add(
-                  const AllProductsEvent.fetch(
-                    page: 1,
-                    order: "asc",
-                    orderBy: "price",
-                  ),
-                ),
+                // context.read<AllProductsBloc>().add(
+                //   const AllProductsEvent.fetch(
+                //     page: 1,
+                //     order: "asc",
+                //     orderBy: "price",
+                //   ),
+                // ),
+                widget.onFetchPage!(1,  "asc","price"),
+                widget.pagingController!.refresh(),
                 widget.onFilterSelected!(true, false, false, false, false),
                 widget.onClose!(),
                 // Navigator.push(
@@ -81,14 +88,16 @@ class _OrderDrawerState extends State<OrderDrawer> {
                 ),
               ),
               onTap: () => {
-                context.read<AllProductsBloc>().add(
-                  const AllProductsEvent.fetch(
-                    page: 1,
-                    order: "desc",
-                    orderBy: "price",
-
-                  ),
-                ),
+                // context.read<AllProductsBloc>().add(
+                //   const AllProductsEvent.fetch(
+                //     page: 1,
+                //     order: "desc",
+                //     orderBy: "price",
+                //
+                //   ),
+                // ),
+                widget.onFetchPage!(1,  "desc","price"),
+                widget.pagingController!.refresh(),
                 widget.onFilterSelected!(false, true, false, false, false),
                 widget.onClose!(),
                 // Navigator.push(
@@ -117,14 +126,16 @@ class _OrderDrawerState extends State<OrderDrawer> {
                 ),
               ),
               onTap: () => {
-                context.read<AllProductsBloc>().add(
-                  const AllProductsEvent.fetch(
-                    page: 1,
-                    order: "desc",
-                    orderBy: "popularity",
-
-                  ),
-                ),
+                // context.read<AllProductsBloc>().add(
+                //   const AllProductsEvent.fetch(
+                //     page: 1,
+                //     order: "desc",
+                //     orderBy: "popularity",
+                //
+                //   ),
+                // ),
+                widget.onFetchPage!(1,  "desc","popularity"),
+                widget.pagingController!.refresh(),
                 widget.onFilterSelected!(false, false, true, false, false),
                 widget.onClose!(),
                 // Navigator.push(
@@ -155,13 +166,15 @@ class _OrderDrawerState extends State<OrderDrawer> {
                 ),
               ),
               onTap: () => {
-                context.read<AllProductsBloc>().add(
-                  const AllProductsEvent.fetch(
-                    page: 1,
-                    order: "desc",
-                    orderBy: "date",
-                  ),
-                ),
+                // context.read<AllProductsBloc>().add(
+                //   const AllProductsEvent.fetch(
+                //     page: 1,
+                //     order: "desc",
+                //     orderBy: "date",
+                //   ),
+                // ),
+                widget.onFetchPage!(1,  "desc","date"),
+                widget.pagingController!.refresh(),
                 widget.onFilterSelected!(false, false, false, true, false),
                 widget.onClose!(),
                 // Navigator.push(
@@ -192,13 +205,15 @@ class _OrderDrawerState extends State<OrderDrawer> {
                 ),
               ),
               onTap: () => {
-                context.read<AllProductsBloc>().add(
-                  const AllProductsEvent.fetch(
-                    page: 1,
-                    order: "desc",
-                    orderBy: "rating",
-                  ),
-                ),
+                // context.read<AllProductsBloc>().add(
+                //   const AllProductsEvent.fetch(
+                //     page: 1,
+                //     order: "desc",
+                //     orderBy: "rating",
+                //   ),
+                // ),
+                widget.onFetchPage!(1,  "desc","rating"),
+                widget.pagingController!.refresh(),
                 widget.onFilterSelected!(false, false, false, false, true),
                 widget.onClose!(),
                 // Navigator.push(
