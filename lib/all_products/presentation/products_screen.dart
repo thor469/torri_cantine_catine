@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:torri_cantine_app/all_products/all_products/all_products_bloc.dart';
 import 'package:torri_cantine_app/all_products/model/response/all_products_response.dart';
 import 'package:torri_cantine_app/all_products/widgets/categories_carousel.dart';
 import 'package:torri_cantine_app/all_products/widgets/filter_drawer.dart';
 import 'package:torri_cantine_app/all_products/widgets/order_drawer.dart';
+import 'package:torri_cantine_app/all_products/widgets/product_preview.dart';
 import 'package:torri_cantine_app/all_products/widgets/products_grid.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/account_bottom.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/cart_bottom_item.dart';
@@ -65,12 +67,36 @@ class _ProductsState extends State<Products> {
   var priceFilterMaps = null;
   var loadMore = true;
   PersistentBottomSheetController? bottomSheetController;
+  final PagingController<int, Product> _pagingController = PagingController(firstPageKey: 1);
+
 
   @override
   void initState() {
     scrollController = ScrollController();
-
+    _pagingController.addPageRequestListener((pageKey) {
+      _fetchPage(pageKey, null, null);
+    });
     super.initState();
+  }
+
+  Future<void> _fetchPage(int pageKey, String? orderBy, String? order) async {
+    try {
+      AllProductsResponse? response = await context.read<AllProductsBloc>().fetch(pageKey, 10, orderBy, order);
+      if (response != null && response.products!.isNotEmpty) {
+        final isLastPage = response.products!.length < 10;
+        if (isLastPage) {
+          _pagingController.appendLastPage(response.products!);
+        } else {
+          final nextPageKey = pageKey + 1;
+          _pagingController.appendPage(response.products!, nextPageKey);
+        }
+      } else {
+        _pagingController.appendLastPage([]);
+      }
+    } catch (error) {
+      print(error);
+      _pagingController.error = error;
+    }
   }
 
   static _dockedFabLocation(context) {
@@ -227,98 +253,49 @@ class _ProductsState extends State<Products> {
                     )
                   : null,
               body: Builder(builder: (context) {
-                return SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 0.05,
-                        decoration: const BoxDecoration(
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black54,
-                                blurRadius: 10.0,
-                                spreadRadius: 0,
-                                offset: Offset(0, 0),
-                              ),
-                            ]),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              BlocBuilder<AllProductsBloc, AllProductsState>(
-                                  builder: (context, state) {
-                                    return state.maybeWhen(
-                                        orElse: (){return const SizedBox();},
-                                        loading: (model, pageNumber){return const Center(
-                                            child: Padding(padding: EdgeInsets.only(left: 40.0),
-                                                child: SizedBox(height: 18, width: 18,
-                                                    child: CircularProgressIndicator(color: Color.fromARGB(255, 161, 29, 51),
-                                                    )
-                                                )
-                                            )
-                                        );},
-                                        loaded: (model, pageNumber){
-                                          return GestureDetector(
-                                              child: Padding(
-                                                padding:
-                                                const EdgeInsets.only(left: 40.0),
-                                                child: widget.orderAsc == true
-                                                    ? Row(
-                                                  children: [
-                                                    Text(
-                                                      "PREZZO:BASSO-ALTO",
-                                                      style:
-                                                      TCTypography.of(context)
-                                                          .text_14_bold
-                                                          .copyWith(
-                                                        color: const Color
-                                                            .fromARGB(
-                                                            255,
-                                                            113,
-                                                            112,
-                                                            112),
-                                                      ),
-                                                    ),
-                                                    const Icon(
-                                                      Icons
-                                                          .keyboard_arrow_down_outlined,
-                                                      color: Color.fromARGB(
-                                                          255, 113, 112, 112),
-                                                    )
-                                                  ],
-                                                )
-                                                    : widget.orderDesc == true
-                                                    ? Row(
-                                                  children: [
-                                                    Text("PREZZO:ALTO-BASSO",
-                                                        style:
-                                                        TCTypography.of(
-                                                            context)
-                                                            .text_14_bold
-                                                            .copyWith(
-                                                          color: const Color
-                                                              .fromARGB(
-                                                              255,
-                                                              113,
-                                                              112,
-                                                              112),
-                                                        )),
-                                                    const Icon(
-                                                      Icons
-                                                          .keyboard_arrow_down_outlined,
-                                                      color: Color.fromARGB(
-                                                          255, 113, 112, 112),
-                                                    )
-                                                  ],
-                                                )
-                                                    : widget.orderDate == true
-                                                    ? Row(children: [
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.05,
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black54,
+                              blurRadius: 10.0,
+                              spreadRadius: 0,
+                              offset: Offset(0, 0),
+                            ),
+                          ]),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            BlocBuilder<AllProductsBloc, AllProductsState>(
+                                builder: (context, state) {
+                                  return state.maybeWhen(
+                                      orElse: (){return const SizedBox();},
+                                      loading: (model, pageNumber){return const Center(
+                                          child: Padding(padding: EdgeInsets.only(left: 40.0),
+                                              child: SizedBox(height: 18, width: 18,
+                                                  child: CircularProgressIndicator(color: Color.fromARGB(255, 161, 29, 51),
+                                                  )
+                                              )
+                                          )
+                                      );},
+                                      loaded: (model, pageNumber){
+                                        return GestureDetector(
+                                            child: Padding(
+                                              padding:
+                                              const EdgeInsets.only(left: 40.0),
+                                              child: widget.orderAsc == true
+                                                  ? Row(
+                                                children: [
                                                   Text(
-                                                    "DATA:PIÙ RECENTI",
+                                                    "PREZZO:BASSO-ALTO",
                                                     style:
-                                                    TCTypography.of(
-                                                        context)
+                                                    TCTypography.of(context)
                                                         .text_14_bold
                                                         .copyWith(
                                                       color: const Color
@@ -333,46 +310,66 @@ class _ProductsState extends State<Products> {
                                                     Icons
                                                         .keyboard_arrow_down_outlined,
                                                     color: Color.fromARGB(
+                                                        255, 113, 112, 112),
+                                                  )
+                                                ],
+                                              )
+                                                  : widget.orderDesc == true
+                                                  ? Row(
+                                                children: [
+                                                  Text("PREZZO:ALTO-BASSO",
+                                                      style:
+                                                      TCTypography.of(
+                                                          context)
+                                                          .text_14_bold
+                                                          .copyWith(
+                                                        color: const Color
+                                                            .fromARGB(
+                                                            255,
+                                                            113,
+                                                            112,
+                                                            112),
+                                                      )),
+                                                  const Icon(
+                                                    Icons
+                                                        .keyboard_arrow_down_outlined,
+                                                    color: Color.fromARGB(
+                                                        255, 113, 112, 112),
+                                                  )
+                                                ],
+                                              )
+                                                  : widget.orderDate == true
+                                                  ? Row(children: [
+                                                Text(
+                                                  "DATA:PIÙ RECENTI",
+                                                  style:
+                                                  TCTypography.of(
+                                                      context)
+                                                      .text_14_bold
+                                                      .copyWith(
+                                                    color: const Color
+                                                        .fromARGB(
                                                         255,
                                                         113,
                                                         112,
                                                         112),
-                                                  )
-                                                ])
-                                                    : widget.orderRating == true
-                                                    ? Row(
-                                                  children: [
-                                                    Text(
-                                                        "RATING MIGLIORE",
-                                                        style: TCTypography.of(
-                                                            context)
-                                                            .text_14_bold
-                                                            .copyWith(
-                                                          color: const Color
-                                                              .fromARGB(
-                                                              255,
-                                                              113,
-                                                              112,
-                                                              112),
-                                                        )),
-                                                    const Icon(
-                                                      Icons
-                                                          .keyboard_arrow_down_outlined,
-                                                      color: Color
-                                                          .fromARGB(
-                                                          255,
-                                                          113,
-                                                          112,
-                                                          112),
-                                                    )
-                                                  ],
+                                                  ),
+                                                ),
+                                                const Icon(
+                                                  Icons
+                                                      .keyboard_arrow_down_outlined,
+                                                  color: Color.fromARGB(
+                                                      255,
+                                                      113,
+                                                      112,
+                                                      112),
                                                 )
-                                                    : widget.orderPop ==
-                                                    true
-                                                    ? Row(
-                                                  children: [
-                                                    Text(
-                                                      "I PIÙ VENDUTI",
+                                              ])
+                                                  : widget.orderRating == true
+                                                  ? Row(
+                                                children: [
+                                                  Text(
+                                                      "RATING MIGLIORE",
                                                       style: TCTypography.of(
                                                           context)
                                                           .text_14_bold
@@ -383,92 +380,58 @@ class _ProductsState extends State<Products> {
                                                             113,
                                                             112,
                                                             112),
-                                                      ),
-                                                    )
-                                                  ],
-                                                )
-                                                    : Text(
-                                                  "ORDINA",
-                                                  style: TCTypography.of(
-                                                      context)
-                                                      .text_14_bold
-                                                      .copyWith(
+                                                      )),
+                                                  const Icon(
+                                                    Icons
+                                                        .keyboard_arrow_down_outlined,
+                                                    color: Color
+                                                        .fromARGB(
+                                                        255,
+                                                        113,
+                                                        112,
+                                                        112),
+                                                  )
+                                                ],
+                                              )
+                                                  : widget.orderPop ==
+                                                  true
+                                                  ? Row(
+                                                children: [
+                                                  Text(
+                                                    "I PIÙ VENDUTI",
+                                                    style: TCTypography.of(
+                                                        context)
+                                                        .text_14_bold
+                                                        .copyWith(
                                                       color: const Color
                                                           .fromARGB(
                                                           255,
                                                           113,
                                                           112,
-                                                          112)),
-                                                ),
-                                              ),
-                                              onTap: () {
-                                                bottomSheetController =
-                                                    Scaffold.of(context)
-                                                        .showBottomSheet(
-                                                            (context) => setDrawer == 1
-                                                            ? OrderDrawer(
-                                                          categoriesMap: widget
-                                                              .categoriesMap,
-                                                          tagsMap:
-                                                          widget.tagsMap,
-                                                          onClose: () {
-                                                            bottomSheetController
-                                                                ?.close();
-                                                          },
-                                                         onFilterSelected: _setFilter,
-                                                        )
-                                                            : FilterDrawer());
-                                                setState(() {
-                                                  setDrawer = 1;
-                                                });
-                                              });
-                                        });
-                                  }
-                              ),
-
-                              BlocBuilder<AllProductsBloc, AllProductsState>(
-                              builder: (context, state) {
-                                return state.maybeWhen(
-                                    orElse: () {
-                                      return const SizedBox();
-                                    },
-                                    loading: (model, pageNumber) {
-                                      return const Center(
-                                          child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  right: 40.0),
-                                              child: SizedBox(
-                                                  height: 18, width: 18,
-                                                  child: CircularProgressIndicator(
-                                                    color: Color.fromARGB(
-                                                        255, 161, 29, 51),
+                                                          112),
+                                                    ),
                                                   )
+                                                ],
                                               )
-                                          )
-                                      );
-                                    },
-                                    loaded: (model, pageNumber) {
-                                      return GestureDetector(
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 40.0),
-                                            child: Text(
-                                              "FILTRA",
-                                              style: TCTypography
-                                                  .of(context)
-                                                  .text_14_bold
-                                                  .copyWith(
-                                                color: const Color.fromARGB(
-                                                    255, 113, 112, 112),
+                                                  : Text(
+                                                "ORDINA",
+                                                style: TCTypography.of(
+                                                    context)
+                                                    .text_14_bold
+                                                    .copyWith(
+                                                    color: const Color
+                                                        .fromARGB(
+                                                        255,
+                                                        113,
+                                                        112,
+                                                        112)),
                                               ),
                                             ),
-                                          ),
-                                          onTap:() {
+                                            onTap: () {
                                               bottomSheetController =
                                                   Scaffold.of(context)
                                                       .showBottomSheet(
-                                                          (context) =>
-                                                      setDrawer == 1
+                                                          (context) => setDrawer == 1
                                                           ? OrderDrawer(
                                                         categoriesMap: widget
                                                             .categoriesMap,
@@ -478,116 +441,134 @@ class _ProductsState extends State<Products> {
                                                           bottomSheetController
                                                               ?.close();
                                                         },
-                                                        onFilterSelected: _setFilter,
+                                                       onFilterSelected: _setFilter,
                                                       )
                                                           : FilterDrawer());
                                               setState(() {
-                                                setDrawer = 0;
+                                                setDrawer = 1;
                                               });
-                                          });
-                                    }
-                                );
-                              })]),
-                      ),
-                      RefreshIndicator(
+                                            });
+                                      });
+                                }
+                            ),
+
+                            BlocBuilder<AllProductsBloc, AllProductsState>(
+                            builder: (context, state) {
+                              return state.maybeWhen(
+                                  orElse: () {
+                                    return const SizedBox();
+                                  },
+                                  loading: (model, pageNumber) {
+                                    return const Center(
+                                        child: Padding(
+                                            padding: EdgeInsets.only(
+                                                right: 40.0),
+                                            child: SizedBox(
+                                                height: 18, width: 18,
+                                                child: CircularProgressIndicator(
+                                                  color: Color.fromARGB(
+                                                      255, 161, 29, 51),
+                                                )
+                                            )
+                                        )
+                                    );
+                                  },
+                                  loaded: (model, pageNumber) {
+                                    return GestureDetector(
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              right: 40.0),
+                                          child: Text(
+                                            "FILTRA",
+                                            style: TCTypography
+                                                .of(context)
+                                                .text_14_bold
+                                                .copyWith(
+                                              color: const Color.fromARGB(
+                                                  255, 113, 112, 112),
+                                            ),
+                                          ),
+                                        ),
+                                        onTap:() {
+                                            bottomSheetController =
+                                                Scaffold.of(context)
+                                                    .showBottomSheet(
+                                                        (context) =>
+                                                    setDrawer == 1
+                                                        ? OrderDrawer(
+                                                      categoriesMap: widget
+                                                          .categoriesMap,
+                                                      tagsMap:
+                                                      widget.tagsMap,
+                                                      onClose: () {
+                                                        bottomSheetController
+                                                            ?.close();
+                                                      },
+                                                      onFilterSelected: _setFilter,
+                                                    )
+                                                        : FilterDrawer());
+                                            setState(() {
+                                              setDrawer = 0;
+                                            });
+                                        });
+                                  }
+                              );
+                            })]),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 5),
+                      child:  CategoriesCarousel(),
+                    ),
+                    Expanded(
+                      child: RefreshIndicator(
                       color: const Color.fromARGB(255, 161, 29, 51),
                         displacement: 20,
                         onRefresh: () async {
-                          context.read<AllProductsBloc>().add(const AllProductsEvent.fetch());
+                          _pagingController.refresh();
+                          _fetchPage(1, null, null);
                         },
-                        child: BlocConsumer<AllProductsBloc, AllProductsState>(
-                          bloc: context.read<AllProductsBloc>(),
-                          key: widget.key,
-                          listener: (context, state) => state.maybeWhen(
-                            loading: (model, pageNumber) {
-                              // Update page number but no need to setState
-                              productsPage = pageNumber;
-                            },
-                            loaded: (model, pageNumber) {
-                              // Products successfully loaded, update page number
-                              productsPage = pageNumber;
-                            },
-                            orElse: () => const SizedBox(),
-                          ),
-                          builder: (context, state) => state.maybeWhen(
-                            error: () => const SizedBox(),
-                            loading: (model, pageNumber) {
-                              if (model.isEmpty) {
-                                return SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.80,
-                                  child: const Center(
-                                    child: CircularProgressIndicator(
-                                      color: Color.fromARGB(255, 161, 29, 51),
-                                    ),
-                                  ),
-                                );
-                              }
-
-                              return SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.80,
-                                child: SingleChildScrollView(
-                                  controller: scrollController,
-                                  child: Column(
-                                    children: [
-                                      model.isEmpty
-                                          ? const SizedBox()
-                                          : Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 10.0),
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    child: CategoriesCarousel(),
-                                                  ),
-                                                  ProductGrid(
-                                                    products: model
-                                                        .toSet()
-                                                        .toList(), // Directly using model here
-                                                    pageNumber: pageNumber
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                    ],
-                                  ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                          child: PagedGridView<int, Product>(
+                            pagingController: _pagingController,
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: 0.50,
+                              crossAxisSpacing: 15,
+                              mainAxisSpacing: 30,
+                            ),
+                            builderDelegate: PagedChildBuilderDelegate<Product>(
+                              firstPageProgressIndicatorBuilder :  (context) => const Center(
+                                child:  CircularProgressIndicator(
+                                  color: Color.fromARGB(255, 161, 29, 51),
                                 ),
-                              );
-                            },
-                            loaded: (model, pageNumber) {
-                              return SizedBox(height: MediaQuery.of(context).size.height * 0.80,
-                                child: SingleChildScrollView(
-                                  controller: scrollController,
-                                  child: Column(
-                                    children: [
-                                      model.isEmpty
-                                          ? const SizedBox()
-                                          : Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    child: CategoriesCarousel(),
-                                                  ),
-                                                  ProductGrid(
-                                                    products: model.toSet().toList(),
-                                                    pageNumber: pageNumber
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                    ],
-                                  ),
+                              ),
+                              newPageProgressIndicatorBuilder: (context) => const Center(
+                                child: CircularProgressIndicator(
+                                  color: Color.fromARGB(255, 161, 29, 51),
                                 ),
-                              );
-                            },
-                            orElse: () => const SizedBox(),
+                              ),
+                              itemBuilder: (context, product, index) => ProductPreview(
+                                id: product.id ?? 0,  // Default to 0 if id is null
+                                image: product.images.isEmpty
+                                    ? ""  // Default empty string if no image
+                                    : product.images.first.src ?? "",  // Null check for src
+                                name: product.name ?? 'Unknown Product',  // Default name
+                                price: product.price ?? "0",  // Default price if null
+                                regular_price: product.regular_price ?? "0",  // Default regular price
+                                description: product.description ?? 'No Description Available',  // Default description
+                                short_description: product.short_description ?? 'No Short Description',  // Default short description
+                                average_rating: product.average_rating ?? "0",  // Default rating
+                                tags: product.tags ?? [],  // Default to empty list
+                                categories: product.categories ?? [],  // Default empty list
+                                type: product.type ?? 'Unknown',
+                                productPoint: product.points ?? 0,),
+                            ),
                           ),
                         ),
-                      )
-                    ],
-                  ),
+                      ),
+                    )
+                  ],
                 );
               }),
               drawer: setDrawer == 1
