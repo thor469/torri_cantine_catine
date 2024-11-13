@@ -21,11 +21,14 @@ SearchProducts _$SearchProductsFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$SearchProducts {
   @JsonKey(name: "filter[limit]")
-  int get maxPages =>
-      throw _privateConstructorUsedError; // @JsonKey(name: "page") required final int pageNumber,
+  int get maxPages => throw _privateConstructorUsedError;
+  @JsonKey(name: "page")
+  int get pageNumber => throw _privateConstructorUsedError;
+  @JsonKey(name: "per_page")
+  int get limit => throw _privateConstructorUsedError;
   @JsonKey(name: "search")
   String? get query => throw _privateConstructorUsedError;
-  @JsonKey(name: "status")
+  @JsonKey(name: "catalog_visibility")
   String? get catalogVisibility => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -42,8 +45,10 @@ abstract class $SearchProductsCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: "filter[limit]") int maxPages,
+      @JsonKey(name: "page") int pageNumber,
+      @JsonKey(name: "per_page") int limit,
       @JsonKey(name: "search") String? query,
-      @JsonKey(name: "status") String? catalogVisibility});
+      @JsonKey(name: "catalog_visibility") String? catalogVisibility});
 }
 
 /// @nodoc
@@ -60,6 +65,8 @@ class _$SearchProductsCopyWithImpl<$Res, $Val extends SearchProducts>
   @override
   $Res call({
     Object? maxPages = null,
+    Object? pageNumber = null,
+    Object? limit = null,
     Object? query = freezed,
     Object? catalogVisibility = freezed,
   }) {
@@ -67,6 +74,14 @@ class _$SearchProductsCopyWithImpl<$Res, $Val extends SearchProducts>
       maxPages: null == maxPages
           ? _value.maxPages
           : maxPages // ignore: cast_nullable_to_non_nullable
+              as int,
+      pageNumber: null == pageNumber
+          ? _value.pageNumber
+          : pageNumber // ignore: cast_nullable_to_non_nullable
+              as int,
+      limit: null == limit
+          ? _value.limit
+          : limit // ignore: cast_nullable_to_non_nullable
               as int,
       query: freezed == query
           ? _value.query
@@ -90,8 +105,10 @@ abstract class _$$_SearchProductsCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: "filter[limit]") int maxPages,
+      @JsonKey(name: "page") int pageNumber,
+      @JsonKey(name: "per_page") int limit,
       @JsonKey(name: "search") String? query,
-      @JsonKey(name: "status") String? catalogVisibility});
+      @JsonKey(name: "catalog_visibility") String? catalogVisibility});
 }
 
 /// @nodoc
@@ -106,6 +123,8 @@ class __$$_SearchProductsCopyWithImpl<$Res>
   @override
   $Res call({
     Object? maxPages = null,
+    Object? pageNumber = null,
+    Object? limit = null,
     Object? query = freezed,
     Object? catalogVisibility = freezed,
   }) {
@@ -113,6 +132,14 @@ class __$$_SearchProductsCopyWithImpl<$Res>
       maxPages: null == maxPages
           ? _value.maxPages
           : maxPages // ignore: cast_nullable_to_non_nullable
+              as int,
+      pageNumber: null == pageNumber
+          ? _value.pageNumber
+          : pageNumber // ignore: cast_nullable_to_non_nullable
+              as int,
+      limit: null == limit
+          ? _value.limit
+          : limit // ignore: cast_nullable_to_non_nullable
               as int,
       query: freezed == query
           ? _value.query
@@ -131,8 +158,10 @@ class __$$_SearchProductsCopyWithImpl<$Res>
 class _$_SearchProducts extends _SearchProducts {
   _$_SearchProducts(
       {@JsonKey(name: "filter[limit]") required this.maxPages,
+      @JsonKey(name: "page") required this.pageNumber,
+      @JsonKey(name: "per_page") required this.limit,
       @JsonKey(name: "search") this.query,
-      @JsonKey(name: "status") this.catalogVisibility})
+      @JsonKey(name: "catalog_visibility") this.catalogVisibility})
       : super._();
 
   factory _$_SearchProducts.fromJson(Map<String, dynamic> json) =>
@@ -141,17 +170,22 @@ class _$_SearchProducts extends _SearchProducts {
   @override
   @JsonKey(name: "filter[limit]")
   final int maxPages;
-// @JsonKey(name: "page") required final int pageNumber,
+  @override
+  @JsonKey(name: "page")
+  final int pageNumber;
+  @override
+  @JsonKey(name: "per_page")
+  final int limit;
   @override
   @JsonKey(name: "search")
   final String? query;
   @override
-  @JsonKey(name: "status")
+  @JsonKey(name: "catalog_visibility")
   final String? catalogVisibility;
 
   @override
   String toString() {
-    return 'SearchProducts(maxPages: $maxPages, query: $query, catalogVisibility: $catalogVisibility)';
+    return 'SearchProducts(maxPages: $maxPages, pageNumber: $pageNumber, limit: $limit, query: $query, catalogVisibility: $catalogVisibility)';
   }
 
   @override
@@ -161,6 +195,9 @@ class _$_SearchProducts extends _SearchProducts {
             other is _$_SearchProducts &&
             (identical(other.maxPages, maxPages) ||
                 other.maxPages == maxPages) &&
+            (identical(other.pageNumber, pageNumber) ||
+                other.pageNumber == pageNumber) &&
+            (identical(other.limit, limit) || other.limit == limit) &&
             (identical(other.query, query) || other.query == query) &&
             (identical(other.catalogVisibility, catalogVisibility) ||
                 other.catalogVisibility == catalogVisibility));
@@ -168,8 +205,8 @@ class _$_SearchProducts extends _SearchProducts {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, maxPages, query, catalogVisibility);
+  int get hashCode => Object.hash(
+      runtimeType, maxPages, pageNumber, limit, query, catalogVisibility);
 
   @JsonKey(ignore: true)
   @override
@@ -187,10 +224,12 @@ class _$_SearchProducts extends _SearchProducts {
 
 abstract class _SearchProducts extends SearchProducts {
   factory _SearchProducts(
-          {@JsonKey(name: "filter[limit]") required final int maxPages,
-          @JsonKey(name: "search") final String? query,
-          @JsonKey(name: "status") final String? catalogVisibility}) =
-      _$_SearchProducts;
+      {@JsonKey(name: "filter[limit]") required final int maxPages,
+      @JsonKey(name: "page") required final int pageNumber,
+      @JsonKey(name: "per_page") required final int limit,
+      @JsonKey(name: "search") final String? query,
+      @JsonKey(name: "catalog_visibility")
+      final String? catalogVisibility}) = _$_SearchProducts;
   _SearchProducts._() : super._();
 
   factory _SearchProducts.fromJson(Map<String, dynamic> json) =
@@ -199,11 +238,17 @@ abstract class _SearchProducts extends SearchProducts {
   @override
   @JsonKey(name: "filter[limit]")
   int get maxPages;
-  @override // @JsonKey(name: "page") required final int pageNumber,
+  @override
+  @JsonKey(name: "page")
+  int get pageNumber;
+  @override
+  @JsonKey(name: "per_page")
+  int get limit;
+  @override
   @JsonKey(name: "search")
   String? get query;
   @override
-  @JsonKey(name: "status")
+  @JsonKey(name: "catalog_visibility")
   String? get catalogVisibility;
   @override
   @JsonKey(ignore: true)

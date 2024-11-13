@@ -59,12 +59,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
         FirebaseMessaging.instance.getToken().then((value) {
           String? token = value;
-          if (kDebugMode) {
-            print('FCMToken:' + token!);
-          }
-          if (kDebugMode) {
-            print('DeviceID:' + deviceId!);
-          }
+          // if (kDebugMode) {
+          //   print('FCMToken:' + token!);
+          // }
+          // if (kDebugMode) {
+          //   print('DeviceID:' + deviceId!);
+          // }
           storage.setFCMToken(token!);
         });
         notificationService.insertToken(InsertNotificationRequest(token: token.trim(), deviceId: deviceId.trim(), userId: 165));
@@ -74,12 +74,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       storage.setUserName(username);
       storage.setPassword(password);
 
-      if (kDebugMode) {
-        print('_login response');
-      }
-      if (kDebugMode) {
-        print(response);
-      }
+      // if (kDebugMode) {
+      //   print('_login response');
+      // }
+      // if (kDebugMode) {
+      //   print(response);
+      // }
 
       yield LoginState.loggedIn(response);
     } on ApiException catch (e) {

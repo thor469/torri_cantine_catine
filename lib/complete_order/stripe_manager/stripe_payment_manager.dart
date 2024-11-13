@@ -44,7 +44,6 @@ abstract class StripePaymentManager {
               address: Address(city: billing.city, country: "IT", line1: billing.address_1, line2: billing.address_2, postalCode: billing.postcode, state: billing.state,)
             ),
       ));
-    print(a?.image ?? "");
   }
   static ScaffoldFeatureController _showSuccess(BuildContext context){
   return ScaffoldMessenger.of(context).showSnackBar(

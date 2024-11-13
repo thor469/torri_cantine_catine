@@ -189,21 +189,41 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
   Stream<AllProductsState> _searchProducts(int? page, String query, catalogVisibility) async* {
     List<Product> products = [];
     AllProductsResponse response;
-    yield const AllProductsState.initial();
     yield const AllProductsState.loading([], 1);
     page=1;
 
     try {
       response = await service.searchProducts(SearchProducts(
           maxPages: -1,
-          //pageNumber: page ?? 1,
+          pageNumber: page ?? 1,
+          limit: 10,
           query: query,
-          catalogVisibility: '${AppConfig.productStatusFilter}'));
+          catalogVisibility: '${AppConfig.catalogVisibilitySearch}'));
       products.addAll(response.products ?? []);
 
       yield AllProductsState.loaded(products, page ?? 1);
     } catch (e) {
       yield const AllProductsState.error();
+    }
+  }
+
+  Future<List<Product>?> newSearchProducts(int? page, String query,) async {
+    List<Product> products = [];
+    AllProductsResponse response;
+
+
+    try {
+      response = await service.searchProducts(SearchProducts(
+          maxPages: -1,
+          pageNumber: page ?? 1,
+          limit:10,
+          query: query,
+          catalogVisibility: '${AppConfig.catalogVisibilitySearch}'));
+      products.addAll(response.products ?? []);
+
+      return products;
+    } catch (e) {
+
     }
   }
 

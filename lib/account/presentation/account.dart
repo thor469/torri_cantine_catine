@@ -88,7 +88,6 @@ class _AccountPageState extends State<AccountPage> {
     return PopScope(
         canPop: false,
         onPopInvoked: (didPop) {
-          print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
           MainNavigation.pop(context);
           //return;
         },

@@ -1,9 +1,17 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:torri_cantine_app/all_products/all_products/all_products_bloc.dart';
+import 'package:torri_cantine_app/all_products/model/response/all_products_response.dart';
 import 'package:torri_cantine_app/app/common/tc_appbar.dart';
+import 'package:torri_cantine_app/app/dependency_injection/dependency_factory.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
+import 'package:torri_cantine_app/categories/categories/categories_bloc.dart';
+import 'package:torri_cantine_app/categories/model/response/categories_response.dart';
 import 'package:torri_cantine_app/categories/presentation/categories_screen.dart';
 import 'package:torri_cantine_app/home_page/widgets/home_page_body.dart';
 import 'package:torri_cantine_app/promotions/presentation/promotions_screen.dart';
@@ -32,7 +40,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
 
-
   void readTabState  () async {
     storageSelectedIndex = await storage.getTabState() ;
     if(storageSelectedIndex!=0) {
@@ -48,9 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
-        print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
         MainNavigation.pop(context);
-        //return;
       },
       child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 244, 244, 244),
@@ -123,20 +128,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 22,
                   ),
                   onTap: () {
-                    // context
-                    //     .read<AllProductsBloc>()
-                    //     .add(const AllProductsEvent.fetch());
                     showSearch(
                       context: context,
-                      delegate: CustomSearch(),
+                      delegate: CustomSearch(cxt: context),
                     );
                   },
                 ),
-                // loading: (products, page) => SvgPicture.asset(
-                //   "assets/Search.svg",
-                //   width: 22,
-                //   height: 22,
-                // ),
                 loaded: (products, page) => GestureDetector(
                   child: SvgPicture.asset(
                     "assets/Search.svg",
@@ -144,12 +141,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 22,
                   ),
                   onTap: () {
-                    // context
-                    //     .read<AllProductsBloc>()
-                    //     .add(const AllProductsEvent.fetch());
                     showSearch(
                       context: context,
-                      delegate: CustomSearch(),
+                      delegate: CustomSearch(cxt: context),
                     );
                   },
                 ),
@@ -191,7 +185,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
 
-
   }
 
   Widget tabPage(int i) {
@@ -201,10 +194,6 @@ class _HomeScreenState extends State<HomeScreen> {
       case 1:
         return Products( fromMenu: false,
           showAppBar: false,);
-        return const CategoriesScreen(
-          showAppBar: false,
-          fromMenu: false,
-        );
       case 2:
         return const PromotionsScreen();
       default:
@@ -213,16 +202,73 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class CustomSearch extends SearchDelegate {
 
-  CustomSearch({
-    String hintText = "Cerca",
-  }) : super(
+
+
+
+
+
+class CustomSearch extends SearchDelegate {
+  CustomSearch({String hintText = "Cerca", required this.cxt})
+      : super(
     searchFieldLabel: hintText,
     keyboardType: TextInputType.text,
     textInputAction: TextInputAction.search,
   );
 
+  final BuildContext cxt;
+  final PagingController<int, Product> pagingController = PagingController(firstPageKey: 1);
+  Timer? _debounce;
+  List<Product> cachedResults = [];
+
+  @override
+  void dispose() {
+    pagingController.dispose();
+    _debounce?.cancel();
+    super.dispose();
+  }
+
+  void _onQueryChanged(String query) {
+    _debounce?.cancel();
+    _debounce = Timer(const Duration(milliseconds: 300), () {
+      if (query.isNotEmpty && query.length % 2 == 0) {
+        final localResults = _filterCachedResults(query);
+
+        if (localResults.isNotEmpty) {
+          pagingController.itemList = localResults;
+        } else {
+          pagingController.refresh();
+        }
+      } else if (query.isNotEmpty) {
+        pagingController.refresh();
+      }
+    });
+  }
+
+  List<Product> _filterCachedResults(String query) {
+    return cachedResults
+        .where((product) => product.name.toLowerCase().contains(query.toLowerCase()))
+        .toList();
+  }
+
+  Future<void> _fetchPage(int pageKey, String query) async {
+    try {
+      final response = await cxt.read<AllProductsBloc>().newSearchProducts(pageKey, query);
+      if (response != null && response.isNotEmpty) {
+        cachedResults = response;
+        final isLastPage = response.length < 10;
+        if (isLastPage) {
+          pagingController.appendLastPage(response);
+        } else {
+          pagingController.appendPage(response, pageKey + 1);
+        }
+      } else {
+        pagingController.appendLastPage([]);
+      }
+    } catch (error) {
+      pagingController.error = error;
+    }
+  }
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -231,6 +277,8 @@ class CustomSearch extends SearchDelegate {
         icon: const Icon(Icons.clear),
         onPressed: () {
           query = '';
+          cachedResults.clear();
+          pagingController.refresh();
         },
       ),
     ];
@@ -248,32 +296,53 @@ class CustomSearch extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
+    _onQueryChanged(query);
+    if (pagingController.hasListeners == false) {
+      pagingController.addPageRequestListener((pageKey) {
+        _fetchPage(pageKey, query);
+      });
+    }
 
-    // print('@#@@#@# searchQuery');
-    // print(query);
+    return _buildPagedListView();
+  }
 
-    final matchedProducts = context.read<AllProductsBloc>().state.maybeWhen(
-          loaded: (model, page) => model ?? [],
-          loading: (model, page) => model ?? [],
-          orElse: () => [],
-        )
-        .where((product) => product.name.toLowerCase().contains(query.toLowerCase())).toList();
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    _onQueryChanged(query);
+    if (pagingController.hasListeners == false) {
+      pagingController.addPageRequestListener((pageKey) {
+        _fetchPage(pageKey, query);
+      });
+    }
 
-    print(matchedProducts.length);
+    return _buildPagedListView();
+  }
 
-    return Visibility(
-        visible: query.isNotEmpty,
-        child: ListView.builder(
-          itemCount: matchedProducts.length,
-          itemBuilder: (context, index) {
-            final product = matchedProducts[index];
-            final previewImage =
-            product.images?.isNotEmpty ?? false ? product.images![0].src : '';
-
+  Widget _buildPagedListView() {
+    return Container(
+      color: const Color.fromARGB(255, 244, 244, 244),
+      child: PagedListView<int, Product>(
+        pagingController: pagingController,
+        builderDelegate: PagedChildBuilderDelegate<Product>(
+          firstPageProgressIndicatorBuilder: (cnxt){
+           return   const Center(
+             child: CircularProgressIndicator(
+               color: Color.fromARGB(255, 161, 29, 51),
+             ),
+           );
+          },
+            newPageProgressIndicatorBuilder:(cnxt){
+              return   const Center(
+                child: CircularProgressIndicator(
+                  color: Color.fromARGB(255, 161, 29, 51),
+                ),
+              );
+            },
+          itemBuilder: (context, product, index) {
+            final previewImage = product.images.isNotEmpty ? product.images[0].src : '';
             return GestureDetector(
               onTap: () {
-                MainNavigation.push(context,
-                    MainNavigation.productDetail(matchedProducts[index].id));
+                MainNavigation.push(context, MainNavigation.productDetail(product.id));
               },
               child: ListTile(
                 leading: CircleAvatar(
@@ -283,46 +352,11 @@ class CustomSearch extends SearchDelegate {
               ),
             );
           },
-        )
-
-    );
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    final matchedProducts = context
-        .read<AllProductsBloc>()
-        .state
-        .maybeWhen(
-          loaded: (model, page) => model ?? [],
-          orElse: () => [],
-        )
-        .where((product) =>
-            product.name.toLowerCase().contains(query.toLowerCase()))
-        .toList();
-
-    return Visibility(
-        visible: query.isNotEmpty,
-        child: ListView.builder(
-      itemCount: matchedProducts.length,
-      itemBuilder: (context, index) {
-        final product = matchedProducts[index];
-        final previewImage =
-            product.images?.isNotEmpty ?? false ? product.images![0].src : '';
-
-        return GestureDetector(
-          onTap: () {
-            MainNavigation.push(context,
-                MainNavigation.productDetail(matchedProducts[index].id));
-          },
-          child: ListTile(
-            leading: CircleAvatar(
-              backgroundImage: NetworkImage(previewImage),
-            ),
-            title: Text(product.name),
+          noItemsFoundIndicatorBuilder: (context) => Center(
+            child: Text("Nessun prodotto trovato."),
           ),
-        );
-      },
-    ));
+        ),
+      ),
+    );
   }
 }

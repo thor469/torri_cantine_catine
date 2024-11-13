@@ -9,9 +9,10 @@ class SearchProducts extends RequestBase with _$SearchProducts {
   SearchProducts._();
   factory SearchProducts({
     @JsonKey(name: "filter[limit]") required final int maxPages,
-    // @JsonKey(name: "page") required final int pageNumber,
+    @JsonKey(name: "page") required final int pageNumber,
+    @JsonKey(name: "per_page") required final int limit,
     @JsonKey(name: "search") String? query,
-    @JsonKey(name: "status") String? catalogVisibility,
+    @JsonKey(name: "catalog_visibility") String? catalogVisibility,
   }) = _SearchProducts;
 
   factory SearchProducts.fromJson(Map<String, dynamic> json) =>
