@@ -162,26 +162,27 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
       }
       pageNew++;
     }
-    Future<AllProductsResponse?> filterProducts(int? page, String? categories,
-        String? tags, String? minPrice, String? maxPrice,
-        catalogVisibility) async {
-      // List<Product> products = [];
-      AllProductsResponse response;
-      try {
-        response = await service.filterProducts(FiltersProducts(
-            maxPages: 10,
-            pageNumber: pageNew ?? 1,
-            categories: categories,
-            tags: tags,
-            minPrice: minPrice,
-            maxPrice: maxPrice,
-            catalogVisibility: '${AppConfig.catalogVisibilityFilter}',
-            productStatus: '${AppConfig.productStatusFilter}'));
-        return response;
-      } on DioError catch (e) {
-        print(e.message);
-        return null;
-      }
+  }
+
+  Future<AllProductsResponse?> filterProducts(int? page,int? perPage, String? categories,
+      String? tags, String? minPrice, String? maxPrice,
+      catalogVisibility) async {
+    // List<Product> products = [];
+    AllProductsResponse response;
+    try {
+      response = await service.filterProducts(FiltersProducts(
+          maxPages: perPage ?? 10,
+          pageNumber: page ?? 1,
+          categories: categories,
+          tags: tags,
+          minPrice: minPrice,
+          maxPrice: maxPrice,
+          catalogVisibility: '${AppConfig.catalogVisibilityFilter}',
+          productStatus: '${AppConfig.productStatusFilter}'));
+      return response;
+    } on DioError catch (e) {
+      print(e.message);
+      return null;
     }
   }
 
