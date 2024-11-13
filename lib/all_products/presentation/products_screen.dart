@@ -79,7 +79,7 @@ class _ProductsState extends State<Products> {
     super.initState();
   }
 
-  Future<void> _fetchPage(int pageKey, String? orderBy, String? order) async {
+  Future<void> _fetchPage(int pageKey,  String? order, String? orderBy) async {
     try {
       AllProductsResponse? response = await context.read<AllProductsBloc>().fetch(pageKey, 10, orderBy, order);
       if (response != null && response.products!.isNotEmpty) {
@@ -442,6 +442,8 @@ class _ProductsState extends State<Products> {
                                                               ?.close();
                                                         },
                                                        onFilterSelected: _setFilter,
+                                                       onFetchPage: _fetchPage,
+                                                       pagingController: _pagingController
                                                       )
                                                           : FilterDrawer());
                                               setState(() {
