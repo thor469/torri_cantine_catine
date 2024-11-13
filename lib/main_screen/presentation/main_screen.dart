@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torri_cantine_app/account/account/account_bloc.dart';
 import 'package:torri_cantine_app/account/presentation/account.dart';
+import 'package:torri_cantine_app/all_products/presentation/products_screen.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/account_bottom.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/bottom_bar.dart';
+import 'package:torri_cantine_app/app/common/bottom_bar_items/cart_bottom_item.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/floating_action_button.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/menu_bottom_item.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/wishlist_bottom_item.dart';
@@ -11,15 +13,11 @@ import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/cart/presentation/cart_screen.dart';
 import 'package:torri_cantine_app/categories/presentation/categories_screen.dart';
 import 'package:torri_cantine_app/home_page/presentation/home_screen.dart';
-import 'package:torri_cantine_app/main.dart';
 import 'package:torri_cantine_app/menu_screen/menu_screen.dart';
 import 'package:torri_cantine_app/promotions/presentation/promotions_screen.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 import 'package:torri_cantine_app/wishlist_screen/presentation/wishlist_screen.dart';
 
-import '../../all_products/presentation/products_screen.dart';
-import '../../app/common/bottom_bar_items/cart_bottom_item.dart';
-import '../../login/model/request/insert_notification_request.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});

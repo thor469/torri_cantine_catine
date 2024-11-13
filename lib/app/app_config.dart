@@ -21,5 +21,6 @@ class AppConfig {
   static const String webHookId= "we_1QHlFeRpwKiHzrkezUgsiGAu";
   static const productStatusFilter = String.fromEnvironment('productStatus',defaultValue: 'publish');
   static const catalogVisibilityFilter = String.fromEnvironment('catalogVisib',defaultValue: 'visible');
+  static const catalogVisibilitySearch = String.fromEnvironment('catalogVisib',defaultValue: 'search');
 
 }

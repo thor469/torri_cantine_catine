@@ -72,25 +72,25 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent, MyOrdersState> {
   }
 
   Future<void> addPoint(int orderId, int totPoint) async{
-    try{
-      const dep = DependencyFactoryImpl();
-      Dio dio = dep.createDioForApiCart().dio;
-      var codeInfo = await dio.request(
-        '/wp-json/wp/v2/update_order_points',
-        queryParameters: {
-          "order_id": orderId,
-          "points" : totPoint
-        },
-        options: Options(
-          method: 'POST',
-        ),
-      );
-      print(codeInfo);
-    }on DioError catch(e){
-      if (kDebugMode) {
-        print(e.message);
-      }
-    }
+    // try{
+    //   const dep = DependencyFactoryImpl();
+    //   Dio dio = dep.createDioForApiCart().dio;
+    //   var codeInfo = await dio.request(
+    //     '/wp-json/wp/v2/update_order_points',
+    //     queryParameters: {
+    //       "order_id": orderId,
+    //       "points" : totPoint
+    //     },
+    //     options: Options(
+    //       method: 'POST',
+    //     ),
+    //   );
+    //   print(codeInfo);
+    // }on DioError catch(e){
+    //   if (kDebugMode) {
+    //     print(e.message);
+    //   }
+    // }
   }
 
 

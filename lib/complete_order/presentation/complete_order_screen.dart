@@ -1,12 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_paypal/flutter_paypal.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:torri_cantine_app/account/account/account_bloc.dart';
 import 'package:torri_cantine_app/account/model/response/add_address_response.dart';
-import 'package:torri_cantine_app/app/app_config.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/bottom_bar.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/floating_action_button.dart';
 import 'package:torri_cantine_app/app/common/primary_button.dart';
@@ -17,7 +15,6 @@ import 'package:torri_cantine_app/cart/cart/cart_bloc.dart';
 import 'package:torri_cantine_app/cart/model/request/payment_gateway.dart';
 import 'package:torri_cantine_app/cart/model/request/shipping.dart';
 import 'package:torri_cantine_app/cart/model/response/cart_response.dart';
-import 'package:torri_cantine_app/cart/remove_product_to_cart/remove_product_to_cart_bloc.dart';
 import 'package:torri_cantine_app/complete_order/stripe_manager/stripe_payment_manager.dart';
 import 'package:torri_cantine_app/coupon/coupon/coupon_bloc.dart';
 import 'package:torri_cantine_app/my_orders/model/request/my_orders_request.dart';
@@ -25,6 +22,7 @@ import 'package:torri_cantine_app/my_orders/model/response/my_orders_response.da
 import 'package:torri_cantine_app/my_orders/my_orders/my_orders_bloc.dart';
 import 'package:torri_cantine_app/points_balance_screen/bloc/points_bloc.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 
 class CompleteOrderScreen extends StatefulWidget {
@@ -86,6 +84,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   bool isEnabled = false;
   // CartResponse? initedCart;
   int? amountCart;
+  bool startedOrder = false;
 
   @override
   void initState() {
@@ -148,19 +147,19 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   }
 
   getShippingMethods(postcode) async  {
-    if (kDebugMode) {
-      print('getShippingMethods ');
-    }
-    if (kDebugMode) {
-      print(postcode);
-    }
+    // if (kDebugMode) {
+    //   print('getShippingMethods ');
+    // }
+    // if (kDebugMode) {
+    //   print(postcode);
+    // }
     shippingMethodsFuture =  processShippingMethods(postcode) ;
   }
 
   getPayGateway() async  {
-    if (kDebugMode) {
-      print('getPayGateway ');
-    }
+    // if (kDebugMode) {
+    //   print('getPayGateway ');
+    // }
     paymentGatewayFuture =  processPaymentGateway() ;
   }
 
@@ -1069,8 +1068,6 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                       height: containerHeight,
                                                       child: GestureDetector(
                                                         onTap: () {
-
-                                                          print('@@@ ONTAP');
                                                           setState(() {
                                                             paymentMethodSelected = pg[index]!.id!;
                                                             gruppoval2 = index;
@@ -1133,15 +1130,10 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                                     value: index,
                                                                     groupValue: gruppoval2,
                                                                     onChanged: (val) {
-                                                                      print(pg[index]!.id!);
-
                                                                       setState(() {
                                                                         paymentMethodSelected = pg[index]!.id!;
                                                                         gruppoval2 = index;
                                                                       });
-
-                                                                      print(paymentMethodSelected);
-
                                                                     }
                                                                 ) ,
                                                               )
@@ -1460,12 +1452,17 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                       ),
                                     ),
                                   ),
+
+                                  !startedOrder ?
                                   PrimaryButton(
                                     text: "EFFETTUA ORDINE",
                                     colorText: Colors.white,
                                     disabled: !(model.shipping.isNotEmpty ||  gruppoval==null),
                                     ontap: () async{
                                       //print(paymentMethodSelected);
+                                      setState(() {
+                                        startedOrder = true;
+                                      });
                                       await payWithMethodSelected(
                                           paymentMethodSelected,
                                           selectedShippingAddress!,
@@ -1473,9 +1470,10 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                           cart,
                                           customerId
                                       );
-
                                     },
-                                  ),
+                                  ) : const Center(child: CircularProgressIndicator(
+                                    color: Color.fromARGB(255, 158, 29, 48),
+                                  ))
                                 ]),
                           ),
                         )
@@ -1496,278 +1494,104 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   }
 
 
-  // void paymentWithPayPal(UserAddress model, UserAddress billing, CartResponse cart) {
-  //   Map<String, dynamic> AddressObject = {};
-  //   if(model.first_name != '') {
-  //     AddressObject = {
-  //       "recipient_name": "${model.first_name} ${model.last_name}",
-  //       "line1": model.address_1,
-  //       "line2": model.address_2,
-  //       "city": model.city,
-  //       "country_code": "IT",
-  //       "postal_code": model.postcode,
-  //       // "phone": "",
-  //       "state": "${model.state}"
-  //     };
-  //   } else {
-  //     AddressObject = {
-  //       "recipient_name": "${billing.first_name} ${billing.last_name}",
-  //       "line1": billing.address_1,
-  //       "line2": billing.address_2,
-  //       "city": billing.city,
-  //       "country_code": "IT",
-  //       "postal_code": billing.postcode,
-  //       //"phone": "+393888793391",
-  //       //"phone": "${model.user.first.billing?.phone}",
-  //       "state": billing.state
-  //     };
-  //   }
-  //
-  //
-  //   List transactionItems =[];
-  //
-  //   cart.items.forEach((ele){
-  //
-  //
-  //     if(ele.extensions?.bundles['bundled_item_data']?['is_hidden_in_cart']!=true
-  //         && ele.extensions?.bundles['bundled_item_data']?['is_hidden_in_summary'] != true
-  //     ) {
-  //       transactionItems.add(
-  //           {
-  //             "name": "${ele.name}",
-  //             "quantity": ele.quantity,
-  //             "price": (double.parse(ele.prices!.price) / 100).toStringAsFixed(2),
-  //             "currency": "EUR"
-  //           }
-  //       );
-  //     }
-  //   });
-  //   print(shippingPrice);
-  //   print(shippingPriceValue);
-  //   print(double.tryParse(shippingPrice) != null?'${shippingPrice}':'xx');
-  //   var transactions = [
-  //     {
-  //       "amount": {
-  //         "total": (cartSummedPrice-couponTotalValue).toStringAsFixed(2),
-  //         "currency": "EUR",
-  //         "details": {
-  //           "subtotal": ((double.tryParse(cart.totals.totalItems)! + double.tryParse(cart.totals.totalItemsTax)!) / 100).toStringAsFixed(2),
-  //           "shipping": double.tryParse(shippingPrice) != null?'${shippingPrice}':'0.0',
-  //           "shipping_discount": 0,
-  //           "discount" : couponTotalValue.toStringAsFixed(2)
-  //         }
-  //       },
-  //       "description": "Acquisto su Torri Cantine.",
-  //     }
-  //   ];
-  //   print(transactions);
-  //   Navigator.of(context).push(
-  //     MaterialPageRoute(
-  //       builder: (BuildContext context) => UsePaypal(
-  //           sandboxMode: true,
-  //           // clientId: "ATxBrg2EyZZZy6ZEz9szvZhC_6zRLXkhDEW7F6OPlK1sCExdLI8-WqOlhfSRHoNAGlRm7DItRT3aSxKG",
-  //           // secretKey: "ENa2wS9bWvQ9htsT0027pYdvXZ3OcE7qFhTwgli0OLtXynObgCh4F7PvM6vmKgeywPOQf9Sn0vz8KGVL",
-  //           clientId: "ATx46VkPHE_ecuieHJzvPMJ7_K8E-o-ljAVq8As1XxnOAWzDmgkkxAEd0E60up10_qWWoI3GgVTvm9g9",
-  //           secretKey: "EKN5pXHW9Brh8LrhfZNayeF7RrEIB3w1L5Ez2327xf0kWm_-XPe4SPC3nT-t9ONZLev9l_HADZAdUg0p",
-  //           returnURL: "${AppConfig.baseUrl}/return",
-  //           cancelURL: "${AppConfig.baseUrl}/cancel",
-  //           transactions: [
-  //             {
-  //               "amount": {
-  //                 "total": (cartSummedPrice-couponTotalValue).toStringAsFixed(2),
-  //                 "currency": "EUR",
-  //                 "details": {
-  //                   "subtotal": ((double.tryParse(cart.totals.totalItems)! + double.tryParse(cart.totals.totalItemsTax)!) / 100).toStringAsFixed(2),
-  //                   "shipping": double.tryParse(shippingPrice) != null?'${shippingPrice}':'0.0',
-  //                   "shipping_discount": 0,
-  //                   "discount" : couponTotalValue.toStringAsFixed(2)
-  //                 }
-  //               },
-  //               "description": "Acquisto su Torri Cantine.",
-  //               // "payment_options": {
-  //               //   "allowed_payment_method":
-  //               //       "INSTANT_FUNDING_SOURCE"
-  //               // },
-  //               // "item_list": {
-  //               //   "items": transactionItems,
-  //               //
-  //               //   // shipping address is not required though
-  //               //   "shipping_address": AddressObject,
-  //               // }
-  //             }
-  //           ],
-  //           note: "Contattaci per ogni esigenza.",
-  //           onSuccess: (Map params) async {
-  //             context.read<MyOrdersBloc>().add(
-  //               MyOrdersEvent.createCheckout(
-  //                   billing != null ?
-  //                   Billing(
-  //                     first_name: billing.first_name,
-  //                     last_name: billing.last_name,
-  //                     company: billing.company,
-  //                     address_1: billing.address_1,
-  //                     address_2: billing.address_2,
-  //                     city: billing.city,
-  //                     state: billing.state,
-  //                     // state:
-  //                     //     model.user.first.billing!.state,
-  //                     postcode: billing.postcode,
-  //                     country: "IT",
-  //                     // country:
-  //                     //     model.user.first.billing!.country,
-  //                     email: billing.email,
-  //                     phone: billing.phone,
-  //                   ):
-  //                   Billing(
-  //                     first_name: model.first_name,
-  //                     last_name: model.last_name,
-  //                     company: model.company,
-  //                     address_1: model.address_1,
-  //                     address_2: model.address_2,
-  //                     city: model.city,
-  //                     state: model.state,
-  //                     postcode: model.postcode,
-  //                     country: "IT",
-  //                     phone: model.phone
-  //                   ),
-  //                   Shipping(
-  //                     first_name: model.first_name,
-  //                     last_name: model.last_name,
-  //                     company: model.company,
-  //                     address_1: model.address_1,
-  //                     address_2: model.address_2,
-  //                     city: model.city,
-  //                     state: model.state,
-  //                     postcode: model.postcode,
-  //                     country: "IT",
-  //                     phone: model.phone
-  //                   ),
-  //                   note.text,
-  //                   "ppcp-gateway",
-  //                   [],
-  //                 widget.totPoint
-  //
-  //
-  //               ),
-  //             );
-  //             storage.setTotalCartItems(0);
-  //             const MainNavigation.thankYou();
-  //             if (kDebugMode) {
-  //               print("onSuccess: $params");
-  //             }
-  //           },
-  //           onError: (error) {
-  //             if (kDebugMode) {
-  //               print("onError: $error");
-  //             }
-  //             Navigator.of(context).pop();
-  //           },
-  //           onCancel: (params) {
-  //             Navigator.of(context).pop();
-  //             if (kDebugMode) {
-  //               print('cancelled: $params');
-  //             }
-  //           }),
-  //     ),
-  //   );
-  // }
 
+  void paymentWithPayPal(UserAddress model, UserAddress billing, CartResponse cart) async{
+    final myOrdersBloc = context.read<MyOrdersBloc>();
+   var a = await myOrdersBloc.createCheckOutForStripe(Billing(
+      first_name: billing.first_name,
+      last_name: billing.last_name,
+      company: billing.company,
+      address_1: billing.address_1,
+      address_2: billing.address_2,
+      city: billing.city,
+      state: billing.state,
+      postcode: billing.postcode,
+      country: "IT",
+      email: billing.email,
+      phone: billing.phone,
+    ),
+        Shipping(
+          first_name: model.first_name,
+          last_name: model.last_name,
+          company: model.company,
+          address_1: model.address_1,
+          address_2: model.address_2,
+          city: model.city,
+          state: model.state,
+          postcode: model.postcode,
+          country: "IT",
+          phone: model.phone,
+        ),
+        note.text,
+        "ppcp-gateway",
+        [],
+        widget.totPoint,
+        false
+    );
 
-  void paymentWithPayPal(UserAddress model, UserAddress billing, CartResponse cart) {
-    Map<String, dynamic> addressObject = {};
-    if (model.first_name != '') {
-      addressObject = {
-        "recipient_name": "${model.first_name} ${model.last_name}",
-        "line1": model.address_1,
-        "line2": model.address_2,
-        "city": model.city,
-        "country_code": "IT",
-        "postal_code": model.postcode,
-        "state": model.state
-      };
-    } else {
-      addressObject = {
-        "recipient_name": "${billing.first_name} ${billing.last_name}",
-        "line1": billing.address_1,
-        "line2": billing.address_2,
-        "city": billing.city,
-        "country_code": "IT",
-        "postal_code": billing.postcode,
-        "state": billing.state
-      };
+   bool isSuccess = false;
+    var controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progress) {
+          },
+          onPageStarted: (String url) {},
+          onPageFinished: (String url) {
+            if (url.contains("https://testapp.torricantine.it/checkout/order-received/")) { // Imposta la tua condizione di successo
+              setState(() {
+                isSuccess = true;
+              });
+            }
+          },
+          onHttpError: (HttpResponseError error) {},
+          onWebResourceError: (WebResourceError error) {},
+          onNavigationRequest: (NavigationRequest request) {
+            if (request.url.startsWith(a?.payment_result?.redirect_url?? "")) {
+              return NavigationDecision.prevent;
+            }
+            return NavigationDecision.navigate;
+          },
+        ),
+      )
+      ..loadRequest(Uri.parse(a?.payment_result?.redirect_url?? ""));
+
+    if(mounted){
+      await Navigator.of(context).push(MaterialPageRoute(
+          builder: (BuildContext ctx) => Scaffold(
+                appBar: AppBar(
+                  backgroundColor: Colors.white,
+                  leading: IconButton(
+                    icon: Icon(Icons.close),
+                    onPressed: () {
+                      Navigator.pop(context, "cancel");
+                    },
+                  ),
+                ),
+                body: WebViewWidget(
+                  controller: controller,
+                ),
+              )
+      )
+      );
     }
 
-    List<Map<String, dynamic>> transactionItems = [];
-
-    cart.items.forEach((ele) {
-      if (ele.extensions?.bundles['bundled_item_data']?['is_hidden_in_cart'] != true &&
-          ele.extensions?.bundles['bundled_item_data']?['is_hidden_in_summary'] != true) {
-        transactionItems.add({
-          "name": ele.name,
-          "quantity": ele.quantity,
-          "price": (double.parse(ele.prices!.price) / 100).toStringAsFixed(2),
-          "currency": "EUR"
-        });
-      }
+    setState(() {
+      startedOrder = false;
     });
 
-    var transactions = [
-      {
-        "amount": {
-          "total": (cartSummedPrice - couponTotalValue).toStringAsFixed(2),
-          "currency": "EUR",
-          "details": {
-            "subtotal": ((double.tryParse(cart.totals.totalItems)! + double.tryParse(cart.totals.totalItemsTax)!) / 100).toStringAsFixed(2),
-            "shipping": double.tryParse(shippingPrice) != null ? shippingPrice : '0.0',
-            "shipping_discount": 0,
-            "discount": couponTotalValue.toStringAsFixed(2)
-          }
-        },
-        "description": "Acquisto su Torri Cantine."
-      }
-    ];
+    if(mounted){
+      if (isSuccess) {
 
-    MainNavigation.push(context, MainNavigation.paypal(transactions, () async {
-      final bloc = context.read<MyOrdersBloc>();
-      bloc.add(
-        MyOrdersEvent.createCheckout(
-          Billing(
-            first_name: billing.first_name,
-            last_name: billing.last_name,
-            company: billing.company,
-            address_1: billing.address_1,
-            address_2: billing.address_2,
-            city: billing.city,
-            state: billing.state,
-            postcode: billing.postcode,
-            country: "IT",
-            email: billing.email,
-            phone: billing.phone,
-          ),
-          Shipping(
-            first_name: model.first_name,
-            last_name: model.last_name,
-            company: model.company,
-            address_1: model.address_1,
-            address_2: model.address_2,
-            city: model.city,
-            state: model.state,
-            postcode: model.postcode,
-            country: "IT",
-            phone: model.phone,
-          ),
-          note.text,
-          "ppcp-gateway",
-          [],
-          widget.totPoint,
-        ),
-      );
-      storage.setTotalCartItems(0);
-      if (mounted) {
         MainNavigation.push(context, const MainNavigation.thankYou());
-      }
-    },));
 
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Pagamento fallito, riprovare'),
+          elevation: 1,
+        ));
+      }
+    }
   }
 
 
@@ -1820,6 +1644,9 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
         widget.totPoint
     ),
     );
+    setState(() {
+      startedOrder = false;
+    });
   }
 
   Future<void> payWithMethodSelected(String paymentMethod, UserAddress shipping, UserAddress billing, CartResponse cart, int customerId) async{
@@ -1876,6 +1703,11 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
             storage.setTotalCartItems(0);
           }
         }
+
+        setState(() {
+          startedOrder = false;
+        });
+
         break;
       case "bacs":
         makeOrder(shipping, billing, "bacs");

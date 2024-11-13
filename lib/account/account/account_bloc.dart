@@ -44,18 +44,18 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
       // print('//@@@@@@@@@@@@@@@@@@@@ isNotLogged ####################################');
 
       if (isNotLogged) {
-        print('###### isNotLogged  #############################################');
+        // print('###### isNotLogged  #############################################');
         yield const AccountState.notLogged();
       } else {
 
-        print('###### DARIO ACCOUNT #############################################');
+        // print('###### DARIO ACCOUNT #############################################');
 
         final response = await service.getAccount(AccountRequest(email: email));
-        print(email);
-        print('###### DARIO ACCOUNT #############################################');
-        print(response);
-        print(response.user);
-        print('///// DARIO ACCOUNT #############################################');
+        // print(email);
+        // print('###### DARIO ACCOUNT #############################################');
+        // print(response);
+        // print(response.user);
+        // print('///// DARIO ACCOUNT #############################################');
         if(response.user.length==0) {
           yield const AccountState.notLogged();
         } else {

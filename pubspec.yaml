@@ -44,8 +44,6 @@ dependencies:
   google_fonts: ^4.0.3
   carousel_slider: ^5.0.0
   smooth_page_indicator: ^1.0.1
-  #youtube_player_iframe: ^3.1.0
-  #youtube_player_iframe: ^5.1.5
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   firebase_core: ^3.2.0
@@ -59,8 +57,6 @@ dependencies:
   uuid: ^3.0.7
   external_app_launcher: ^4.0.0
   crypto: ^3.0.6
-  #flutter_paypal: ^0.0.7
-  flutter_paypal: ^0.2.0
   infinite_scroll_pagination: ^4.0.0
   flutter_rating_bar: ^4.0.1
   flutter_html: ^3.0.0-beta.2
@@ -72,7 +68,9 @@ dependencies:
   device_info_plus: ^10.1.0
   path_provider: ^2.1.4
   flutter_cache_manager: ^3.3.1
-  shared_preferences: ^2.3.2
+  webview_flutter: ^4.0.0
+  firebase_in_app_messaging: ^0.8.0+9
+
 
 dependency_overrides:
   stripe_android: "9.5.0+1"
