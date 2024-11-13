@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:firebase_in_app_messaging/firebase_in_app_messaging.dart'; // Import In-App Messaging
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 
 class PushNotificationConfig {
@@ -10,6 +11,7 @@ class PushNotificationConfig {
 
   PushNotificationConfig(this.navigatorKey);
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+  final FirebaseInAppMessaging _inAppMessaging = FirebaseInAppMessaging.instance;
 
   enableIOSNotifications() async {
     await _firebaseMessaging.setForegroundNotificationPresentationOptions(
@@ -20,20 +22,14 @@ class PushNotificationConfig {
   }
 
   androidNotificationChannel() => const AndroidNotificationChannel(
-      'high_importance_channel', // id
-      'High Importance Notifications', // title
-      description:
-          'This channel is used for important notifications.', // description
+      'high_importance_channel',
+      'High Importance Notifications',
+      description: 'This channel is used for important notifications.',
       importance: Importance.high,
       playSound: true);
 
   Future<void> setupInteractedMessage() async {
     LocalStorage storage = LocalStorage();
-    //TODO
-    //FirebaseMessaging.instance.onTokenRefresh.listen();
-
-    //_firebaseMessaging.subscribeToTopic("");
-
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;
@@ -42,36 +38,36 @@ class PushNotificationConfig {
       if (notification != null && (android != null || apple != null)) {
         switch (message.data['type']) {
           case "case1":
-            // Navigator.pushNamed(
-            //     navigatorKey.currentContext!, PAge1.routeName,
-            //     arguments: message.data['item_id']);
+          // Navigator.pushNamed(navigatorKey.currentContext!, PAge1.routeName, arguments: message.data['item_id']);
             break;
           case "case2":
-            // Navigator.pushNamed(
-            //     navigatorKey.currentContext!, PAge2.routeName,
-            //     arguments: message.data['item_id']);
+          // Navigator.pushNamed(navigatorKey.currentContext!, PAge2.routeName, arguments: message.data['item_id']);
             break;
           default:
-          // Navigator.pushNamed(
-          //     navigatorKey.currentContext!, MainScreen.routeName);
+          // Navigator.pushNamed(navigatorKey.currentContext!, MainScreen.routeName);
         }
       }
     });
+
     _firebaseMessaging.getToken().then((value) {
       storage.setFCMToken(value!);
     });
+
     await enableIOSNotifications();
     await registerNotificationListeners();
+
+    // Inizializzazione di Firebase In-App Messaging (facoltativo)
+    _inAppMessaging.setAutomaticDataCollectionEnabled(true); // Attiva la raccolta dei dati per in-app messages
   }
 
   registerNotificationListeners() async {
     AndroidNotificationChannel channel = androidNotificationChannel();
     final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-        FlutterLocalNotificationsPlugin();
+    FlutterLocalNotificationsPlugin();
 
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
+        AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(channel);
 
     const androidSettings = AndroidInitializationSettings('launcher_icon');
@@ -82,13 +78,9 @@ class PushNotificationConfig {
     );
 
     const initSettings =
-        InitializationSettings(android: androidSettings, iOS: iOSSettings);
+    InitializationSettings(android: androidSettings, iOS: iOSSettings);
     flutterLocalNotificationsPlugin.initialize(
       initSettings,
-      //onSelectNotification: (message) async {
-      // This function handles the click in the notification when the app is in foreground
-      // Get.toNamed(NOTIFICATIOINS_ROUTE);
-      // }
     );
 
     FirebaseMessaging.onMessage.listen((RemoteMessage? message) {
@@ -105,7 +97,6 @@ class PushNotificationConfig {
                 channel.id,
                 channel.name,
                 channelDescription: channel.description,
-                //icon: android.smallIcon,
                 playSound: true,
               ),
               iOS: const DarwinNotificationDetails(
