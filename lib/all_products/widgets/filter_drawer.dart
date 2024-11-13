@@ -50,7 +50,13 @@ class _FilterDrawerState extends State<FilterDrawer> {
         categoriesMap = filterMaps.first;
         tagsMap = filterMaps.last;
       }
-      //storage.setPriceFilters(currentRangeValues);
+      final RangeValues? savedRange = await storage.getPriceFilters();
+      if (savedRange != null) {
+        setState(() {
+          currentRangeValues = savedRange;
+        });
+      }
+      // storage.setPriceFilters(currentRangeValues);
 
 
 
@@ -473,7 +479,7 @@ class _FilterDrawerState extends State<FilterDrawer> {
                       }
 
 
-                      storage.setPriceFilters(currentRangeValues);
+                      // storage.setPriceFilters(currentRangeValues);
                       return Column(
                         children: [
                           Padding(
@@ -543,7 +549,7 @@ class _FilterDrawerState extends State<FilterDrawer> {
                       }
 
 
-                      storage.setPriceFilters(currentRangeValues);
+                      // storage.setPriceFilters(currentRangeValues);
                       return Column(
                         children: [
                           Padding(
