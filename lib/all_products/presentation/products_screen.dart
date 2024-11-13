@@ -99,6 +99,27 @@ class _ProductsState extends State<Products> {
     }
   }
 
+  Future<void> _filterPage(int? pageKey, String? categories,
+      String? tags, String? minPrice, String? maxPrice, catalogVisibility) async {
+    try {
+      AllProductsResponse? response = await context.read<AllProductsBloc>().filterProducts(pageKey, categories, tags,  minPrice,  maxPrice, catalogVisibility);
+      if (response != null && response.products!.isNotEmpty) {
+        final isLastPage = response.products!.length < 10;
+        if (isLastPage) {
+          _pagingController.appendLastPage(response.products!);
+        } else {
+          final nextPageKey = pageKey! + 1;
+          _pagingController.appendPage(response.products!, nextPageKey);
+        }
+      } else {
+        _pagingController.appendLastPage([]);
+      }
+    } catch (error) {
+      print(error);
+      _pagingController.error = error;
+    }
+  }
+
   static _dockedFabLocation(context) {
     if (MediaQuery.of(context).viewInsets.bottom != 0) {
       return FixedCenterDockedFabLocation(
@@ -508,7 +529,14 @@ class _ProductsState extends State<Products> {
                                                       },
                                                       onFilterSelected: _setFilter,
                                                     )
-                                                        : FilterDrawer());
+                                                        : FilterDrawer(
+                                                        onClose: () {
+                                                          bottomSheetController
+                                                              ?.close();
+                                                        },
+                                                        onFilterPage: _filterPage,
+                                                        pagingController: _pagingController
+                                                    ));
                                             setState(() {
                                               setDrawer = 0;
                                             });

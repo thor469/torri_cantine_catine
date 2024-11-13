@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:configurable_expansion_tile_null_safety/configurable_expansion_tile_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:torri_cantine_app/all_products/all_products/all_products_bloc.dart';
 import 'package:torri_cantine_app/all_products/model/response/all_products_response.dart';
 import 'package:torri_cantine_app/all_products/presentation/products_screen.dart';
@@ -15,7 +16,14 @@ import 'package:torri_cantine_app/utilities/local_storage.dart';
 
 // ignore: must_be_immutable
 class FilterDrawer extends StatefulWidget {
+  final VoidCallback? onClose;
+  final Future<void> Function(int? pageKey, String? categories,
+      String? tags, String? minPrice, String? maxPrice, dynamic catalogVisibility)? onFilterPage;
+  final PagingController<int, Product>? pagingController;
   FilterDrawer({
+    this.onClose,
+    this.onFilterPage,
+    this.pagingController,
     super.key,
   });
 
@@ -74,12 +82,10 @@ class _FilterDrawerState extends State<FilterDrawer> {
           children: [
 
             Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-              Padding( padding: EdgeInsets.only(top:24),),
+              const Padding( padding: EdgeInsets.only(top:24),),
               ListTile(
                 leading: GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
+                    onTap: widget.onClose,
                     child: const Icon(Icons.cancel_outlined)),
                 title: Text(
                   "FILTRA",
@@ -669,33 +675,41 @@ class _FilterDrawerState extends State<FilterDrawer> {
               child: PrimaryButton(
                 text: "Applica",
                 ontap: () {
-                  context
-                      .read<AllProductsBloc>()
-                      .add(AllProductsEvent.filterProducts(
-                        categories: categoriesToString(categoriesIdMap),
-                        tags: tagsToString(tagsIdMap),
-                        minPrice: currentRangeValues.start.toString(),
-                        maxPrice: currentRangeValues.end.toString(),
-                        catalogVisibility: '${AppConfig.productStatusFilter}'
-                      ));
-
+                  // context
+                  //     .read<AllProductsBloc>()
+                  //     .add(AllProductsEvent.filterProducts(
+                  //       categories: categoriesToString(categoriesIdMap),
+                  //       tags: tagsToString(tagsIdMap),
+                  //       minPrice: currentRangeValues.start.toString(),
+                  //       maxPrice: currentRangeValues.end.toString(),
+                  //       catalogVisibility: '${AppConfig.productStatusFilter}'
+                  //     ));
                   storage.setFilters(categoriesMap, tagsMap);
                   storage.setPriceFilters(currentRangeValues);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Products(
-                        minPrice: currentRangeValues.start,
-                        maxPrice: currentRangeValues.end,
-                        categoriesMap: categoriesMap,
-                        tagsMap: tagsMap,
-                        categoriesIdMap: categoriesToString(categoriesIdMap),
-                        tagsIdMap: tagsToString(tagsIdMap),
-                        fromMenu: true,
-                        showAppBar: true,
-                      ),
-                    ),
+                  widget.pagingController!.refresh();
+                  widget.onFilterPage!(1,
+                  categoriesToString(categoriesIdMap),
+                  tagsToString(tagsIdMap),
+                  currentRangeValues.start.toString(),
+                  currentRangeValues.end.toString(),
+                  '${AppConfig.productStatusFilter}'
                   );
+                  widget.onClose!();
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => Products(
+                  //       minPrice: currentRangeValues.start,
+                  //       maxPrice: currentRangeValues.end,
+                  //       categoriesMap: categoriesMap,
+                  //       tagsMap: tagsMap,
+                  //       categoriesIdMap: categoriesToString(categoriesIdMap),
+                  //       tagsIdMap: tagsToString(tagsIdMap),
+                  //       fromMenu: true,
+                  //       showAppBar: true,
+                  //     ),
+                  //   ),
+                  // );
                 },
               ),
             ),
