@@ -381,7 +381,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                             // if (appliedCoupon > 0)
                                             //   PrimaryButton(
                                             //     ontap: () {
-                                            //       context.read<CouponBloc>().add(CouponEvent.delete(appliedCouponCode ?? ""));
+                                            //       context.read<CouponBloc>().add(CouponEvent.delete(appliedCouponCRode ?? ""));
                                             //       context.read<CartBloc>().add(CartEvent.fetch());
                                             //       setState(() {
                                             //         appliedCoupon = 0.0;
@@ -1026,7 +1026,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                             return Container(
                                                 alignment: Alignment.topLeft,
                                                 padding: const EdgeInsets.symmetric(vertical: 8),
-                                                height: containerHeight*pg!.length,
+                                                height: containerHeight*pg!.length*0.7530,
                                                 child: ListView.builder(
                                                   physics: const NeverScrollableScrollPhysics() ,
                                                   shrinkWrap: true,
