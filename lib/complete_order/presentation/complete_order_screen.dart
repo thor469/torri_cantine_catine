@@ -88,6 +88,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   bool isEnabled = false;
   int? amountCart;
   bool startedOrder = false;
+  List<Coupon?>? coupons;
 
   @override
   void initState() {
@@ -132,6 +133,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
 
       if(cart.coupons != null && cart.coupons!.isNotEmpty) {
         sumCouponDiscount(cart.coupons);
+        coupons = cart.coupons;
       }
 
       cartSummedPrice = cartTotalValue ?? 0;
@@ -173,10 +175,13 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
     });
     couponTotalValue_ = double.tryParse((couponTotalInt_/100).toString())!;
     couponTotal_ = couponTotalValue_.toStringAsFixed(2).replaceAll('.', ',');
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
     setState(() {
       couponTotalInt = couponTotalInt_;
       couponTotalValue = couponTotalValue_;
       couponTotal = couponTotal_;
+    });
     });
   }
 
@@ -337,7 +342,49 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                         );
                                       },
                                       orElse: () {
-                                        return buildCupon("");
+                                        return Column(
+                                          children: [
+                                            buildCupon(""),
+                                           if(coupons != null && coupons!.isNotEmpty)...[SizedBox(
+                                              height: (cart.coupons?.length ?? 0) * 30,
+                                              child: Row(
+                                                children: [
+                                                  ListView.builder(
+                                                    physics: const NeverScrollableScrollPhysics(),
+                                                    scrollDirection: Axis.horizontal,
+                                                    shrinkWrap: true,
+                                                    itemCount: cart.coupons?.length ?? 0,
+                                                    itemBuilder: (context, index) {
+                                                      final couponItem = cart.coupons![index];
+                                                      return Container(
+                                                        alignment: Alignment.topLeft,
+                                                        height: 30,
+                                                        child: InputChip(
+                                                          label: Text(
+                                                            couponItem!.code,
+                                                            style: const TextStyle(color: Colors.white, fontSize: 12),
+                                                          ),
+                                                          deleteIconColor: Colors.white,
+                                                          backgroundColor: const Color.fromARGB(255, 161, 29, 51),
+                                                          shape: const RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                                                          ),
+                                                          onDeleted: () {
+                                                            context.read<CouponBloc>().add(CouponEvent.delete(couponItem.code)
+                                                            );
+                                                          },
+                                                          padding: const EdgeInsets.only(left:5 , bottom: 3),
+                                                          onPressed: null,
+                                                          onSelected: null,
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            )]
+                                          ],
+                                        );
                                       },
                                       couponNotFound: (error) {
                                         return buildCupon(error);
@@ -350,11 +397,13 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                         if(isFirsCouponLoad){
                                           context.read<CartBloc>().add(const CartEvent.fetch());
                                           sumCouponDiscount(cart.coupons);
-                                          setState(() {
-                                            appliedCoupon = double.tryParse(coupons.amount)!;
-                                            isFirsCouponLoad = false;
-                                            isCartNullOrRefreshed = true;
-                                            couponController.text = "";
+                                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                                            setState(() {
+                                              appliedCoupon = double.tryParse(coupons.amount)!;
+                                              isFirsCouponLoad = false;
+                                              isCartNullOrRefreshed = true;
+                                              couponController.text = "";
+                                            });
                                           });
                                         }
 
@@ -364,7 +413,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                             // if (appliedCoupon > 0)
                                             //   PrimaryButton(
                                             //     ontap: () {
-                                            //       context.read<CouponBloc>().add(CouponEvent.delete(appliedCouponCode ?? ""));
+                                            //       context.read<CouponBloc>().add(CouponEvent.delete(appliedCouponCRode ?? ""));
                                             //       context.read<CartBloc>().add(CartEvent.fetch());
                                             //       setState(() {
                                             //         appliedCoupon = 0.0;
@@ -1009,7 +1058,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                             return Container(
                                                 alignment: Alignment.topLeft,
                                                 padding: const EdgeInsets.symmetric(vertical: 8),
-                                                height: containerHeight*pg!.length,
+                                                height: containerHeight*pg!.length*0.7530,
                                                 child: ListView.builder(
                                                   physics: const NeverScrollableScrollPhysics() ,
                                                   shrinkWrap: true,
