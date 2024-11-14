@@ -953,23 +953,25 @@ abstract class _Error implements CouponState {
 
 /// @nodoc
 mixin _$CouponEvent {
-  String get code => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String code) fetch,
     required TResult Function(String code) delete,
+    required TResult Function() reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String code)? fetch,
     TResult? Function(String code)? delete,
+    TResult? Function()? reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String code)? fetch,
     TResult Function(String code)? delete,
+    TResult Function()? reset,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -977,24 +979,23 @@ mixin _$CouponEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_Fetch value) fetch,
     required TResult Function(_Delete value) delete,
+    required TResult Function(_Reset value) reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Fetch value)? fetch,
     TResult? Function(_Delete value)? delete,
+    TResult? Function(_Reset value)? reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Fetch value)? fetch,
     TResult Function(_Delete value)? delete,
+    TResult Function(_Reset value)? reset,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $CouponEventCopyWith<CouponEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1003,8 +1004,6 @@ abstract class $CouponEventCopyWith<$Res> {
   factory $CouponEventCopyWith(
           CouponEvent value, $Res Function(CouponEvent) then) =
       _$CouponEventCopyWithImpl<$Res, CouponEvent>;
-  @useResult
-  $Res call({String code});
 }
 
 /// @nodoc
@@ -1016,26 +1015,12 @@ class _$CouponEventCopyWithImpl<$Res, $Val extends CouponEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? code = null,
-  }) {
-    return _then(_value.copyWith(
-      code: null == code
-          ? _value.code
-          : code // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$_FetchCopyWith<$Res> implements $CouponEventCopyWith<$Res> {
+abstract class _$$_FetchCopyWith<$Res> {
   factory _$$_FetchCopyWith(_$_Fetch value, $Res Function(_$_Fetch) then) =
       __$$_FetchCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String code});
 }
@@ -1096,6 +1081,7 @@ class _$_Fetch implements _Fetch {
   TResult when<TResult extends Object?>({
     required TResult Function(String code) fetch,
     required TResult Function(String code) delete,
+    required TResult Function() reset,
   }) {
     return fetch(code);
   }
@@ -1105,6 +1091,7 @@ class _$_Fetch implements _Fetch {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String code)? fetch,
     TResult? Function(String code)? delete,
+    TResult? Function()? reset,
   }) {
     return fetch?.call(code);
   }
@@ -1114,6 +1101,7 @@ class _$_Fetch implements _Fetch {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String code)? fetch,
     TResult Function(String code)? delete,
+    TResult Function()? reset,
     required TResult orElse(),
   }) {
     if (fetch != null) {
@@ -1127,6 +1115,7 @@ class _$_Fetch implements _Fetch {
   TResult map<TResult extends Object?>({
     required TResult Function(_Fetch value) fetch,
     required TResult Function(_Delete value) delete,
+    required TResult Function(_Reset value) reset,
   }) {
     return fetch(this);
   }
@@ -1136,6 +1125,7 @@ class _$_Fetch implements _Fetch {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Fetch value)? fetch,
     TResult? Function(_Delete value)? delete,
+    TResult? Function(_Reset value)? reset,
   }) {
     return fetch?.call(this);
   }
@@ -1145,6 +1135,7 @@ class _$_Fetch implements _Fetch {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Fetch value)? fetch,
     TResult Function(_Delete value)? delete,
+    TResult Function(_Reset value)? reset,
     required TResult orElse(),
   }) {
     if (fetch != null) {
@@ -1157,19 +1148,16 @@ class _$_Fetch implements _Fetch {
 abstract class _Fetch implements CouponEvent {
   const factory _Fetch(final String code) = _$_Fetch;
 
-  @override
   String get code;
-  @override
   @JsonKey(ignore: true)
   _$$_FetchCopyWith<_$_Fetch> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_DeleteCopyWith<$Res> implements $CouponEventCopyWith<$Res> {
+abstract class _$$_DeleteCopyWith<$Res> {
   factory _$$_DeleteCopyWith(_$_Delete value, $Res Function(_$_Delete) then) =
       __$$_DeleteCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String code});
 }
@@ -1230,6 +1218,7 @@ class _$_Delete implements _Delete {
   TResult when<TResult extends Object?>({
     required TResult Function(String code) fetch,
     required TResult Function(String code) delete,
+    required TResult Function() reset,
   }) {
     return delete(code);
   }
@@ -1239,6 +1228,7 @@ class _$_Delete implements _Delete {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String code)? fetch,
     TResult? Function(String code)? delete,
+    TResult? Function()? reset,
   }) {
     return delete?.call(code);
   }
@@ -1248,6 +1238,7 @@ class _$_Delete implements _Delete {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String code)? fetch,
     TResult Function(String code)? delete,
+    TResult Function()? reset,
     required TResult orElse(),
   }) {
     if (delete != null) {
@@ -1261,6 +1252,7 @@ class _$_Delete implements _Delete {
   TResult map<TResult extends Object?>({
     required TResult Function(_Fetch value) fetch,
     required TResult Function(_Delete value) delete,
+    required TResult Function(_Reset value) reset,
   }) {
     return delete(this);
   }
@@ -1270,6 +1262,7 @@ class _$_Delete implements _Delete {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Fetch value)? fetch,
     TResult? Function(_Delete value)? delete,
+    TResult? Function(_Reset value)? reset,
   }) {
     return delete?.call(this);
   }
@@ -1279,6 +1272,7 @@ class _$_Delete implements _Delete {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Fetch value)? fetch,
     TResult Function(_Delete value)? delete,
+    TResult Function(_Reset value)? reset,
     required TResult orElse(),
   }) {
     if (delete != null) {
@@ -1291,10 +1285,114 @@ class _$_Delete implements _Delete {
 abstract class _Delete implements CouponEvent {
   const factory _Delete(final String code) = _$_Delete;
 
-  @override
   String get code;
-  @override
   @JsonKey(ignore: true)
   _$$_DeleteCopyWith<_$_Delete> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_ResetCopyWith<$Res> {
+  factory _$$_ResetCopyWith(_$_Reset value, $Res Function(_$_Reset) then) =
+      __$$_ResetCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_ResetCopyWithImpl<$Res>
+    extends _$CouponEventCopyWithImpl<$Res, _$_Reset>
+    implements _$$_ResetCopyWith<$Res> {
+  __$$_ResetCopyWithImpl(_$_Reset _value, $Res Function(_$_Reset) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_Reset implements _Reset {
+  const _$_Reset();
+
+  @override
+  String toString() {
+    return 'CouponEvent.reset()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_Reset);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String code) fetch,
+    required TResult Function(String code) delete,
+    required TResult Function() reset,
+  }) {
+    return reset();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String code)? fetch,
+    TResult? Function(String code)? delete,
+    TResult? Function()? reset,
+  }) {
+    return reset?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String code)? fetch,
+    TResult Function(String code)? delete,
+    TResult Function()? reset,
+    required TResult orElse(),
+  }) {
+    if (reset != null) {
+      return reset();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Fetch value) fetch,
+    required TResult Function(_Delete value) delete,
+    required TResult Function(_Reset value) reset,
+  }) {
+    return reset(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Fetch value)? fetch,
+    TResult? Function(_Delete value)? delete,
+    TResult? Function(_Reset value)? reset,
+  }) {
+    return reset?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Fetch value)? fetch,
+    TResult Function(_Delete value)? delete,
+    TResult Function(_Reset value)? reset,
+    required TResult orElse(),
+  }) {
+    if (reset != null) {
+      return reset(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Reset implements CouponEvent {
+  const factory _Reset() = _$_Reset;
 }
