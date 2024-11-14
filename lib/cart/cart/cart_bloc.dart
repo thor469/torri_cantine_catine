@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:http_services/http_services.dart';
@@ -69,4 +70,24 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       yield CartState.error(e.body);
     }
   }
+
+
+
+  Future<void> deleteCart() async{
+    try{
+      const dep = DependencyFactoryImpl();
+      Dio dio= dep.createDioForApiCart().dio;
+      var codeInfo = await dio.request(
+        '/wp-json/wp/v2/empty_cart_after_order/',
+        options: Options(
+          method: 'POST',
+        ),
+      );
+    }catch(e){
+     print(e);
+    }
+
+  }
+
+
 }
