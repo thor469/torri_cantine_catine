@@ -181,10 +181,13 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
     });
     couponTotalValue_ = double.tryParse((couponTotalInt_/100).toString())!;
     couponTotal_ = couponTotalValue_.toStringAsFixed(2).replaceAll('.', ',');
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
     setState(() {
       couponTotalInt = couponTotalInt_;
       couponTotalValue = couponTotalValue_;
       couponTotal = couponTotal_;
+    });
     });
   }
 
@@ -362,11 +365,13 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                         if(isFirsCouponLoad){
                                           context.read<CartBloc>().add(const CartEvent.fetch());
                                           sumCouponDiscount(cart.coupons);
-                                          setState(() {
-                                            appliedCoupon = double.tryParse(coupons.amount)!;
-                                            isFirsCouponLoad = false;
-                                            isCartNullOrRefreshed = true;
-                                            couponController.text = "";
+                                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                                            setState(() {
+                                              appliedCoupon = double.tryParse(coupons.amount)!;
+                                              isFirsCouponLoad = false;
+                                              isCartNullOrRefreshed = true;
+                                              couponController.text = "";
+                                            });
                                           });
                                         }
 
