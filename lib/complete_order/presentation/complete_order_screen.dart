@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -21,7 +22,11 @@ import 'package:torri_cantine_app/my_orders/model/response/my_orders_response.da
 import 'package:torri_cantine_app/my_orders/my_orders/my_orders_bloc.dart';
 import 'package:torri_cantine_app/points_balance_screen/bloc/points_bloc.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:uni_links/uni_links.dart';
+import 'dart:io' show Platform;
+
 
 
 class CompleteOrderScreen extends StatefulWidget {
@@ -1478,84 +1483,109 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
 
 
 
-  void paymentWithPayPal(UserAddress model, UserAddress billing, CartResponse cart) async{
+
+  void paymentWithPayPal(UserAddress model, UserAddress billing, CartResponse cart) async {
     final myOrdersBloc = context.read<MyOrdersBloc>();
-   var a = await myOrdersBloc.createCheckOutForStripe(Billing(
-      first_name: billing.first_name,
-      last_name: billing.last_name,
-      company: billing.company,
-      address_1: billing.address_1,
-      address_2: billing.address_2,
-      city: billing.city,
-      state: billing.state,
-      postcode: billing.postcode,
-      country: "IT",
-      email: billing.email,
-      phone: billing.phone,
-    ),
-        Shipping(
-          first_name: model.first_name,
-          last_name: model.last_name,
-          company: model.company,
-          address_1: model.address_1,
-          address_2: model.address_2,
-          city: model.city,
-          state: model.state,
-          postcode: model.postcode,
-          country: "IT",
-          phone: model.phone,
-        ),
-        note.text,
-        "ppcp-gateway",
-        [],
-        widget.totPoint,
-        false
+    var a = await myOrdersBloc.createCheckOutForStripe(
+      Billing(
+        first_name: billing.first_name,
+        last_name: billing.last_name,
+        company: billing.company,
+        address_1: billing.address_1,
+        address_2: billing.address_2,
+        city: billing.city,
+        state: billing.state,
+        postcode: billing.postcode,
+        country: "IT",
+        email: billing.email,
+        phone: billing.phone,
+      ),
+      Shipping(
+        first_name: model.first_name,
+        last_name: model.last_name,
+        company: model.company,
+        address_1: model.address_1,
+        address_2: model.address_2,
+        city: model.city,
+        state: model.state,
+        postcode: model.postcode,
+        country: "IT",
+        phone: model.phone,
+      ),
+      note.text,
+      "ppcp-gateway",
+      [],
+      widget.totPoint,
+      false,
     );
 
-   bool isSuccess = false;
+    bool isSuccess = false;
+    final redirectUrl = a?.payment_result?.redirect_url ?? "";
+
+    if (redirectUrl.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Errore: redirect_url non disponibile'),
+          elevation: 1,
+        ),
+      );
+      return;
+    }
+
     var controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setUserAgent(
+          Platform.isIOS
+              ? 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1'
+              : null)
       ..setNavigationDelegate(
         NavigationDelegate(
-          onProgress: (int progress) {
-          },
-          onPageStarted: (String url) {},
           onPageFinished: (String url) {
-            if (url.contains("https://testapp.torricantine.it/checkout/order-received/")) { // Imposta la tua condizione di successo
+            if (url.contains("/checkout/order-received/")) {
               setState(() {
                 isSuccess = true;
               });
+              Navigator.pop(context, "success");
             }
           },
-          onHttpError: (HttpResponseError error) {},
-          onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
-            if (request.url.startsWith(a?.payment_result?.redirect_url?? "")) {
+            if (request.url.contains("/checkout/order-received/")) {
+              setState(() {
+                isSuccess = true;
+              });
+              Navigator.pop(context, "success");
               return NavigationDecision.prevent;
             }
             return NavigationDecision.navigate;
           },
+          onWebResourceError: (WebResourceError error) {
+            print("Errore di caricamento WebView: ${error.description}");
+          },
+          onHttpError: (HttpResponseError error) {
+            print("Errore HTTP: ${error} - ${error}");
+          },
         ),
       )
-      ..loadRequest(Uri.parse(a?.payment_result?.redirect_url?? ""));
+      ..loadRequest(Uri.parse(redirectUrl));
 
-    if(mounted){
-      await Navigator.of(context).push(MaterialPageRoute(
+    if (mounted) {
+      await Navigator.of(context).push(
+        MaterialPageRoute(
           builder: (BuildContext ctx) => Scaffold(
-                appBar: AppBar(
-                  backgroundColor: Colors.white,
-                  leading: IconButton(
-                    icon: Icon(Icons.close),
-                    onPressed: () {
-                      Navigator.pop(context, "cancel");
-                    },
-                  ),
-                ),
-                body: WebViewWidget(
-                  controller: controller,
-                ),
-              )
-      )
+            appBar: AppBar(
+              backgroundColor: Colors.white,
+              leading: IconButton(
+                icon: Icon(Icons.close),
+                onPressed: () {
+                  Navigator.pop(context, "cancel");
+                },
+              ),
+            ),
+            body: WebViewWidget(
+              controller: controller,
+            ),
+          ),
+        ),
       );
     }
 
@@ -1563,12 +1593,11 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
       startedOrder = false;
     });
 
-    if(mounted){
+    if (mounted) {
       if (isSuccess) {
         storage.setTotalCartItems(0);
-      context.read<CartBloc>().deleteCart();
+        context.read<CartBloc>().deleteCart();
         MainNavigation.push(context, const MainNavigation.thankYou());
-
       } else {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Pagamento fallito, riprovare'),
