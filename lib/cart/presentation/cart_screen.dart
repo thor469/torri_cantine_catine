@@ -224,7 +224,7 @@ class _CartScreenState extends State<CartScreen> {
 
 
                 var cartTotalDiscountValue = (int.tryParse(cart.totals.totalDiscount??'0')! + int.tryParse(cart.totals.totalDiscountTax??'0')!)/100;
-                if(moneyDiscount >= 5.0){
+                if(moneyDiscount >= 5.0 && taxedTotalItemsValue >= 50){
                   cartTotalDiscountValue += 5;
                   isDiscountEnabled = true;
                 }

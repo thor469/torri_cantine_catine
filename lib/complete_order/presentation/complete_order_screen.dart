@@ -117,10 +117,11 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   Future<void> initCart(CartResponse cart) async{
     setState(() {
       filteredItems.clear();
-      if(moneyDiscount >= 5.0){
-        taxedTotalItems =(int.tryParse((cart.totals.totalItems ?? "0"))! + int.tryParse(cart.totals.totalItemsTax ?? "0")! - 500).toString();
+      taxedTotalItems = (int.tryParse((cart.totals.totalItems ?? "0"))! + int.tryParse(cart.totals.totalItemsTax ?? "0")! ).toString();
+      if(moneyDiscount >= 5.0 && (int.parse(taxedTotalItems ?? "0") >= 5000)){
+        taxedTotalItems = (int.tryParse((cart.totals.totalItems ?? "0"))! + int.tryParse(cart.totals.totalItemsTax ?? "0")! - 500).toString();
       }else{
-        taxedTotalItems =(int.tryParse((cart.totals.totalItems ?? "0"))! + int.tryParse(cart.totals.totalItemsTax ?? "0")! ).toString();
+        taxedTotalItems = (int.tryParse((cart.totals.totalItems ?? "0"))! + int.tryParse(cart.totals.totalItemsTax ?? "0")! ).toString();
       }
       if(cart.totals.totalDiscount != "0"){
         taxedTotalItems = (int.tryParse(taxedTotalItems ?? "0")! - (int.tryParse(cart.totals.totalDiscount ?? "0")! + int.tryParse(cart.totals.totalDiscountTax ?? "0")!)).toString();
@@ -1532,8 +1533,6 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   }
 
 
-
-
   void paymentWithPayPal(UserAddress model, UserAddress billing, CartResponse cart) async {
     final myOrdersBloc = context.read<MyOrdersBloc>();
     var a = await myOrdersBloc.createCheckOutForStripe(
@@ -1603,7 +1602,6 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
               setState(() {
                 isSuccess = true;
               });
-              Navigator.pop(context, "success");
               return NavigationDecision.prevent;
             }
             return NavigationDecision.navigate;
@@ -1612,7 +1610,6 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
             print("Errore di caricamento WebView: ${error.description}");
           },
           onHttpError: (HttpResponseError error) {
-            print("Errore HTTP: ${error} - ${error}");
           },
         ),
       )
@@ -1656,6 +1653,110 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
       }
     }
   }
+
+
+  // void paymentWithPayPal(UserAddress model, UserAddress billing, CartResponse cart) async{
+  //   final myOrdersBloc = context.read<MyOrdersBloc>();
+  //   var a = await myOrdersBloc.createCheckOutForStripe(Billing(
+  //     first_name: billing.first_name,
+  //     last_name: billing.last_name,
+  //     company: billing.company,
+  //     address_1: billing.address_1,
+  //     address_2: billing.address_2,
+  //     city: billing.city,
+  //     state: billing.state,
+  //     postcode: billing.postcode,
+  //     country: "IT",
+  //     email: billing.email,
+  //     phone: billing.phone,
+  //   ),
+  //       Shipping(
+  //         first_name: model.first_name,
+  //         last_name: model.last_name,
+  //         company: model.company,
+  //         address_1: model.address_1,
+  //         address_2: model.address_2,
+  //         city: model.city,
+  //         state: model.state,
+  //         postcode: model.postcode,
+  //         country: "IT",
+  //         phone: model.phone,
+  //       ),
+  //       note.text,
+  //       "ppcp-gateway",
+  //       [],
+  //       widget.totPoint,
+  //       false
+  //   );
+  //
+  //   bool isSuccess = false;
+  //   var controller = WebViewController();
+  //   controller.setJavaScriptMode(JavaScriptMode.unrestricted);
+  //      Platform.isIOS ?
+  //      controller.setUserAgent('Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1')
+  //     : null;
+  //     controller.setNavigationDelegate(
+  //       NavigationDelegate(
+  //         onProgress: (int progress) {
+  //         },
+  //         onPageStarted: (String url) {},
+  //         onPageFinished: (String url) {
+  //           if (url.contains("/checkout/order-received/")) {
+  //             setState(() {
+  //               isSuccess = true;
+  //             });
+  //           }
+  //         },
+  //         onHttpError: (HttpResponseError error) {},
+  //         onWebResourceError: (WebResourceError error) {},
+  //         onNavigationRequest: (NavigationRequest request) {
+  //           if (request.url.startsWith(a?.payment_result?.redirect_url?? "")) {
+  //             return NavigationDecision.prevent;
+  //           }
+  //           return NavigationDecision.navigate;
+  //         },
+  //       ),
+  //     );
+  //     controller.loadRequest(Uri.parse(a?.payment_result?.redirect_url?? ""));
+  //
+  //   if(mounted){
+  //     await Navigator.of(context).push(MaterialPageRoute(
+  //         builder: (BuildContext ctx) => Scaffold(
+  //           appBar: AppBar(
+  //             backgroundColor: Colors.white,
+  //             leading: IconButton(
+  //               icon: Icon(Icons.close),
+  //               onPressed: () {
+  //                 Navigator.pop(context, "cancel");
+  //               },
+  //             ),
+  //           ),
+  //           body: WebViewWidget(
+  //             controller: controller,
+  //           ),
+  //         )
+  //     )
+  //     );
+  //   }
+  //
+  //   setState(() {
+  //     startedOrder = false;
+  //   });
+  //
+  //   if(mounted){
+  //     if (isSuccess) {
+  //       storage.setTotalCartItems(0);
+  //       context.read<CartBloc>().deleteCart();
+  //       MainNavigation.push(context, const MainNavigation.thankYou());
+  //
+  //     } else {
+  //       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+  //         content: Text('Pagamento fallito, riprovare'),
+  //         elevation: 1,
+  //       ));
+  //     }
+  //   }
+  // }
 
 
 
