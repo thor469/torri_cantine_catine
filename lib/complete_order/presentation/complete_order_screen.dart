@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -82,7 +81,6 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   int selectedIndex = 0;
   double appliedCoupon = 0.0;
   bool isEnabled = false;
-  // CartResponse? initedCart;
   int? amountCart;
   bool startedOrder = false;
 
@@ -125,7 +123,6 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
         taxedTotalItemsValue = double.tryParse('${taxedTotalItems?.substring(0, (taxedTotalItems?.length ?? 0) - 2)}.${taxedTotalItems?.substring((taxedTotalItems?.length ?? 0) - 2)}')!;
         taxedTotalItems = '${taxedTotalItems?.substring(0,(taxedTotalItems?.length ?? 0) -2 )},${taxedTotalItems?.substring((taxedTotalItems?.length ?? 0) -2)}';
       }
-      // var cartTotal =  taxedTotalItems;
       cartTotalValue =  taxedTotalItemsValue;
 
       if(cart.coupons != null && cart.coupons!.isNotEmpty) {
@@ -142,24 +139,14 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
           filteredItems.add(element);
         }
       });
-      // initedCart = cart;
     });
   }
 
   getShippingMethods(postcode) async  {
-    // if (kDebugMode) {
-    //   print('getShippingMethods ');
-    // }
-    // if (kDebugMode) {
-    //   print(postcode);
-    // }
     shippingMethodsFuture =  processShippingMethods(postcode) ;
   }
 
   getPayGateway() async  {
-    // if (kDebugMode) {
-    //   print('getPayGateway ');
-    // }
     paymentGatewayFuture =  processPaymentGateway() ;
   }
 
@@ -194,12 +181,8 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
     return BlocListener<MyOrdersBloc, MyOrdersState>(
       listener: (context, state) => state.maybeWhen(
         loaded: (response) => {
-        storage.setTotalCartItems(0),
-          // for(Coupon? item in initedCart?.coupons ?? []){
-          //   if(item != null){
-          //     context.read<CouponBloc>().deleteCoupon(item.code)
-          //   }
-          // },
+          storage.setTotalCartItems(0),
+          context.read<CartBloc>().deleteCart(),
           MainNavigation.push(context, const MainNavigation.thankYou()),
         },
         loading: () => const Center(
@@ -1582,7 +1565,8 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
 
     if(mounted){
       if (isSuccess) {
-
+        storage.setTotalCartItems(0);
+      context.read<CartBloc>().deleteCart();
         MainNavigation.push(context, const MainNavigation.thankYou());
 
       } else {
@@ -1691,23 +1675,18 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
            true
         );
             if(mounted){
-          var response = await StripePaymentManager.makePayment(
-              context,
-              (orderId?.customer_id ?? 0),
-              orderId!.billing_address!,
-              orderId!.payment_result!.redirect_url!.replaceAll("#response=", ""));
+          var response = await StripePaymentManager.makePayment(context, (orderId?.customer_id ?? 0), orderId!.billing_address!, orderId!.payment_result!.redirect_url!.replaceAll("#response=", ""));
           if(response){
             if(mounted){
+              storage.setTotalCartItems(0);
+              context.read<CartBloc>().deleteCart();
               MainNavigation.push(context, const MainNavigation.thankYou());
             }
-            storage.setTotalCartItems(0);
           }
         }
-
         setState(() {
           startedOrder = false;
         });
-
         break;
       case "bacs":
         makeOrder(shipping, billing, "bacs");
