@@ -334,6 +334,7 @@ class _ProductPreviewState extends State<ProductPreview> {
                           state.maybeWhen(
                               addedProduct: (_) {
                                 setState(() {isLoading = false;});
+                                context.read<CartBadgeCubitCubit>().addCartItem();
                               },
                               error: () {
                                 setState(() {isLoading = false;});
@@ -350,7 +351,6 @@ class _ProductPreviewState extends State<ProductPreview> {
                             if (!isLoading) {
                               setState(() {isLoading = true;});
                               context.read<AddProductToCartBloc>().add(AddProductToCartEvent.addProduct(widget.id, 1));
-                              context.read<CartBadgeCubitCubit>().addCartItem();
                             }
                           }
                         },

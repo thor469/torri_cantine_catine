@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
+import 'package:torri_cantine_app/cart/add_product_to_cart/add_product_to_cart_bloc.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 
 import 'account_bottom.dart';
@@ -28,6 +30,7 @@ class BottomBanvigationMenu extends StatefulWidget {
 
 class _BottomBanvigationMenuState extends State<BottomBanvigationMenu> {
   LocalStorage storage = LocalStorage();
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -142,21 +145,38 @@ class _BottomBanvigationMenuState extends State<BottomBanvigationMenu> {
           ),
 
           // Cart Item
-          GestureDetector(
-            onTap: () {
-              storage.setBottomTabState(6);
-              setState(() {
-                widget.selectedIndex = 6;
-              });
-              MainNavigation.push(
-                context,
-                const MainNavigation.cart(true, false, false, false),
+          BlocListener<AddProductToCartBloc, AddProductToCartState>(
+            listener: (BuildContext context, AddProductToCartState state) {
+              state.maybeWhen(
+                  loading: (){isLoading = true;},
+                  addedProduct: (_) {
+                    isLoading = false;
+                  },
+                  error: () {
+                    isLoading = false;
+                  },
+                  orElse: () {}
               );
             },
-            child: CartBottomItem(
-              text: 'Carrello',
-              icon: Icons.shopping_cart_outlined,
-              isActive: widget.selectedIndex == 6,
+            child: GestureDetector(
+              onTap: () {
+                if(!isLoading){
+                  storage.setBottomTabState(6);
+                  setState(() {
+                    widget.selectedIndex = 6;
+                  });
+                  MainNavigation.push(
+                    context,
+                    const MainNavigation.cart(true, false, false, false),
+                  );
+                }
+
+              },
+              child: CartBottomItem(
+                text: 'Carrello',
+                icon: Icons.shopping_cart_outlined,
+                isActive: widget.selectedIndex == 6,
+              ),
             ),
           ),
         ],

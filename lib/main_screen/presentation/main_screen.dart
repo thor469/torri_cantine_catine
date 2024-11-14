@@ -10,6 +10,7 @@ import 'package:torri_cantine_app/app/common/bottom_bar_items/floating_action_bu
 import 'package:torri_cantine_app/app/common/bottom_bar_items/menu_bottom_item.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/wishlist_bottom_item.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
+import 'package:torri_cantine_app/cart/add_product_to_cart/add_product_to_cart_bloc.dart';
 import 'package:torri_cantine_app/cart/presentation/cart_screen.dart';
 import 'package:torri_cantine_app/categories/presentation/categories_screen.dart';
 import 'package:torri_cantine_app/home_page/presentation/home_screen.dart';
@@ -29,6 +30,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int selectedIndex = 0;
   LocalStorage storage = LocalStorage();
+  bool isLoading = false;
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
