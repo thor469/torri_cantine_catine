@@ -93,6 +93,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      context.read<CouponBloc>().add(const CouponEvent.reset());
       moneyDiscount = await context.read<PointsBloc>().getMoneyDiscountAvaible() ?? 0;
       await checkCart();
       customerId = await storage.getCustomerId();
@@ -687,7 +688,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                                   text: '',
                                                                   style: const TextStyle(color: Colors.black),
                                                                   children: <TextSpan>[
-                                                                    TextSpan(text: '${ap.title}'),
+                                                                    TextSpan(text: (ap !=null && ap.title != null)? '${ap.title}' :""),
                                                                     TextSpan(
                                                                       text: min != null ? ' a partire da € ${min} ' : '',
                                                                     ),

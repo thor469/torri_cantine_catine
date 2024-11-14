@@ -25,7 +25,12 @@ class CouponBloc extends Bloc<CouponEvent, CouponState> {
     yield* event.when(
       fetch: _coupon,
       delete: _delete,
+      reset: _reset,
     );
+  }
+
+  Stream<CouponState> _reset() async* {
+    yield const CouponState.initial();
   }
 
   Future<AddCouponResponse?> addCoupon(String code) async{
