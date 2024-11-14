@@ -85,6 +85,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   // CartResponse? initedCart;
   int? amountCart;
   bool startedOrder = false;
+  List<Coupon?>? coupons;
 
   @override
   void initState() {
@@ -130,6 +131,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
 
       if(cart.coupons != null && cart.coupons!.isNotEmpty) {
         sumCouponDiscount(cart.coupons);
+        coupons = cart.coupons;
       }
 
       cartSummedPrice = cartTotalValue ?? 0;
@@ -352,7 +354,49 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                         );
                                       },
                                       orElse: () {
-                                        return buildCupon("");
+                                        return Column(
+                                          children: [
+                                            buildCupon(""),
+                                           if(coupons != null && coupons!.isNotEmpty)...[SizedBox(
+                                              height: (cart.coupons?.length ?? 0) * 30,
+                                              child: Row(
+                                                children: [
+                                                  ListView.builder(
+                                                    physics: const NeverScrollableScrollPhysics(),
+                                                    scrollDirection: Axis.horizontal,
+                                                    shrinkWrap: true,
+                                                    itemCount: cart.coupons?.length ?? 0,
+                                                    itemBuilder: (context, index) {
+                                                      final couponItem = cart.coupons![index];
+                                                      return Container(
+                                                        alignment: Alignment.topLeft,
+                                                        height: 30,
+                                                        child: InputChip(
+                                                          label: Text(
+                                                            couponItem!.code,
+                                                            style: const TextStyle(color: Colors.white, fontSize: 12),
+                                                          ),
+                                                          deleteIconColor: Colors.white,
+                                                          backgroundColor: const Color.fromARGB(255, 161, 29, 51),
+                                                          shape: const RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                                                          ),
+                                                          onDeleted: () {
+                                                            context.read<CouponBloc>().add(CouponEvent.delete(couponItem.code)
+                                                            );
+                                                          },
+                                                          padding: const EdgeInsets.only(left:5 , bottom: 3),
+                                                          onPressed: null,
+                                                          onSelected: null,
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            )]
+                                          ],
+                                        );
                                       },
                                       couponNotFound: (error) {
                                         return buildCupon(error);
