@@ -86,15 +86,11 @@ class _BlackBannerState extends State<BlackBanner> {
                         width: 110,
                         height: 10,
                         child: BlackCarousel(
-                          image: Image.network(
-                            model.categories?[index].image?.src ?? "",
-                            fit: BoxFit.cover,
-                          ),
                           name: model.categories?[index].name ?? "",
                           isLight: false,
                           isToogle: false,
                           isRated: false,
-                          isPriced: false,
+                          isPriced: false, imageUrl: model.categories?[index].image?.src ?? "",
                         ),
                       );
                     },

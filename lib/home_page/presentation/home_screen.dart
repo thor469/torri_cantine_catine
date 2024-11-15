@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:torri_cantine_app/all_products/all_products/all_products_bloc.dart';
 import 'package:torri_cantine_app/all_products/model/response/all_products_response.dart';
+import 'package:torri_cantine_app/app/cache_manager/cache_manager.dart';
 import 'package:torri_cantine_app/app/common/tc_appbar.dart';
 import 'package:torri_cantine_app/app/dependency_injection/dependency_factory.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
@@ -340,13 +342,22 @@ class CustomSearch extends SearchDelegate {
             },
           itemBuilder: (context, product, index) {
             final previewImage = product.images.isNotEmpty ? product.images[0].src : '';
+            final cacheKey = DynamicCacheManager().generateKey(previewImage);
+
             return GestureDetector(
               onTap: () {
                 MainNavigation.push(context, MainNavigation.productDetail(product.id));
               },
               child: ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: NetworkImage(previewImage),
+                leading: CachedNetworkImage(
+                  imageUrl: previewImage,
+                  cacheKey: cacheKey,
+                  imageBuilder: (context, imageProvider) => CircleAvatar(
+                    backgroundImage: imageProvider,
+                  ),
+                  placeholder: (context, url) => const CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  cacheManager: DynamicCacheManager(),
                 ),
                 title: Text(product.name),
               ),

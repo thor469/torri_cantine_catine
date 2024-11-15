@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -5,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:torri_cantine_app/account/account/account_bloc.dart';
 import 'package:torri_cantine_app/account/presentation/account.dart';
 import 'package:torri_cantine_app/all_products/cubit/products_wishlisted_cubit.dart';
+import 'package:torri_cantine_app/app/cache_manager/cache_manager.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/bottom_bar.dart';
 import 'package:torri_cantine_app/app/common/primary_button.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
@@ -151,8 +153,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       SizedBox(
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height / 1.9,
-                        child: Image.network(
-                          state.images!.first.src,
+                        child:  CachedNetworkImage(
+                          imageUrl: state.images!.first.src,
+                          cacheKey: DynamicCacheManager().generateKey(state.images!.first.src),
+                          placeholder: (context, url) => const Center(
+                            child: CircularProgressIndicator(
+                              color: Color.fromARGB(255, 161, 29, 52),
+                            ),
+                          ),
+                          errorWidget: (context, url, error) => const Icon(Icons.error),
+                          cacheManager: DynamicCacheManager(),
                           fit: BoxFit.fitHeight,
                         ),
                       ),

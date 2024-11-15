@@ -1,10 +1,12 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:torri_cantine_app/account/account/account_bloc.dart';
 import 'package:torri_cantine_app/account/model/response/add_address_response.dart';
+import 'package:torri_cantine_app/app/cache_manager/cache_manager.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/bottom_bar.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/floating_action_button.dart';
 import 'package:torri_cantine_app/app/common/primary_button.dart';
@@ -193,7 +195,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
     return BlocListener<MyOrdersBloc, MyOrdersState>(
       listener: (context, state) => state.maybeWhen(
         loaded: (response) => {
-          storage.setTotalCartItems(0),
+          storage.deleteTotalCartItems(0),
           context.read<CartBloc>().deleteCart(),
           MainNavigation.push(context, const MainNavigation.thankYou()),
         },
@@ -321,17 +323,26 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                   SizedBox(
                                     height: 130,
                                     child: ListView.builder(
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: filteredItems.length,
-                                        itemBuilder: (context, index) {
-                                          return Padding(
-                                            padding: const EdgeInsets.all(10.0),
-                                            child: Image.network(
-                                              filteredItems[index].images.first.src,
-                                              fit: BoxFit.cover,
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: filteredItems.length,
+                                      itemBuilder: (context, index) {
+                                        final imageUrl = filteredItems[index].images.first.src;
+                                        return Padding(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: CachedNetworkImage(
+                                            imageUrl: imageUrl,
+                                            cacheKey: DynamicCacheManager().generateKey(imageUrl),
+                                            placeholder: (context, url) => const Center(
+                                              child: CircularProgressIndicator(),
                                             ),
-                                          );
-                                        }),
+                                            errorWidget: (context, url, error) =>
+                                            const Icon(Icons.error),
+                                            cacheManager: DynamicCacheManager(),
+                                            fit: BoxFit.cover,
+                                          ),
+                                        );
+                                      },
+                                    ),
                                   ),
                                   customDiv,
                                   BlocBuilder<CouponBloc, CouponState>(
@@ -1642,8 +1653,12 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
 
     if (mounted) {
       if (isSuccess) {
-        storage.setTotalCartItems(0);
-        context.read<CartBloc>().deleteCart();
+        // await storage.setTotalCartItems(0);
+        storage.deleteTotalCartItems(0);
+        if(mounted){
+          context.read<CartBloc>().deleteCart();
+        }
+
         MainNavigation.push(context, const MainNavigation.thankYou());
       } else {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -1858,7 +1873,8 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
           var response = await StripePaymentManager.makePayment(context, (orderId?.customer_id ?? 0), orderId!.billing_address!, orderId!.payment_result!.redirect_url!.replaceAll("#response=", ""));
           if(response){
             if(mounted){
-              storage.setTotalCartItems(0);
+              // storage.setTotalCartItems(0));
+              storage.deleteTotalCartItems(0);
               context.read<CartBloc>().deleteCart();
               MainNavigation.push(context, const MainNavigation.thankYou());
             }

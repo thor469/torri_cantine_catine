@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:torri_cantine_app/app/cache_manager/cache_manager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/floating_action_button.dart';
-import 'package:torri_cantine_app/app/common/primary_button.dart';
 import 'package:torri_cantine_app/app/common/sub_page_appbar.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/app/utilitys/tc_typography.dart';
@@ -27,63 +28,39 @@ class CategoriesScreen extends StatefulWidget {
 }
 
 class _CategoriesScreenState extends State<CategoriesScreen> {
-  final ScrollController scrollController = ScrollController();
-  int currentPage = 1;
-  bool isLoading = false;
-  bool isFirstLoad = true;
-  CategoriesResponse? model;
   final PagingController<int, ProductCategories> _pagingController = PagingController(firstPageKey: 1);
-
 
   @override
   void initState() {
-    // context.read<CategoriesBloc>().add(const CategoriesEvent.fetch());
-    // if(isFirstLoad){
-    //   _pagingController.appendPage(response.categories!, 2);
-      _pagingController.addPageRequestListener((pageKey) {
-        _fetchPage(pageKey);
-      });
-    //   isFirstLoad = false;
-    // }
+    _pagingController.addPageRequestListener((pageKey) {
+      _fetchPage(pageKey);
+    });
     super.initState();
   }
 
   Future<void> _fetchPage(int pageKey) async {
-    // if(!isFirstLoad){
-      try {
-        CategoriesResponse? response = await context.read<CategoriesBloc>().getOther(pageKey, 10);
-        if (response != null && response.categories!.isNotEmpty) {
-          final isLastPage = response.categories!.length < 10;
-          if (isLastPage) {
-            _pagingController.appendLastPage(response.categories!);
-          } else {
-            final nextPageKey = pageKey + 1;
-            _pagingController.appendPage(response.categories!, nextPageKey);
-          }
+    try {
+      CategoriesResponse? response = await context.read<CategoriesBloc>().getOther(pageKey, 10);
+      if (response != null && response.categories!.isNotEmpty) {
+        final isLastPage = response.categories!.length < 10;
+        if (isLastPage) {
+          _pagingController.appendLastPage(response.categories!);
         } else {
-          _pagingController.appendLastPage([]);
+          final nextPageKey = pageKey + 1;
+          _pagingController.appendPage(response.categories!, nextPageKey);
         }
-      } catch (error) {
-        print(error);
-        _pagingController.error = error;
+      } else {
+        _pagingController.appendLastPage([]);
       }
-    // }
+    } catch (error) {
+      _pagingController.error = error;
+    }
   }
-
 
   @override
   void dispose() {
-    scrollController.dispose();
+    _pagingController.dispose();
     super.dispose();
-  }
-
-  int selectedindex = 0;
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
-
-  refresh(int index) {
-    setState(() {
-      selectedindex = index;
-    });
   }
 
   @override
@@ -95,95 +72,23 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       },
       child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 244, 244, 244),
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(kToolbarHeight),
-          child: widget.showAppBar
-              ? SubPageAppbar(
-            text: "TUTTE LE CATEGORIE",
-            onTap: widget.fromMenu
-                ? () {
-              MainNavigation.pop(context);
-            }
-                : () => MainNavigation.pop(context),
-          )
-              : const SizedBox(),
-        ),
+        appBar: widget.showAppBar
+            ? SubPageAppbar(
+          text: "TUTTE LE CATEGORIE",
+          onTap: widget.fromMenu
+              ? () {
+            MainNavigation.pop(context);
+          }
+              : () => MainNavigation.pop(context),
+        )
+            : null,
         floatingActionButton: FloatingButton(),
         floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
         bottomNavigationBar: BottomBanvigationMenu(
-          scaffoldKey: scaffoldKey,
+          scaffoldKey: GlobalKey(),
           initialSelectedIndex: 0,
           context: context,
         ),
-        // body: BlocBuilder<CategoriesBloc, CategoriesState>(
-        //   builder: (context, state) => state.maybeWhen(
-        //     initial: () => SizedBox(
-        //       width: MediaQuery.of(context).size.width,
-        //       height: MediaQuery.of(context).size.height,
-        //       child: const Center(
-        //         child: CircularProgressIndicator(
-        //           color: Color.fromARGB(255, 161, 29, 51),
-        //         ),
-        //       ),
-        //     ),
-        //     loading: () => SizedBox(
-        //       width: MediaQuery.of(context).size.width,
-        //       height: MediaQuery.of(context).size.height,
-        //       child: const Center(
-        //         child: CircularProgressIndicator(
-        //           color: Color.fromARGB(255, 161, 29, 51),
-        //         ),
-        //       ),
-        //     ),
-        //     error: () => const SizedBox(),
-        //     orElse: () => const SizedBox(),
-        //     loaded: (response) {
-        //
-        //             return PagedGridView<int, ProductCategories>(
-        //               pagingController: _pagingController,
-        //               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        //                 crossAxisCount: 2,
-        //                 childAspectRatio: 0.7,
-        //               ),
-        //               builderDelegate: PagedChildBuilderDelegate<ProductCategories>(
-        //                 itemBuilder: (context, category, index) => GestureDetector(
-        //                   onTap: () {
-        //                     MainNavigation.push(
-        //                       context,
-        //                       MainNavigation.categoriesDetail(category.id),
-        //                     );
-        //                   },
-        //                   child: Padding(
-        //                     padding: const EdgeInsets.all(8.0),
-        //                     child: Card(
-        //                       elevation: 2,
-        //                       clipBehavior: Clip.antiAlias,
-        //                       child: Column(
-        //                         crossAxisAlignment: CrossAxisAlignment.stretch,
-        //                         children: <Widget>[
-        //                           Expanded(
-        //                             child: Image.network(
-        //                               category.image?.src ?? "",
-        //                               fit: BoxFit.cover,
-        //                             ),
-        //                           ),
-        //                           Padding(
-        //                             padding: const EdgeInsets.all(10.0),
-        //                             child: Text(
-        //                               category.name ?? "",
-        //                               style: TCTypography.of(context).text_14_bold,
-        //                               textAlign: TextAlign.center,
-        //                             ),
-        //                           ),
-        //                         ],
-        //                       ),
-        //                     ),
-        //                   ),
-        //                 ),
-        //               ),
-        //             );
-        //           }),
-        // ),
         body: PagedGridView<int, ProductCategories>(
           pagingController: _pagingController,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -191,8 +96,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             childAspectRatio: 0.7,
           ),
           builderDelegate: PagedChildBuilderDelegate<ProductCategories>(
-            firstPageProgressIndicatorBuilder :  (context) => const Center(
-              child:  CircularProgressIndicator(
+            firstPageProgressIndicatorBuilder: (context) => const Center(
+              child: CircularProgressIndicator(
                 color: Color.fromARGB(255, 161, 29, 51),
               ),
             ),
@@ -217,13 +122,20 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       Expanded(
-                        child:
-                        category.image?.src != null && category.image?.src is String ?
-                        Image.network(
-                          category.image?.src ?? "",
+                        child: category.image?.src != null && category.image?.src is String
+                            ? CachedNetworkImage(
+                          imageUrl: category.image?.src ?? "",
+                          cacheKey: DynamicCacheManager().generateKey(category.image!.src),
+                          placeholder: (context, url) => const Center(
+                            child: CircularProgressIndicator(
+                              color: Color.fromARGB(255, 161, 29, 51),
+                            ),
+                          ),
+                          errorWidget: (context, url, error) => const Icon(Icons.error),
+                          cacheManager: DynamicCacheManager(),
                           fit: BoxFit.cover,
-                        ) :
-                            const SizedBox.shrink()
+                        )
+                            : const SizedBox.shrink(),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),

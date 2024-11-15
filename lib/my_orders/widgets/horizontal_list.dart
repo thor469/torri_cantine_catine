@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:torri_cantine_app/app/cache_manager/cache_manager.dart';
 
 class HorizontalList extends StatefulWidget {
   final String pathImage;
@@ -19,8 +21,14 @@ class _HorizontalListState extends State<HorizontalList> {
           SizedBox(
             width: 60,
             height: 90,
-            child: Image.network(
-              widget.pathImage,
+            child: CachedNetworkImage(
+              imageUrl: widget.pathImage,
+              cacheKey: DynamicCacheManager().generateKey(widget.pathImage),
+              placeholder: (context, url) => const Center(
+                child: CircularProgressIndicator(),
+              ),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+              cacheManager: DynamicCacheManager(),
               fit: BoxFit.fitHeight,
             ),
           ),
