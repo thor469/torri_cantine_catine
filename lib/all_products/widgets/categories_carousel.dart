@@ -1,11 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:torri_cantine_app/app/cache_manager/cache_manager.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/app/utilitys/tc_typography.dart';
 import 'package:torri_cantine_app/categories/categories/categories_bloc.dart';
-
 
 class CategoriesCarousel extends StatefulWidget {
   const CategoriesCarousel({super.key});
@@ -37,8 +34,8 @@ class _CategoriesCarouselState extends State<CategoriesCarousel> {
                 Text(
                   "Categorie",
                   style: TCTypography.of(context).text_16_bold.copyWith(
-                    color: const Color.fromARGB(255, 0, 0, 0),
-                  ),
+                        color: const Color.fromARGB(255, 0, 0, 0),
+                      ),
                 ),
                 TextButton(
                   onPressed: () => MainNavigation.push(
@@ -48,8 +45,8 @@ class _CategoriesCarouselState extends State<CategoriesCarousel> {
                   child: Text(
                     "Vedi tutte",
                     style: TCTypography.of(context).text_14_bold.copyWith(
-                      color: const Color.fromARGB(255, 161, 29, 51),
-                    ),
+                          color: const Color.fromARGB(255, 161, 29, 51),
+                        ),
                   ),
                 ),
               ],
@@ -79,8 +76,6 @@ class _CategoriesCarouselState extends State<CategoriesCarousel> {
                   ),
                   itemCount: model.categories?.length ?? 0,
                   itemBuilder: (BuildContext context, int index) {
-                    final imageUrl = model.categories?[index].image?.src ?? "";
-
                     return GestureDetector(
                       onTap: () {
                         MainNavigation.push(
@@ -95,18 +90,8 @@ class _CategoriesCarouselState extends State<CategoriesCarousel> {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: <Widget>[
                             Expanded(
-                              child: CachedNetworkImage(
-                                imageUrl: imageUrl,
-                                cacheKey: DynamicCacheManager()
-                                    .generateKey(imageUrl), // Chiave dinamica
-                                placeholder: (context, url) => const Center(
-                                  child: CircularProgressIndicator(
-                                     color:  Color.fromARGB(255, 161, 29, 51)
-                                  ),
-                                ),
-                                errorWidget: (context, url, error) =>
-                                const Icon(Icons.error),
-                                cacheManager: DynamicCacheManager(), // CacheManager personalizzato
+                              child: Image.network(
+                                model.categories?[index].image?.src ?? "",
                                 fit: BoxFit.cover,
                                 alignment: Alignment.topCenter,
                               ),

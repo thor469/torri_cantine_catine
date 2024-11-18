@@ -178,6 +178,7 @@ class _HomePageBodyState extends State<HomePageBody> {
               rightText: "Vedi tutti",
               products: listaPerCategoria(products ?? [], 'with-love') ?? [],
               isLoading: isLoading,
+
             ),
 
           ),

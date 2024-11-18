@@ -61,15 +61,6 @@ class _PointsBalanceState extends State<PointsBalance> {
     });
   }
 
-  String getPointDifference(){
-   var ap =  (maxPoint?.points ?? 0) - totalPoints;
-   if(ap < 0){
-     return "0";
-   }else{
-     return ap.toString();
-   }
-  }
-
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
@@ -132,13 +123,13 @@ class _PointsBalanceState extends State<PointsBalance> {
                   if(numericId != ""){
                     if(firstLoad1){
                       totalPoints = int.tryParse(numericId) ?? 0;
-                      // if(totalPoints > 200){
-                      //   WidgetsBinding.instance.addPostFrameCallback((_) async{
-                      //     setState(() {
-                      //       totalPoints = 200;
-                      //     });
-                      //   });
-                      // }
+                      if(totalPoints > 200){
+                        WidgetsBinding.instance.addPostFrameCallback((_) async{
+                          setState(() {
+                            totalPoints = 200;
+                          });
+                        });
+                      }
                       firstLoad1 = false;
                     }
 
@@ -168,10 +159,10 @@ class _PointsBalanceState extends State<PointsBalance> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('Ogni 200 punti ',
+                              Text('Equivalenti',
                                   style: TCTypography.of(context).text_16.copyWith(
                                       color: const Color.fromARGB(255, 121, 121, 121))),
-                              Text('${moneyDiscount.toStringAsFixed(2)} €',
+                              Text(' a ${moneyDiscount.toStringAsFixed(2)} €',
                                 style: TCTypography.of(context).text_16_bold.copyWith(
                                   color: const Color.fromARGB(255, 161, 29, 51),
                                 ),
@@ -206,14 +197,14 @@ class _PointsBalanceState extends State<PointsBalance> {
                                       Row(
                                         children: [
                                           Text(
-                                            'Mancano ',
+                                            'Mancano',
                                             style: TCTypography.of(context).text_14.copyWith(
                                               color: const Color.fromARGB(
                                                   255, 121, 121, 121),
                                             ),
                                           ),
                                           Text(
-                                            getPointDifference(),
+                                            ' ${(maxPoint?.points ?? 0) - totalPoints}',
                                             style: TCTypography.of(context)
                                                 .text_16_bold
                                                 .copyWith(

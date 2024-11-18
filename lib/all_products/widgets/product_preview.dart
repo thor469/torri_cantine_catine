@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:torri_cantine_app/all_products/cubit/products_wishlisted_cubit.dart';
 import 'package:torri_cantine_app/all_products/model/response/all_products_response.dart';
-import 'package:torri_cantine_app/app/cache_manager/cache_manager.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/app/utilitys/tc_typography.dart';
 import 'package:torri_cantine_app/cart/add_product_to_cart/add_product_to_cart_bloc.dart';
 import 'package:torri_cantine_app/cart/cubit/cart_badge_cubit_cubit.dart';
+import 'package:torri_cantine_app/product_detail/widgets/reviews.dart/model/response/reviews_response.dart';
 import 'package:torri_cantine_app/product_detail/widgets/reviews.dart/reviews/reviews_bloc.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
+
+
+
 
 
 class ProductPreview extends StatefulWidget {
@@ -22,10 +24,14 @@ class ProductPreview extends StatefulWidget {
   final int id;
   final String? weight;
   final int productPoint;
+
   String? price;
+  // ignore: non_constant_identifier_names
   String regular_price;
   String? description;
+  // ignore: non_constant_identifier_names
   String? short_description;
+  // ignore: non_constant_identifier_names
   String? average_rating;
   List<ProductTags>? tags;
   List<ProductCategories>? categories;
@@ -41,14 +47,17 @@ class ProductPreview extends StatefulWidget {
     this.isRated = true,
     this.price,
     required this.productPoint,
+    // ignore: non_constant_identifier_names
     required this.regular_price,
     this.description,
+    // ignore: non_constant_identifier_names
     this.short_description,
+    // ignore: non_constant_identifier_names
     this.average_rating,
     this.weight,
     this.tags,
     this.categories,
-    this.type,
+    this.type
   });
 
   @override
@@ -56,39 +65,50 @@ class ProductPreview extends StatefulWidget {
 }
 
 class _ProductPreviewState extends State<ProductPreview> {
+  List<int> initialWishList = [];
   LocalStorage storage = LocalStorage();
   double? storedRating;
   bool isFirstLoad = true;
   bool isLoading = false;
   String value = "";
+  // late ProductPointsCubit productPointsCubit;
+  late int product_id;
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
+    // productPointsCubit = ProductPointsCubit();
+    // productPointsCubit.getProductPoints(widget.id);
+    product_id = widget.id;
+    WidgetsBinding.instance.addPostFrameCallback((_)async{
       await getReview();
     });
+    // context.read<ReviewsBloc>().add(ReviewsEvent.fetch(product_id));
     super.initState();
   }
 
   Future<void> getReview() async {
-    var model = await context.read<ReviewsBloc>().getReview(widget.id);
+    var model = await context.read<ReviewsBloc>().getReview(product_id);
     if (model?.reviews != null && (model?.reviews?.isNotEmpty ?? false)) {
-      double sum = model?.reviews?.fold(
-        0,
-            (previousValue, review) => (previousValue ?? 0) + (review.rating ?? 0),
-      ) ??
-          0;
+      double sum = model?.reviews?.fold(0, (previousValue, review) => (previousValue ?? 0) + (review.rating ?? 0)) ?? 0;
       double averageRating = sum / (model?.reviews?.length ?? 1);
-      setState(() {
-        value = averageRating.toStringAsFixed(1);
+
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+          value = averageRating.toStringAsFixed(1);
       });
+
+      print("SONO ENTRATO");
+    } else {
+      print("Nessuna recensione trovata per il prodotto: $product_id");
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    // String avg = (widget.average_rating!) == '0.00'
+    //     ? '-'
+    //     : double.parse(widget.average_rating ?? "-").toStringAsFixed(1);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5),
+      padding: EdgeInsets.symmetric(horizontal: 5),
       child: GestureDetector(
         onTap: () {
           MainNavigation.push(context, MainNavigation.productDetail(widget.id));
@@ -108,14 +128,8 @@ class _ProductPreviewState extends State<ProductPreview> {
                           width: MediaQuery.of(context).size.height / 3,
                           child: widget.image == null
                               ? const SizedBox()
-                              : CachedNetworkImage(
-                            imageUrl: widget.image!,
-                            cacheKey: DynamicCacheManager().generateKey(widget.image!),
-                            placeholder: (context, url) => const Center(
-                              child: CircularProgressIndicator(color:Color.fromARGB(255, 161, 29, 51) ,),
-                            ),
-                            errorWidget: (context, url, error) => const Icon(Icons.error),
-                            cacheManager: DynamicCacheManager(),
+                              : Image.network(
+                            widget.image ?? "",
                             fit: BoxFit.fitHeight,
                           ),
                         ),
@@ -128,9 +142,8 @@ class _ProductPreviewState extends State<ProductPreview> {
                           height: 27,
                           decoration: const BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
+                            borderRadius:  BorderRadius.all(
+                                Radius.circular(10)),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -157,39 +170,59 @@ class _ProductPreviewState extends State<ProductPreview> {
                               },
                               child: Row(
                                 children: [
+                                  // If 'BIO' is not in tags, show the blue score container
                                   !containsBioTag(widget.tags ?? [])
                                       ? Container(
-                                    width: 37,
-                                    height: 27,
-                                    decoration: BoxDecoration(
-                                      color: const Color.fromARGB(255, 13, 117, 161),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        "+ ${widget.productPoint} pt",
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 9,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                      width: 37,
+                                      height: 27,
+                                      decoration: BoxDecoration(
+                                        color: const Color.fromARGB(
+                                            255, 13, 117, 161),
+                                        borderRadius:
+                                        BorderRadius.circular(10),
                                       ),
-                                    ),
+                                      child: Container(
+                                        width: 40,
+                                        height: 27,
+                                        decoration: BoxDecoration(
+                                          color: const Color
+                                              .fromARGB(
+                                              255, 13, 117, 161),
+                                          borderRadius:
+                                          BorderRadius
+                                              .circular(10),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            "+ ${widget.productPoint} pt",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 9,
+                                              fontWeight:
+                                              FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      )
                                   )
                                       : const SizedBox(),
                                   const SizedBox(width: 64),
                                   Container(
                                     width: 30,
                                     height: 30,
-                                    decoration: const BoxDecoration(
+                                    decoration: BoxDecoration(
                                       color: Colors.white,
                                       shape: BoxShape.circle,
                                     ),
-                                    child: state.wishListProducts.contains(widget.id)
+                                    child: (state.wishListProducts != null &&
+                                        widget.id != null &&
+                                        state.wishListProducts
+                                            .contains(widget.id))
                                         ? const Icon(
                                       Icons.favorite,
                                       size: 20,
-                                      color: Color.fromARGB(255, 161, 29, 51),
+                                      color: Color.fromARGB(
+                                          255, 161, 29, 51),
                                     )
                                         : const Icon(
                                       Icons.favorite_border,
@@ -213,34 +246,147 @@ class _ProductPreviewState extends State<ProductPreview> {
                       children: [
                         Expanded(
                           child: Text(
-                            widget.name,
                             maxLines: 1,
+                            '',
                             style: TCTypography.of(context).text_12.copyWith(color: Colors.grey),
                           ),
                         ),
-                        Row(
-                          children: [
-                            const Icon(
-                              Icons.star_border,
-                              color: Color.fromARGB(255, 13, 117, 161),
-                              size: 18,
-                            ),
-                            Text(
-                              '$value / 5',
-                              style: TCTypography.of(context).text_10.copyWith(
-                                  color: const Color.fromARGB(255, 13, 117, 161),
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
+                        Row(children: [
+                          const Icon(
+                            Icons.star_border,
+                            color: Color.fromARGB(
+                                255, 13, 117, 161),
+                            size: 18,),
+                          Text(
+                            '$value/ 5',
+                            style: TCTypography.of(context).text_10.copyWith(
+                                color: const Color.fromARGB(255, 13, 117, 161),
+                                fontWeight: FontWeight.bold),
+                          )
+                        ]
+                        )
                       ],
                     ),
                   )
                       : const SizedBox(),
                 ],
               ),
-              _buildPriceSection(context),
-              _buildAddToCartButton(context),
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: widget.name == ""
+                      ? const Text("Descrizione non disponibile", maxLines: 2)
+                      : Text(widget.name, maxLines: 2),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: widget.regular_price != widget.price
+                    ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          "€ ${double.tryParse(widget.regular_price)?.toStringAsFixed(2).replaceAll('.', ',')} ",
+                          style: TCTypography.of(context)
+                              .text_14
+                              .copyWith(
+                              color: Colors.grey,
+                              decoration: TextDecoration.lineThrough),
+                        ),
+                        const SizedBox(width: 5),
+                        Text(
+                          "€ ${double.tryParse(widget.price!)!.toStringAsFixed(2).replaceAll('.', ',')} ",
+                          style: TCTypography.of(context).text_14_bold,
+                        ),
+                      ],
+                    ),
+                    Text(
+                      "${percentage(widget.regular_price, widget.price ?? "")}%",
+                      style: TCTypography.of(context)
+                          .text_12_bold
+                          .copyWith(
+                          color:
+                          const Color.fromARGB(255, 161, 29, 51),
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                )
+                    : Text(
+                  "€ ${(widget.price)?.replaceAll('.', ',')}",
+                  style: TCTypography.of(context).text_14_bold,
+                ),
+              ),
+              widget.isToogle
+                  ? SizedBox(
+                height: MediaQuery.of(context).size.height / 21,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: SizedBox(
+                      height: 24,
+                      width: MediaQuery.of(context).size.width,
+                      child: BlocListener<AddProductToCartBloc, AddProductToCartState>(
+                        listener: (BuildContext context, AddProductToCartState state) {
+                          state.maybeWhen(
+                              addedProduct: (_) {
+                                setState(() {isLoading = false;});
+                                context.read<CartBadgeCubitCubit>().addCartItem();
+                              },
+                              error: () {
+                                setState(() {isLoading = false;});
+                              },
+                              orElse: () {}
+                          );
+                        },
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+
+                          if (widget.type == 'bundle') {
+                              MainNavigation.push(context, MainNavigation.productDetail(widget.id));
+                          } else {
+                            if (!isLoading) {
+                              setState(() {isLoading = true;});
+                              context.read<AddProductToCartBloc>().add(AddProductToCartEvent.addProduct(widget.id, 1));
+                            }
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color.fromARGB(255, 161, 29, 51),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(7),
+                          ),
+                        ),
+                        iconAlignment: isLoading? IconAlignment.end : IconAlignment.start,
+                        icon: isLoading
+                        ? const SizedBox(
+                          width: 16,
+                          height: 16,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          ),
+                        )
+                            : const Icon(
+                          Icons.shopping_cart_outlined,
+                          size: 16,
+                          color: Colors.white,
+                        ),
+                          label: !isLoading
+                              ? Text(
+                          widget.type == 'bundle' ? 'SCEGLI' : 'AGGIUNGI',
+                            style: TCTypography.of(context).text_12.copyWith(color: Colors.white),
+                          )
+                              : const Text(""),
+                      ),
+                    ),
+                  ),
+                ),
+            ))
+                  : const SizedBox(),
             ],
           ),
         ),
@@ -248,112 +394,37 @@ class _ProductPreviewState extends State<ProductPreview> {
     );
   }
 
-  Widget _buildPriceSection(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 10),
-      child: widget.regular_price != widget.price
-          ? Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Text(
-                "€ ${double.tryParse(widget.regular_price)?.toStringAsFixed(2).replaceAll('.', ',')} ",
-                style: TCTypography.of(context)
-                    .text_14
-                    .copyWith(color: Colors.grey, decoration: TextDecoration.lineThrough),
-              ),
-              const SizedBox(width: 5),
-              Text(
-                "€ ${double.tryParse(widget.price!)!.toStringAsFixed(2).replaceAll('.', ',')} ",
-                style: TCTypography.of(context).text_14_bold,
-              ),
-            ],
-          ),
-          Text(
-            "${percentage(widget.regular_price, widget.price ?? "")}%",
-            style: TCTypography.of(context)
-                .text_12_bold
-                .copyWith(color: const Color.fromARGB(255, 161, 29, 51), fontWeight: FontWeight.bold),
-          ),
-        ],
-      )
-          : Text(
-        "€ ${(widget.price)?.replaceAll('.', ',')}",
-        style: TCTypography.of(context).text_14_bold,
-      ),
-    );
-  }
+  Object avgRating(List<Review> reviews) {
+    if (reviews.isEmpty) {
+      return 0.0; // Return 0.0 if no reviews are available
+    }
 
-  Widget _buildAddToCartButton(BuildContext context) {
-    return widget.isToogle
-        ? Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
-      child: BlocListener<AddProductToCartBloc, AddProductToCartState>(
-        listener: (context, state) {
-          state.maybeWhen(
-            addedProduct: (_) {
-              setState(() {
-                isLoading = false;
-              });
-              context.read<CartBadgeCubitCubit>().addCartItem();
-            },
-            error: () {
-              setState(() {
-                isLoading = false;
-              });
-            },
-            orElse: () {},
-          );
-        },
-        child: ElevatedButton.icon(
-          onPressed: () {
-            if (!isLoading) {
-              setState(() {
-                isLoading = true;
-              });
-              context.read<AddProductToCartBloc>().add(AddProductToCartEvent.addProduct(widget.id, 1));
-            }
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 161, 29, 51),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(7),
-            ),
-          ),
-          icon: isLoading
-              ? const SizedBox(
-            width: 16,
-            height: 16,
-            child: CircularProgressIndicator(
-              color: Colors.white,
-              strokeWidth: 2,
-            ),
-          )
-              : const Icon(
-            Icons.shopping_cart_outlined,
-            size: 16,
-            color: Colors.white,
-          ),
-          label: !isLoading
-              ? Text(
-            'AGGIUNGI',
-            style: TCTypography.of(context).text_12.copyWith(color: Colors.white),
-          )
-              : const Text(""),
-        ),
-      ),
-    )
-        : const SizedBox();
+    // Filter out any null ratings before calculating
+    int sumRating = reviews
+        .where((review) => review.rating != null) // Ensure ratings are non-null
+        .map((review) => review.rating!) // Use non-null ratings
+        .reduce((a, b) => a + b); // Sum up the ratings
+
+    // Count the number of valid ratings
+    int validRatingCount = reviews.where((review) => review.rating != null).length;
+
+    // Calculate the average rating
+    double ratingAverage = sumRating / validRatingCount; // Calculate the average out of valid ratings
+
+    // Store the average rating in shared preferences
+
+    return ratingAverage.toStringAsFixed(2).replaceAll('.', ','); // Return the average rating
   }
 
   int percentage(String fullPrice, String halfPrice) {
     return fullPrice == ""
         ? 0
-        : ((double.parse(fullPrice) - double.parse(halfPrice)) * 100) ~/ double.parse(fullPrice);
+        : ((double.parse(fullPrice) - double.parse(halfPrice)) * 100) ~/
+        double.parse(fullPrice);
   }
 
   bool containsBioTag(List<ProductTags> tags) {
-    return tags.where((tag) => tag.name == "bio").isNotEmpty;
+    return tags.where((tag) => tag.name == "bio").toList().isNotEmpty;
   }
 }
+

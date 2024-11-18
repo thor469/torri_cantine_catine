@@ -12,7 +12,7 @@
         <entry key="_flutterfire_internals">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/_flutterfire_internals-1.3.46/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/_flutterfire_internals-1.3.44/lib" />
             </list>
           </value>
         </entry>
@@ -118,27 +118,6 @@
           <value>
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/built_value-8.9.2/lib" />
-            </list>
-          </value>
-        </entry>
-        <entry key="cached_network_image">
-          <value>
-            <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/cached_network_image-3.3.1/lib" />
-            </list>
-          </value>
-        </entry>
-        <entry key="cached_network_image_platform_interface">
-          <value>
-            <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/cached_network_image_platform_interface-4.0.0/lib" />
-            </list>
-          </value>
-        </entry>
-        <entry key="cached_network_image_web">
-          <value>
-            <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/cached_network_image_web-1.2.0/lib" />
             </list>
           </value>
         </entry>
@@ -303,6 +282,13 @@
             </list>
           </value>
         </entry>
+        <entry key="facebook_auth_desktop">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/facebook_auth_desktop-1.0.3/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="fake_async">
           <value>
             <list>
@@ -376,7 +362,7 @@
         <entry key="firebase_core">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_core-3.8.0/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_core-3.6.0/lib" />
             </list>
           </value>
         </entry>
@@ -391,20 +377,6 @@
           <value>
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_core_web-2.18.1/lib" />
-            </list>
-          </value>
-        </entry>
-        <entry key="firebase_in_app_messaging">
-          <value>
-            <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_in_app_messaging-0.8.0+9/lib" />
-            </list>
-          </value>
-        </entry>
-        <entry key="firebase_in_app_messaging_platform_interface">
-          <value>
-            <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_in_app_messaging_platform_interface-0.2.4+45/lib" />
             </list>
           </value>
         </entry>
@@ -460,7 +432,7 @@
         <entry key="flutter_facebook_auth">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_facebook_auth-6.0.4/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_facebook_auth-6.2.0/lib" />
             </list>
           </value>
         </entry>
@@ -534,6 +506,13 @@
             </list>
           </value>
         </entry>
+        <entry key="flutter_paypal">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_paypal-0.2.1/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="flutter_plugin_android_lifecycle">
           <value>
             <list>
@@ -545,6 +524,55 @@
           <value>
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_rating_bar-4.0.1/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="flutter_secure_storage">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_secure_storage-9.2.2/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="flutter_secure_storage_linux">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_secure_storage_linux-1.2.1/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="flutter_secure_storage_macos">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_secure_storage_macos-3.1.2/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="flutter_secure_storage_platform_interface">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_secure_storage_platform_interface-1.1.2/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="flutter_secure_storage_web">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_secure_storage_web-1.2.1/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="flutter_secure_storage_windows">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_secure_storage_windows-3.1.2/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="flutter_spinkit">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_spinkit-5.2.1/lib" />
             </list>
           </value>
         </entry>
@@ -565,7 +593,7 @@
         <entry key="flutter_svg">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_svg-2.0.9/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_svg-2.0.10+1/lib" />
             </list>
           </value>
         </entry>
@@ -614,7 +642,7 @@
         <entry key="google_fonts">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/google_fonts-4.0.4/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/google_fonts-4.0.5/lib" />
             </list>
           </value>
         </entry>
@@ -705,7 +733,14 @@
         <entry key="http">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/http-0.13.6/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/http-1.2.2/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="http_auth">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/http_auth-1.0.4/lib" />
             </list>
           </value>
         </entry>
@@ -930,13 +965,6 @@
           <value>
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/nested-1.0.0/lib" />
-            </list>
-          </value>
-        </entry>
-        <entry key="octo_image">
-          <value>
-            <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/octo_image-2.1.0/lib" />
             </list>
           </value>
         </entry>
@@ -1297,27 +1325,6 @@
             </list>
           </value>
         </entry>
-        <entry key="uni_links">
-          <value>
-            <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/uni_links-0.5.1/lib" />
-            </list>
-          </value>
-        </entry>
-        <entry key="uni_links_platform_interface">
-          <value>
-            <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/uni_links_platform_interface-1.0.0/lib" />
-            </list>
-          </value>
-        </entry>
-        <entry key="uni_links_web">
-          <value>
-            <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/uni_links_web-0.1.0/lib" />
-            </list>
-          </value>
-        </entry>
         <entry key="url_launcher">
           <value>
             <list>
@@ -1384,21 +1391,21 @@
         <entry key="vector_graphics">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/vector_graphics-1.1.10+1/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/vector_graphics-1.1.11+1/lib" />
             </list>
           </value>
         </entry>
         <entry key="vector_graphics_codec">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/vector_graphics_codec-1.1.10+1/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/vector_graphics_codec-1.1.11+1/lib" />
             </list>
           </value>
         </entry>
         <entry key="vector_graphics_compiler">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/vector_graphics_compiler-1.1.10+1/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/vector_graphics_compiler-1.1.11+1/lib" />
             </list>
           </value>
         </entry>
@@ -1518,7 +1525,7 @@
     </properties>
     <CLASSES>
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-61.0.0/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/_flutterfire_internals-1.3.46/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/_flutterfire_internals-1.3.44/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-5.13.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/archive-3.6.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/args-2.6.0/lib" />
@@ -1534,9 +1541,6 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/build_runner_core-7.3.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/built_collection-5.1.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/built_value-8.9.2/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/cached_network_image-3.3.1/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/cached_network_image_platform_interface-4.0.0/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/cached_network_image_web-1.2.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/carousel_slider-5.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/characters-1.3.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/checked_yaml-2.0.3/lib" />
@@ -1560,6 +1564,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/easy_localization-3.0.7/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/easy_logger-0.0.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/external_app_launcher-4.0.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/facebook_auth_desktop-1.0.3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/fake_async-1.3.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/ffi-2.1.3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/file-7.0.1/lib" />
@@ -1570,18 +1575,16 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_auth-5.3.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_auth_platform_interface-7.4.7/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_auth_web-5.13.2/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_core-3.8.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_core-3.6.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_core_platform_interface-5.3.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_core_web-2.18.1/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_in_app_messaging-0.8.0+9/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_in_app_messaging_platform_interface-0.2.4+45/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_messaging_platform_interface-4.5.46/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_messaging_web-3.9.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/fixnum-1.1.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_bloc-7.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_cache_manager-3.3.1/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_facebook_auth-6.0.4/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_facebook_auth-6.2.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_facebook_auth_platform_interface-5.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_facebook_auth_web-5.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_html-3.0.0-beta.2/lib" />
@@ -1591,16 +1594,24 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_local_notifications_linux-4.0.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_local_notifications_platform_interface-7.2.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_meta_sdk-1.0.2/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_paypal-0.2.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.22/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_rating_bar-4.0.1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_secure_storage-9.2.2/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_secure_storage_linux-1.2.1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_secure_storage_macos-3.1.2/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_secure_storage_platform_interface-1.1.2/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_secure_storage_web-1.2.1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_secure_storage_windows-3.1.2/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_spinkit-5.2.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_staggered_grid_view-0.7.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_stripe-9.6.0/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_svg-2.0.9/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_svg-2.0.10+1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/freezed-2.2.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/freezed_annotation-2.4.4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/frontend_server_client-4.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/glob-2.1.2/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_fonts-4.0.4/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_fonts-4.0.5/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_identity_services_web-0.3.1+4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_sign_in-6.2.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_sign_in_android-6.1.31/lib" />
@@ -1613,7 +1624,8 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/hive_generator-2.0.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/html-0.15.4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/html_unescape-2.0.0/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/http-0.13.6/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/http-1.2.2/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/http_auth-1.0.4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/http_multi_server-3.2.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/http_parser-4.0.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/http_services-2.1.1/lib" />
@@ -1646,7 +1658,6 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/meta-1.12.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/mime-1.0.6/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/nested-1.0.0/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/octo_image-2.1.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/package_config-2.1.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/path-1.9.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/path_parsing-1.0.2/lib" />
@@ -1697,9 +1708,6 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/timezone-0.9.4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/timing-1.0.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/typed_data-1.3.2/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/uni_links-0.5.1/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/uni_links_platform_interface-1.0.0/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/uni_links_web-0.1.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher-6.3.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_android-6.3.9/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_ios-6.3.1/lib" />
@@ -1709,9 +1717,9 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_web-2.3.3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_windows-3.1.3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/uuid-3.0.7/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/vector_graphics-1.1.10+1/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/vector_graphics_codec-1.1.10+1/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/vector_graphics_compiler-1.1.10+1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/vector_graphics-1.1.11+1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/vector_graphics_codec-1.1.11+1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/vector_graphics_compiler-1.1.11+1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/vector_math-2.1.4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/vm_service-14.2.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/watcher-1.1.0/lib" />

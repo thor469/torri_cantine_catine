@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:torri_cantine_app/account/account/account_bloc.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/account_bottom.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/bottom_bar.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/cart_bottom_item.dart';
