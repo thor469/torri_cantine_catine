@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:torri_cantine_app/app/common/primary_button.dart';
@@ -6,6 +7,7 @@ import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/cart/add_product_to_cart/add_product_to_cart_bloc.dart';
 import 'package:torri_cantine_app/cart/cubit/cart_badge_cubit_cubit.dart';
+import 'package:torri_cantine_app/app/cache_manager/cache_manager.dart';
 
 class WishlistItems extends StatefulWidget {
   final Function()? onRemove;
@@ -55,8 +57,15 @@ class _WishlistItemsState extends State<WishlistItems> {
                 SizedBox(
                   width: 60,
                   height: 90,
-                  child: Image.network(
-                    widget.image,
+                  child: CachedNetworkImage(
+                    imageUrl: widget.image,
+                    cacheKey: DynamicCacheManager().generateKey(widget.image),
+                    placeholder: (context, url) => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    errorWidget: (context, url, error) =>
+                    const Icon(Icons.error),
+                    cacheManager: DynamicCacheManager(),
                     fit: BoxFit.fitHeight,
                   ),
                 ),
@@ -71,9 +80,8 @@ class _WishlistItemsState extends State<WishlistItems> {
                         child: widget.description == ""
                             ? const SizedBox()
                             : Html(
-                                data:
-                                    "${widget.description!.substring(0, 22)}.."),
-                        
+                            data:
+                            "${widget.description!.substring(0, 22)}.."),
                       ),
                       Row(
                         children: [
@@ -102,7 +110,6 @@ class _WishlistItemsState extends State<WishlistItems> {
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-
             children: [
               GestureDetector(
                 onTap: widget.onRemove,
