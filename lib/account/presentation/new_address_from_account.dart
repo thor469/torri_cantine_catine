@@ -236,11 +236,7 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
     bool popBackButton = false;
     return PopScope(
         canPop: false,
-        onPopInvoked: (didPop) {
-          print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
-          if(!popBackButton) {
-            MainNavigation.pop(context);
-          }
+        onPopInvoked : (didPop){
         },
         child:Scaffold(
           backgroundColor: Colors.white,

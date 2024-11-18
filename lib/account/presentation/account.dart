@@ -55,15 +55,13 @@ class _AccountPageState extends State<AccountPage> {
           TextButton(
             child: const Text('Scatta una foto'),
             onPressed: () async {
-              Navigator.of(context)
-                  .pop(await picker.pickImage(source: ImageSource.camera));
+              Navigator.of(context).pop(await picker.pickImage(source: ImageSource.camera));
             },
           ),
           TextButton(
             child: const Text('Scegli dalla galleria'),
             onPressed: () async {
-              Navigator.of(context)
-                  .pop(await picker.pickImage(source: ImageSource.gallery));
+              Navigator.of(context).pop(await picker.pickImage(source: ImageSource.gallery));
             },
           ),
         ],
@@ -87,40 +85,29 @@ class _AccountPageState extends State<AccountPage> {
   Widget build(BuildContext context) {
     return PopScope(
         canPop: false,
-        onPopInvoked: (didPop) {
-          MainNavigation.pop(context);
-          //return;
+        onPopInvoked : (didPop){
         },
         child:Scaffold(
           backgroundColor: Color.fromARGB(255, 244, 244, 244),
           key: _key,
-          drawer: widget.fromMenu? Drawer(
+          drawer: widget.fromMenu ? const Drawer(
             child: MenuScreen(),
-          ):SizedBox(),
+          ):
+          const SizedBox.shrink(),
           floatingActionButton: widget.fromMenu? FloatingButton():SizedBox(),
           floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
           bottomNavigationBar: widget.fromMenu? BottomBanvigationMenu(
             scaffoldKey: _key,
             initialSelectedIndex: 4,
             context: context,
-            //notifyParent: () => refresh(selectedindex),
-          ):SizedBox(),
+          ): const SizedBox.shrink(),
           appBar: PreferredSize(
             preferredSize: const Size.fromHeight(60),
             child: SubPageAppbar(
-
+              showLeading: false,
               onTap: widget.fromMenu
                   ?  (){ MainNavigation.pop(context); }
-              // ? () => MainNavigation.push(
-              //       context,
-              //       const MainNavigation.menu(),
-              //     )
-                  : () => MainNavigation.push(
-                context,
-                const MainNavigation.home(),
-              ),
-
-
+                  : (){},
               text: "IL MIO ACCOUNT",
             ),
           ),
@@ -136,14 +123,7 @@ class _AccountPageState extends State<AccountPage> {
                   color: Color.fromARGB(255, 161, 29, 51),
                 ),
               ),
-              // error: () =>
-              // const Center(
-              //   child: Text('Error'),
-              // ),
-
               notLogged: () {
-                //return Text('notLogged');
-
                 return SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
@@ -165,8 +145,6 @@ class _AccountPageState extends State<AccountPage> {
                 );
               },
               loaded: (model) {
-                //return Text('loaded');
-
                 return Padding(
                   padding: const EdgeInsets.only(top: 20),
                   child: Center(
@@ -220,7 +198,7 @@ class _AccountPageState extends State<AccountPage> {
                                   "Informazioni personali",
                                   style: TCTypography.of(context).text_16_bold,
                                 ),
-                                trailing: Row(
+                                trailing: const Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: const [
                                     Icon(Icons.arrow_forward_ios),
@@ -245,7 +223,7 @@ class _AccountPageState extends State<AccountPage> {
                                 ),
                                 title: Text("I miei ordini",
                                     style: TCTypography.of(context).text_16_bold),
-                                trailing: Row(
+                                trailing:const  Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: const [
                                     Icon(Icons.arrow_forward_ios),
@@ -259,34 +237,6 @@ class _AccountPageState extends State<AccountPage> {
                                   );
                                 },
                               ),
-                              // const Divider(
-                              //   color: Color.fromARGB(255, 138, 137, 137),
-                              //   height: 1,
-                              //   indent: 15,
-                              //   endIndent: 20,
-                              // ),
-                              //
-                              // ListTile(
-                              //   leading: SvgPicture.asset(
-                              //     'assets/Account-punti.svg',
-                              //     height: 25,
-                              //     width: 25,
-                              //   ),
-                              //   title: Text("Raccolta Punti",
-                              //       style: TCTypography.of(context).text_16_bold),
-                              //   trailing: Row(
-                              //     mainAxisSize: MainAxisSize.min,
-                              //     children: const [
-                              //       Icon(Icons.arrow_forward_ios),
-                              //     ],
-                              //   ),
-                              //   onTap: () {
-                              //     MainNavigation.push(
-                              //       context,
-                              //       const MainNavigation.pointsBalance(false, true),
-                              //     );
-                              //   },
-                              // ),
                               const Divider(
                                 color: Color.fromARGB(255, 138, 137, 137),
                                 height: 1,
@@ -301,7 +251,7 @@ class _AccountPageState extends State<AccountPage> {
                                 ),
                                 title: Text("I miei indirizzi",
                                     style: TCTypography.of(context).text_16_bold),
-                                trailing: Row(
+                                trailing:const Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: const [
                                     Icon(Icons.arrow_forward_ios),
@@ -313,35 +263,6 @@ class _AccountPageState extends State<AccountPage> {
                                     MainNavigation.addressList(
                                         model.user.first.id),
                                   );
-
-                                  // MainNavigation.push(
-                                  //   context,ListTile(
-                                  //                         //   leading: SvgPicture.asset(
-                                  //                         //     'assets/Account-buoniregalo.svg',
-                                  //                         //     height: 25,
-                                  //                         //     width: 25,
-                                  //                         //   ),
-                                  //                         //   title: Text("Buoni regalo",
-                                  //                         //       style: TCTypography.of(context).text_16_bold),
-                                  //                         //   trailing: Row(
-                                  //                         //     mainAxisSize: MainAxisSize.min,
-                                  //                         //     children: const [
-                                  //                         //       Icon(Icons.arrow_forward_ios),
-                                  //                         //     ],
-                                  //                         //   ),
-                                  //                         //   onTap: () {
-                                  //                         //     // TODO: Implementazione logica Buoni regalo
-                                  //                         //   },
-                                  //                         // ),
-                                  //                         // const Divider(
-                                  //                         //   color: Color.fromARGB(255, 138, 137, 137),
-                                  //                         //   height: 1,
-                                  //                         //   indent: 15,
-                                  //                         //   endIndent: 20,
-                                  //                         // ),
-                                  //   MainNavigation.newAddressFromAccount(
-                                  //       model.user.first.id),
-                                  // );
                                 },
                               ),
                               const Divider(
@@ -358,7 +279,7 @@ class _AccountPageState extends State<AccountPage> {
                                 ),
                                 title: Text("Metodi di pagamento",
                                     style: TCTypography.of(context).text_16_bold),
-                                trailing: Row(
+                                trailing:const Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: const [
                                     Icon(Icons.arrow_forward_ios),
@@ -383,18 +304,18 @@ class _AccountPageState extends State<AccountPage> {
                                 ),
                                 title: Text("Wishlist",
                                     style: TCTypography.of(context).text_16_bold),
-                                trailing: Row(
+                                trailing: const Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: const [
                                     Icon(Icons.arrow_forward_ios),
                                   ],
                                 ),
-                                onTap: () {
-                                  MainNavigation.push(
-                                    context,
-                                    const MainNavigation.wishList(true, true),
-                                  );
-                                },
+                                onTap: () async {
+                                   await storage.setBottomTabState(5);
+                                   if(mounted){
+                                     MainNavigation.push(context, const MainNavigation.wishList(true, true));
+                                   }
+                                  }
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 55.0, left: 5),
@@ -424,7 +345,7 @@ class _AccountPageState extends State<AccountPage> {
                   ),
                 );
               },
-              orElse: () => const SizedBox(),
+              orElse: () => const SizedBox.shrink(),
             ),
           ),
         )

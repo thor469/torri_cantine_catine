@@ -28,98 +28,103 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(backgroundColor: Color.fromARGB(255, 244, 244, 244),
-      appBar: AppBar(
-          toolbarHeight: MediaQuery.of(context).size.height * 0.07,
-          backgroundColor: Colors.white,
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back,
-              color: Color.fromARGB(255, 110, 116, 119),
-              size: 30,
+    return PopScope(
+      canPop: false,
+      onPopInvoked : (didPop){
+      },
+      child: Scaffold(backgroundColor: Color.fromARGB(255, 244, 244, 244),
+        appBar: AppBar(
+            toolbarHeight: MediaQuery.of(context).size.height * 0.07,
+            backgroundColor: Colors.white,
+            leading: IconButton(
+              icon: const Icon(
+                Icons.arrow_back,
+                color: Color.fromARGB(255, 110, 116, 119),
+                size: 30,
+              ),
+              onPressed: () {
+                // Navigator.pop(context);
+                MainNavigation.push(context, const MainNavigation.home());
+              },
             ),
-            onPressed: () {
-              // Navigator.pop(context);
-              MainNavigation.push(context, const MainNavigation.home());
-            },
-          ),
-          title: Text(
-            "DETTAGLI ORDINE",
-            style: TCTypography.of(context).text_18_bold.copyWith(
-              color: const Color.fromARGB(255, 110, 116, 119),
+            title: Text(
+              "DETTAGLI ORDINE",
+              style: TCTypography.of(context).text_18_bold.copyWith(
+                color: const Color.fromARGB(255, 110, 116, 119),
+              ),
             ),
-          ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 20.0),
-              child: GestureDetector(
-                child: Align(
-                  child: Container(
-                    width: 32,
-                    height: 32,
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 161, 29, 51),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(6.0),
-                      child: SvgPicture.asset(
-                        "assets/chat-bianco.svg",
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 20.0),
+                child: GestureDetector(
+                  child: Align(
+                    child: Container(
+                      width: 32,
+                      height: 32,
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 161, 29, 51),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(6.0),
+                        child: SvgPicture.asset(
+                          "assets/chat-bianco.svg",
+                        ),
                       ),
                     ),
                   ),
+                  onTap: () async {
+                    if (!await launchUrl(Uri.parse('https://wa.me/+393382028846'))) {
+                      throw Exception('Could not launch url');
+                    }
+                  },
                 ),
-                onTap: () async {
-                  if (!await launchUrl(Uri.parse('https://wa.me/+393382028846'))) {
-                    throw Exception('Could not launch url');
-                  }
-                },
+              )
+            ]),
+        body: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 100.0, bottom: 30),
+                child: SvgPicture.asset("assets/Feather-check-circle.svg"),
               ),
-            )
-          ]),
-      body: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 100.0, bottom: 30),
-              child: SvgPicture.asset("assets/Feather-check-circle.svg"),
-            ),
-            Text(
-              "Grazie per il tuo ordine!",
-              style: TCTypography.of(context).text_22_bold.copyWith(
-                color: const Color.fromARGB(255, 39, 42, 43),
+              Text(
+                "Grazie per il tuo ordine!",
+                style: TCTypography.of(context).text_22_bold.copyWith(
+                  color: const Color.fromARGB(255, 39, 42, 43),
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 30.0),
-              child: Column(
-                children: [
-                  Text("Il tuo ordine è stato concluso.",
-                      style: TCTypography.of(context).text_18_bold.copyWith(
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 30.0),
+                child: Column(
+                  children: [
+                    Text("Il tuo ordine è stato concluso.",
+                        style: TCTypography.of(context).text_18_bold.copyWith(
+                          color: const Color.fromARGB(255, 114, 114, 114),
+                        )),
+                    Text(
+                      "Riceverai al più presto una e-mail di riepilogo.",
+                      style: TCTypography.of(context).text_16_bold.copyWith(
                         color: const Color.fromARGB(255, 114, 114, 114),
-                      )),
-                  Text(
-                    "Riceverai al più presto una e-mail di riepilogo.",
-                    style: TCTypography.of(context).text_16_bold.copyWith(
-                      color: const Color.fromARGB(255, 114, 114, 114),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 50),
-              child: PrimaryButton(
-                text: "VISUALIZZA ORDINE",
-                colorText: Colors.white,
-                ontap: () {
-                  MainNavigation.push(context, const MainNavigation.myOrders(false, false, true, false));
-                },
+              Padding(
+                padding: const EdgeInsets.only(top: 50),
+                child: PrimaryButton(
+                  text: "VISUALIZZA ORDINE",
+                  colorText: Colors.white,
+                  ontap: () {
+                    MainNavigation.push(context, const MainNavigation.myOrders(false, false, true, false));
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

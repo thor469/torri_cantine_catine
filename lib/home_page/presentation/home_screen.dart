@@ -57,7 +57,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
-        MainNavigation.pop(context);
       },
       child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 244, 244, 244),

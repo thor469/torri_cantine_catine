@@ -42,289 +42,292 @@ class _AddressListScreenState extends State<AddressListScreen> {
 
   @override
 Widget build(BuildContext context) {
-return Scaffold(
-  backgroundColor: Color.fromARGB(255, 244, 244, 244),
-
-  appBar: PreferredSize(
-    preferredSize: const Size.fromHeight(60),
-    child: SubPageAppbar(
-      onTap: () {
-        MainNavigation.push(context, MainNavigation.account(true));
-      },
-      text: "I MIEI INDIRIZZI",
+return PopScope(
+    canPop: false,
+    onPopInvoked: (_){},
+  child: Scaffold(
+    backgroundColor:const Color.fromARGB(255, 244, 244, 244),
+    appBar: PreferredSize(
+      preferredSize: const Size.fromHeight(60),
+      child: SubPageAppbar(
+        onTap: () {
+          MainNavigation.push(context, const MainNavigation.account(true));
+        },
+        text: "I MIEI INDIRIZZI",
+      ),
     ),
-  ),
-  drawer: Drawer(child: MenuScreen()),
-  floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
-  floatingActionButton: FloatingButton(),
-  bottomNavigationBar: BottomBanvigationMenu(
-    scaffoldKey: GlobalKey(),
-    initialSelectedIndex: 0,
-    context: context,
-  ),
-  body: BlocListener<AccountBloc, AccountState>(
-      listener: (context, state) {
-        state.maybeWhen<void>(
-          deletedAddress: () {
-            context.read<AccountBloc>().add(const AccountEvent.fetchAddress());
-          },
-          orElse: () {},
-        );},
-      child:  BlocBuilder<AccountBloc, AccountState>(
-        builder: (context, state) => state.maybeWhen(
-          loading: () => const Center(
-            child: CircularProgressIndicator(
-              color: Color.fromARGB(255, 161, 29, 51),
+    drawer: Drawer(child: MenuScreen()),
+    floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
+    floatingActionButton: FloatingButton(),
+    bottomNavigationBar: BottomBanvigationMenu(
+      scaffoldKey: GlobalKey(),
+      initialSelectedIndex: 0,
+      context: context,
+    ),
+    body: BlocListener<AccountBloc, AccountState>(
+        listener: (context, state) {
+          state.maybeWhen<void>(
+            deletedAddress: () {
+              context.read<AccountBloc>().add(const AccountEvent.fetchAddress());
+            },
+            orElse: () {},
+          );},
+        child:  BlocBuilder<AccountBloc, AccountState>(
+          builder: (context, state) => state.maybeWhen(
+            loading: () => const Center(
+              child: CircularProgressIndicator(
+                color: Color.fromARGB(255, 161, 29, 51),
+              ),
             ),
-          ),
-          loadedAddress: (model) {
-            if (model.billing.isNotEmpty) {
-              var billingElement = model.billing.firstWhere((e) => e.is_default, orElse: () => model.billing.first);
-              selectedBillingIndex = model.billing.indexOf(billingElement);
-            }
+            loadedAddress: (model) {
+              if (model.billing.isNotEmpty) {
+                var billingElement = model.billing.firstWhere((e) => e.is_default, orElse: () => model.billing.first);
+                selectedBillingIndex = model.billing.indexOf(billingElement);
+              }
 
-            if (model.shipping.isNotEmpty) {
-              var shippingElement = model.shipping.firstWhere((e) => e.is_default, orElse: () => model.shipping.first);
-              selectedShippingIndex = model.shipping.indexOf(shippingElement);
-            }
+              if (model.shipping.isNotEmpty) {
+                var shippingElement = model.shipping.firstWhere((e) => e.is_default, orElse: () => model.shipping.first);
+                selectedShippingIndex = model.shipping.indexOf(shippingElement);
+              }
 
-            if (model.shipping.isNotEmpty || model.billing.isNotEmpty) {
-              return Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      model.billing.isEmpty
-                          ? GestureDetector(
-                        onTap: (){
-                          MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, true, false, null, "account", true,null, null));},
-                        child: const Row(
+              if (model.shipping.isNotEmpty || model.billing.isNotEmpty) {
+                return Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        model.billing.isEmpty
+                            ? GestureDetector(
+                          onTap: (){
+                            MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, true, false, null, "account", true,null, null));},
+                          child: const Row(
+                            children: [
+                              Text(
+                                "Aggiungi un nuovo indirizzo di fatturazione",
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 161, 29, 51),
+                                ),
+                              ),
+                              Icon(Icons.add, color: Color.fromARGB(255, 161, 29, 51))
+                            ],
+                          ),
+                        )
+                            : Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Text(
-                              "Aggiungi un nuovo indirizzo di fatturazione",
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 161, 29, 51),
-                              ),
+                              'Indirizzi di Fatturazione',
+                              style: TCTypography.of(context).text_18_bold,
                             ),
-                            Icon(Icons.add, color: Color.fromARGB(255, 161, 29, 51))
+                            const SizedBox(height: 10),
+                            model.billing.length == 1
+                                ? Column(
+                              children: [
+                                _buildBillingAddress(model.billing.first),
+                                GestureDetector(
+                                  onTap: (){
+                                    MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, false, false, null, "account", true,null, null));
+                                  },
+                                  child: const Row(
+                                    children: [
+                                      Text(
+                                        "Aggiungi un nuovo indirizzo di fatturazione",
+                                        style: TextStyle(
+                                          color: Color.fromARGB(255, 161, 29, 51),
+                                        ),
+                                      ),
+                                      Icon(Icons.add, color: Color.fromARGB(255, 161, 29, 51))
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            )
+                                : Column(
+                              children: [
+                                Column(
+                                  children: List.generate(
+                                      model.billing.length, (index) {
+                                    return _buildAddressListItem(
+                                      title: '${model.billing[index].address_1}, ${model.billing[index].city}',
+                                      expanded: indFatturaExpandedMap[index] ?? false,
+                                      onExpand: () {
+                                        setState(() {
+                                          indFatturaExpandedMap[index] =
+                                          !(indFatturaExpandedMap[index] ?? false);
+                                        });
+                                      },
+                                      content: _buildBillingAddress(model.billing[index]),
+                                      isSelected: selectedBillingIndex == index,
+                                      onSelected: () async {
+                                        setState(() {
+                                          selectedBillingIndex = index;
+                                        });
+                                        await _updateDefaultAddress(
+                                            model.billing[index],
+                                            "billing",
+                                            model.billing[index].id
+                                        );
+                                      },
+                                    );
+                                  }),
+                                ),
+                                GestureDetector(
+                                  onTap: (){
+                                    MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, true, false, null, "account", true,null, null));
+                                  },
+                                  child: const Row(
+                                    children: [
+                                      Text(
+                                        "Aggiungi un nuovo indirizzo di fatturazione",
+                                        style: TextStyle(
+                                          color: Color.fromARGB(255, 161, 29, 51),
+                                        ),
+                                      ),
+                                      Icon(Icons.add, color: Color.fromARGB(255, 161, 29, 51))
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const Divider(),
                           ],
                         ),
-                      )
-                          : Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Text(
-                            'Indirizzi di Fatturazione',
-                            style: TCTypography.of(context).text_18_bold,
-                          ),
-                          const SizedBox(height: 10),
-                          model.billing.length == 1
-                              ? Column(
+                        model.shipping.isEmpty
+                            ? GestureDetector(
+                          onTap: (){
+                            MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, false, true, null, "account", true,null, null));
+                          },
+                          child: const Row(
                             children: [
-                              _buildBillingAddress(model.billing.first),
-                              GestureDetector(
-                                onTap: (){
-                                  MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, false, false, null, "account", true,null, null));
-                                },
-                                child: const Row(
-                                  children: [
-                                    Text(
-                                      "Aggiungi un nuovo indirizzo di fatturazione",
-                                      style: TextStyle(
-                                        color: Color.fromARGB(255, 161, 29, 51),
-                                      ),
-                                    ),
-                                    Icon(Icons.add, color: Color.fromARGB(255, 161, 29, 51))
-                                  ],
+                              Text(
+                                "Aggiungi un nuovo indirizzo di spedizione",
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 161, 29, 51),
                                 ),
                               ),
-                            ],
-                          )
-                              : Column(
-                            children: [
-                              Column(
-                                children: List.generate(
-                                    model.billing.length, (index) {
-                                  return _buildAddressListItem(
-                                    title: '${model.billing[index].address_1}, ${model.billing[index].city}',
-                                    expanded: indFatturaExpandedMap[index] ?? false,
-                                    onExpand: () {
-                                      setState(() {
-                                        indFatturaExpandedMap[index] =
-                                        !(indFatturaExpandedMap[index] ?? false);
-                                      });
-                                    },
-                                    content: _buildBillingAddress(model.billing[index]),
-                                    isSelected: selectedBillingIndex == index,
-                                    onSelected: () async {
-                                      setState(() {
-                                        selectedBillingIndex = index;
-                                      });
-                                      await _updateDefaultAddress(
-                                          model.billing[index],
-                                          "billing",
-                                          model.billing[index].id
-                                      );
-                                    },
-                                  );
-                                }),
-                              ),
-                              GestureDetector(
-                                onTap: (){
-                                  MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, true, false, null, "account", true,null, null));
-                                },
-                                child: const Row(
-                                  children: [
-                                    Text(
-                                      "Aggiungi un nuovo indirizzo di fatturazione",
-                                      style: TextStyle(
-                                        color: Color.fromARGB(255, 161, 29, 51),
-                                      ),
-                                    ),
-                                    Icon(Icons.add, color: Color.fromARGB(255, 161, 29, 51))
-                                  ],
-                                ),
-                              ),
+                              Icon(Icons.add, color: Color.fromARGB(255, 161, 29, 51))
                             ],
                           ),
-                          const Divider(),
-                        ],
+                        )
+                            : Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Text(
+                              'Indirizzi di Spedizione',
+                              style: TCTypography.of(context).text_18_bold,
+                            ),
+                            const SizedBox(height: 10),
+                            model.shipping.length == 1
+                                ? Column(
+                              children: [
+                                _buildShippingAddress(model.shipping.first),
+                                GestureDetector(
+                                  onTap: (){
+                                    MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, false, false, null, "account", true,null, null));
+                                  },
+                                  child: const Row(
+                                    children: [
+                                      Text(
+                                        "Aggiungi un nuovo indirizzo di spedizione",
+                                        style: TextStyle(
+                                          color: Color.fromARGB(255, 161, 29, 51),
+                                        ),
+                                      ),
+                                      Icon(Icons.add, color: Color.fromARGB(255, 161, 29, 51))
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            )
+                                : Column(
+                              children: [
+                                Column(
+                                  children: List.generate(
+                                      model.shipping.length, (index) {
+                                    return _buildAddressListItem(
+                                      title: '${model.shipping[index].address_1}, ${model.shipping[index].city}',
+                                      expanded: indSpedizioneExpandedMap[index] ?? false,
+                                      onExpand: () {
+                                        setState(() {
+                                          indSpedizioneExpandedMap[index] = !(indSpedizioneExpandedMap[index] ?? false);
+                                        });
+                                      },
+                                      content: _buildShippingAddress(model.shipping[index]),
+                                      isSelected: selectedShippingIndex == index,
+                                      onSelected: () async {
+                                        setState(() {
+                                          selectedShippingIndex = index;
+                                        });
+                                        await _updateDefaultAddress(
+                                            model.shipping[index],
+                                            "shipping",
+                                            model.shipping[index].id
+                                        );
+                                      },
+                                    );
+                                  }
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: (){
+                                    MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, false, true, null, "account", true,null, null));
+                                  },
+                                  child: const Row(
+                                    children: [
+                                      Text(
+                                        "Aggiungi un nuovo indirizzo di spedizione",
+                                        style: TextStyle(
+                                          color: Color.fromARGB(255, 161, 29, 51),
+                                        ),
+                                      ),
+                                      Icon(Icons.add, color: Color.fromARGB(255, 161, 29, 51))
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              } else {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 20.0),
+                      child: Text(
+                        "Nessun indirizzo trovato",
                       ),
-                      model.shipping.isEmpty
-                          ? GestureDetector(
-                        onTap: (){
-                          MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, false, true, null, "account", true,null, null));
+                    ),
+                    Center(
+                      child: PrimaryButton(
+                        text: "Aggiungi nuovo indirizzo",
+                        colorText: Colors.white,
+                        ontap: () {
+                          MainNavigation.push(context, MainNavigation.newAddressFromAccount(
+                              widget.customerdId,
+                              false,
+                              true,
+                              null,
+                              'account',
+                              true,
+                              null, null
+                          ),
+                          );
                         },
-                        child: const Row(
-                          children: [
-                            Text(
-                              "Aggiungi un nuovo indirizzo di spedizione",
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 161, 29, 51),
-                              ),
-                            ),
-                            Icon(Icons.add, color: Color.fromARGB(255, 161, 29, 51))
-                          ],
-                        ),
-                      )
-                          : Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Text(
-                            'Indirizzi di Spedizione',
-                            style: TCTypography.of(context).text_18_bold,
-                          ),
-                          const SizedBox(height: 10),
-                          model.shipping.length == 1
-                              ? Column(
-                            children: [
-                              _buildShippingAddress(model.shipping.first),
-                              GestureDetector(
-                                onTap: (){
-                                  MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, false, false, null, "account", true,null, null));
-                                },
-                                child: const Row(
-                                  children: [
-                                    Text(
-                                      "Aggiungi un nuovo indirizzo di spedizione",
-                                      style: TextStyle(
-                                        color: Color.fromARGB(255, 161, 29, 51),
-                                      ),
-                                    ),
-                                    Icon(Icons.add, color: Color.fromARGB(255, 161, 29, 51))
-                                  ],
-                                ),
-                              ),
-                            ],
-                          )
-                              : Column(
-                            children: [
-                              Column(
-                                children: List.generate(
-                                    model.shipping.length, (index) {
-                                  return _buildAddressListItem(
-                                    title: '${model.shipping[index].address_1}, ${model.shipping[index].city}',
-                                    expanded: indSpedizioneExpandedMap[index] ?? false,
-                                    onExpand: () {
-                                      setState(() {
-                                        indSpedizioneExpandedMap[index] = !(indSpedizioneExpandedMap[index] ?? false);
-                                      });
-                                    },
-                                    content: _buildShippingAddress(model.shipping[index]),
-                                    isSelected: selectedShippingIndex == index,
-                                    onSelected: () async {
-                                      setState(() {
-                                        selectedShippingIndex = index;
-                                      });
-                                      await _updateDefaultAddress(
-                                          model.shipping[index],
-                                          "shipping",
-                                          model.shipping[index].id
-                                      );
-                                    },
-                                  );
-                                }
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: (){
-                                  MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, false, true, null, "account", true,null, null));
-                                },
-                                child: const Row(
-                                  children: [
-                                    Text(
-                                      "Aggiungi un nuovo indirizzo di spedizione",
-                                      style: TextStyle(
-                                        color: Color.fromARGB(255, 161, 29, 51),
-                                      ),
-                                    ),
-                                    Icon(Icons.add, color: Color.fromARGB(255, 161, 29, 51))
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
                       ),
-                    ],
-                  ),
-                ),
-              );
-            } else {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 20.0),
-                    child: Text(
-                      "Nessun indirizzo trovato",
                     ),
-                  ),
-                  Center(
-                    child: PrimaryButton(
-                      text: "Aggiungi nuovo indirizzo",
-                      colorText: Colors.white,
-                      ontap: () {
-                        MainNavigation.push(context, MainNavigation.newAddressFromAccount(
-                            widget.customerdId,
-                            false,
-                            true,
-                            null,
-                            'account',
-                            true,
-                            null, null
-                        ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              );
-            }
-          },
-          orElse: () => const SizedBox(),
-        ),
-      )));
+                  ],
+                );
+              }
+            },
+            orElse: () => const SizedBox(),
+          ),
+        ))),
+);
   }
 
   // Metodo per aggiornare l'indirizzo predefinito

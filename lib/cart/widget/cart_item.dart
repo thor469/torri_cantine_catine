@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:torri_cantine_app/all_products/cubit/products_wishlisted_cubit.dart';
@@ -11,7 +10,6 @@ import 'package:torri_cantine_app/cart/cart/cart_bloc.dart';
 import 'package:torri_cantine_app/cart/cubit/cart_badge_cubit_cubit.dart';
 import 'package:torri_cantine_app/cart/cubit/counter_single_product_cubit.dart';
 import 'package:torri_cantine_app/cart/remove_product_to_cart/remove_product_to_cart_bloc.dart';
-
 
 class CartItem extends StatefulWidget {
   const CartItem({
@@ -37,7 +35,13 @@ class CartItem extends StatefulWidget {
 
 class _CartItemState extends State<CartItem> {
   bool isUpdating = false;
-  List<int> updatingItems = [];
+  List<int> updatingItems=[];
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   var unescape = HtmlUnescape();
 
   @override
@@ -52,8 +56,12 @@ class _CartItemState extends State<CartItem> {
               ),
             ),
             removeProduct: (cart) => {
+
               context.read<CartBadgeCubitCubit>().removeCartItem(),
               context.read<CartBloc>().add(const CartEvent.fetchTotals()),
+              // setState(() {
+              //   isUpdating=false;
+              // })
             },
             orElse: () => const SizedBox(),
           ),
@@ -84,7 +92,7 @@ class _CartItemState extends State<CartItem> {
             ),
           ),
         ),
-        height: MediaQuery.of(context).size.height * 0.165,
+        height: MediaQuery.of(context).size.height *0.165,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -109,11 +117,10 @@ class _CartItemState extends State<CartItem> {
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.5,
                   child: Text(
-                    widget.productDescription.isNotEmpty
-                        ? unescape.convert(widget.productDescription)
-                        : "",
+                    widget.productDescription.isNotEmpty ?
+                    "${unescape.convert(widget.productDescription)}" : "",
                     maxLines: 2,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 Text("${widget.productPrice} €",
@@ -129,56 +136,124 @@ class _CartItemState extends State<CartItem> {
                             style: TCTypography.of(context).text_12,
                           ),
                         ),
-                        _quantityControl(
-                          Icons.remove,
-                              () {
-                            if (state[widget.keyId]! > 1) {
-                              context.read<AddProductToCartBloc>().add(
-                                AddProductToCartEvent.updateProduct(
-                                    widget.keyId, widget.quantity - 1),
-                              );
-                              context
-                                  .read<CounterSingleProductCubit>()
-                                  .removeCartItem(widget.keyId);
-                              context
-                                  .read<CartBadgeCubitCubit>()
-                                  .removeCartItem();
-                            } else {
-                              context.read<RemoveProductToCartBloc>().add(
-                                  RemoveProductToCartEvent.removeProduct(
-                                      widget.keyId, widget.quantity - 1));
-                              context
-                                  .read<CartBadgeCubitCubit>()
-                                  .removeCartItem();
-                            }
-                          },
-                        ),
                         Container(
-                          width: 25,
+                          width: 20,
                           height: 20,
-                          decoration: const BoxDecoration(
-                            border: Border.symmetric(
-                              horizontal: BorderSide(color: Colors.grey),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(5),
+                                bottomLeft: Radius.circular(5),
+                              ),
+                              border: Border.all(color: Colors.grey, width: 1)),
+                          child: Center(
+                            child:
+                            IconButton(
+                                padding: EdgeInsets.zero,
+                                icon: Icon(
+                                  Icons.remove,
+                                  size: 15,
+                                  color: isUpdating?Colors.black26:Color.fromARGB(255, 110, 116, 119),
+                                ),
+                                onPressed: isUpdating?null:() {
+
+                                  setState(() {
+                                    isUpdating=true;
+                                  });
+
+                                  if (state[widget.keyId]! > 1) {
+                                    context.read<AddProductToCartBloc>().add(
+                                      AddProductToCartEvent.updateProduct(
+                                          widget.keyId,
+                                          widget.quantity - 1),
+                                    );
+                                    context
+                                        .read<CounterSingleProductCubit>()
+                                        .removeCartItem(widget.keyId);
+                                    context
+                                        .read<CartBadgeCubitCubit>()
+                                        .removeCartItem();
+                                  } else {
+                                    context.read<RemoveProductToCartBloc>().add(
+                                        RemoveProductToCartEvent.removeProduct(
+                                            widget.keyId, widget.quantity - 1));
+                                    context
+                                        .read<CartBadgeCubitCubit>()
+                                        .removeCartItem();
+                                  }
+
+                                  Future.delayed(const Duration( seconds: 2), (){
+                                    setState(() {
+                                      isUpdating=false;
+                                    });
+                                  });
+
+                                  // setState(() {
+                                  //   isUpdating = false;
+                                  // });
+                                }
                             ),
                           ),
-                          child: Center(
-                            child: Text(state[widget.keyId].toString()),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 0),
+                          child: Container(
+                            width: 25,
+                            height: 20,
+                            decoration: BoxDecoration(
+                              border: Border.symmetric(
+                                  horizontal: BorderSide(color: Colors.grey)
+                              ),
+                              //borderRadius: BorderRadius.circular(5)
+                            ),
+                            child: Center(
+                              child: Text(
+                                state[widget.keyId].toString(),
+                              ),
+                            ),
                           ),
                         ),
-                        _quantityControl(
-                          Icons.add,
-                              () {
-                            context.read<AddProductToCartBloc>().add(
-                              AddProductToCartEvent.updateProduct(
-                                  widget.keyId, widget.quantity + 1),
-                            );
-                            context
-                                .read<CounterSingleProductCubit>()
-                                .addCartItem(widget.keyId);
-                            context
-                                .read<CartBadgeCubitCubit>()
-                                .addCartItem();
-                          },
+                        Container(
+                          width: 20,
+                          height: 20,
+                          decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.only(
+                                topRight: Radius.circular(5),
+                                bottomRight: Radius.circular(5),
+                              ),
+                              border: Border.all(color: Colors.grey, width: 1)),
+                          child: Center(
+                            child: IconButton(
+                                padding: EdgeInsets.zero,
+                                icon: Icon(
+                                  Icons.add,
+                                  size: 15,
+                                  color: isUpdating?Colors.black26:Color.fromARGB(255, 110, 116, 119),
+                                ),
+                                onPressed: isUpdating?null:() {
+
+                                  setState(() {
+                                    isUpdating=true;
+                                  });
+
+
+                                  context.read<AddProductToCartBloc>().add(
+                                      AddProductToCartEvent.updateProduct(
+                                          widget.keyId, widget.quantity + 1));
+                                  context
+                                      .read<CounterSingleProductCubit>()
+                                      .addCartItem(widget.keyId);
+                                  context
+                                      .read<CartBadgeCubitCubit>()
+                                      .addCartItem();
+
+                                  Future.delayed(const Duration( seconds: 2), (){
+                                    setState(() {
+                                      isUpdating=false;
+                                    });
+                                  });
+
+                                }),
+                          ),
                         ),
                       ],
                     );
@@ -190,79 +265,53 @@ class _CartItemState extends State<CartItem> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 GestureDetector(
-                  child: updatingItems.contains(widget.id)
-                      ? const SizedBox(
+                  child: updatingItems.contains(widget.id)?
+                  SizedBox(
                     width: 27,
                     height: 27,
-                    child: CircularProgressIndicator(
-                      color: Color.fromARGB(255, 161, 29, 52),
-                    ),
+                    child: CircularProgressIndicator(color: Color.fromARGB(255, 161, 29, 52),),
                   )
-                      : Image.asset(
+                      :Image.asset(
                     "assets/Carrello-rimuovi.png",
                     width: 27,
                     height: 27,
                   ),
-                  onTap: () async {
+                  onTap: () async{
                     setState(() {
+                      //isUpdating = true;
                       updatingItems.add(widget.id);
                     });
                     context.read<RemoveProductToCartBloc>().add(
                         RemoveProductToCartEvent.removeProduct(
-                            widget.keyId, 0));
+                            widget.keyId, 0)
+                    );
+
+                    setState(() {
+                      //isUpdating = false;
+                    });
                   },
                 ),
                 BlocBuilder<ProductsWishlistedCubit, ProductsWishlistedState>(
-                  builder: (context, state) {
-                    return GestureDetector(
-                      onTap: () {
-                        context
-                            .read<ProductsWishlistedCubit>()
-                            .wishListed(widget.id);
-                      },
-                      child: state.wishListProducts.contains(widget.id)
-                          ? const Icon(
-                        Icons.favorite,
-                        size: 25,
-                        color: Color.fromARGB(255, 161, 29, 51),
-                      )
-                          : const Icon(
-                        Icons.favorite_border,
-                        size: 25,
-                        color: Color.fromARGB(255, 127, 127, 127),
-                      ),
-                    );
-                  },
-                ),
+                    builder: (context, state) {
+                      return GestureDetector(
+                        onTap: () {
+                          context
+                              .read<ProductsWishlistedCubit>()
+                              .wishListed(widget.id);
+                        },
+                        child: state.wishListProducts.contains(widget.id)
+                            ? const Icon(Icons.favorite,
+                            size: 25, color: Color.fromARGB(255, 161, 29, 51))
+                            : const Icon(
+                          Icons.favorite_border,
+                          size: 25,
+                          color: Color.fromARGB(255, 127, 127, 127),
+                        ),
+                      );
+                    }),
               ],
             )
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _quantityControl(IconData icon, VoidCallback onPressed) {
-    return Container(
-      width: 20,
-      height: 20,
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(5),
-          bottomLeft: Radius.circular(5),
-        ),
-        border: Border.all(color: Colors.grey, width: 1),
-      ),
-      child: Center(
-        child: IconButton(
-          padding: EdgeInsets.zero,
-          icon: Icon(
-            icon,
-            size: 15,
-            color:
-            isUpdating ? Colors.black26 : const Color.fromARGB(255, 110, 116, 119),
-          ),
-          onPressed: isUpdating ? null : onPressed,
         ),
       ),
     );

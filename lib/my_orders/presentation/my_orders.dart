@@ -42,10 +42,7 @@ class _MyOrdersState extends State<MyOrders> {
 
     return PopScope(
         canPop: false,
-        onPopInvoked: (didPop) {
-          print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
-          MainNavigation.pop(context);
-          //return;
+        onPopInvoked : (didPop){
         },
         child:Scaffold(
           backgroundColor: Color.fromARGB(255, 244, 244, 244),
@@ -56,22 +53,11 @@ class _MyOrdersState extends State<MyOrders> {
                 text: "I MIEI ORDINI",
                 onTap: widget.fromMenu
                     ?  (){ MainNavigation.pop(context); }
-                // ? () => MainNavigation.push(
-                //       context,
-                //       const MainNavigation.menu(),
-                //     )
+
                     : widget.fromAccount
-                    ?  (){ MainNavigation.pop(context); }
-                // ? () => MainNavigation.push(
-                //       context,
-                //       const MainNavigation.account(false),
-                //     )
+                    ?  (){ MainNavigation.pop(context);}
                     : widget.fromThankScreen
                     ?  (){ MainNavigation.pop(context); }
-                //     ? () => MainNavigation.push(
-                //   context,
-                //   const MainNavigation.thankYou(),
-                // )
                     : widget.fromOrderDetails
                     ? () => Navigator.of(context).push(
                     MaterialPageRoute(

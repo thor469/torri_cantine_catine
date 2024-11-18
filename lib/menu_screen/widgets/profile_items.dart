@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/utilities/enum.dart';
+import 'package:torri_cantine_app/utilities/local_storage.dart';
 
 class ProfileItems extends StatefulWidget {
   final int id;
@@ -22,13 +23,15 @@ class ProfileItems extends StatefulWidget {
 
 class _ProfileItemsState extends State<ProfileItems> {
   var currentProfile = PersonalProfile.myaccount;
+  LocalStorage storage = LocalStorage();
   @override
   Widget build(BuildContext context) {
     return Material(
       child: Container(
         color: Colors.white,
         child: InkWell(
-          onTap: () {
+          onTap: ()async {
+            await storage.setBottomTabState(4);
             MainNavigation.push(context, widget.onTapNavigation);
           },
           child: Row(

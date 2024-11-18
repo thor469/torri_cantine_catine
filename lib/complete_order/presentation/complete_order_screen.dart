@@ -197,7 +197,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
         loaded: (response) => {
           storage.deleteTotalCartItems(0),
           context.read<CartBloc>().deleteCart(),
-          MainNavigation.push(context, const MainNavigation.thankYou()),
+          MainNavigation.replace(context,[ const MainNavigation.home(),const MainNavigation.thankYou()]),
         },
         loading: () => const Center(
           child: CircularProgressIndicator(
@@ -1659,7 +1659,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
           context.read<CartBloc>().deleteCart();
         }
 
-        MainNavigation.push(context, const MainNavigation.thankYou());
+        MainNavigation.replace(context,[ const MainNavigation.home(),const MainNavigation.thankYou()]);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Pagamento fallito, riprovare'),
@@ -1876,7 +1876,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
               // storage.setTotalCartItems(0));
               storage.deleteTotalCartItems(0);
               context.read<CartBloc>().deleteCart();
-              MainNavigation.push(context, const MainNavigation.thankYou());
+    MainNavigation.replace(context,[ const MainNavigation.home(),const MainNavigation.thankYou()]);
             }
           }
         }

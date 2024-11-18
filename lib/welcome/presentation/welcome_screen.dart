@@ -35,8 +35,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         if (mounted) {
           context.read<ProductsWishlistedCubit>().initWishlist();
         }
-
-
         LocalStorage token = LocalStorage();
         final username = await token.getUserName();
         final password = await token.getPassword();
@@ -48,8 +46,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 LoginEvent.login(username, password, fcmToken));
           }
         }
-
-
       },
     );
   }
@@ -87,7 +83,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 isLoading = false;
               });
               if (mounted) {
-                MainNavigation.push(context, const MainNavigation.home());
+                MainNavigation.replace(context, [const MainNavigation.home()]);
               }
               return null;
             },

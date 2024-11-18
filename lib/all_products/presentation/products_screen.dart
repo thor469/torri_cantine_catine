@@ -145,11 +145,7 @@ class _ProductsState extends State<Products> {
       builder: (context) {
         return PopScope(
             canPop: false,
-            onPopInvoked: (didPop) {
-              print(
-                  '@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
-              MainNavigation.pop(context);
-              //return;
+            onPopInvoked : (didPop){
             },
             child: Scaffold(
               backgroundColor: Color.fromARGB(255, 244, 244, 244),

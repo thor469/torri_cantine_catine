@@ -10,9 +10,11 @@ class SubPageAppbar extends StatefulWidget implements PreferredSizeWidget {
   SvgPicture? icon2;
   SvgPicture? icon3;
   double? elev;
+  bool? showLeading;
   SubPageAppbar({
     super.key,
     required this.text,
+    this.showLeading,
     this.icon1,
     this.icon2,
     this.icon3,
@@ -25,8 +27,6 @@ class SubPageAppbar extends StatefulWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize =>
-      // tabs == null
-      //   ? const Size.fromHeight(kToolbarHeight)
       const Size.fromHeight(kToolbarHeight);
 }
 
@@ -36,11 +36,12 @@ class _SubPageAppbarState extends State<SubPageAppbar> {
     return AppBar(
       elevation: widget.elev,
       backgroundColor: Colors.white,
-      leading: IconButton(
+      automaticallyImplyLeading: false,
+      leading: (widget.showLeading ?? true) ? IconButton(
         onPressed: widget.onTap,
         icon: const Icon(Icons.arrow_back_sharp,
             color: Color.fromARGB(255, 100, 100, 100)),
-      ),
+      ) : null ,
       title: Text(
         widget.text,
         style: TCTypography.of(context).text_18_bold.copyWith(
@@ -48,7 +49,7 @@ class _SubPageAppbarState extends State<SubPageAppbar> {
             ),
       ),
       actions: [
-        widget.icon1 != null
+        if(  (widget.showLeading ?? true))...[widget.icon1 != null
             ? GestureDetector(
                 child: Align(
                   child: SizedBox(
@@ -60,7 +61,7 @@ class _SubPageAppbarState extends State<SubPageAppbar> {
                   ),
                 ),
                 onTap: () {})
-            : const SizedBox(),
+               : const SizedBox(),
         widget.icon2 != null
             ? Padding(
                 padding: const EdgeInsets.only(right: 5.0),
@@ -100,7 +101,7 @@ class _SubPageAppbarState extends State<SubPageAppbar> {
                   ),
                 ),
               )
-            : const SizedBox()
+            : const SizedBox()]
       ],
     );
   }

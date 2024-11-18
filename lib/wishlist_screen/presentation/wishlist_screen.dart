@@ -7,6 +7,7 @@ import 'package:torri_cantine_app/app/common/bottom_bar_items/bottom_bar.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/floating_action_button.dart';
 import 'package:torri_cantine_app/app/common/sub_page_appbar.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
+import 'package:torri_cantine_app/menu_screen/menu_screen.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 import 'package:torri_cantine_app/wishlist_screen/presentation/wishlist_future.dart';
 import 'package:torri_cantine_app/wishlist_screen/widgets/wishlist_items.dart';
@@ -98,17 +99,18 @@ class _WishlistScreenState extends State<WishlistScreen> {
 
     return PopScope(
         canPop: false,
-        onPopInvoked: (didPop) {
-          print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
-          MainNavigation.pop(context);
-          //return;
-        },
+        onPopInvoked: (didPop) {},
         child:Scaffold(
           backgroundColor: Color.fromARGB(255, 244, 244, 244),
           key: _key,
+          drawer: widget.fromMenu ? Drawer(
+            child: MenuScreen(),
+          ):
+          SizedBox(),
           appBar: PreferredSize(
             preferredSize: const Size.fromHeight(60),
             child: SubPageAppbar(
+              showLeading: false,
               text: "WISHLIST",
               onTap: widget.fromMenu
                   ?  (){
@@ -118,10 +120,6 @@ class _WishlistScreenState extends State<WishlistScreen> {
                 MainNavigation.pop(context);
 
               }
-              // ? () => MainNavigation.push(
-              //       context,
-              //       const MainNavigation.menu(),
-              //     )
                   : widget.fromAccount
                   ? () => MainNavigation.push(
                 context,

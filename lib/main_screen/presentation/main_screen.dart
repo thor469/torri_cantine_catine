@@ -68,10 +68,7 @@ class _MainScreenState extends State<MainScreen> {
 
     return PopScope(
         canPop: false,
-        onPopInvoked: (didPop) {
-          print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
-          MainNavigation.pop(context);
-          //return;
+        onPopInvoked : (didPop){
         },
         child:Scaffold(
           key: _key,

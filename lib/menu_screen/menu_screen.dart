@@ -98,9 +98,9 @@ class _MenuScreenState extends State<MenuScreen> {
                   child: Column(
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          MainNavigation.push(
-                              context, const MainNavigation.home());
+                        onTap: ()async {
+                          await storage.setBottomTabState(0);
+                          MainNavigation.push(context, const MainNavigation.home());
                         },
                         child: const MenuItems(
                           title: "HOME",
@@ -114,7 +114,9 @@ class _MenuScreenState extends State<MenuScreen> {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () {
+                        onTap: () async{
+                          await storage.setBottomTabState(6);
+
                           MainNavigation.push(context,
                               const MainNavigation.cart(true, false, false, false));
                         },
@@ -130,7 +132,8 @@ class _MenuScreenState extends State<MenuScreen> {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () {
+                        onTap: () async{
+                          await storage.setBottomTabState(5);
                           MainNavigation.push(context,
                               const MainNavigation.wishList(true, false));
                         },
@@ -146,7 +149,9 @@ class _MenuScreenState extends State<MenuScreen> {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () {
+                        onTap: () async{
+                          await storage.setBottomTabState(0);
+
                           MainNavigation.push(context,
                               const MainNavigation.categories(true, false));
                         },
@@ -223,23 +228,23 @@ class _MenuScreenState extends State<MenuScreen> {
                                   ],
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 17),
-                                child: Row(
-                                  children: [
-                                    Flexible(
-                                      child: ProfileItems(
-                                          id: 11,
-                                          title: "I miei ordini",
-                                          isSelected: currentProfile ==
-                                              PersonalProfile.myorders,
-                                          onTapNavigation:
-                                          const MainNavigation.myOrders(
-                                              true, false, false, false)),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              // Padding(
+                              //   padding: const EdgeInsets.only(top: 17),
+                              //   child: Row(
+                              //     children: [
+                              //       Flexible(
+                              //         child: ProfileItems(
+                              //             id: 11,
+                              //             title: "I miei ordini",
+                              //             isSelected: currentProfile ==
+                              //                 PersonalProfile.myorders,
+                              //             onTapNavigation:
+                              //             const MainNavigation.myOrders(
+                              //                 true, false, false, false)),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 17),
                                 child: Row(
@@ -423,7 +428,6 @@ class _MenuScreenState extends State<MenuScreen> {
                         padding: const EdgeInsets.only(top: 30, bottom: 30),
                         child: GestureDetector(
                           onTap: () {
-                            MainNavigation.popUntil(context, const MainNavigation.home());
                             MainNavigation.replace(context, [const MainNavigation.welcome()] // Wrap it in a list
                             );
                             context.read<LoginBloc>().add(const LoginEvent.logout());

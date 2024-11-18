@@ -65,7 +65,12 @@ class BlackCarousel extends StatelessWidget {
                           offset: const Offset(5, 5),
                         ),
                       ],
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10),
+                        bottomRight: Radius.circular(10),
+                        bottomLeft: Radius.circular(10),
+                      ),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -121,6 +126,7 @@ class BlackCarousel extends StatelessWidget {
               ),
             )
                 : const SizedBox(),
+            //ciao marco
             Padding(
               padding: const EdgeInsets.only(left: 10, top: 8),
               child: Text(

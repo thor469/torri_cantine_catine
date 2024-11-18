@@ -62,8 +62,7 @@ class _CartScreenState extends State<CartScreen> {
 
     return PopScope(
         canPop: false,
-        onPopInvoked: (didPop) {
-          MainNavigation.pop(context);
+        onPopInvoked : (didPop){
         },
         child:Scaffold(
           backgroundColor: Color.fromARGB(255, 244, 244, 244),
@@ -74,6 +73,7 @@ class _CartScreenState extends State<CartScreen> {
           appBar: PreferredSize(
             preferredSize: const Size.fromHeight(kToolbarHeight),
             child: SubPageAppbar(
+              showLeading: false,
                 text: "CARRELLO",
                 onTap: widget.fromMenu
                     ?  (){ MainNavigation.pop(context); }
@@ -245,8 +245,7 @@ class _CartScreenState extends State<CartScreen> {
                 context.read<CounterSingleProductCubit>().emit({for (var e in cart.items) e.key ?? "": e.quantity ?? 0});
                 return PopScope(
                     canPop: false,
-                    onPopInvoked: (didPop) {
-                      MainNavigation.pop(context);
+                    onPopInvoked : (didPop){
                     },
                     child:Scaffold(
                       backgroundColor: Colors.white,
