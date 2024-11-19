@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -99,7 +100,9 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
       moneyDiscount = await context.read<PointsBloc>().getMoneyDiscountAvaible() ?? 0;
       await checkCart();
       customerId = await storage.getCustomerId();
-      context.read<AccountBloc>().add(const AccountEvent.fetchAddress());
+      if(mounted){
+        context.read<AccountBloc>().add(const AccountEvent.fetchAddress());
+      }
       getPayGateway();
     });
     super.initState();
@@ -144,12 +147,12 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
       cartFirstLoad = false;
 
 
-      cart.items.forEach((element) {
+      for (var element in cart.items) {
         if(element.extensions?.bundles['bundled_item_data']?['is_hidden_in_cart'] != true
             && element.extensions?.bundles['bundled_item_data']?['is_hidden_in_summary'] != true) {
           filteredItems.add(element);
         }
-      });
+      }
     });
   }
 
@@ -173,10 +176,10 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
     int couponTotalInt_ =0 ;
     double couponTotalValue_= 0.0;
     String couponTotal_ = '0.0';
-    couponResponse!.forEach((cp){
+    for (var cp in couponResponse!) {
       couponTotalInt_ += int.tryParse(cp?.totals.totalDiscount??'0')! ;
       couponTotalInt_ += int.tryParse(cp?.totals.totalDiscountTax??'0')! ;
-    });
+    }
     couponTotalValue_ = double.tryParse((couponTotalInt_/100).toString())!;
     couponTotal_ = couponTotalValue_.toStringAsFixed(2).replaceAll('.', ',');
 
@@ -348,6 +351,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                   BlocBuilder<CouponBloc, CouponState>(
                                     builder: (context, state) => state.maybeWhen(
                                       loading: () {
+                                        isFirsCouponLoad = true;
                                         return const Center(
                                           child: CircularProgressIndicator(
                                             color: Color.fromARGB(255, 161, 29, 51),
@@ -355,6 +359,10 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                         );
                                       },
                                       orElse: () {
+                                        if(isFirsCouponLoad){
+                                          context.read<CartBloc>().add(const CartEvent.fetch());
+                                          isFirsCouponLoad = false;
+                                        }
                                         return Column(
                                           children: [
                                             buildCupon(""),
@@ -406,7 +414,6 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                         return buildCupon(error);
                                       },
                                       gotCoupon: (coupons) {
-
                                         if(isFirsCouponLoad){
                                           context.read<CartBloc>().add(const CartEvent.fetch());
                                           sumCouponDiscount(cart.coupons);
@@ -419,7 +426,6 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                             });
                                           });
                                         }
-
                                         return Column(
                                           children: [
                                             buildCupon(""),
@@ -565,7 +571,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                   ),
                                   model.billing.isEmpty ? const SizedBox.shrink():
                                   Padding(
-                                    padding: EdgeInsets.only(top : 15.0),
+                                    padding: const EdgeInsets.only(top : 15.0),
                                     child: GestureDetector(
                                       onTap: (){
                                         MainNavigation.push(context, MainNavigation.newAddressFromAccount(customerId, true, false, null,'completeorder',true, widget.totPoint,  cart));
@@ -702,7 +708,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                                   children: <TextSpan>[
                                                                     TextSpan(text: (ap !=null && ap.title != null)? '${ap.title}' :""),
                                                                     TextSpan(
-                                                                      text: min != null ? ' a partire da € ${min} ' : '',
+                                                                      text: min != null ? ' a partire da € $min ' : '',
                                                                     ),
                                                                   ],
                                                                 ),
@@ -834,12 +840,12 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                                                 style: const TextStyle(color: Colors.black),
                                                                                 children: <TextSpan>[
                                                                                   TextSpan(
-                                                                                    text: shippingCost != null ? '€ ${shippingCost} ' : '',
+                                                                                    text: shippingCost != null ? '€ $shippingCost ' : '',
                                                                                     style: const TextStyle(fontWeight: FontWeight.bold),
                                                                                   ),
                                                                                   TextSpan(text: '${sm[index]!.title}'),
                                                                                   TextSpan(
-                                                                                    text: minAmount != null ? ' a partire da € ${minAmount} ' : '',
+                                                                                    text: minAmount != null ? ' a partire da € $minAmount ' : '',
                                                                                   ),
                                                                                 ],
                                                                               ),
@@ -848,17 +854,17 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                                                 ? RichText(
                                                                                     text: TextSpan(
                                                                                       text: 'Mancano ',
-                                                                                      style: TextStyle(color: Colors.grey),
+                                                                                      style: const TextStyle(color: Colors.grey),
                                                                                       children: <TextSpan>[
                                                                                         TextSpan(
                                                                                           text: valueDifference > 0 ? '€ ${valueDifference.toStringAsFixed(2).replaceAll('.', ',')}' : '',
                                                                                           style: const TextStyle(fontWeight: FontWeight.bold),
                                                                                         ),
-                                                                                        TextSpan(text: ' per usufruire della spedizione gratuita.'),
+                                                                                        const TextSpan(text: ' per usufruire della spedizione gratuita.'),
                                                                                       ],
                                                                                     ),
                                                                                   )
-                                                                                : SizedBox()
+                                                                                : const SizedBox()
                                                                           ],
                                                                         )),
                                                               ),
@@ -892,7 +898,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
 
                                       }
 
-                                      return SizedBox();
+                                      return const SizedBox();
                                     },
                                   ),
 
@@ -957,7 +963,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                           Radio(
                                             value: index,
                                             groupValue: selectedShippingIndex,
-                                            activeColor: Color.fromARGB(255, 161, 29, 51),
+                                            activeColor: const Color.fromARGB(255, 161, 29, 51),
                                             onChanged: (int? value) {
                                               setState(() {
                                                 selectedShippingIndex = value;
@@ -1010,7 +1016,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                   model.shipping.isEmpty ? const SizedBox.shrink():
 
                                   Padding(
-                                    padding: EdgeInsets.only(top : 15.0),
+                                    padding: const EdgeInsets.only(top : 15.0),
                                     child: GestureDetector(
                                       onTap: (){
                                         MainNavigation.push(context, MainNavigation.newAddressFromAccount(customerId, false, true, null, "completeorder", true, widget.totPoint,  cart));
@@ -1041,165 +1047,163 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                   ),
 
 
-                                  Container(
-                                      child: FutureBuilder(
-                                        future: paymentGatewayFuture,
-                                        builder: (context,snapshot) {
+                                  FutureBuilder(
+                                    future: paymentGatewayFuture,
+                                    builder: (context,snapshot) {
 
 
 
-                                          if(snapshot.connectionState != ConnectionState.done) {
-                                            return const Center(
-                                                child: CircularProgressIndicator(
-                                                  color: Color.fromARGB(255, 161, 29, 51),
-                                                )
-                                            );
-                                          }
-                                          if(snapshot.hasData) {
-                                            var pg = snapshot.data;
-                                            double containerHeight = 80;
+                                      if(snapshot.connectionState != ConnectionState.done) {
+                                        return const Center(
+                                            child: CircularProgressIndicator(
+                                              color: Color.fromARGB(255, 161, 29, 51),
+                                            )
+                                        );
+                                      }
+                                      if(snapshot.hasData) {
+                                        var pg = snapshot.data;
+                                        double containerHeight = 80;
 
-                                            var unescape = HtmlUnescape();
-                                            //print(sm!.length);
-                                            if(!payDefaultDefined) {
-                                              paymentMethodSelected = pg![0]!.id!;
-                                              payDefaultDefined = true;
+                                        var unescape = HtmlUnescape();
+                                        //print(sm!.length);
+                                        if(!payDefaultDefined) {
+                                          paymentMethodSelected = pg![0]!.id!;
+                                          payDefaultDefined = true;
 
-                                            }
+                                        }
 
 
-                                            return Container(
-                                                alignment: Alignment.topLeft,
-                                                padding: const EdgeInsets.symmetric(vertical: 8),
-                                                height: containerHeight*pg!.length*0.7530,
-                                                child: ListView.builder(
-                                                  physics: const NeverScrollableScrollPhysics() ,
-                                                  shrinkWrap: true,
-                                                  itemCount: pg.length,
-                                                  itemBuilder: (context,index){
+                                        return Container(
+                                            alignment: Alignment.topLeft,
+                                            padding: const EdgeInsets.symmetric(vertical: 8),
+                                            height: containerHeight*pg!.length*0.7530,
+                                            child: ListView.builder(
+                                              physics: const NeverScrollableScrollPhysics() ,
+                                              shrinkWrap: true,
+                                              itemCount: pg.length,
+                                              itemBuilder: (context,index){
 
-                                                    String? pgIcon = '';
-                                                    String pgDescr = unescape.convert('${pg[index]?.description}');
-                                                    pgDescr = removeAllHtmlTags(
-                                                        pgDescr);
-                                                    amountCart = int.parse(cart?.totals.totalPrice??'0');
+                                                String? pgIcon = '';
+                                                String pgDescr = unescape.convert('${pg[index]?.description}');
+                                                pgDescr = removeAllHtmlTags(
+                                                    pgDescr);
+                                                amountCart = int.parse(cart?.totals.totalPrice??'0');
 
-                                                    switch(pg[index]?.id)  {
-                                                      case 'stripe_cc' : {
-                                                        pgIcon = 'assets/Ordine-carta.png';
+                                                switch(pg[index]?.id)  {
+                                                  case 'stripe_cc' : {
+                                                    pgIcon = 'assets/Ordine-carta.png';
 
-                                                        break;
-                                                      }
-                                                      case 'ppcp-gateway' : {
-                                                        pgIcon = 'assets/paypal.png';
-                                                        break;
-                                                      }
-                                                      case 'bacs' : {
-                                                        pgIcon = 'assets/Ordine-bonifico.png';
-                                                        break;
-                                                      }
-                                                      case 'cod' : {
-                                                        pgIcon = 'assets/Ordine-contrassegno.png';
-                                                        break;
-                                                      }
+                                                    break;
+                                                  }
+                                                  case 'ppcp-gateway' : {
+                                                    pgIcon = 'assets/paypal.png';
+                                                    break;
+                                                  }
+                                                  case 'bacs' : {
+                                                    pgIcon = 'assets/Ordine-bonifico.png';
+                                                    break;
+                                                  }
+                                                  case 'cod' : {
+                                                    pgIcon = 'assets/Ordine-contrassegno.png';
+                                                    break;
+                                                  }
 
-                                                      default: {
-                                                        pgIcon = 'assets/Ordine-carta.png';
-                                                      }
-                                                    }
+                                                  default: {
+                                                    pgIcon = 'assets/Ordine-carta.png';
+                                                  }
+                                                }
 
-                                                    // print('pgIcon');
-                                                    // print(pgIcon);
+                                                // print('pgIcon');
+                                                // print(pgIcon);
 
-                                                    return pg[index]?.title == null
-                                                        ? const SizedBox.shrink()
-                                                        : SizedBox(
+                                                return pg[index]?.title == null
+                                                    ? const SizedBox.shrink()
+                                                    : SizedBox(
 
-                                                      height: containerHeight,
-                                                      child: GestureDetector(
-                                                        onTap: () {
-                                                          setState(() {
-                                                            paymentMethodSelected = pg[index]!.id!;
-                                                            gruppoval2 = index;
-                                                          });
-                                                        },
-                                                        child: Row(
-                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                            children: [
-                                                              Image.asset(
-                                                                pgIcon,
-                                                                width: 22,
-                                                                height: 22,
-                                                              ),
-                                                              Expanded(
-                                                                child: Container(
-                                                                    alignment: Alignment.topLeft,
-                                                                    padding: const EdgeInsets.only(top: 0.0, left: 15),
-                                                                    child:  Column(
-                                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                                      children: [
-                                                                        RichText(
+                                                  height: containerHeight,
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        paymentMethodSelected = pg[index]!.id!;
+                                                        gruppoval2 = index;
+                                                      });
+                                                    },
+                                                    child: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Image.asset(
+                                                            pgIcon,
+                                                            width: 22,
+                                                            height: 22,
+                                                          ),
+                                                          Expanded(
+                                                            child: Container(
+                                                                alignment: Alignment.topLeft,
+                                                                padding: const EdgeInsets.only(top: 0.0, left: 15),
+                                                                child:  Column(
+                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  children: [
+                                                                    RichText(
 
-                                                                          text: TextSpan(
-                                                                            text: '',
-                                                                            style: const TextStyle(color: Colors.black),
-                                                                            children: <TextSpan>[
+                                                                      text: TextSpan(
+                                                                        text: '',
+                                                                        style: const TextStyle(color: Colors.black),
+                                                                        children: <TextSpan>[
 
-                                                                              TextSpan(
-                                                                                text: '${pg[index]?.title}',
-                                                                                style: const TextStyle(
-                                                                                    fontWeight: FontWeight.bold
-                                                                                ),
-                                                                              ),
-
-                                                                            ],
+                                                                          TextSpan(
+                                                                            text: '${pg[index]?.title}',
+                                                                            style: const TextStyle(
+                                                                                fontWeight: FontWeight.bold
+                                                                            ),
                                                                           ),
-                                                                        ),
 
-                                                                        RichText(
-                                                                          maxLines:3,
-                                                                          overflow: TextOverflow.ellipsis,
-                                                                          text: TextSpan(
-                                                                            text: '${pgDescr} ',
-                                                                            style: const TextStyle(color: Colors.grey),
-                                                                            children: <TextSpan>[
-                                                                            ],
-                                                                          ),
-                                                                        )
+                                                                        ],
+                                                                      ),
+                                                                    ),
 
-                                                                      ],
+                                                                    RichText(
+                                                                      maxLines:3,
+                                                                      overflow: TextOverflow.ellipsis,
+                                                                      text: TextSpan(
+                                                                        text: '$pgDescr ',
+                                                                        style: const TextStyle(color: Colors.grey),
+                                                                        children: const <TextSpan>[
+                                                                        ],
+                                                                      ),
                                                                     )
-                                                                ),
-                                                              ),
-                                                              SizedBox(
-                                                                width: 40,
-                                                                height:40,
-                                                                child: Radio(
-                                                                    activeColor: const Color.fromARGB(255, 158, 29, 48),
-                                                                    value: index,
-                                                                    groupValue: gruppoval2,
-                                                                    onChanged: (val) {
-                                                                      setState(() {
-                                                                        paymentMethodSelected = pg[index]!.id!;
-                                                                        gruppoval2 = index;
-                                                                      });
-                                                                    }
-                                                                ) ,
-                                                              )
-                                                            ]
-                                                        ),
-                                                      ),
-                                                    );
-                                                  },
-                                                )
-                                            );
 
-                                          }
+                                                                  ],
+                                                                )
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            width: 40,
+                                                            height:40,
+                                                            child: Radio(
+                                                                activeColor: const Color.fromARGB(255, 158, 29, 48),
+                                                                value: index,
+                                                                groupValue: gruppoval2,
+                                                                onChanged: (val) {
+                                                                  setState(() {
+                                                                    paymentMethodSelected = pg[index]!.id!;
+                                                                    gruppoval2 = index;
+                                                                  });
+                                                                }
+                                                            ) ,
+                                                          )
+                                                        ]
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            )
+                                        );
 
-                                          return const SizedBox();
-                                        },
-                                      )
+                                      }
+
+                                      return const SizedBox();
+                                    },
                                   ),
                                   customDiv,
                                   Row(
@@ -1392,7 +1396,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                             style: TextStyle(fontSize: 13),
                                           ),
                                           Text(
-                                            shippingPrice == 'GRATIS' ? shippingPrice : "€ ${shippingPrice}",
+                                            shippingPrice == 'GRATIS' ? shippingPrice : "€ $shippingPrice",
                                             style: const TextStyle(fontSize: 13),
                                           ),
                                         ],
@@ -1583,12 +1587,14 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
     final redirectUrl = a?.payment_result?.redirect_url ?? "";
 
     if (redirectUrl.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Errore: redirect_url non disponibile'),
-          elevation: 1,
-        ),
-      );
+      if(mounted){
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Errore: redirect_url non disponibile'),
+            elevation: 1,
+          ),
+        );
+      }
       return;
     }
 
@@ -1618,7 +1624,9 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
             return NavigationDecision.navigate;
           },
           onWebResourceError: (WebResourceError error) {
-            print("Errore di caricamento WebView: ${error.description}");
+            if (kDebugMode) {
+              print("Errore di caricamento WebView: ${error.description}");
+            }
           },
           onHttpError: (HttpResponseError error) {
           },
@@ -1633,7 +1641,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
             appBar: AppBar(
               backgroundColor: Colors.white,
               leading: IconButton(
-                icon: Icon(Icons.close),
+                icon: const Icon(Icons.close),
                 onPressed: () {
                   Navigator.pop(context, "cancel");
                 },
