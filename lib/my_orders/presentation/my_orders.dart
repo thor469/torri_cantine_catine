@@ -51,38 +51,24 @@ class _MyOrdersState extends State<MyOrders> {
               preferredSize: const Size.fromHeight(60),
               child: SubPageAppbar(
                 text: "I MIEI ORDINI",
-                onTap: widget.fromMenu
-                    ?  (){ MainNavigation.pop(context); }
-
-                    : widget.fromAccount
-                    ?  (){ MainNavigation.pop(context);}
-                    : widget.fromThankScreen
-                    ?  (){ MainNavigation.pop(context); }
-                    : widget.fromOrderDetails
-                    ? () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (context) =>  const AccountPage(fromMenu: false,)
-                    ))
-                    : () => MainNavigation.push(
-                  context,
-                  const MainNavigation.home(),
-                ),
-              )),
-
-          drawer: const Drawer(
-            child: MenuScreen(),
+                onTap: () => MainNavigation.push(context, const MainNavigation.account(true)),
+              )
           ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
-          floatingActionButton: (!widget.fromThankScreen && !widget.fromOrderDetails)
-              ?const FloatingButton(): const SizedBox()
-          ,
-          bottomNavigationBar: (!widget.fromThankScreen && !widget.fromOrderDetails)
-              ? BottomBanvigationMenu(
-            scaffoldKey: _key,
-            initialSelectedIndex:0,
-            context: context,
-            //notifyParent: () => refresh(selectedindex),
-          ):const SizedBox(),
+
+          // drawer: const Drawer(
+          //   child: MenuScreen(),
+          // ),
+          // floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
+          // floatingActionButton: (!widget.fromThankScreen && !widget.fromOrderDetails)
+          //     ?const FloatingButton(): const SizedBox()
+          // ,
+          // bottomNavigationBar: (!widget.fromThankScreen && !widget.fromOrderDetails)
+          //     ? BottomBanvigationMenu(
+          //   scaffoldKey: _key,
+          //   initialSelectedIndex:0,
+          //   context: context,
+          //   //notifyParent: () => refresh(selectedindex),
+          // ):const SizedBox(),
           body: const BodyOrderInfo(),
         )
 

@@ -33,37 +33,30 @@ class _CategoriesDetailScreenState extends State<CategoriesDetailScreen> {
         canPop: false,
         onPopInvoked : (didPop){
         },
-        child:Scaffold(
-          backgroundColor: const Color.fromARGB(255, 244, 244, 244),
-          appBar: SubPageAppbar(
-            text: "PRODOTTI PER CATEGORIA",
-            // onTap: () => MainNavigation.push(
-            //   context,
-            //   const MainNavigation.home(),
-            // ),
-            onTap: () => MainNavigation.pop(
-              context,
-            ),
-          ),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.00, vertical: 8),
-              child: Column(
-                children: [
-                  BlocBuilder<AllProductsBloc, AllProductsState>(
-                    builder: (context, state) => state.maybeWhen(
-                      initial: () => SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
-                        child: const Center(
-                          child: CircularProgressIndicator(
-                            color: Color.fromARGB(255, 161, 29, 51),
-                          ),
-                        ),
-                      ),
-                      loading: (model, page) {
-                        if(model.isEmpty) {
-                          return SizedBox(
+        child:Container(
+          color:const Color.fromARGB(255, 244, 244, 244),
+          child: SafeArea(
+            top: false,
+            child: Scaffold(
+              backgroundColor: const Color.fromARGB(255, 244, 244, 244),
+              appBar: SubPageAppbar(
+                text: "PRODOTTI PER CATEGORIA",
+                // onTap: () => MainNavigation.push(
+                //   context,
+                //   const MainNavigation.home(),
+                // ),
+                onTap: () => MainNavigation.pop(
+                  context,
+                ),
+              ),
+              body: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.00, vertical: 8),
+                  child: Column(
+                    children: [
+                      BlocBuilder<AllProductsBloc, AllProductsState>(
+                        builder: (context, state) => state.maybeWhen(
+                          initial: () => SizedBox(
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height,
                             child: const Center(
@@ -71,30 +64,43 @@ class _CategoriesDetailScreenState extends State<CategoriesDetailScreen> {
                                 color: Color.fromARGB(255, 161, 29, 51),
                               ),
                             ),
-                          );
-                        }
-
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 10.0),
-                          child: ProductGrid(
-                            products: model,
-                            pageNumber: -1,
                           ),
-                        );
+                          loading: (model, page) {
+                            if(model.isEmpty) {
+                              return SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.height,
+                                child: const Center(
+                                  child: CircularProgressIndicator(
+                                    color: Color.fromARGB(255, 161, 29, 51),
+                                  ),
+                                ),
+                              );
+                            }
 
-                      } ,
-                      loaded: (model, page) => Padding(
-                        padding: const EdgeInsets.only(bottom: 10.0),
-                        child: ProductGrid(
-                          products: model,
-                          pageNumber: -1,
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 10.0),
+                              child: ProductGrid(
+                                products: model,
+                                pageNumber: -1,
+                              ),
+                            );
+
+                          } ,
+                          loaded: (model, page) => Padding(
+                            padding: const EdgeInsets.only(bottom: 10.0),
+                            child: ProductGrid(
+                              products: model,
+                              pageNumber: -1,
+                            ),
+                          ),
+                          error: () => const SizedBox(),
+                          orElse: () => const SizedBox(),
                         ),
                       ),
-                      error: () => const SizedBox(),
-                      orElse: () => const SizedBox(),
-                    ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ),

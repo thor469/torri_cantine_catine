@@ -139,9 +139,9 @@ class MainRouterDelegate extends RouterDelegate<MainNavigationStack>
                   fromAccount: fromAccount,
                 ),
               ),
-              account: (fromMenu) => FadePage(
+              account: (fromSecondPage) => FadePage(
                 key: ValueKey('account_${entry.key}'),
-                child: AccountPage(fromMenu: fromMenu),
+                child: AccountPage(fromSecondPage: fromSecondPage),
               ),
               // notification: () => FadePage(
               //   key: ValueKey('notification_${entry.key}'),

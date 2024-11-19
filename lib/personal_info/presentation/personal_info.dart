@@ -65,10 +65,11 @@ class _PersonalInfoState extends State<PersonalInfo> {
     return PopScope(
         canPop: false,
         onPopInvoked: (didPop) {
-          if (kDebugMode) {
-            print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
-          }
-          MainNavigation.pop(context);
+          MainNavigation.push(context, const MainNavigation.account(true));
+          // if (kDebugMode) {
+          //   print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
+          // }
+          // MainNavigation.pop(context);
           //return;
         },
         child:Scaffold(
@@ -76,26 +77,23 @@ class _PersonalInfoState extends State<PersonalInfo> {
           key: _key,
           appBar: SubPageAppbar(
             text: "INFORMAZIONI PERSONALI",
-            onTap: () => MainNavigation.pop(
-                context
-            ),
+            onTap: () => MainNavigation.push(context, const MainNavigation.account(true)),
             // onTap: () => MainNavigation.push(
             //   context,
             //   const MainNavigation.account(false),
             // ),
           ),
-          drawer: const Drawer(
-            child: MenuScreen(),
-          ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
-          floatingActionButton: const FloatingButton()
-          ,
-          bottomNavigationBar: BottomBanvigationMenu(
-            scaffoldKey: _key,
-            initialSelectedIndex:0,
-            context: context,
-            //notifyParent: () => refresh(selectedindex),r
-          ),
+          // drawer: const Drawer(
+          //   child: MenuScreen(),
+          // ),
+          // floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
+          // floatingActionButton: const FloatingButton(),
+          // bottomNavigationBar: BottomBanvigationMenu(
+          //   scaffoldKey: _key,
+          //   initialSelectedIndex:0,
+          //   context: context,
+          //   //notifyParent: () => refresh(selectedindex),r
+          // ),
           body: BlocBuilder<AccountBloc, AccountState>(
             builder: (context, state) => state.maybeWhen(
               initial: () => const Center(

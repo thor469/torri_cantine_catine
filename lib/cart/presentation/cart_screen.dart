@@ -75,19 +75,7 @@ class _CartScreenState extends State<CartScreen> {
             child: SubPageAppbar(
               showLeading: false,
                 text: "CARRELLO",
-                onTap: widget.fromMenu
-                    ?  (){ MainNavigation.pop(context); }
-                    : widget.fromCompleteOrder
-                    ? () => MainNavigation.push(
-                  context,
-                  const MainNavigation.home(),
-                )
-                    : widget.fromHomePage
-                    ? () => MainNavigation.push(
-                  context,
-                  const MainNavigation.home(),
-                )
-                    :(){ MainNavigation.pop(context); }
+                onTap: (){}
             ),
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

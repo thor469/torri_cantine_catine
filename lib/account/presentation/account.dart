@@ -20,10 +20,10 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../app/common/sub_page_appbar.dart';
 
 class AccountPage extends StatefulWidget {
-  final bool fromMenu;
+  final bool fromSecondPage;
   const AccountPage({
     Key? key,
-    required this.fromMenu,
+    required this.fromSecondPage
   }) : super(key: key);
 
   @override
@@ -71,6 +71,7 @@ class _AccountPageState extends State<AccountPage> {
 
   @override
   void initState() {
+    widget.fromSecondPage ? null :
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       String email = await storage.getUserEmail() ?? "";
       if (mounted) context.read<AccountBloc>().add(AccountEvent.fetch(email));
@@ -90,24 +91,21 @@ class _AccountPageState extends State<AccountPage> {
         child:Scaffold(
           backgroundColor: const Color.fromARGB(255, 244, 244, 244),
           key: _key,
-          drawer: widget.fromMenu ? const Drawer(
+          drawer: const Drawer(
             child: MenuScreen(),
-          ):
-          const SizedBox.shrink(),
-          floatingActionButton: widget.fromMenu? const FloatingButton():const SizedBox(),
+          ),
+          floatingActionButton:  const FloatingButton(),
           floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
-          bottomNavigationBar: widget.fromMenu? BottomBanvigationMenu(
+          bottomNavigationBar: BottomBanvigationMenu(
             scaffoldKey: _key,
             initialSelectedIndex: 4,
             context: context,
-          ): const SizedBox.shrink(),
+          ),
           appBar: PreferredSize(
             preferredSize: const Size.fromHeight(60),
             child: SubPageAppbar(
               showLeading: false,
-              onTap: widget.fromMenu
-                  ?  (){ MainNavigation.pop(context); }
-                  : (){},
+              onTap: (){},
               text: "IL MIO ACCOUNT",
             ),
           ),

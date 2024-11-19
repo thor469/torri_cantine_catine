@@ -75,8 +75,6 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return PopScope(
         canPop: false,
         onPopInvoked : (didPop){
@@ -190,7 +188,7 @@ class _MainScreenState extends State<MainScreen> {
         return const MenuScreen();
       case 4:
         return const AccountPage(
-          fromMenu: false,
+          fromSecondPage: false,
         );
       case 5:
         return const WishlistScreen(

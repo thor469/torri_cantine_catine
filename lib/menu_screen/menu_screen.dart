@@ -228,23 +228,22 @@ class _MenuScreenState extends State<MenuScreen> {
                                   ],
                                 ),
                               ),
-                              // Padding(
-                              //   padding: const EdgeInsets.only(top: 17),
-                              //   child: Row(
-                              //     children: [
-                              //       Flexible(
-                              //         child: ProfileItems(
-                              //             id: 11,
-                              //             title: "I miei ordini",
-                              //             isSelected: currentProfile ==
-                              //                 PersonalProfile.myorders,
-                              //             onTapNavigation:
-                              //             const MainNavigation.myOrders(
-                              //                 true, false, false, false)),
-                              //       ),
-                              //     ],
-                              //   ),
-                              // ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 17),
+                                child: Row(
+                                  children: [
+                                    Flexible(
+                                      child: ProfileItems(
+                                          id: 11,
+                                          title: "I miei ordini",
+                                          isSelected: currentProfile ==
+                                              PersonalProfile.myorders,
+                                          onTapNavigation:
+                                          const MainNavigation.myOrders(true, false, false, false)),
+                                    ),
+                                  ],
+                                ),
+                              ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 17),
                                 child: Row(
