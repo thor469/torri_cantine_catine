@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:http_services/http_services.dart';
@@ -64,7 +65,9 @@ class ReviewsBloc extends Bloc<ReviewsEvent, ReviewsState> {
 
       return ReviewsResponse(reviews: listReview);
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       return null;
     }
   }

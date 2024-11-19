@@ -10,7 +10,7 @@ import 'menu_bottom_item.dart';
 import 'wishlist_bottom_item.dart';
 
 class BottomBanvigationMenu extends StatefulWidget {
-  GlobalKey<ScaffoldState> _key;
+  final GlobalKey<ScaffoldState> _key;
   int selectedIndex;
   BuildContext contxt;
 
@@ -107,7 +107,7 @@ class _BottomBanvigationMenuState extends State<BottomBanvigationMenu> {
                 alignment: Alignment.topCenter,
                 clipBehavior: Clip.none,
                 children: [
-                  Container(width: 48, height: 48), // Placeholder for alignment
+                  const SizedBox(width: 48, height: 48), // Placeholder for alignment
                   Positioned(
                     top: -11.0,
                     child: CircleAvatar(

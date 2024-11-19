@@ -81,7 +81,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
               : () => MainNavigation.pop(context),
         )
             : null,
-        floatingActionButton: FloatingButton(),
+        floatingActionButton: const FloatingButton(),
         floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
         bottomNavigationBar: BottomBanvigationMenu(
           scaffoldKey: GlobalKey(),

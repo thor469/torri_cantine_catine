@@ -11,7 +11,6 @@ import 'package:torri_cantine_app/cart/cubit/counter_single_product_cubit.dart';
 import 'package:torri_cantine_app/login/login/login_bloc.dart';
 import 'package:torri_cantine_app/cart/remove_product_to_cart/remove_product_to_cart_bloc.dart';
 import 'package:torri_cantine_app/categories/categories/categories_bloc.dart';
-import 'package:torri_cantine_app/login/login/login_bloc.dart';
 import 'package:torri_cantine_app/my_orders/my_orders/list_all_orders/list_all_orders_bloc.dart';
 import 'package:torri_cantine_app/my_orders/my_orders/my_orders_bloc.dart';
 import 'package:torri_cantine_app/order_detail/order_detail/order_detail_bloc.dart';

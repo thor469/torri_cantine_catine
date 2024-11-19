@@ -97,7 +97,7 @@ class _CharListState extends State<CharList> {
                   ],
                 ),
               ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.fromLTRB(25, 16, 25, 16),
                 child: Divider(
                   thickness: 1.3,
@@ -209,14 +209,14 @@ class _CharListSecondaryState extends State<CharListSecondary> {
                       children: [
                         //###############################
                         (wineBio!=null && wineBio!='')?
-                        CharItem(
+                        const CharItem(
                           title: 'BIOLOGICO',
                           img: 'assets/Articolo-info-abbinamenti-bio.svg',
                           text: 'Sì',
                         ) : const SizedBox(),
 
                         (wineBiodyn!=null && wineBiodyn!='')?
-                        CharItem(
+                        const CharItem(
                           title: 'AGRICOLTURA BIODINAMICA',
                           img: 'assets/Articolo-info-abbinamenti-bio.svg',
                           text: 'Sì',
@@ -295,7 +295,7 @@ class _CharListSecondaryState extends State<CharListSecondary> {
                   ],
                 ),
               ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.fromLTRB(25, 16, 25, 16),
                 child: Divider(
                   thickness: 1.3,

@@ -58,11 +58,15 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent, MyOrdersState> {
         ),
       );
       // ?=<id_ordine>&=<somma_punti>
-    print(response.order_id);
+    if (kDebugMode) {
+      print(response.order_id);
+    }
      await addPoint(response.order_id ?? 0, totPoint);
     yield MyOrdersState.loaded(response);
     } on ApiException catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       yield const MyOrdersState.error();
     }
   }
@@ -112,7 +116,9 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent, MyOrdersState> {
       return response;
     } on ApiException catch (e) {
 
-      print(e.body["order_id"]);
+      if (kDebugMode) {
+        print(e.body["order_id"]);
+      }
       return e.body["order_id"];
     }
   }

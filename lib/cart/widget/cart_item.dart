@@ -118,9 +118,9 @@ class _CartItemState extends State<CartItem> {
                   width: MediaQuery.of(context).size.width * 0.5,
                   child: Text(
                     widget.productDescription.isNotEmpty ?
-                    "${unescape.convert(widget.productDescription)}" : "",
+                    unescape.convert(widget.productDescription) : "",
                     maxLines: 2,
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 Text("${widget.productPrice} €",
@@ -140,7 +140,7 @@ class _CartItemState extends State<CartItem> {
                           width: 20,
                           height: 20,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(5),
                                 bottomLeft: Radius.circular(5),
                               ),
@@ -152,7 +152,7 @@ class _CartItemState extends State<CartItem> {
                                 icon: Icon(
                                   Icons.remove,
                                   size: 15,
-                                  color: isUpdating?Colors.black26:Color.fromARGB(255, 110, 116, 119),
+                                  color: isUpdating?Colors.black26:const Color.fromARGB(255, 110, 116, 119),
                                 ),
                                 onPressed: isUpdating?null:() {
 
@@ -199,7 +199,7 @@ class _CartItemState extends State<CartItem> {
                           child: Container(
                             width: 25,
                             height: 20,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               border: Border.symmetric(
                                   horizontal: BorderSide(color: Colors.grey)
                               ),
@@ -227,7 +227,7 @@ class _CartItemState extends State<CartItem> {
                                 icon: Icon(
                                   Icons.add,
                                   size: 15,
-                                  color: isUpdating?Colors.black26:Color.fromARGB(255, 110, 116, 119),
+                                  color: isUpdating?Colors.black26:const Color.fromARGB(255, 110, 116, 119),
                                 ),
                                 onPressed: isUpdating?null:() {
 
@@ -266,7 +266,7 @@ class _CartItemState extends State<CartItem> {
               children: [
                 GestureDetector(
                   child: updatingItems.contains(widget.id)?
-                  SizedBox(
+                  const SizedBox(
                     width: 27,
                     height: 27,
                     child: CircularProgressIndicator(color: Color.fromARGB(255, 161, 29, 52),),

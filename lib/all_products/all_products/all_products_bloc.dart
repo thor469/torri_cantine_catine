@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:torri_cantine_app/all_products/model/request/all_products_request.dart';
@@ -56,8 +57,8 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
           pageNumber: pageNew ?? 1,
           order: currentOrder,
           orderBy: currentOrderBy,
-          catalogVisibility: '${AppConfig.catalogVisibilityFilter}',
-          productStatus: '${AppConfig.productStatusFilter}',
+          catalogVisibility: AppConfig.catalogVisibilityFilter,
+          productStatus: AppConfig.productStatusFilter,
         ));
 
         // Check if the response has products
@@ -68,7 +69,9 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
           }
 
           products.addAll(response.products as Iterable<Product>);
-          print("${response.products} sorted by $currentOrderBy $currentOrder");
+          if (kDebugMode) {
+            print("${response.products} sorted by $currentOrderBy $currentOrder");
+          }
 
           // Check if we've loaded all products or not
           if (response.products!.length < apiTopValue) {
@@ -76,17 +79,23 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
             pageNew = 0; // Reset page number
             yield AllProductsState.loaded(products ?? [], pageNew);
           } else {
-            print('Still loading... Page: $pageNew');
+            if (kDebugMode) {
+              print('Still loading... Page: $pageNew');
+            }
             yield AllProductsState.loading(products ?? [], pageNew);
           }
         } else {
           // Handle case where no products are found
-          print("No products found.");
+          if (kDebugMode) {
+            print("No products found.");
+          }
           stop = true;
           yield AllProductsState.loading(products ?? [], pageNew);
         }
       } catch (e) {
-        print('AllProductsBloc error: $e');
+        if (kDebugMode) {
+          print('AllProductsBloc error: $e');
+        }
         yield const AllProductsState.error();
       }
 
@@ -104,14 +113,16 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
         pageNumber: page ?? 1,
         order: order ?? "desc",
         orderBy: orderBy ?? "date",
-        catalogVisibility: '${AppConfig.catalogVisibilityFilter}',
-        productStatus: '${AppConfig.productStatusFilter}',
+        catalogVisibility: AppConfig.catalogVisibilityFilter,
+        productStatus: AppConfig.productStatusFilter,
       ));
       return response;
       // products.addAll(response.products as Iterable<Product>);
       // return products;
     } on DioError catch (e) {
-        print(e.message);
+        if (kDebugMode) {
+          print(e.message);
+        }
         return null;
       }
   }
@@ -141,8 +152,8 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
             tags: tags,
             minPrice: minPrice,
             maxPrice: maxPrice,
-            catalogVisibility: '${AppConfig.catalogVisibilityFilter}',
-            productStatus: '${AppConfig.productStatusFilter}'));
+            catalogVisibility: AppConfig.catalogVisibilityFilter,
+            productStatus: AppConfig.productStatusFilter));
         products.addAll(response.products ?? []);
 
         if (response.products?.length == 0) {
@@ -153,7 +164,9 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
           yield AllProductsState.loaded(products ?? [], pageNew);
           //yield AllProductsState.loaded(products ?? [], pageNew);
         } else {
-          print('still loading...${pageNew}');
+          if (kDebugMode) {
+            print('still loading...$pageNew');
+          }
           //yield AllProductsState.loading(products ?? [], pageNew);
           yield AllProductsState.loading(products ?? [], pageNew);
         }
@@ -177,11 +190,13 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
           tags: tags,
           minPrice: minPrice,
           maxPrice: maxPrice,
-          catalogVisibility: '${AppConfig.catalogVisibilityFilter}',
-          productStatus: '${AppConfig.productStatusFilter}'));
+          catalogVisibility: AppConfig.catalogVisibilityFilter,
+          productStatus: AppConfig.productStatusFilter));
       return response;
     } on DioError catch (e) {
-      print(e.message);
+      if (kDebugMode) {
+        print(e.message);
+      }
       return null;
     }
   }
@@ -198,7 +213,7 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
           pageNumber: page ?? 1,
           limit: 10,
           query: query,
-          catalogVisibility: '${AppConfig.catalogVisibilitySearch}'));
+          catalogVisibility: AppConfig.catalogVisibilitySearch));
       products.addAll(response.products ?? []);
 
       yield AllProductsState.loaded(products, page ?? 1);
@@ -218,7 +233,7 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
           pageNumber: page ?? 1,
           limit:10,
           query: query,
-          catalogVisibility: '${AppConfig.catalogVisibilitySearch}'));
+          catalogVisibility: AppConfig.catalogVisibilitySearch));
       products.addAll(response.products ?? []);
 
       return products;

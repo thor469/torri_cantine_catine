@@ -67,6 +67,7 @@ class _SecondRegistrScreenState extends State<SecondRegistrScreen> {
           context
               .read<LoginBloc>()
               .add(LoginEvent.login(password, password, fcmtoken));
+          return null;
           // MainNavigation.push(context, const MainNavigation.home());
         },
         loaded: (response) => MainNavigation.push(
@@ -77,6 +78,7 @@ class _SecondRegistrScreenState extends State<SecondRegistrScreen> {
             elevation: 1,
           );
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          return null;
         },
         orElse: () => const SizedBox(),
       ),

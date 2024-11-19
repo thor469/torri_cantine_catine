@@ -1,10 +1,8 @@
-import 'dart:convert';
-import 'dart:math';
-import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http_services/http_services.dart';
@@ -99,37 +97,37 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
   }
 
   Stream<RegistrationState> _registerWithFacebook() async* {
-    LocalStorage storage = LocalStorage();
-    
-    final facebookAuth = await FacebookAuth.instance.login();
-    if (facebookAuth.accessToken != null) {
-      final user = await FacebookAuth.instance.getUserData();
-      try {
-        storage.setUserName(user['email']);
-        storage.setPassword(getPassword(user['email']));
-        final response = await service.getRegistration(
-          RegistrationRequest(
-            billing: null,
-            email: user['email'],
-            first_name: user['name'],
-            last_name: "",
-            password: getPassword(user['email']),
-            shipping: null,
-            username: "",
-          ),
-        );
-
-        yield RegistrationState.loadedWithGoogle(
-            response, user['email'], getPassword(user['email']));
-      } on ApiException catch (e) {
-        await FacebookAuth.i.logOut();
-
-        yield RegistrationState.error(
-            getWarningMeessage(e.body['code']), e.body['code']);
-      }
-    } else {
+    // LocalStorage storage = LocalStorage();
+    //
+    // final facebookAuth = await FacebookAuth.instance.login();
+    // if (facebookAuth.accessToken != null) {
+    //   final user = await FacebookAuth.instance.getUserData();
+    //   try {
+    //     storage.setUserName(user['email']);
+    //     storage.setPassword(getPassword(user['email']));
+    //     final response = await service.getRegistration(
+    //       RegistrationRequest(
+    //         billing: null,
+    //         email: user['email'],
+    //         first_name: user['name'],
+    //         last_name: "",
+    //         password: getPassword(user['email']),
+    //         shipping: null,
+    //         username: "",
+    //       ),
+    //     );
+    //
+    //     yield RegistrationState.loadedWithGoogle(
+    //         response, user['email'], getPassword(user['email']));
+    //   } on ApiException catch (e) {
+    //     await FacebookAuth.i.logOut();
+    //
+    //     yield RegistrationState.error(
+    //         getWarningMeessage(e.body['code']), e.body['code']);
+    //   }
+    // } else {
       yield const RegistrationState.error('Facebook sign in aborted.', "");
-    }
+    // }
   }
 
   Stream<RegistrationState> _registerWithApple() async* {LocalStorage storage = LocalStorage();
@@ -154,16 +152,28 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
       storage.setUserName(userCredential.user!.email ?? "");
       storage.setPassword(getPassword(userCredential.user!.email ?? ""));
 
-      print('@@##### USER CREDENTIAL ########################');
-      print(userCredential);
-      print(userCredential.user);
-      print('---');
-      print(userCredential.additionalUserInfo);
-      print('---------------');
+      if (kDebugMode) {
+        print('@@##### USER CREDENTIAL ########################');
+      }
+      if (kDebugMode) {
+        print(userCredential);
+      }
+      if (kDebugMode) {
+        print(userCredential.user);
+      }
+      if (kDebugMode) {
+        print('---');
+      }
+      if (kDebugMode) {
+        print(userCredential.additionalUserInfo);
+      }
+      if (kDebugMode) {
+        print('---------------');
+      }
 
       String userDisplayName = '';
       if(userCredential.user!.displayName==null) {
-        userDisplayName = 'utente_'+ (userCredential.user!.email ?? "").split('@').first??'';
+        userDisplayName = 'utente_${(userCredential.user!.email ?? "").split('@').first}';
       } else {
         userDisplayName = userCredential.user!.email!;
       }

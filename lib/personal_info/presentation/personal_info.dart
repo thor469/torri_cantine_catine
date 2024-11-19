@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torri_cantine_app/account/model/response/account_response.dart';
@@ -64,12 +65,14 @@ class _PersonalInfoState extends State<PersonalInfo> {
     return PopScope(
         canPop: false,
         onPopInvoked: (didPop) {
-          print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
+          if (kDebugMode) {
+            print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
+          }
           MainNavigation.pop(context);
           //return;
         },
         child:Scaffold(
-          backgroundColor: Color.fromARGB(255, 244, 244, 244),
+          backgroundColor: const Color.fromARGB(255, 244, 244, 244),
           key: _key,
           appBar: SubPageAppbar(
             text: "INFORMAZIONI PERSONALI",
@@ -81,11 +84,11 @@ class _PersonalInfoState extends State<PersonalInfo> {
             //   const MainNavigation.account(false),
             // ),
           ),
-          drawer: Drawer(
+          drawer: const Drawer(
             child: MenuScreen(),
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
-          floatingActionButton: FloatingButton()
+          floatingActionButton: const FloatingButton()
           ,
           bottomNavigationBar: BottomBanvigationMenu(
             scaffoldKey: _key,

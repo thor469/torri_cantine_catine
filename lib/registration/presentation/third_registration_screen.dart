@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:torri_cantine_app/app/common/primary_button.dart';
@@ -18,7 +19,9 @@ class _ThirdRegistrScreenState extends State<ThirdRegistrScreen> {
     return PopScope(
         canPop: false,
         onPopInvoked: (didPop) {
-          print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
+          if (kDebugMode) {
+            print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
+          }
           MainNavigation.pop(context);
           //return;
         },

@@ -4,7 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http_services/http_services.dart';
@@ -165,10 +165,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         storage.setPassword(
             RegistrationBloc.getPassword(userCredential.user!.email ?? ""));
 
-        print('_loginWithGoole getPassword');
-        print(userCredential.user!.email);
-        print(RegistrationBloc.getPassword(
+        if (kDebugMode) {
+          print('_loginWithGoole getPassword');
+        }
+        if (kDebugMode) {
+          print(userCredential.user!.email);
+        }
+        if (kDebugMode) {
+          print(RegistrationBloc.getPassword(
             userCredential.user!.email ?? ""));
+        }
         final response = await service.login(LoginRequest(
             username: userCredential.user!.email ?? "",
             password: RegistrationBloc.getPassword(
@@ -178,15 +184,23 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         //String deviceId = response.token!;
         final notificationResponse =
             await notificationService.getToken(NotificationRequest());
-        print('_loginWithGoole notificationResponse');
-        print(notificationResponse);
+        if (kDebugMode) {
+          print('_loginWithGoole notificationResponse');
+        }
+        if (kDebugMode) {
+          print(notificationResponse);
+        }
         if (fcmToken == '') {
           await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
           FirebaseMessaging.instance.getToken().then((value) {
             String? token = value;
-            print('FCMToken:' + token!);
-            print('DeviceID:' + deviceId!);
-            storage.setFCMToken(token);
+            if (kDebugMode) {
+              print('FCMToken:${token!}');
+            }
+            if (kDebugMode) {
+              print('DeviceID:${deviceId!}');
+            }
+            storage.setFCMToken(token!);
           });
           notificationService.insertToken(InsertNotificationRequest(token: fcmToken.trim(), deviceId: deviceId.trim(), userId: 167));
         } else {
@@ -199,13 +213,23 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         storage.deletePassword();
         yield const LoginState.loading();
         await GoogleSignIn().signOut();
-        print('_loginWithGoole exception');
-        print(e.body);
-        print(e.error);
-        print(e.httpCode);
-        print(e.httpMessage);
+        if (kDebugMode) {
+          print('_loginWithGoole exception');
+        }
+        if (kDebugMode) {
+          print(e.body);
+        }
+        if (kDebugMode) {
+          print(e.error);
+        }
+        if (kDebugMode) {
+          print(e.httpCode);
+        }
+        if (kDebugMode) {
+          print(e.httpMessage);
+        }
         if((e.body?['code'] ?? "") == "[jwt_auth] incorrect_password"){
-          yield LoginState.error('isRegisteredEmail');
+          yield const LoginState.error('isRegisteredEmail');
         }else{
           yield LoginState.error('${e.body?['code']}');
         }
@@ -214,48 +238,48 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   Stream<LoginState> _loginWithFacebook() async* {
-    LocalStorage storage = LocalStorage();
+    // LocalStorage storage = LocalStorage();
     yield const LoginState.loading();
-
-    yield const LoginState.initial();
-    yield const LoginState.loading();
-    try {
-      final auth = await FacebookAuth.instance.login();
-      if (auth.accessToken != null) {
-        final user = await FacebookAuth.instance.getUserData();
-        storage.setUserName(user['email']);
-        storage.setPassword(RegistrationBloc.getPassword(user['email']));
-        final response = await service.login(LoginRequest(
-            username: user['email'],
-            password: RegistrationBloc.getPassword(user['email'])));
-        String fcmToken = await storage.getFCMToken() ?? '';
-        String deviceId = await storage.getDeviceId() ??'';
-        //String deviceId = response.token!;
-        final notificationResponse =
-            await notificationService.getToken(NotificationRequest());
-            print(notificationResponse);
-        if (fcmToken == '') {
-          await Firebase.initializeApp(
-              options: DefaultFirebaseOptions.currentPlatform);
-          FirebaseMessaging.instance.getToken().then((value) {
-            String? token = value;
-            print('FCMToken:' + token!);
-            print('DEVICE_id:' + deviceId!);
-            storage.setFCMToken(token);
-          });
-          notificationService.insertToken(
-              InsertNotificationRequest(token: fcmToken.trim(), deviceId: deviceId.trim(), userId: 169));
-        } else {
-          notificationService.insertToken(
-              InsertNotificationRequest(token: fcmToken.trim(), deviceId: deviceId.trim(), userId: 170));
-        }
-        yield LoginState.loggedIn(response);
-      }
-    } on ApiException catch (e) {
-      storage.deleteUserName();
-      storage.deletePassword();
-      yield const LoginState.loading();
-      yield LoginState.error('${e.body?['code']}');
-    }
+  //
+  //   yield const LoginState.initial();
+  //   yield const LoginState.loading();
+  //   try {
+  //     final auth = await FacebookAuth.instance.login();
+  //     if (auth.accessToken != null) {
+  //       final user = await FacebookAuth.instance.getUserData();
+  //       storage.setUserName(user['email']);
+  //       storage.setPassword(RegistrationBloc.getPassword(user['email']));
+  //       final response = await service.login(LoginRequest(
+  //           username: user['email'],
+  //           password: RegistrationBloc.getPassword(user['email'])));
+  //       String fcmToken = await storage.getFCMToken() ?? '';
+  //       String deviceId = await storage.getDeviceId() ??'';
+  //       //String deviceId = response.token!;
+  //       final notificationResponse =
+  //           await notificationService.getToken(NotificationRequest());
+  //           print(notificationResponse);
+  //       if (fcmToken == '') {
+  //         await Firebase.initializeApp(
+  //             options: DefaultFirebaseOptions.currentPlatform);
+  //         FirebaseMessaging.instance.getToken().then((value) {
+  //           String? token = value;
+  //           print('FCMToken:' + token!);
+  //           print('DEVICE_id:' + deviceId!);
+  //           storage.setFCMToken(token);
+  //         });
+  //         notificationService.insertToken(
+  //             InsertNotificationRequest(token: fcmToken.trim(), deviceId: deviceId.trim(), userId: 169));
+  //       } else {
+  //         notificationService.insertToken(
+  //             InsertNotificationRequest(token: fcmToken.trim(), deviceId: deviceId.trim(), userId: 170));
+  //       }
+  //       yield LoginState.loggedIn(response);
+  //     }
+  //   } on ApiException catch (e) {
+  //     storage.deleteUserName();
+  //     storage.deletePassword();
+  //     yield const LoginState.loading();
+  //     yield LoginState.error('${e.body?['code']}');
+  //   }
   }
 }

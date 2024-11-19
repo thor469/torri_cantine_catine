@@ -1,8 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:torri_cantine_app/account/model/request/add_address_request.dart';
-import 'package:torri_cantine_app/account/model/response/account_response.dart';
 import 'package:torri_cantine_app/personal_info/model/request/update_customer_request.dart';
 import 'package:torri_cantine_app/registration/model/request/registration_request.dart';
 

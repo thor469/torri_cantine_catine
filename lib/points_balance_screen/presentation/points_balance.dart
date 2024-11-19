@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -92,7 +93,9 @@ class _PointsBalanceState extends State<PointsBalance> {
     return PopScope(
         canPop: false,
         onPopInvoked: (didPop) {
-          print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
+          if (kDebugMode) {
+            print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
+          }
           MainNavigation.pop(context);
           //return;
         },
@@ -153,7 +156,7 @@ class _PointsBalanceState extends State<PointsBalance> {
                               style: const TextStyle(
                                 fontSize: 52,
                                 fontWeight: FontWeight.bold,
-                                color: const Color.fromARGB(255, 161, 29, 51),
+                                color: Color.fromARGB(255, 161, 29, 51),
                               ),
                             ),
                           ),
@@ -369,7 +372,7 @@ class _PointsBalanceState extends State<PointsBalance> {
                       ),
                     );
                   }else{
-                    return Center(
+                    return const Center(
                       child: Text(
                         "Non hai ancora accumulato nessun punto"
                       ),

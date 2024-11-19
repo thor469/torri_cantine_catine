@@ -40,8 +40,8 @@ class _CategorySectionState extends State<CategorySection> {
                       MainNavigation.push(
                           context, const MainNavigation.products());
                     },
-                    child: Row(
-                      children: const [
+                    child: const Row(
+                      children: [
                         Text(
                           "Vedi Itutti",
                           style: TextStyle(

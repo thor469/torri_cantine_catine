@@ -8,6 +8,7 @@ part 'add_address_request.g.dart';
 class AddAddressRequest extends RequestBase with _$AddAddressRequest {
   AddAddressRequest._();
   factory AddAddressRequest({
+
   required String first_name,
   required String last_name,
   required String company,

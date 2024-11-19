@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/bottom_bar.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/floating_action_button.dart';
+import 'package:torri_cantine_app/app/common/sub_page_appbar.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
+import 'package:torri_cantine_app/menu_screen/menu_screen.dart';
 import 'package:torri_cantine_app/my_orders/my_orders/list_all_orders/model/response/list_all_orders_response.dart' as listOrders;
 import 'package:torri_cantine_app/order_detail/widgets/body_order_detail.dart';
-import '../../app/common/sub_page_appbar.dart';
-import '../../menu_screen/menu_screen.dart';
 
 class OrderDetail extends StatefulWidget {
   listOrders.Order order;

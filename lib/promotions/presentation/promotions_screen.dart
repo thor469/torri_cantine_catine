@@ -1,10 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torri_cantine_app/all_products/all_products/all_products_bloc.dart';
 import 'package:torri_cantine_app/all_products/model/response/all_products_response.dart';
 import 'package:torri_cantine_app/all_products/widgets/products_grid.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
-import 'package:torri_cantine_app/home_page/widgets/custom_banner.dart';
 
 class PromotionsScreen extends StatefulWidget {
   const PromotionsScreen({
@@ -45,12 +45,14 @@ class _PromotionsScreenState extends State<PromotionsScreen> {
     return PopScope(
         canPop: false,
         onPopInvoked: (didPop) {
-          print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
+          if (kDebugMode) {
+            print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
+          }
           MainNavigation.pop(context);
           //return;
         },
         child:Scaffold(
-          backgroundColor: Color.fromARGB(255, 244, 244, 244),
+          backgroundColor: const Color.fromARGB(255, 244, 244, 244),
           body: BlocBuilder<AllProductsBloc, AllProductsState>(
             builder: (context, state) => state.maybeWhen(
               initial: () => const Center(
@@ -60,7 +62,7 @@ class _PromotionsScreenState extends State<PromotionsScreen> {
               ),
               loading: (model, page) {
                 if(model.isEmpty) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(
                       color: Color.fromARGB(255, 161, 29, 51),
                     ),
@@ -74,11 +76,11 @@ class _PromotionsScreenState extends State<PromotionsScreen> {
                       //       EdgeInsets.only(top: 8, bottom: 8, left: 20, right: 20),
                       //   child: CustomBanner(),
                       // ),
-                      Padding(padding: EdgeInsets.only(top:24),),
+                      const Padding(padding: EdgeInsets.only(top:24),),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: ProductGrid(
-                          products: promotedProd(model ?? []) ?? [],
+                          products: promotedProd(model) ?? [],
                           pageNumber: page,
                         ),
                       ),
@@ -95,11 +97,11 @@ class _PromotionsScreenState extends State<PromotionsScreen> {
                     //       EdgeInsets.only(top: 8, bottom: 8, left: 20, right: 20),
                     //   child: CustomBanner(),
                     // ),
-                    Padding(padding: EdgeInsets.only(top:24),),
+                    const Padding(padding: EdgeInsets.only(top:24),),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: ProductGrid(
-                        products: promotedProd(model ?? []) ?? [],
+                        products: promotedProd(model) ?? [],
                         pageNumber: page,
 
                       ),

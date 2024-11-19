@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:http_services/http_services.dart';
@@ -84,7 +85,9 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         ),
       );
     }catch(e){
-     print(e);
+     if (kDebugMode) {
+       print(e);
+     }
     }
 
   }

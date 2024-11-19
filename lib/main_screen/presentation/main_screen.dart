@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torri_cantine_app/account/account/account_bloc.dart';
@@ -38,14 +39,22 @@ class _MainScreenState extends State<MainScreen> {
       if (mounted) {
         context.read<AccountBloc>().add(AccountEvent.fetch(email));
 
-        print('this init state');
+        if (kDebugMode) {
+          print('this init state');
+        }
         BlocListener<AccountBloc, AccountState> (
           listener: (BuildContext context, AccountState state) {
             state.maybeWhen(
                 loaded: (model) async {
-                  print('model.user.first.id');
-                  print(model.user.first.id);
-                  print((model.user.first.id).runtimeType);
+                  if (kDebugMode) {
+                    print('model.user.first.id');
+                  }
+                  if (kDebugMode) {
+                    print(model.user.first.id);
+                  }
+                  if (kDebugMode) {
+                    print((model.user.first.id).runtimeType);
+                  }
                   String? deviceID = await storage.getDeviceId();
                   String? fcmToken = await storage.getFCMToken();
                   //InsertNotificationRequest(token: fcmToken!.trim(), deviceId: deviceID!.trim(), userId: model.user.first.id );
@@ -54,7 +63,9 @@ class _MainScreenState extends State<MainScreen> {
             );
           },
         );
-        print('');
+        if (kDebugMode) {
+          print('');
+        }
       }
     });
     super.initState();
@@ -72,11 +83,11 @@ class _MainScreenState extends State<MainScreen> {
         },
         child:Scaffold(
           key: _key,
-          drawer: Drawer(
+          drawer: const Drawer(
             child: MenuScreen(),
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
-          floatingActionButton: FloatingButton(),
+          floatingActionButton: const FloatingButton(),
           body: selectPage(selectedIndex),
           bottomNavigationBar: true==true?BottomBanvigationMenu(
             scaffoldKey: _key,

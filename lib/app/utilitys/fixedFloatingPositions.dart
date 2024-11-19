@@ -19,11 +19,13 @@ class FixedCenterDockedFabLocation extends FloatingActionButtonLocation {
     double fabY = contentBottom + bottomDistance - fabHeight / 2.0;
 
     // The FAB should sit with a margin between it and the snack bar.
-    if (snackBarHeight > 0.0)
+    if (snackBarHeight > 0.0) {
       fabY = min(fabY, contentBottom - snackBarHeight - fabHeight - kFloatingActionButtonMargin);
+    }
     // The FAB should sit with its center in front of the top of the bottom sheet.
-    if (bottomSheetHeight > 0.0)
+    if (bottomSheetHeight > 0.0) {
       fabY = min(fabY, contentBottom - bottomSheetHeight - fabHeight / 2.0);
+    }
 
     final double maxFabY = scaffoldGeometry.scaffoldSize.height - fabHeight;
     return min(maxFabY, fabY);

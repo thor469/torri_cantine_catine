@@ -1,6 +1,6 @@
 import 'dart:collection';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 
 import 'main_navigation.dart';
@@ -24,9 +24,15 @@ class MainNavigationStack with ChangeNotifier {
   MainNavigation? pop() {
     LocalStorage storage = LocalStorage();
 
-    print('MainNavigation  @#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
-    print(_items);
-    print(_items.last);
+    if (kDebugMode) {
+      print('MainNavigation  @#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
+    }
+    if (kDebugMode) {
+      print(_items);
+    }
+    if (kDebugMode) {
+      print(_items.last);
+    }
 
 
     //return null;
@@ -35,7 +41,9 @@ class MainNavigationStack with ChangeNotifier {
         final poppedItem = _items.removeLast();
 
         Future.wait([storage.setBottomTabState(0)]);
-        print('-- ${_items.last.toString()}');
+        if (kDebugMode) {
+          print('-- ${_items.last.toString()}');
+        }
         if( (_items.last.toString()).contains('MainNavigation.wishList') ) {
           Future.wait([storage.setBottomTabState(5)]);
         }

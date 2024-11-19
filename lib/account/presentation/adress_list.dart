@@ -34,7 +34,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       String email = await storage.getUserEmail() ?? "";
       if (mounted) {
-        context.read<AccountBloc>().add(AccountEvent.fetchAddress());
+        context.read<AccountBloc>().add(const AccountEvent.fetchAddress());
       }
     });
     super.initState();
@@ -56,9 +56,9 @@ return PopScope(
         text: "I MIEI INDIRIZZI",
       ),
     ),
-    drawer: Drawer(child: MenuScreen()),
+    drawer: const Drawer(child: MenuScreen()),
     floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
-    floatingActionButton: FloatingButton(),
+    floatingActionButton: const FloatingButton(),
     bottomNavigationBar: BottomBanvigationMenu(
       scaffoldKey: GlobalKey(),
       initialSelectedIndex: 0,
@@ -296,8 +296,8 @@ return PopScope(
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 20.0),
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 20.0),
                       child: Text(
                         "Nessun indirizzo trovato",
                       ),
@@ -333,7 +333,7 @@ return PopScope(
   // Metodo per aggiornare l'indirizzo predefinito
   Future<void> _updateDefaultAddress(UserAddress address, String type, String id) async {
 
-    MainNavigation.push(context, MainNavigation.account(true));
+    MainNavigation.push(context, const MainNavigation.account(true));
 
     context.read<AccountBloc>().add(
         AccountEvent.updateAddress(
@@ -374,7 +374,7 @@ return PopScope(
             value: 1,
             groupValue: isSelected ? 1 : 0,
             onChanged: (_) => onSelected(),
-            activeColor: Color.fromARGB(255, 161, 29, 51),
+            activeColor: const Color.fromARGB(255, 161, 29, 51),
           ),
           title: Text(title),
           trailing: IconButton(
@@ -414,7 +414,7 @@ return PopScope(
             );
           },
         ),
-        SizedBox(
+        const SizedBox(
           height: 5,
         ),
         PrimaryButton(
@@ -476,7 +476,7 @@ return PopScope(
             );
           },
         ),
-        SizedBox(
+        const SizedBox(
           height: 5,
         ),
         PrimaryButton(

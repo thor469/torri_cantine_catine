@@ -1,11 +1,9 @@
-import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:http_services/http_services.dart';
+import 'package:torri_cantine_app/all_products/model/response/all_products_response.dart';
+import 'package:torri_cantine_app/app/dependency_injection/dependency_factory_impl.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
-import '../../all_products/model/request/wishlist_products.dart';
-import '../../all_products/model/response/all_products_response.dart';
-import '../../app/app_config.dart';
-import '../../app/dependency_injection/dependency_factory_impl.dart';
 
 
 
@@ -85,7 +83,9 @@ Future<List<Product?>> doGetWlProducts() async {
       wishListProducts.add(Product.fromJson(response.data));
     }
     else {
-      print(response.statusMessage);
+      if (kDebugMode) {
+        print(response.statusMessage);
+      }
     }
     //AllProductsResponse resp = await WishlistService(dio).wishListProducts(WishlistProductsRequest(id: wishItem));
     // if(resp.products!=null) {

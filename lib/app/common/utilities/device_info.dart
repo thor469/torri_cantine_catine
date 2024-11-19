@@ -13,4 +13,5 @@ Future<String?> getId() async {
     return androidDeviceInfo.id
     ; // unique ID on Android
   }
+  return null;
 }

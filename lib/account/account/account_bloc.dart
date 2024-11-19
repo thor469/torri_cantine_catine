@@ -5,10 +5,8 @@ import 'package:http_services/http_services.dart';
 import 'package:torri_cantine_app/account/model/request/account_request.dart';
 import 'package:torri_cantine_app/account/model/request/add_address_request.dart';
 import 'package:torri_cantine_app/account/model/response/account_response.dart';
-import 'package:torri_cantine_app/account/model/response/add_address_response.dart';
 import 'package:torri_cantine_app/account/model/response/address_response.dart';
 import 'package:torri_cantine_app/account/service/account_service.dart';
-import 'package:torri_cantine_app/account/service/address_service.dart';
 import 'package:torri_cantine_app/app/dependency_injection/dependency_factory_impl.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 
@@ -56,7 +54,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         // print(response);
         // print(response.user);
         // print('///// DARIO ACCOUNT #############################################');
-        if(response.user.length==0) {
+        if(response.user.isEmpty) {
           yield const AccountState.notLogged();
         } else {
           await customer.setCustomerId(response.user.first.id);
@@ -64,10 +62,16 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         }
 
       }
-    } on ApiException catch (e, s) {
-      print('AccountState error');
-      print(e.httpMessage);
-      print(e.httpCode);
+    } on ApiException catch (e) {
+      if (kDebugMode) {
+        print('AccountState error');
+      }
+      if (kDebugMode) {
+        print(e.httpMessage);
+      }
+      if (kDebugMode) {
+        print(e.httpCode);
+      }
       yield const AccountState.error();
     }
   }
@@ -129,7 +133,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
       if (kDebugMode) {
         print(e.message);
       }
-      yield AccountState.error();
+      yield const AccountState.error();
     }
   }
 
@@ -137,34 +141,6 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
   Stream<AccountState> deleteAddress(AddAddressRequest request, String id) async*{
     yield const AccountState.loading();
     try{
-      const dep = DependencyFactoryImpl();
-      Dio dio = dep.createDioForApiCart().dio;
-      var codeInfo = await dio.request(
-        '/wp-json/wp/v2/user_addresses/$id',
-        data: {
-          "id" : id,
-          "first_name": request.first_name,
-          "last_name": request.last_name,
-          "company": request.company,
-          "address_1": request.address_1,
-          "address_2": request.address_2,
-          "city": request.city,
-          "state": request.state,
-          "postcode": request.postcode,
-          "country": request.country,
-          "email": request.email,
-          "phone": request.phone,
-          "notes": request.notes,
-          "type": request.type,
-          "is_default": request.is_default,
-        },
-        queryParameters: {
-          "type": request.type,
-        },
-        options: Options(
-          method: 'DELETE',
-        ),
-      );
       // AddressResponse data = AddressResponse.fromJson(codeInfo.data);
       // getAddress();
       yield  const AccountState.deletedAddress();

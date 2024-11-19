@@ -1,7 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
-import '../all_products/model/response/all_products_response.dart';
 
 part 'local_storage.g.dart';
 
@@ -72,16 +72,24 @@ class LocalStorage {
 
   Future<String?> getDeviceId() async {
     var box = await openBox();
-    print('storage deviceId');
-    print(box.get('deviceId'));
+    if (kDebugMode) {
+      print('storage deviceId');
+    }
+    if (kDebugMode) {
+      print(box.get('deviceId'));
+    }
     return box.get('deviceId');
   }
 
   Future<void> setDeviceId(String token) async {
     var box = await openBox();
 
-    print('storage SETdeviceId');
-    print(token);
+    if (kDebugMode) {
+      print('storage SETdeviceId');
+    }
+    if (kDebugMode) {
+      print(token);
+    }
     //print(token.runtimeType);
     box.put('deviceId', token);
   }
@@ -124,18 +132,30 @@ class LocalStorage {
 
   Future<String?> getUserEmail() async {
     var box = await openBox();
-    print('#################### getUserEmail ####################################');
-    print(box.get('email'));
-    print('//#################### getUserEmail ####################################');
+    if (kDebugMode) {
+      print('#################### getUserEmail ####################################');
+    }
+    if (kDebugMode) {
+      print(box.get('email'));
+    }
+    if (kDebugMode) {
+      print('//#################### getUserEmail ####################################');
+    }
 
     return box.get('email');
   }
 
   Future<void> setUserEmail(String email) async {
 
-    print('#################### setUserEmail ####################################');
-    print(email);
-    print('//#################### setUserEmail ####################################');
+    if (kDebugMode) {
+      print('#################### setUserEmail ####################################');
+    }
+    if (kDebugMode) {
+      print(email);
+    }
+    if (kDebugMode) {
+      print('//#################### setUserEmail ####################################');
+    }
 
     var box = await openBox();
     box.put('email', email);

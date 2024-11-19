@@ -127,7 +127,7 @@ class __$$_FetchCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Fetch implements _Fetch {
+class _$_Fetch with DiagnosticableTreeMixin implements _Fetch {
   const _$_Fetch({this.page, this.orderBy, this.order});
 
   @override
@@ -138,8 +138,18 @@ class _$_Fetch implements _Fetch {
   final String? order;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'AllProductsEvent.fetch(page: $page, orderBy: $orderBy, order: $order)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'AllProductsEvent.fetch'))
+      ..add(DiagnosticsProperty('page', page))
+      ..add(DiagnosticsProperty('orderBy', orderBy))
+      ..add(DiagnosticsProperty('order', order));
   }
 
   @override
@@ -312,7 +322,9 @@ class __$$_FilterProductsCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_FilterProducts implements _FilterProducts {
+class _$_FilterProducts
+    with DiagnosticableTreeMixin
+    implements _FilterProducts {
   const _$_FilterProducts(
       {this.page,
       this.categories,
@@ -335,8 +347,21 @@ class _$_FilterProducts implements _FilterProducts {
   final String? catalogVisibility;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'AllProductsEvent.filterProducts(page: $page, categories: $categories, tags: $tags, minPrice: $minPrice, maxPrice: $maxPrice, catalogVisibility: $catalogVisibility)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'AllProductsEvent.filterProducts'))
+      ..add(DiagnosticsProperty('page', page))
+      ..add(DiagnosticsProperty('categories', categories))
+      ..add(DiagnosticsProperty('tags', tags))
+      ..add(DiagnosticsProperty('minPrice', minPrice))
+      ..add(DiagnosticsProperty('maxPrice', maxPrice))
+      ..add(DiagnosticsProperty('catalogVisibility', catalogVisibility));
   }
 
   @override
@@ -497,7 +522,9 @@ class __$$_WishlistProductsCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_WishlistProducts implements _WishlistProducts {
+class _$_WishlistProducts
+    with DiagnosticableTreeMixin
+    implements _WishlistProducts {
   const _$_WishlistProducts({final List<dynamic>? ids}) : _ids = ids;
 
   final List<dynamic>? _ids;
@@ -510,8 +537,16 @@ class _$_WishlistProducts implements _WishlistProducts {
   }
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'AllProductsEvent.wishListProducts(ids: $ids)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'AllProductsEvent.wishListProducts'))
+      ..add(DiagnosticsProperty('ids', ids));
   }
 
   @override
@@ -706,12 +741,18 @@ class __$$_InitialCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Initial implements _Initial {
+class _$_Initial with DiagnosticableTreeMixin implements _Initial {
   const _$_Initial();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'AllProductsState.initial()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'AllProductsState.initial'));
   }
 
   @override
@@ -839,7 +880,7 @@ class __$$_LoadingCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Loading implements _Loading {
+class _$_Loading with DiagnosticableTreeMixin implements _Loading {
   const _$_Loading(final List<Product> model, this.pageNumber) : _model = model;
 
   final List<Product> _model;
@@ -853,8 +894,17 @@ class _$_Loading implements _Loading {
   final int pageNumber;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'AllProductsState.loading(model: $model, pageNumber: $pageNumber)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'AllProductsState.loading'))
+      ..add(DiagnosticsProperty('model', model))
+      ..add(DiagnosticsProperty('pageNumber', pageNumber));
   }
 
   @override
@@ -999,7 +1049,7 @@ class __$$_LoadedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Loaded implements _Loaded {
+class _$_Loaded with DiagnosticableTreeMixin implements _Loaded {
   const _$_Loaded(final List<Product> model, this.pageNumber) : _model = model;
 
   final List<Product> _model;
@@ -1013,8 +1063,17 @@ class _$_Loaded implements _Loaded {
   final int pageNumber;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'AllProductsState.loaded(model: $model, pageNumber: $pageNumber)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'AllProductsState.loaded'))
+      ..add(DiagnosticsProperty('model', model))
+      ..add(DiagnosticsProperty('pageNumber', pageNumber));
   }
 
   @override
@@ -1139,12 +1198,18 @@ class __$$_ErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Error implements _Error {
+class _$_Error with DiagnosticableTreeMixin implements _Error {
   const _$_Error();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'AllProductsState.error()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'AllProductsState.error'));
   }
 
   @override

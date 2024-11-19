@@ -88,7 +88,7 @@ class DependencyFactoryImpl extends DependencyFactory {
                 'Algorithm': 'HS256',
                 'Secret':
                    // ";:%]vt}:Wi(:8jN([,4MRih[I(xTNt<DQs/!j)kcMP~khD8[)].NL4]5^/S,OL^-",
-                    "${AppConfig.tokenAuth}",
+                    AppConfig.tokenAuth,
               }),
         )..interceptors.addAll(
             [],

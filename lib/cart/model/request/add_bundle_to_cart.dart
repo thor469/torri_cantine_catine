@@ -20,7 +20,7 @@ class AddBundleToCart extends RequestBase with _$AddBundleToCart {
       _$AddBundleToCartFromJson(json);
 
   @override
-  String get endpoint => '${cartUrl}';
+  String get endpoint => cartUrl;
   //String get endpoint => '/wp-json/wc/store/v1/cart/add-item';
 
   @override

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:core';
 
+import 'package:flutter/foundation.dart';
 import 'package:http_services/http_services.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 import '../../../app/app_config.dart';
@@ -17,7 +18,7 @@ Future<List<PaymentGateway?>> processPaymentGateway() async {
 
 class payGatewayServices {
 
-  static DependencyFactoryImpl dep = DependencyFactoryImpl();
+  static DependencyFactoryImpl dep = const DependencyFactoryImpl();
   Dio dio= dep.createDioForApi().dio;
 
 
@@ -52,7 +53,9 @@ class payGatewayServices {
 
     }
     else {
-      print(response.statusMessage);
+      if (kDebugMode) {
+        print(response.statusMessage);
+      }
     }
 
     // print('//getShippingZones');
@@ -89,7 +92,7 @@ class PaymentGateway {
   List<String>? methodSupports;
   //GatewaySettings? settings;
   bool? needsSetup;
-  List<Null>? postInstallScripts;
+  List<void>? postInstallScripts;
   String? settingsUrl;
   String? connectionUrl;
   String? setupHelpText;
@@ -118,24 +121,24 @@ class PaymentGateway {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['description'] = this.description;
-    data['order'] = this.order;
-    data['enabled'] = this.enabled;
-    data['method_title'] = this.methodTitle;
-    data['method_description'] = this.methodDescription;
-    data['method_supports'] = this.methodSupports;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['title'] = title;
+    data['description'] = description;
+    data['order'] = order;
+    data['enabled'] = enabled;
+    data['method_title'] = methodTitle;
+    data['method_description'] = methodDescription;
+    data['method_supports'] = methodSupports;
     // if (this.settings != null) {
     //   data['settings'] = this.settings!.toJson();
     // }
-    data['needs_setup'] = this.needsSetup;
+    data['needs_setup'] = needsSetup;
 
-    data['settings_url'] = this.settingsUrl;
-    data['connection_url'] = this.connectionUrl;
-    data['setup_help_text'] = this.setupHelpText;
-    data['required_settings_keys'] = this.requiredSettingsKeys;
+    data['settings_url'] = settingsUrl;
+    data['connection_url'] = connectionUrl;
+    data['setup_help_text'] = setupHelpText;
+    data['required_settings_keys'] = requiredSettingsKeys;
     return data;
   }
 }
@@ -162,81 +165,81 @@ class GatewaySettings {
   GatewaySettings({this.title, this.apiCredentials, this.testmode, this.testPublishableKey, this.testSecretKey, this.publishableKey, this.secretKey, this.webhook, this.testWebhookSecret, this.webhookSecret, this.inlineCcForm, this.statementDescriptor, this.shortStatementDescriptor, this.capture, this.paymentRequest, this.savedCards, this.logging, this.upeCheckoutExperienceEnabled});
 
   GatewaySettings.fromJson(Map<String, dynamic> json) {
-    title = json['title'] != null ? new Title.fromJson(json['title']) : null;
-    apiCredentials = json['api_credentials'] != null ? new Title.fromJson(json['api_credentials']) : null;
-    testmode = json['testmode'] != null ? new Title.fromJson(json['testmode']) : null;
-    testPublishableKey = json['test_publishable_key'] != null ? new Title.fromJson(json['test_publishable_key']) : null;
-    testSecretKey = json['test_secret_key'] != null ? new Title.fromJson(json['test_secret_key']) : null;
-    publishableKey = json['publishable_key'] != null ? new Title.fromJson(json['publishable_key']) : null;
-    secretKey = json['secret_key'] != null ? new Title.fromJson(json['secret_key']) : null;
-    webhook = json['webhook'] != null ? new Title.fromJson(json['webhook']) : null;
-    testWebhookSecret = json['test_webhook_secret'] != null ? new Title.fromJson(json['test_webhook_secret']) : null;
-    webhookSecret = json['webhook_secret'] != null ? new Title.fromJson(json['webhook_secret']) : null;
-    inlineCcForm = json['inline_cc_form'] != null ? new Title.fromJson(json['inline_cc_form']) : null;
-    statementDescriptor = json['statement_descriptor'] != null ? new Title.fromJson(json['statement_descriptor']) : null;
-    shortStatementDescriptor = json['short_statement_descriptor'] != null ? new Title.fromJson(json['short_statement_descriptor']) : null;
-    capture = json['capture'] != null ? new Title.fromJson(json['capture']) : null;
-    paymentRequest = json['payment_request'] != null ? new Title.fromJson(json['payment_request']) : null;
-    savedCards = json['saved_cards'] != null ? new Title.fromJson(json['saved_cards']) : null;
-    logging = json['logging'] != null ? new Title.fromJson(json['logging']) : null;
-    upeCheckoutExperienceEnabled = json['upe_checkout_experience_enabled'] != null ? new Title.fromJson(json['upe_checkout_experience_enabled']) : null;
+    title = json['title'] != null ? Title.fromJson(json['title']) : null;
+    apiCredentials = json['api_credentials'] != null ? Title.fromJson(json['api_credentials']) : null;
+    testmode = json['testmode'] != null ? Title.fromJson(json['testmode']) : null;
+    testPublishableKey = json['test_publishable_key'] != null ? Title.fromJson(json['test_publishable_key']) : null;
+    testSecretKey = json['test_secret_key'] != null ? Title.fromJson(json['test_secret_key']) : null;
+    publishableKey = json['publishable_key'] != null ? Title.fromJson(json['publishable_key']) : null;
+    secretKey = json['secret_key'] != null ? Title.fromJson(json['secret_key']) : null;
+    webhook = json['webhook'] != null ? Title.fromJson(json['webhook']) : null;
+    testWebhookSecret = json['test_webhook_secret'] != null ? Title.fromJson(json['test_webhook_secret']) : null;
+    webhookSecret = json['webhook_secret'] != null ? Title.fromJson(json['webhook_secret']) : null;
+    inlineCcForm = json['inline_cc_form'] != null ? Title.fromJson(json['inline_cc_form']) : null;
+    statementDescriptor = json['statement_descriptor'] != null ? Title.fromJson(json['statement_descriptor']) : null;
+    shortStatementDescriptor = json['short_statement_descriptor'] != null ? Title.fromJson(json['short_statement_descriptor']) : null;
+    capture = json['capture'] != null ? Title.fromJson(json['capture']) : null;
+    paymentRequest = json['payment_request'] != null ? Title.fromJson(json['payment_request']) : null;
+    savedCards = json['saved_cards'] != null ? Title.fromJson(json['saved_cards']) : null;
+    logging = json['logging'] != null ? Title.fromJson(json['logging']) : null;
+    upeCheckoutExperienceEnabled = json['upe_checkout_experience_enabled'] != null ? Title.fromJson(json['upe_checkout_experience_enabled']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.title != null) {
-      data['title'] = this.title!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (title != null) {
+      data['title'] = title!.toJson();
     }
-    if (this.apiCredentials != null) {
-      data['api_credentials'] = this.apiCredentials!.toJson();
+    if (apiCredentials != null) {
+      data['api_credentials'] = apiCredentials!.toJson();
     }
-    if (this.testmode != null) {
-      data['testmode'] = this.testmode!.toJson();
+    if (testmode != null) {
+      data['testmode'] = testmode!.toJson();
     }
-    if (this.testPublishableKey != null) {
-      data['test_publishable_key'] = this.testPublishableKey!.toJson();
+    if (testPublishableKey != null) {
+      data['test_publishable_key'] = testPublishableKey!.toJson();
     }
-    if (this.testSecretKey != null) {
-      data['test_secret_key'] = this.testSecretKey!.toJson();
+    if (testSecretKey != null) {
+      data['test_secret_key'] = testSecretKey!.toJson();
     }
-    if (this.publishableKey != null) {
-      data['publishable_key'] = this.publishableKey!.toJson();
+    if (publishableKey != null) {
+      data['publishable_key'] = publishableKey!.toJson();
     }
-    if (this.secretKey != null) {
-      data['secret_key'] = this.secretKey!.toJson();
+    if (secretKey != null) {
+      data['secret_key'] = secretKey!.toJson();
     }
-    if (this.webhook != null) {
-      data['webhook'] = this.webhook!.toJson();
+    if (webhook != null) {
+      data['webhook'] = webhook!.toJson();
     }
-    if (this.testWebhookSecret != null) {
-      data['test_webhook_secret'] = this.testWebhookSecret!.toJson();
+    if (testWebhookSecret != null) {
+      data['test_webhook_secret'] = testWebhookSecret!.toJson();
     }
-    if (this.webhookSecret != null) {
-      data['webhook_secret'] = this.webhookSecret!.toJson();
+    if (webhookSecret != null) {
+      data['webhook_secret'] = webhookSecret!.toJson();
     }
-    if (this.inlineCcForm != null) {
-      data['inline_cc_form'] = this.inlineCcForm!.toJson();
+    if (inlineCcForm != null) {
+      data['inline_cc_form'] = inlineCcForm!.toJson();
     }
-    if (this.statementDescriptor != null) {
-      data['statement_descriptor'] = this.statementDescriptor!.toJson();
+    if (statementDescriptor != null) {
+      data['statement_descriptor'] = statementDescriptor!.toJson();
     }
-    if (this.shortStatementDescriptor != null) {
-      data['short_statement_descriptor'] = this.shortStatementDescriptor!.toJson();
+    if (shortStatementDescriptor != null) {
+      data['short_statement_descriptor'] = shortStatementDescriptor!.toJson();
     }
-    if (this.capture != null) {
-      data['capture'] = this.capture!.toJson();
+    if (capture != null) {
+      data['capture'] = capture!.toJson();
     }
-    if (this.paymentRequest != null) {
-      data['payment_request'] = this.paymentRequest!.toJson();
+    if (paymentRequest != null) {
+      data['payment_request'] = paymentRequest!.toJson();
     }
-    if (this.savedCards != null) {
-      data['saved_cards'] = this.savedCards!.toJson();
+    if (savedCards != null) {
+      data['saved_cards'] = savedCards!.toJson();
     }
-    if (this.logging != null) {
-      data['logging'] = this.logging!.toJson();
+    if (logging != null) {
+      data['logging'] = logging!.toJson();
     }
-    if (this.upeCheckoutExperienceEnabled != null) {
-      data['upe_checkout_experience_enabled'] = this.upeCheckoutExperienceEnabled!.toJson();
+    if (upeCheckoutExperienceEnabled != null) {
+      data['upe_checkout_experience_enabled'] = upeCheckoutExperienceEnabled!.toJson();
     }
     return data;
   }
@@ -267,15 +270,15 @@ placeholder = json['placeholder'];
 }
 
 Map<String, dynamic> toJson() {
-final Map<String, dynamic> data = new Map<String, dynamic>();
-data['id'] = this.id;
-data['label'] = this.label;
-data['description'] = this.description;
-data['type'] = this.type;
-data['value'] = this.value;
-data['default'] = this.defaultValue;
-data['tip'] = this.tip;
-data['placeholder'] = this.placeholder;
+final Map<String, dynamic> data = <String, dynamic>{};
+data['id'] = id;
+data['label'] = label;
+data['description'] = description;
+data['type'] = type;
+data['value'] = value;
+data['default'] = defaultValue;
+data['tip'] = tip;
+data['placeholder'] = placeholder;
 return data;
 }
 }
@@ -303,81 +306,81 @@ Title? upeCheckoutExperienceEnabled;
 PayGatewaySettings({this.title, this.apiCredentials, this.testmode, this.testPublishableKey, this.testSecretKey, this.publishableKey, this.secretKey, this.webhook, this.testWebhookSecret, this.webhookSecret, this.inlineCcForm, this.statementDescriptor, this.shortStatementDescriptor, this.capture, this.paymentRequest, this.savedCards, this.logging, this.upeCheckoutExperienceEnabled});
 
 PayGatewaySettings.fromJson(Map<String, dynamic> json) {
-title = json['title'] != null ? new Title.fromJson(json['title']) : null;
-apiCredentials = json['api_credentials'] != null ? new Title.fromJson(json['api_credentials']) : null;
-testmode = json['testmode'] != null ? new Title.fromJson(json['testmode']) : null;
-testPublishableKey = json['test_publishable_key'] != null ? new Title.fromJson(json['test_publishable_key']) : null;
-testSecretKey = json['test_secret_key'] != null ? new Title.fromJson(json['test_secret_key']) : null;
-publishableKey = json['publishable_key'] != null ? new Title.fromJson(json['publishable_key']) : null;
-secretKey = json['secret_key'] != null ? new Title.fromJson(json['secret_key']) : null;
-webhook = json['webhook'] != null ? new Title.fromJson(json['webhook']) : null;
-testWebhookSecret = json['test_webhook_secret'] != null ? new Title.fromJson(json['test_webhook_secret']) : null;
-webhookSecret = json['webhook_secret'] != null ? new Title.fromJson(json['webhook_secret']) : null;
-inlineCcForm = json['inline_cc_form'] != null ? new Title.fromJson(json['inline_cc_form']) : null;
-statementDescriptor = json['statement_descriptor'] != null ? new Title.fromJson(json['statement_descriptor']) : null;
-shortStatementDescriptor = json['short_statement_descriptor'] != null ? new Title.fromJson(json['short_statement_descriptor']) : null;
-capture = json['capture'] != null ? new Title.fromJson(json['capture']) : null;
-paymentRequest = json['payment_request'] != null ? new Title.fromJson(json['payment_request']) : null;
-savedCards = json['saved_cards'] != null ? new Title.fromJson(json['saved_cards']) : null;
-logging = json['logging'] != null ? new Title.fromJson(json['logging']) : null;
-upeCheckoutExperienceEnabled = json['upe_checkout_experience_enabled'] != null ? new Title.fromJson(json['upe_checkout_experience_enabled']) : null;
+title = json['title'] != null ? Title.fromJson(json['title']) : null;
+apiCredentials = json['api_credentials'] != null ? Title.fromJson(json['api_credentials']) : null;
+testmode = json['testmode'] != null ? Title.fromJson(json['testmode']) : null;
+testPublishableKey = json['test_publishable_key'] != null ? Title.fromJson(json['test_publishable_key']) : null;
+testSecretKey = json['test_secret_key'] != null ? Title.fromJson(json['test_secret_key']) : null;
+publishableKey = json['publishable_key'] != null ? Title.fromJson(json['publishable_key']) : null;
+secretKey = json['secret_key'] != null ? Title.fromJson(json['secret_key']) : null;
+webhook = json['webhook'] != null ? Title.fromJson(json['webhook']) : null;
+testWebhookSecret = json['test_webhook_secret'] != null ? Title.fromJson(json['test_webhook_secret']) : null;
+webhookSecret = json['webhook_secret'] != null ? Title.fromJson(json['webhook_secret']) : null;
+inlineCcForm = json['inline_cc_form'] != null ? Title.fromJson(json['inline_cc_form']) : null;
+statementDescriptor = json['statement_descriptor'] != null ? Title.fromJson(json['statement_descriptor']) : null;
+shortStatementDescriptor = json['short_statement_descriptor'] != null ? Title.fromJson(json['short_statement_descriptor']) : null;
+capture = json['capture'] != null ? Title.fromJson(json['capture']) : null;
+paymentRequest = json['payment_request'] != null ? Title.fromJson(json['payment_request']) : null;
+savedCards = json['saved_cards'] != null ? Title.fromJson(json['saved_cards']) : null;
+logging = json['logging'] != null ? Title.fromJson(json['logging']) : null;
+upeCheckoutExperienceEnabled = json['upe_checkout_experience_enabled'] != null ? Title.fromJson(json['upe_checkout_experience_enabled']) : null;
 }
 
 Map<String, dynamic> toJson() {
-final Map<String, dynamic> data = new Map<String, dynamic>();
-if (this.title != null) {
-data['title'] = this.title!.toJson();
+final Map<String, dynamic> data = <String, dynamic>{};
+if (title != null) {
+data['title'] = title!.toJson();
 }
-if (this.apiCredentials != null) {
-data['api_credentials'] = this.apiCredentials!.toJson();
+if (apiCredentials != null) {
+data['api_credentials'] = apiCredentials!.toJson();
 }
-if (this.testmode != null) {
-data['testmode'] = this.testmode!.toJson();
+if (testmode != null) {
+data['testmode'] = testmode!.toJson();
 }
-if (this.testPublishableKey != null) {
-data['test_publishable_key'] = this.testPublishableKey!.toJson();
+if (testPublishableKey != null) {
+data['test_publishable_key'] = testPublishableKey!.toJson();
 }
-if (this.testSecretKey != null) {
-data['test_secret_key'] = this.testSecretKey!.toJson();
+if (testSecretKey != null) {
+data['test_secret_key'] = testSecretKey!.toJson();
 }
-if (this.publishableKey != null) {
-data['publishable_key'] = this.publishableKey!.toJson();
+if (publishableKey != null) {
+data['publishable_key'] = publishableKey!.toJson();
 }
-if (this.secretKey != null) {
-data['secret_key'] = this.secretKey!.toJson();
+if (secretKey != null) {
+data['secret_key'] = secretKey!.toJson();
 }
-if (this.webhook != null) {
-data['webhook'] = this.webhook!.toJson();
+if (webhook != null) {
+data['webhook'] = webhook!.toJson();
 }
-if (this.testWebhookSecret != null) {
-data['test_webhook_secret'] = this.testWebhookSecret!.toJson();
+if (testWebhookSecret != null) {
+data['test_webhook_secret'] = testWebhookSecret!.toJson();
 }
-if (this.webhookSecret != null) {
-data['webhook_secret'] = this.webhookSecret!.toJson();
+if (webhookSecret != null) {
+data['webhook_secret'] = webhookSecret!.toJson();
 }
-if (this.inlineCcForm != null) {
-data['inline_cc_form'] = this.inlineCcForm!.toJson();
+if (inlineCcForm != null) {
+data['inline_cc_form'] = inlineCcForm!.toJson();
 }
-if (this.statementDescriptor != null) {
-data['statement_descriptor'] = this.statementDescriptor!.toJson();
+if (statementDescriptor != null) {
+data['statement_descriptor'] = statementDescriptor!.toJson();
 }
-if (this.shortStatementDescriptor != null) {
-data['short_statement_descriptor'] = this.shortStatementDescriptor!.toJson();
+if (shortStatementDescriptor != null) {
+data['short_statement_descriptor'] = shortStatementDescriptor!.toJson();
 }
-if (this.capture != null) {
-data['capture'] = this.capture!.toJson();
+if (capture != null) {
+data['capture'] = capture!.toJson();
 }
-if (this.paymentRequest != null) {
-data['payment_request'] = this.paymentRequest!.toJson();
+if (paymentRequest != null) {
+data['payment_request'] = paymentRequest!.toJson();
 }
-if (this.savedCards != null) {
-data['saved_cards'] = this.savedCards!.toJson();
+if (savedCards != null) {
+data['saved_cards'] = savedCards!.toJson();
 }
-if (this.logging != null) {
-data['logging'] = this.logging!.toJson();
+if (logging != null) {
+data['logging'] = logging!.toJson();
 }
-if (this.upeCheckoutExperienceEnabled != null) {
-data['upe_checkout_experience_enabled'] = this.upeCheckoutExperienceEnabled!.toJson();
+if (upeCheckoutExperienceEnabled != null) {
+data['upe_checkout_experience_enabled'] = upeCheckoutExperienceEnabled!.toJson();
 }
 return data;
 }

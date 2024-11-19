@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:torri_cantine_app/all_products/cubit/products_wishlisted_cubit.dart';
-import 'package:torri_cantine_app/app/app_config.dart';
 import 'package:torri_cantine_app/app/common/primary_button.dart';
 import 'package:torri_cantine_app/app/common/secondary_button.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
@@ -54,7 +53,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Widget build(BuildContext context) {
     LocalStorage token = LocalStorage();
     // LoadingOverlay overlayLoader = LoadingOverlay();
-    bool _isMessageShown = false;
 
     bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
     return MultiBlocListener(
@@ -66,11 +64,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               setState(() {
                 isLoading = true;
               });
+              return null;
             },
             loggedOut : (){
               setState(() {
                 isLoading = false;
               });
+              return null;
             }
             // => const CircularProgressIndicator(
             //   color: Color.fromARGB(255, 161, 29, 51),
@@ -87,7 +87,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               }
               return null;
             },
-            orElse: () => SizedBox(),
+            orElse: () => const SizedBox(),
             error: (error) {
               setState(() {
                 isLoading = false;
@@ -112,6 +112,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   elevation: 1,
                 ));
               }
+              return null;
             },
           ),
         ),
@@ -137,6 +138,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 elevation: 1,
               );
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              return null;
             },
             cartEmpty: () => {
               context.read<CartBadgeCubitCubit>().emit(0),
@@ -148,7 +150,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ],
               ),
             },
-            orElse: () => SizedBox(),
+            orElse: () => const SizedBox(),
             // orElse: () => const SizedBox(),
           ),
         ),
@@ -156,11 +158,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           bloc: context.read<RegistrationBloc>(),
           listener: (context, state) => state.maybeWhen(
             loading: (){
+              return null;
+
               // const CircularProgressIndicator(
               //   color: Color.fromARGB(255, 161, 29, 51),
               // );
             },
             initial: () {
+              return null;
+
               // overlayLoader.show(context);
             },
             loadedWithGoogle: (response, username, password) => {
@@ -197,11 +203,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 }
               }
+              return null;
               // overlayLoader.hide(context);
 
             },
             // orElse: () => const SizedBox(),
-            orElse: () => SizedBox(),
+            orElse: () => const SizedBox(),
           ),
         ),
       ],

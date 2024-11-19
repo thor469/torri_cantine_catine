@@ -62,13 +62,13 @@ class _ReviewsListState extends State<ReviewsList> {
               //RegExp(
               //                                                   r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^`{|}~]+@[a-zA-Z0-9]+.[a-zA-Z]+")
               //                                                   .hasMatch(model.reviews![index].reviewer!)==true
-              loaded: (model) => model!.reviews!.isEmpty
+              loaded: (model) => model.reviews!.isEmpty
                   ? SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (model!.reviews != null && model!.reviews!.isNotEmpty) // Check if there are reviews
+                    if (model.reviews != null && model.reviews!.isNotEmpty) // Check if there are reviews
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -77,14 +77,14 @@ class _ReviewsListState extends State<ReviewsList> {
                               Padding(
                                 padding: const EdgeInsets.only(top: 16, bottom: 16),
                                 child: Text(
-                                  "${model!.reviews!.length}/5",  // Display the average rating
+                                  "${model.reviews!.length}/5",  // Display the average rating
                                   style: TCTypography.of(context).text_16_bold,
                                 ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 16, bottom: 16),
                                 child: Text(
-                                  "  ${model!.reviews!.length} recensioni",  // Corrected to "recensioni"
+                                  "  ${model.reviews!.length} recensioni",  // Corrected to "recensioni"
                                   style: TCTypography.of(context).text_16,
                                 ),
                               ),
@@ -107,7 +107,7 @@ class _ReviewsListState extends State<ReviewsList> {
                         ],
                       ),
 
-                    if (model!.reviews == null || model!.reviews!.isEmpty) // Display a message if no reviews
+                    if (model.reviews == null || model.reviews!.isEmpty) // Display a message if no reviews
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 50),
                         child: Row(
@@ -185,7 +185,7 @@ class _ReviewsListState extends State<ReviewsList> {
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         top: 16, bottom: 16),
-                                    child: model!.reviews!.length == 1
+                                    child: model.reviews!.length == 1
                                         ? Text(
                                             "  (1 recensione)",
                                             style: TCTypography.of(context)
@@ -194,12 +194,12 @@ class _ReviewsListState extends State<ReviewsList> {
                                         : Row(
                                             children: [
                                               Text(
-                                                ("${avgRating(model!.reviews ?? []).toStringAsFixed(1)}/5"),
+                                                ("${avgRating(model.reviews ?? []).toStringAsFixed(1)}/5"),
                                                 style: TCTypography.of(context)
                                                     .text_16_bold,
                                               ),
                                               Text(
-                                                "  (${model!.reviews!.length} recensioni)",
+                                                "  (${model.reviews!.length} recensioni)",
                                                 style: TCTypography.of(context)
                                                     .text_16,
                                               )
@@ -253,14 +253,14 @@ class _ReviewsListState extends State<ReviewsList> {
                               height: 280,
                               child: ListView.builder(
                                 scrollDirection: Axis.vertical,
-                                itemCount: model!.reviews!.length,
+                                itemCount: model.reviews!.length,
                                 itemBuilder: (context, index) {
 
-                                  String reviewerName = model!.reviews![index].reviewer!;
+                                  String reviewerName = model.reviews![index].reviewer!;
                                   if(RegExp(
                                       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^`{|}~]+@[a-zA-Z0-9]+.[a-zA-Z]+")
-                                      .hasMatch(model!.reviews![index].reviewer!)) {
-                                        reviewerName = 'Utente${DateFormat('mmss').format(DateTime.tryParse(model!.reviews![index].date_created!)!)}';
+                                      .hasMatch(model.reviews![index].reviewer!)) {
+                                        reviewerName = 'Utente${DateFormat('mmss').format(DateTime.tryParse(model.reviews![index].date_created!)!)}';
                                         // reviewerName = reviewerName.split('@')[0][0];
                                         // for(int i=0;i<reviewerName.split('@')[0].length-1;i++) {
                                         //   reviewerName+='*';
@@ -284,7 +284,7 @@ class _ReviewsListState extends State<ReviewsList> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              "${reviewerName} ",
+                                              "$reviewerName ",
                                               style:
                                               TCTypography.of(context)
                                                   .text_12_bold,
@@ -312,7 +312,7 @@ class _ReviewsListState extends State<ReviewsList> {
                                         Container(
                                           alignment: Alignment.topLeft,
                                           child: Text(
-                                            "${DateFormat('dd-MM-yyyy').format(DateTime.tryParse(model.reviews![index].date_created!)!)}",
+                                            DateFormat('dd-MM-yyyy').format(DateTime.tryParse(model.reviews![index].date_created!)!),
                                             style:
                                             TCTypography.of(context)
                                                 .text_12,

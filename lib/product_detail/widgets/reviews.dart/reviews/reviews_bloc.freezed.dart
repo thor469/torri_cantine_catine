@@ -103,12 +103,18 @@ class __$$_InitialCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Initial implements _Initial {
+class _$_Initial with DiagnosticableTreeMixin implements _Initial {
   const _$_Initial();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'ReviewsState.initial()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'ReviewsState.initial'));
   }
 
   @override
@@ -216,12 +222,18 @@ class __$$_LoadingCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Loading implements _Loading {
+class _$_Loading with DiagnosticableTreeMixin implements _Loading {
   const _$_Loading();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'ReviewsState.loading()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'ReviewsState.loading'));
   }
 
   @override
@@ -353,15 +365,23 @@ class __$$_LoadedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Loaded implements _Loaded {
+class _$_Loaded with DiagnosticableTreeMixin implements _Loaded {
   const _$_Loaded(this.response);
 
   @override
   final ReviewsResponse response;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'ReviewsState.loaded(response: $response)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ReviewsState.loaded'))
+      ..add(DiagnosticsProperty('response', response));
   }
 
   @override
@@ -482,12 +502,18 @@ class __$$_ErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Error implements _Error {
+class _$_Error with DiagnosticableTreeMixin implements _Error {
   const _$_Error();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'ReviewsState.error()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'ReviewsState.error'));
   }
 
   @override
@@ -696,15 +722,23 @@ class __$$_FetchCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Fetch implements _Fetch {
+class _$_Fetch with DiagnosticableTreeMixin implements _Fetch {
   const _$_Fetch(this.product_id);
 
   @override
   final int product_id;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'ReviewsEvent.fetch(product_id: $product_id)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ReviewsEvent.fetch'))
+      ..add(DiagnosticsProperty('product_id', product_id));
   }
 
   @override
@@ -871,7 +905,7 @@ class __$$_CreateReviewCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_CreateReview implements _CreateReview {
+class _$_CreateReview with DiagnosticableTreeMixin implements _CreateReview {
   const _$_CreateReview(this.product_id, this.review, this.reviewer,
       this.reviewer_email, this.date_created, this.rating);
 
@@ -889,8 +923,21 @@ class _$_CreateReview implements _CreateReview {
   final int? rating;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'ReviewsEvent.createReview(product_id: $product_id, review: $review, reviewer: $reviewer, reviewer_email: $reviewer_email, date_created: $date_created, rating: $rating)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ReviewsEvent.createReview'))
+      ..add(DiagnosticsProperty('product_id', product_id))
+      ..add(DiagnosticsProperty('review', review))
+      ..add(DiagnosticsProperty('reviewer', reviewer))
+      ..add(DiagnosticsProperty('reviewer_email', reviewer_email))
+      ..add(DiagnosticsProperty('date_created', date_created))
+      ..add(DiagnosticsProperty('rating', rating));
   }
 
   @override

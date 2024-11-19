@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:torri_cantine_app/app/cache_manager/cache_manager.dart';
@@ -153,7 +154,9 @@ Future<List<WpCustomBanner?>> getCustomPosts() async {
               banners.add(WpCustomBanner.fromJson(post));
             }
           } catch (e) {
-            print('Error fetching media: $e');
+            if (kDebugMode) {
+              print('Error fetching media: $e');
+            }
           }
         }
       }
@@ -161,7 +164,9 @@ Future<List<WpCustomBanner?>> getCustomPosts() async {
       throw Exception('Failed to load posts');
     }
   } catch (e) {
-    print('getCustomPosts() error: $e');
+    if (kDebugMode) {
+      print('getCustomPosts() error: $e');
+    }
   }
   return banners;
 }
@@ -199,8 +204,12 @@ class WpCustomBanner {
 
   factory WpCustomBanner.fromJson(Map<String, dynamic> json) {
 
-    print('fromJson');
-    print(json);
+    if (kDebugMode) {
+      print('fromJson');
+    }
+    if (kDebugMode) {
+      print(json);
+    }
 
     return WpCustomBanner(
       id: json["id"],

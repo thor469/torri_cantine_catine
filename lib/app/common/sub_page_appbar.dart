@@ -75,7 +75,7 @@ class _SubPageAppbarState extends State<SubPageAppbar> {
                             child: widget.icon2),
                       ),
                     ),
-                    onTap: () => null),
+                    onTap: () {}),
               )
             : const SizedBox(),
         widget.icon3 != null

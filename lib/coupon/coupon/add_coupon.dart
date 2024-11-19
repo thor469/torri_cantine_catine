@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:http_services/http_services.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 import '../../all_products/model/request/wishlist_products.dart';
@@ -9,9 +10,13 @@ import '../../app/dependency_injection/dependency_factory_impl.dart';
 
 void printWrapped(String text) {
   final pattern = RegExp('.{1,800}'); // 800 is the size of each chunk
-  print('!!!!!!! PRINT WRAPPED ################################################');
+  if (kDebugMode) {
+    print('!!!!!!! PRINT WRAPPED ################################################');
+  }
   pattern.allMatches(text).forEach((match) => print(match.group(0)));
-  print('///////// PRINT WRAPPED ################################################');
+  if (kDebugMode) {
+    print('///////// PRINT WRAPPED ################################################');
+  }
 }
 
 
@@ -140,23 +145,35 @@ Future<bool> deleteCouponFromCart(String couponCode) async {
       '/wp-json/wc/store/v1/cart/coupons?code=$couponCode',
     );
     if (delete.statusCode == 200 || delete.statusCode == 204) {
-      print('Coupon deleted successfully');
+      if (kDebugMode) {
+        print('Coupon deleted successfully');
+      }
       return true;
     } else {
-      print('Failed to delete coupon: ${delete.statusMessage}');
+      if (kDebugMode) {
+        print('Failed to delete coupon: ${delete.statusMessage}');
+      }
       return false;
     }
   } on DioError catch (e) {
     if (e.response != null) {
-      print('Error deleting coupon: ${e.response!.data}');
-      print('Status code: ${e.response!.statusCode}');
+      if (kDebugMode) {
+        print('Error deleting coupon: ${e.response!.data}');
+      }
+      if (kDebugMode) {
+        print('Status code: ${e.response!.statusCode}');
+      }
       return false;
     } else {
-      print('Request setup error: ${e.message}');
+      if (kDebugMode) {
+        print('Request setup error: ${e.message}');
+      }
       return false;
     }
   } catch (e) {
-    print('Unexpected error: $e');
+    if (kDebugMode) {
+      print('Unexpected error: $e');
+    }
     return false;
   }
 }

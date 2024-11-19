@@ -45,7 +45,7 @@ class _MyOrdersState extends State<MyOrders> {
         onPopInvoked : (didPop){
         },
         child:Scaffold(
-          backgroundColor: Color.fromARGB(255, 244, 244, 244),
+          backgroundColor: const Color.fromARGB(255, 244, 244, 244),
           key: _key,
           appBar: PreferredSize(
               preferredSize: const Size.fromHeight(60),
@@ -69,12 +69,12 @@ class _MyOrdersState extends State<MyOrders> {
                 ),
               )),
 
-          drawer: Drawer(
+          drawer: const Drawer(
             child: MenuScreen(),
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
           floatingActionButton: (!widget.fromThankScreen && !widget.fromOrderDetails)
-              ?FloatingButton(): const SizedBox()
+              ?const FloatingButton(): const SizedBox()
           ,
           bottomNavigationBar: (!widget.fromThankScreen && !widget.fromOrderDetails)
               ? BottomBanvigationMenu(

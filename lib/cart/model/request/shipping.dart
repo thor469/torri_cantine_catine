@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:core';
 
+import 'package:flutter/foundation.dart';
 import 'package:http_services/http_services.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 import '../../../app/app_config.dart';
@@ -23,7 +24,7 @@ Future<List<ShippingMethod?>> processShippingMethods(String postcode) async {
   if(sl!=null) {
 
 
-    sl.forEach((location){
+    for (var location in sl) {
       //print('###SHIPPING ZONE ${location['id']} #######################');
       //print(location);
 
@@ -51,7 +52,7 @@ Future<List<ShippingMethod?>> processShippingMethods(String postcode) async {
         }
       });
 
-    });
+    }
 
     // print('###MATCH  ZONE ${matchedZone} #######################');
     // print(matchedZone=='');
@@ -64,7 +65,7 @@ Future<List<ShippingMethod?>> processShippingMethods(String postcode) async {
 
 class shippingZonesServices {
 
-  static DependencyFactoryImpl dep = DependencyFactoryImpl();
+  static DependencyFactoryImpl dep = const DependencyFactoryImpl();
   Dio dio= dep.createDioForApi().dio;
 
 
@@ -107,7 +108,9 @@ class shippingZonesServices {
 
     }
     else {
-      print(response.statusMessage);
+      if (kDebugMode) {
+        print(response.statusMessage);
+      }
     }
 
     // print('//getShippingZones');
@@ -159,7 +162,9 @@ class shippingZonesServices {
 
   }
   else {
-  print(response.statusMessage);
+  if (kDebugMode) {
+    print(response.statusMessage);
+  }
   }
   //AllProductsResponse resp = await WishlistService(dio).wishListProducts(WishlistProductsRequest(id: wishItem));
   // if(resp.products!=null) {
@@ -183,7 +188,7 @@ class shippingZonesServices {
     List<ShippingMethod?> shippingMethods = [];
 
     var response = await dio.request(
-      '/wp-json/wc/v3/shipping/zones/${zoneId}/methods',
+      '/wp-json/wc/v3/shipping/zones/$zoneId/methods',
       options: Options(
         method: 'GET',
       ),
@@ -237,7 +242,9 @@ class shippingZonesServices {
 
     }
     else {
-      print(response.statusMessage);
+      if (kDebugMode) {
+        print(response.statusMessage);
+      }
     }
 
 
@@ -277,10 +284,10 @@ class ShippingZone {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['order'] = this.order;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['order'] = order;
     return data;
   }
 }
@@ -299,9 +306,9 @@ class ShippingLocation {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['code'] = this.code;
-    data['type'] = this.type;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['code'] = code;
+    data['type'] = type;
     return data;
   }
 }
@@ -334,21 +341,21 @@ class ShippingMethod {
     methodId = json['method_id'];
     methodTitle = json['method_title'];
     methodDescription = json['method_description'];
-    settings = json['settings'] != null ? new Settings.fromJson(json['settings']) : null;
+    settings = json['settings'] != null ? Settings.fromJson(json['settings']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['instance_id'] = this.instanceId;
-    data['title'] = this.title;
-    data['order'] = this.order;
-    data['enabled'] = this.enabled;
-    data['method_id'] = this.methodId;
-    data['method_title'] = this.methodTitle;
-    data['method_description'] = this.methodDescription;
-    if (this.settings != null) {
-      data['settings'] = this.settings!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['instance_id'] = instanceId;
+    data['title'] = title;
+    data['order'] = order;
+    data['enabled'] = enabled;
+    data['method_id'] = methodId;
+    data['method_title'] = methodTitle;
+    data['method_description'] = methodDescription;
+    if (settings != null) {
+      data['settings'] = settings!.toJson();
     }
     return data;
   }
@@ -382,101 +389,101 @@ class Settings {
   Settings({this.title, this.requires, this.minAmount, this.ignoreDiscounts, this.taxStatus, this.cost, this.classCosts, this.classCost1914, this.classCost85, this.classCost86, this.classCost1875, this.noClassCost, this.type, this.pricesIncludeTax, this.orderHandlingFee, this.maxShippingCost, this.rates, this.calculationType, this.handlingFee, this.minCost, this.maxCost, this.minmaxAfterDiscount, this.minmaxWithTax});
 
   Settings.fromJson(Map<String, dynamic> json) {
-    title = json['title'] != null ? new Title.fromJson(json['title']) : null;
-    requires = json['requires'] != null ? new Requires.fromJson(json['requires']) : null;
-    minAmount = json['min_amount'] != null ? new Title.fromJson(json['min_amount']) : null;
-    ignoreDiscounts = json['ignore_discounts'] != null ? new Title.fromJson(json['ignore_discounts']) : null;
-    taxStatus = json['tax_status'] != null ? new Requires.fromJson(json['tax_status']) : null;
-    cost = json['cost'] != null ? new Title.fromJson(json['cost']) : null;
-    classCosts = json['class_costs'] != null ? new Title.fromJson(json['class_costs']) : null;
-    classCost1914 = json['class_cost_1914'] != null ? new Title.fromJson(json['class_cost_1914']) : null;
-    classCost85 = json['class_cost_85'] != null ? new Title.fromJson(json['class_cost_85']) : null;
-    classCost86 = json['class_cost_86'] != null ? new Title.fromJson(json['class_cost_86']) : null;
-    classCost1875 = json['class_cost_1875'] != null ? new Title.fromJson(json['class_cost_1875']) : null;
-    noClassCost = json['no_class_cost'] != null ? new Title.fromJson(json['no_class_cost']) : null;
-    type = json['type'] != null ? new Requires.fromJson(json['type']) : null;
-    pricesIncludeTax = json['prices_include_tax'] != null ? new Requires.fromJson(json['prices_include_tax']) : null;
-    orderHandlingFee = json['order_handling_fee'] != null ? new Title.fromJson(json['order_handling_fee']) : null;
-    maxShippingCost = json['max_shipping_cost'] != null ? new Title.fromJson(json['max_shipping_cost']) : null;
-    rates = json['rates'] != null ? new Rates.fromJson(json['rates']) : null;
-    calculationType = json['calculation_type'] != null ? new Requires.fromJson(json['calculation_type']) : null;
-    handlingFee = json['handling_fee'] != null ? new Title.fromJson(json['handling_fee']) : null;
-    minCost = json['min_cost'] != null ? new Title.fromJson(json['min_cost']) : null;
-    maxCost = json['max_cost'] != null ? new Title.fromJson(json['max_cost']) : null;
-    minmaxAfterDiscount = json['minmax_after_discount'] != null ? new Title.fromJson(json['minmax_after_discount']) : null;
-    minmaxWithTax = json['minmax_with_tax'] != null ? new Title.fromJson(json['minmax_with_tax']) : null;
+    title = json['title'] != null ? Title.fromJson(json['title']) : null;
+    requires = json['requires'] != null ? Requires.fromJson(json['requires']) : null;
+    minAmount = json['min_amount'] != null ? Title.fromJson(json['min_amount']) : null;
+    ignoreDiscounts = json['ignore_discounts'] != null ? Title.fromJson(json['ignore_discounts']) : null;
+    taxStatus = json['tax_status'] != null ? Requires.fromJson(json['tax_status']) : null;
+    cost = json['cost'] != null ? Title.fromJson(json['cost']) : null;
+    classCosts = json['class_costs'] != null ? Title.fromJson(json['class_costs']) : null;
+    classCost1914 = json['class_cost_1914'] != null ? Title.fromJson(json['class_cost_1914']) : null;
+    classCost85 = json['class_cost_85'] != null ? Title.fromJson(json['class_cost_85']) : null;
+    classCost86 = json['class_cost_86'] != null ? Title.fromJson(json['class_cost_86']) : null;
+    classCost1875 = json['class_cost_1875'] != null ? Title.fromJson(json['class_cost_1875']) : null;
+    noClassCost = json['no_class_cost'] != null ? Title.fromJson(json['no_class_cost']) : null;
+    type = json['type'] != null ? Requires.fromJson(json['type']) : null;
+    pricesIncludeTax = json['prices_include_tax'] != null ? Requires.fromJson(json['prices_include_tax']) : null;
+    orderHandlingFee = json['order_handling_fee'] != null ? Title.fromJson(json['order_handling_fee']) : null;
+    maxShippingCost = json['max_shipping_cost'] != null ? Title.fromJson(json['max_shipping_cost']) : null;
+    rates = json['rates'] != null ? Rates.fromJson(json['rates']) : null;
+    calculationType = json['calculation_type'] != null ? Requires.fromJson(json['calculation_type']) : null;
+    handlingFee = json['handling_fee'] != null ? Title.fromJson(json['handling_fee']) : null;
+    minCost = json['min_cost'] != null ? Title.fromJson(json['min_cost']) : null;
+    maxCost = json['max_cost'] != null ? Title.fromJson(json['max_cost']) : null;
+    minmaxAfterDiscount = json['minmax_after_discount'] != null ? Title.fromJson(json['minmax_after_discount']) : null;
+    minmaxWithTax = json['minmax_with_tax'] != null ? Title.fromJson(json['minmax_with_tax']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.title != null) {
-      data['title'] = this.title!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (title != null) {
+      data['title'] = title!.toJson();
     }
-    if (this.requires != null) {
-      data['requires'] = this.requires!.toJson();
+    if (requires != null) {
+      data['requires'] = requires!.toJson();
     }
-    if (this.minAmount != null) {
-      data['min_amount'] = this.minAmount!.toJson();
+    if (minAmount != null) {
+      data['min_amount'] = minAmount!.toJson();
     }
-    if (this.ignoreDiscounts != null) {
-      data['ignore_discounts'] = this.ignoreDiscounts!.toJson();
+    if (ignoreDiscounts != null) {
+      data['ignore_discounts'] = ignoreDiscounts!.toJson();
     }
-    if (this.taxStatus != null) {
-      data['tax_status'] = this.taxStatus!.toJson();
+    if (taxStatus != null) {
+      data['tax_status'] = taxStatus!.toJson();
     }
-    if (this.cost != null) {
-      data['cost'] = this.cost!.toJson();
+    if (cost != null) {
+      data['cost'] = cost!.toJson();
     }
-    if (this.classCosts != null) {
-      data['class_costs'] = this.classCosts!.toJson();
+    if (classCosts != null) {
+      data['class_costs'] = classCosts!.toJson();
     }
-    if (this.classCost1914 != null) {
-      data['class_cost_1914'] = this.classCost1914!.toJson();
+    if (classCost1914 != null) {
+      data['class_cost_1914'] = classCost1914!.toJson();
     }
-    if (this.classCost85 != null) {
-      data['class_cost_85'] = this.classCost85!.toJson();
+    if (classCost85 != null) {
+      data['class_cost_85'] = classCost85!.toJson();
     }
-    if (this.classCost86 != null) {
-      data['class_cost_86'] = this.classCost86!.toJson();
+    if (classCost86 != null) {
+      data['class_cost_86'] = classCost86!.toJson();
     }
-    if (this.classCost1875 != null) {
-      data['class_cost_1875'] = this.classCost1875!.toJson();
+    if (classCost1875 != null) {
+      data['class_cost_1875'] = classCost1875!.toJson();
     }
-    if (this.noClassCost != null) {
-      data['no_class_cost'] = this.noClassCost!.toJson();
+    if (noClassCost != null) {
+      data['no_class_cost'] = noClassCost!.toJson();
     }
-    if (this.type != null) {
-      data['type'] = this.type!.toJson();
+    if (type != null) {
+      data['type'] = type!.toJson();
     }
-    if (this.pricesIncludeTax != null) {
-      data['prices_include_tax'] = this.pricesIncludeTax!.toJson();
+    if (pricesIncludeTax != null) {
+      data['prices_include_tax'] = pricesIncludeTax!.toJson();
     }
-    if (this.orderHandlingFee != null) {
-      data['order_handling_fee'] = this.orderHandlingFee!.toJson();
+    if (orderHandlingFee != null) {
+      data['order_handling_fee'] = orderHandlingFee!.toJson();
     }
-    if (this.maxShippingCost != null) {
-      data['max_shipping_cost'] = this.maxShippingCost!.toJson();
+    if (maxShippingCost != null) {
+      data['max_shipping_cost'] = maxShippingCost!.toJson();
     }
-    if (this.rates != null) {
-      data['rates'] = this.rates!.toJson();
+    if (rates != null) {
+      data['rates'] = rates!.toJson();
     }
-    if (this.calculationType != null) {
-      data['calculation_type'] = this.calculationType!.toJson();
+    if (calculationType != null) {
+      data['calculation_type'] = calculationType!.toJson();
     }
-    if (this.handlingFee != null) {
-      data['handling_fee'] = this.handlingFee!.toJson();
+    if (handlingFee != null) {
+      data['handling_fee'] = handlingFee!.toJson();
     }
-    if (this.minCost != null) {
-      data['min_cost'] = this.minCost!.toJson();
+    if (minCost != null) {
+      data['min_cost'] = minCost!.toJson();
     }
-    if (this.maxCost != null) {
-      data['max_cost'] = this.maxCost!.toJson();
+    if (maxCost != null) {
+      data['max_cost'] = maxCost!.toJson();
     }
-    if (this.minmaxAfterDiscount != null) {
-      data['minmax_after_discount'] = this.minmaxAfterDiscount!.toJson();
+    if (minmaxAfterDiscount != null) {
+      data['minmax_after_discount'] = minmaxAfterDiscount!.toJson();
     }
-    if (this.minmaxWithTax != null) {
-      data['minmax_with_tax'] = this.minmaxWithTax!.toJson();
+    if (minmaxWithTax != null) {
+      data['minmax_with_tax'] = minmaxWithTax!.toJson();
     }
     return data;
   }
@@ -506,15 +513,15 @@ placeholder = json['placeholder'];
 }
 
 Map<String, dynamic> toJson() {
-final Map<String, dynamic> data = new Map<String, dynamic>();
-data['id'] = this.id;
-data['label'] = this.label;
-data['description'] = this.description;
-data['type'] = this.type;
-data['value'] = this.value;
-data['default'] = this.defaultValue;
-data['tip'] = this.tip;
-data['placeholder'] = this.placeholder;
+final Map<String, dynamic> data = <String, dynamic>{};
+data['id'] = id;
+data['label'] = label;
+data['description'] = description;
+data['type'] = type;
+data['value'] = value;
+data['default'] = defaultValue;
+data['tip'] = tip;
+data['placeholder'] = placeholder;
 return data;
 }
 }
@@ -541,21 +548,21 @@ value = json['value'];
 defaultValue = json['default'];
 tip = json['tip'];
 placeholder = json['placeholder'];
-options = json['options'] != null ? new MethodOptions.fromJson(json['options']) : null;
+options = json['options'] != null ? MethodOptions.fromJson(json['options']) : null;
 }
 
 Map<String, dynamic> toJson() {
-final Map<String, dynamic> data = new Map<String, dynamic>();
-data['id'] = this.id;
-data['label'] = this.label;
-data['description'] = this.description;
-data['type'] = this.type;
-data['value'] = this.value;
-data['default'] = this.defaultValue;
-data['tip'] = this.tip;
-data['placeholder'] = this.placeholder;
-if (this.options != null) {
-data['options'] = this.options!.toJson();
+final Map<String, dynamic> data = <String, dynamic>{};
+data['id'] = id;
+data['label'] = label;
+data['description'] = description;
+data['type'] = type;
+data['value'] = value;
+data['default'] = defaultValue;
+data['tip'] = tip;
+data['placeholder'] = placeholder;
+if (options != null) {
+data['options'] = options!.toJson();
 }
 return data;
 }
@@ -571,8 +578,8 @@ str = json['str'];
 }
 
 Map<String, dynamic> toJson() {
-final Map<String, dynamic> data = new Map<String, dynamic>();
-data['str'] = this.str;
+final Map<String, dynamic> data = <String, dynamic>{};
+data['str'] = str;
 return data;
 }
 }
@@ -601,15 +608,15 @@ placeholder = json['placeholder'];
 }
 
 Map<String, dynamic> toJson() {
-final Map<String, dynamic> data = new Map<String, dynamic>();
-data['id'] = this.id;
-data['label'] = this.label;
-data['description'] = this.description;
-data['type'] = this.type;
-data['value'] = this.value;
-data['default'] = this.defaultValue;
-data['tip'] = this.tip;
-data['placeholder'] = this.placeholder;
+final Map<String, dynamic> data = <String, dynamic>{};
+data['id'] = id;
+data['label'] = label;
+data['description'] = description;
+data['type'] = type;
+data['value'] = value;
+data['default'] = defaultValue;
+data['tip'] = tip;
+data['placeholder'] = placeholder;
 return data;
 }
 }
@@ -642,101 +649,101 @@ Title? minmaxWithTax;
 MethodSettings({this.title, this.requires, this.minAmount, this.ignoreDiscounts, this.taxStatus, this.cost, this.classCosts, this.classCost1914, this.classCost85, this.classCost86, this.classCost1875, this.noClassCost, this.type, this.pricesIncludeTax, this.orderHandlingFee, this.maxShippingCost, this.rates, this.calculationType, this.handlingFee, this.minCost, this.maxCost, this.minmaxAfterDiscount, this.minmaxWithTax});
 
 MethodSettings.fromJson(Map<String, dynamic> json) {
-title = json['title'] != null ? new Title.fromJson(json['title']) : null;
-requires = json['requires'] != null ? new Requires.fromJson(json['requires']) : null;
-minAmount = json['min_amount'] != null ? new Title.fromJson(json['min_amount']) : null;
-ignoreDiscounts = json['ignore_discounts'] != null ? new Title.fromJson(json['ignore_discounts']) : null;
-taxStatus = json['tax_status'] != null ? new Requires.fromJson(json['tax_status']) : null;
-cost = json['cost'] != null ? new Title.fromJson(json['cost']) : null;
-classCosts = json['class_costs'] != null ? new Title.fromJson(json['class_costs']) : null;
-classCost1914 = json['class_cost_1914'] != null ? new Title.fromJson(json['class_cost_1914']) : null;
-classCost85 = json['class_cost_85'] != null ? new Title.fromJson(json['class_cost_85']) : null;
-classCost86 = json['class_cost_86'] != null ? new Title.fromJson(json['class_cost_86']) : null;
-classCost1875 = json['class_cost_1875'] != null ? new Title.fromJson(json['class_cost_1875']) : null;
-noClassCost = json['no_class_cost'] != null ? new Title.fromJson(json['no_class_cost']) : null;
-type = json['type'] != null ? new Requires.fromJson(json['type']) : null;
-pricesIncludeTax = json['prices_include_tax'] != null ? new Requires.fromJson(json['prices_include_tax']) : null;
-orderHandlingFee = json['order_handling_fee'] != null ? new Title.fromJson(json['order_handling_fee']) : null;
-maxShippingCost = json['max_shipping_cost'] != null ? new Title.fromJson(json['max_shipping_cost']) : null;
-rates = json['rates'] != null ? new Rates.fromJson(json['rates']) : null;
-calculationType = json['calculation_type'] != null ? new Requires.fromJson(json['calculation_type']) : null;
-handlingFee = json['handling_fee'] != null ? new Title.fromJson(json['handling_fee']) : null;
-minCost = json['min_cost'] != null ? new Title.fromJson(json['min_cost']) : null;
-maxCost = json['max_cost'] != null ? new Title.fromJson(json['max_cost']) : null;
-minmaxAfterDiscount = json['minmax_after_discount'] != null ? new Title.fromJson(json['minmax_after_discount']) : null;
-minmaxWithTax = json['minmax_with_tax'] != null ? new Title.fromJson(json['minmax_with_tax']) : null;
+title = json['title'] != null ? Title.fromJson(json['title']) : null;
+requires = json['requires'] != null ? Requires.fromJson(json['requires']) : null;
+minAmount = json['min_amount'] != null ? Title.fromJson(json['min_amount']) : null;
+ignoreDiscounts = json['ignore_discounts'] != null ? Title.fromJson(json['ignore_discounts']) : null;
+taxStatus = json['tax_status'] != null ? Requires.fromJson(json['tax_status']) : null;
+cost = json['cost'] != null ? Title.fromJson(json['cost']) : null;
+classCosts = json['class_costs'] != null ? Title.fromJson(json['class_costs']) : null;
+classCost1914 = json['class_cost_1914'] != null ? Title.fromJson(json['class_cost_1914']) : null;
+classCost85 = json['class_cost_85'] != null ? Title.fromJson(json['class_cost_85']) : null;
+classCost86 = json['class_cost_86'] != null ? Title.fromJson(json['class_cost_86']) : null;
+classCost1875 = json['class_cost_1875'] != null ? Title.fromJson(json['class_cost_1875']) : null;
+noClassCost = json['no_class_cost'] != null ? Title.fromJson(json['no_class_cost']) : null;
+type = json['type'] != null ? Requires.fromJson(json['type']) : null;
+pricesIncludeTax = json['prices_include_tax'] != null ? Requires.fromJson(json['prices_include_tax']) : null;
+orderHandlingFee = json['order_handling_fee'] != null ? Title.fromJson(json['order_handling_fee']) : null;
+maxShippingCost = json['max_shipping_cost'] != null ? Title.fromJson(json['max_shipping_cost']) : null;
+rates = json['rates'] != null ? Rates.fromJson(json['rates']) : null;
+calculationType = json['calculation_type'] != null ? Requires.fromJson(json['calculation_type']) : null;
+handlingFee = json['handling_fee'] != null ? Title.fromJson(json['handling_fee']) : null;
+minCost = json['min_cost'] != null ? Title.fromJson(json['min_cost']) : null;
+maxCost = json['max_cost'] != null ? Title.fromJson(json['max_cost']) : null;
+minmaxAfterDiscount = json['minmax_after_discount'] != null ? Title.fromJson(json['minmax_after_discount']) : null;
+minmaxWithTax = json['minmax_with_tax'] != null ? Title.fromJson(json['minmax_with_tax']) : null;
 }
 
 Map<String, dynamic> toJson() {
-final Map<String, dynamic> data = new Map<String, dynamic>();
-if (this.title != null) {
-data['title'] = this.title!.toJson();
+final Map<String, dynamic> data = <String, dynamic>{};
+if (title != null) {
+data['title'] = title!.toJson();
 }
-if (this.requires != null) {
-data['requires'] = this.requires!.toJson();
+if (requires != null) {
+data['requires'] = requires!.toJson();
 }
-if (this.minAmount != null) {
-data['min_amount'] = this.minAmount!.toJson();
+if (minAmount != null) {
+data['min_amount'] = minAmount!.toJson();
 }
-if (this.ignoreDiscounts != null) {
-data['ignore_discounts'] = this.ignoreDiscounts!.toJson();
+if (ignoreDiscounts != null) {
+data['ignore_discounts'] = ignoreDiscounts!.toJson();
 }
-if (this.taxStatus != null) {
-data['tax_status'] = this.taxStatus!.toJson();
+if (taxStatus != null) {
+data['tax_status'] = taxStatus!.toJson();
 }
-if (this.cost != null) {
-data['cost'] = this.cost!.toJson();
+if (cost != null) {
+data['cost'] = cost!.toJson();
 }
-if (this.classCosts != null) {
-data['class_costs'] = this.classCosts!.toJson();
+if (classCosts != null) {
+data['class_costs'] = classCosts!.toJson();
 }
-if (this.classCost1914 != null) {
-data['class_cost_1914'] = this.classCost1914!.toJson();
+if (classCost1914 != null) {
+data['class_cost_1914'] = classCost1914!.toJson();
 }
-if (this.classCost85 != null) {
-data['class_cost_85'] = this.classCost85!.toJson();
+if (classCost85 != null) {
+data['class_cost_85'] = classCost85!.toJson();
 }
-if (this.classCost86 != null) {
-data['class_cost_86'] = this.classCost86!.toJson();
+if (classCost86 != null) {
+data['class_cost_86'] = classCost86!.toJson();
 }
-if (this.classCost1875 != null) {
-data['class_cost_1875'] = this.classCost1875!.toJson();
+if (classCost1875 != null) {
+data['class_cost_1875'] = classCost1875!.toJson();
 }
-if (this.noClassCost != null) {
-data['no_class_cost'] = this.noClassCost!.toJson();
+if (noClassCost != null) {
+data['no_class_cost'] = noClassCost!.toJson();
 }
-if (this.type != null) {
-data['type'] = this.type!.toJson();
+if (type != null) {
+data['type'] = type!.toJson();
 }
-if (this.pricesIncludeTax != null) {
-data['prices_include_tax'] = this.pricesIncludeTax!.toJson();
+if (pricesIncludeTax != null) {
+data['prices_include_tax'] = pricesIncludeTax!.toJson();
 }
-if (this.orderHandlingFee != null) {
-data['order_handling_fee'] = this.orderHandlingFee!.toJson();
+if (orderHandlingFee != null) {
+data['order_handling_fee'] = orderHandlingFee!.toJson();
 }
-if (this.maxShippingCost != null) {
-data['max_shipping_cost'] = this.maxShippingCost!.toJson();
+if (maxShippingCost != null) {
+data['max_shipping_cost'] = maxShippingCost!.toJson();
 }
-if (this.rates != null) {
-data['rates'] = this.rates!.toJson();
+if (rates != null) {
+data['rates'] = rates!.toJson();
 }
-if (this.calculationType != null) {
-data['calculation_type'] = this.calculationType!.toJson();
+if (calculationType != null) {
+data['calculation_type'] = calculationType!.toJson();
 }
-if (this.handlingFee != null) {
-data['handling_fee'] = this.handlingFee!.toJson();
+if (handlingFee != null) {
+data['handling_fee'] = handlingFee!.toJson();
 }
-if (this.minCost != null) {
-data['min_cost'] = this.minCost!.toJson();
+if (minCost != null) {
+data['min_cost'] = minCost!.toJson();
 }
-if (this.maxCost != null) {
-data['max_cost'] = this.maxCost!.toJson();
+if (maxCost != null) {
+data['max_cost'] = maxCost!.toJson();
 }
-if (this.minmaxAfterDiscount != null) {
-data['minmax_after_discount'] = this.minmaxAfterDiscount!.toJson();
+if (minmaxAfterDiscount != null) {
+data['minmax_after_discount'] = minmaxAfterDiscount!.toJson();
 }
-if (this.minmaxWithTax != null) {
-data['minmax_with_tax'] = this.minmaxWithTax!.toJson();
+if (minmaxWithTax != null) {
+data['minmax_with_tax'] = minmaxWithTax!.toJson();
 }
 return data;
 }

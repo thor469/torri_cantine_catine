@@ -20,7 +20,7 @@ class FloatingButton extends StatelessWidget {
           storage.setBottomTabState(0);
           MainNavigation.push(
             context,
-            MainNavigation.home(),
+            const MainNavigation.home(),
           );
         },
         child: CircleAvatar(

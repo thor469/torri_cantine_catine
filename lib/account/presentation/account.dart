@@ -88,13 +88,13 @@ class _AccountPageState extends State<AccountPage> {
         onPopInvoked : (didPop){
         },
         child:Scaffold(
-          backgroundColor: Color.fromARGB(255, 244, 244, 244),
+          backgroundColor: const Color.fromARGB(255, 244, 244, 244),
           key: _key,
           drawer: widget.fromMenu ? const Drawer(
             child: MenuScreen(),
           ):
           const SizedBox.shrink(),
-          floatingActionButton: widget.fromMenu? FloatingButton():SizedBox(),
+          floatingActionButton: widget.fromMenu? const FloatingButton():const SizedBox(),
           floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
           bottomNavigationBar: widget.fromMenu? BottomBanvigationMenu(
             scaffoldKey: _key,
@@ -200,7 +200,7 @@ class _AccountPageState extends State<AccountPage> {
                                 ),
                                 trailing: const Row(
                                   mainAxisSize: MainAxisSize.min,
-                                  children: const [
+                                  children: [
                                     Icon(Icons.arrow_forward_ios),
                                   ],
                                 ),
@@ -225,7 +225,7 @@ class _AccountPageState extends State<AccountPage> {
                                     style: TCTypography.of(context).text_16_bold),
                                 trailing:const  Row(
                                   mainAxisSize: MainAxisSize.min,
-                                  children: const [
+                                  children: [
                                     Icon(Icons.arrow_forward_ios),
                                   ],
                                 ),
@@ -253,7 +253,7 @@ class _AccountPageState extends State<AccountPage> {
                                     style: TCTypography.of(context).text_16_bold),
                                 trailing:const Row(
                                   mainAxisSize: MainAxisSize.min,
-                                  children: const [
+                                  children: [
                                     Icon(Icons.arrow_forward_ios),
                                   ],
                                 ),
@@ -281,7 +281,7 @@ class _AccountPageState extends State<AccountPage> {
                                     style: TCTypography.of(context).text_16_bold),
                                 trailing:const Row(
                                   mainAxisSize: MainAxisSize.min,
-                                  children: const [
+                                  children: [
                                     Icon(Icons.arrow_forward_ios),
                                   ],
                                 ),
@@ -306,7 +306,7 @@ class _AccountPageState extends State<AccountPage> {
                                     style: TCTypography.of(context).text_16_bold),
                                 trailing: const Row(
                                   mainAxisSize: MainAxisSize.min,
-                                  children: const [
+                                  children: [
                                     Icon(Icons.arrow_forward_ios),
                                   ],
                                 ),

@@ -93,20 +93,19 @@ class _WishlistScreenState extends State<WishlistScreen> {
       //     .add(const AllProductsEvent.fetch());
 
     });
-    int selectedIndex = 5;
 
-    final GlobalKey<ScaffoldState> _key = GlobalKey();
+    final GlobalKey<ScaffoldState> key = GlobalKey();
 
     return PopScope(
         canPop: false,
         onPopInvoked: (didPop) {},
         child:Scaffold(
-          backgroundColor: Color.fromARGB(255, 244, 244, 244),
-          key: _key,
-          drawer: widget.fromMenu ? Drawer(
+          backgroundColor: const Color.fromARGB(255, 244, 244, 244),
+          key: key,
+          drawer: widget.fromMenu ? const Drawer(
             child: MenuScreen(),
           ):
-          SizedBox(),
+          const SizedBox(),
           appBar: PreferredSize(
             preferredSize: const Size.fromHeight(60),
             child: SubPageAppbar(
@@ -115,7 +114,6 @@ class _WishlistScreenState extends State<WishlistScreen> {
               onTap: widget.fromMenu
                   ?  (){
                 setState(() {
-                  selectedIndex = 0;
                 });
                 MainNavigation.pop(context);
 
@@ -133,17 +131,17 @@ class _WishlistScreenState extends State<WishlistScreen> {
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
           floatingActionButton: widget.fromMenu
-              ?FloatingButton(): const SizedBox() ,
+              ?const FloatingButton(): const SizedBox() ,
           bottomNavigationBar: widget.fromMenu
               ? BottomBanvigationMenu(
-            scaffoldKey: _key,
+            scaffoldKey: key,
             initialSelectedIndex: 5,
             context: context,
             //notifyParent: () => refresh(selectedindex),
           ) :const SizedBox(),
           body:
           FutureBuilder(
-            future: this.itemsList,
+            future: itemsList,
             //future: doGetWlProducts(),
             builder: (context,snap) {
               // print('DARIO FUTURE');
@@ -151,7 +149,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
               // print(snap.data);
 
               if(snap.connectionState != ConnectionState.done) {
-                return Center(
+                return const Center(
                     child: CircularProgressIndicator(
                       color: Color.fromARGB(255, 161, 29, 52),
                     ));
@@ -162,8 +160,8 @@ class _WishlistScreenState extends State<WishlistScreen> {
               if(snap.hasData) {
                 var model = snap.data!;
 
-                if(model.length == 0) {
-                  return Center(child: Text('Non ci sono elementi'));
+                if(model.isEmpty) {
+                  return const Center(child: Text('Non ci sono elementi'));
                 }
 
                 //var model = itemsList2;
@@ -183,9 +181,9 @@ class _WishlistScreenState extends State<WishlistScreen> {
                           model[index]!.id,
                         ),
                         productId: model[index]!.id,
-                        image: model[index]!.images!.first.src,
+                        image: model[index]!.images.first.src,
                         description:
-                        model[index]!.name ?? "",
+                        model[index]!.name,
                         price: double.parse(
                             model[index]!.price ?? ""),
                         regularPrice: double.parse(
@@ -197,7 +195,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
 
               }
 
-              return Center(child: Text('Non ci sono elementi'));
+              return const Center(child: Text('Non ci sono elementi'));
             },
           ),
 
@@ -263,9 +261,9 @@ class _WishlistScreenState extends State<WishlistScreen> {
 
   Future<List<Product?>> getWishlistProducts(List<int> wl) async {
     List<Product?> wishListProducts = [];
-    wl.forEach((wishItem) {
+    for (var wishItem in wl) {
 
-    });
+    }
     //print('getWishlistProducts');
     context
         .read<AllProductsBloc>()

@@ -148,7 +148,7 @@ class __$$_FetchCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Fetch implements _Fetch {
+class _$_Fetch with DiagnosticableTreeMixin implements _Fetch {
   const _$_Fetch(
       {required this.email,
       required this.firstName,
@@ -168,8 +168,20 @@ class _$_Fetch implements _Fetch {
   final String password;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'RegistrationEvent.fetch(email: $email, firstName: $firstName, lastName: $lastName, username: $username, password: $password)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'RegistrationEvent.fetch'))
+      ..add(DiagnosticsProperty('email', email))
+      ..add(DiagnosticsProperty('firstName', firstName))
+      ..add(DiagnosticsProperty('lastName', lastName))
+      ..add(DiagnosticsProperty('username', username))
+      ..add(DiagnosticsProperty('password', password));
   }
 
   @override
@@ -315,12 +327,21 @@ class __$$_RegisterWithGoogleCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_RegisterWithGoogle implements _RegisterWithGoogle {
+class _$_RegisterWithGoogle
+    with DiagnosticableTreeMixin
+    implements _RegisterWithGoogle {
   const _$_RegisterWithGoogle();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'RegistrationEvent.registerWithGoogle()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+        DiagnosticsProperty('type', 'RegistrationEvent.registerWithGoogle'));
   }
 
   @override
@@ -435,12 +456,21 @@ class __$$_RegisterWithFacebookCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_RegisterWithFacebook implements _RegisterWithFacebook {
+class _$_RegisterWithFacebook
+    with DiagnosticableTreeMixin
+    implements _RegisterWithFacebook {
   const _$_RegisterWithFacebook();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'RegistrationEvent.registerWithFacebook()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+        DiagnosticsProperty('type', 'RegistrationEvent.registerWithFacebook'));
   }
 
   @override
@@ -555,12 +585,21 @@ class __$$_RegisterWithAppleCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_RegisterWithApple implements _RegisterWithApple {
+class _$_RegisterWithApple
+    with DiagnosticableTreeMixin
+    implements _RegisterWithApple {
   const _$_RegisterWithApple();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'RegistrationEvent.registerWithApple()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+        DiagnosticsProperty('type', 'RegistrationEvent.registerWithApple'));
   }
 
   @override
@@ -758,12 +797,18 @@ class __$$_InitialCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Initial implements _Initial {
+class _$_Initial with DiagnosticableTreeMixin implements _Initial {
   const _$_Initial();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'RegistrationState.initial()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'RegistrationState.initial'));
   }
 
   @override
@@ -883,12 +928,18 @@ class __$$_LoadingCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Loading implements _Loading {
+class _$_Loading with DiagnosticableTreeMixin implements _Loading {
   const _$_Loading();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'RegistrationState.loading()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'RegistrationState.loading'));
   }
 
   @override
@@ -1032,15 +1083,23 @@ class __$$_LoadedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Loaded implements _Loaded {
+class _$_Loaded with DiagnosticableTreeMixin implements _Loaded {
   const _$_Loaded(this.response);
 
   @override
   final RegistrationResponse response;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'RegistrationState.loaded(response: $response)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'RegistrationState.loaded'))
+      ..add(DiagnosticsProperty('response', response));
   }
 
   @override
@@ -1210,7 +1269,9 @@ class __$$_LoadedWithGoogleCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_LoadedWithGoogle implements _LoadedWithGoogle {
+class _$_LoadedWithGoogle
+    with DiagnosticableTreeMixin
+    implements _LoadedWithGoogle {
   const _$_LoadedWithGoogle(this.response, this.username, this.password);
 
   @override
@@ -1221,8 +1282,18 @@ class _$_LoadedWithGoogle implements _LoadedWithGoogle {
   final String password;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'RegistrationState.loadedWithGoogle(response: $response, username: $username, password: $password)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'RegistrationState.loadedWithGoogle'))
+      ..add(DiagnosticsProperty('response', response))
+      ..add(DiagnosticsProperty('username', username))
+      ..add(DiagnosticsProperty('password', password));
   }
 
   @override
@@ -1382,7 +1453,7 @@ class __$$_ErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Error implements _Error {
+class _$_Error with DiagnosticableTreeMixin implements _Error {
   const _$_Error(this.string, this.code);
 
   @override
@@ -1391,8 +1462,17 @@ class _$_Error implements _Error {
   final String code;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'RegistrationState.error(string: $string, code: $code)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'RegistrationState.error'))
+      ..add(DiagnosticsProperty('string', string))
+      ..add(DiagnosticsProperty('code', code));
   }
 
   @override

@@ -34,7 +34,7 @@ class _CategoriesDetailScreenState extends State<CategoriesDetailScreen> {
         onPopInvoked : (didPop){
         },
         child:Scaffold(
-          backgroundColor: Color.fromARGB(255, 244, 244, 244),
+          backgroundColor: const Color.fromARGB(255, 244, 244, 244),
           appBar: SubPageAppbar(
             text: "PRODOTTI PER CATEGORIA",
             // onTap: () => MainNavigation.push(

@@ -223,7 +223,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                           isSelected: currentProfile ==
                                               PersonalProfile.myaccount,
                                           onTapNavigation:
-                                          MainNavigation.account(true)),
+                                          const MainNavigation.account(true)),
                                     ),
                                   ],
                                 ),

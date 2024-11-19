@@ -116,6 +116,7 @@ class _FirstRegistrScreenState extends State<FirstRegistrScreen> {
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 }
               }
+              return null;
             },
             orElse: () => const SizedBox(),
           ),
@@ -131,6 +132,7 @@ class _FirstRegistrScreenState extends State<FirstRegistrScreen> {
                 elevation: 1,
               );
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              return null;
             },
             orElse: () => const SizedBox(),
           ),

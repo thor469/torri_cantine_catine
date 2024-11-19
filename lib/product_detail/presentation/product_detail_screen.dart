@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -78,7 +79,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     return PopScope(
         canPop: false,
         onPopInvoked: (didPop) {
-          print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
+          if (kDebugMode) {
+            print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
+          }
           MainNavigation.pop(context);
           //return;
         },
@@ -90,7 +93,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           ),
           //floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
-          floatingActionButton: FloatingButton(),
+          floatingActionButton: const FloatingButton(),
           bottomNavigationBar: BottomBanvigationMenu(
             scaffoldKey: _key,
             initialSelectedIndex: 0,
@@ -222,7 +225,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             ),
                             Column(
                               children: [
-                                (state.average_rating!)=='0.00'?SizedBox():Row(
+                                (state.average_rating!)=='0.00'?const SizedBox():Row(
                                   children: [
                                     const Icon(
                                       Icons.star_border_outlined,
@@ -261,11 +264,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             Text("€ ${(state.regular_price ?? "0").replaceAll('.', ',')}",
                                 style: TCTypography.of(context).text_18_bold),
                             Expanded(child: Container()),
-                            (state.average_rating!)=='0.00'?SizedBox():const Icon(
+                            (state.average_rating!)=='0.00'?const SizedBox():const Icon(
                               Icons.star_border_outlined,
                               color: Color.fromARGB(255, 13, 117, 161),
                             ),
-                            (state.average_rating!)=='0.00'?SizedBox():Text(
+                            (state.average_rating!)=='0.00'?const SizedBox():Text(
                               "${double.parse(state.average_rating!).toStringAsFixed(1)}/5",
                               style: TCTypography.of(context)
                                   .text_14_bold
@@ -311,7 +314,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                           border: Border.all(
                                               color:
                                               const Color.fromARGB(255, 99, 103, 106)),
-                                          borderRadius: BorderRadius.only( topLeft: Radius.circular(5), bottomLeft: Radius.circular(5) )
+                                          borderRadius: const BorderRadius.only( topLeft: Radius.circular(5), bottomLeft: Radius.circular(5) )
                                       ),
                                       child:
                                       IconButton(
@@ -337,12 +340,12 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                     Padding(
                                       padding: const EdgeInsets.symmetric(horizontal: 0),
                                       child: Container(
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                           border: Border.symmetric(
                                               horizontal: BorderSide(
 
                                                   color:
-                                                  const Color.fromARGB(255, 99, 103, 106)
+                                                  Color.fromARGB(255, 99, 103, 106)
                                               )
                                           ),
                                         ),
@@ -352,7 +355,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                           alignment: Alignment.center,
                                           padding: const EdgeInsets.only(left: 2.5,bottom: 9),
                                           child: TextField(
-                                            style: TextStyle(fontStyle: FontStyle.normal, fontSize: 18),
+                                            style: const TextStyle(fontStyle: FontStyle.normal, fontSize: 18),
                                             textAlign: TextAlign.center,
                                             decoration: const InputDecoration(
                                                 border: InputBorder.none),
@@ -369,7 +372,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                           border: Border.all(
                                               color:
                                               const Color.fromARGB(255, 99, 103, 106)),
-                                          borderRadius: BorderRadius.only( topRight: Radius.circular(5), bottomRight: Radius.circular(5) )
+                                          borderRadius: const BorderRadius.only( topRight: Radius.circular(5), bottomRight: Radius.circular(5) )
                                       ),
                                       child: IconButton(
                                         padding: EdgeInsets.zero,
@@ -554,7 +557,7 @@ class BundleItemsList extends StatefulWidget {
   final int initialCartQty;
   final BuildContext contx;
 
-  const BundleItemsList( {required this.bundles, required this.minSize, required this.maxSize, required this.productId, required this.initialCartQty, required this.contx} );
+  const BundleItemsList( {super.key, required this.bundles, required this.minSize, required this.maxSize, required this.productId, required this.initialCartQty, required this.contx} );
 
   @override
   State<BundleItemsList> createState() => _BundleItemsListState();
@@ -586,12 +589,12 @@ class _BundleItemsListState extends State<BundleItemsList> {
 
 
    return Container(
-     padding: EdgeInsets.symmetric(horizontal: 20),
+     padding: const EdgeInsets.symmetric(horizontal: 20),
 
      child: Column(
         mainAxisSize: MainAxisSize.max,
        children: [
-         Container(
+         SizedBox(
            height: containerHeight,
            child: ListView.builder(
              physics: const NeverScrollableScrollPhysics(),
@@ -605,20 +608,20 @@ class _BundleItemsListState extends State<BundleItemsList> {
 
 
                return Container(
-                 padding: EdgeInsets.symmetric(vertical: 12),
+                 padding: const EdgeInsets.symmetric(vertical: 12),
                  height: 80,
                  child: Row(
                    children: [
                      Expanded(child:
                      Container(
-                         padding: EdgeInsets.symmetric(horizontal: 8),
-                         child: Text('${currentItem.title}', style: TCTypography.of(context)
+                         padding: const EdgeInsets.symmetric(horizontal: 8),
+                         child: Text(currentItem.title, style: TCTypography.of(context)
                              .text_14_bold
                              .copyWith()
                          )
                      )),
                      Container(
-                       padding:EdgeInsets.symmetric(vertical: 8),
+                       padding:const EdgeInsets.symmetric(vertical: 8),
                        child: Row(
                          crossAxisAlignment: CrossAxisAlignment.stretch,
                          mainAxisAlignment: MainAxisAlignment.start,
@@ -631,7 +634,7 @@ class _BundleItemsListState extends State<BundleItemsList> {
                                  border: Border.all(
                                      color:
                                      const Color.fromARGB(255, 99, 103, 106)),
-                                 borderRadius: BorderRadius.only( topLeft: Radius.circular(5), bottomLeft: Radius.circular(5) )
+                                 borderRadius: const BorderRadius.only( topLeft: Radius.circular(5), bottomLeft: Radius.circular(5) )
                              ),
                              child:
                              IconButton(
@@ -657,12 +660,12 @@ class _BundleItemsListState extends State<BundleItemsList> {
                            Padding(
                              padding: const EdgeInsets.symmetric(horizontal: 0),
                              child: Container(
-                               decoration: BoxDecoration(
+                               decoration: const BoxDecoration(
                                  border: Border.symmetric(
                                      horizontal: BorderSide(
 
                                          color:
-                                         const Color.fromARGB(255, 99, 103, 106)
+                                         Color.fromARGB(255, 99, 103, 106)
                                      )
                                  ),
                                ),
@@ -692,7 +695,7 @@ class _BundleItemsListState extends State<BundleItemsList> {
                                  border: Border.all(
                                      color:
                                      const Color.fromARGB(255, 99, 103, 106)),
-                                 borderRadius: BorderRadius.only( topRight: Radius.circular(5), bottomRight: Radius.circular(5) )
+                                 borderRadius: const BorderRadius.only( topRight: Radius.circular(5), bottomRight: Radius.circular(5) )
                              ),
                              child: IconButton(
 
@@ -768,9 +771,15 @@ class _BundleItemsListState extends State<BundleItemsList> {
                            ]
                        };
 
-                       print('fullBundleConf');
-                       print(bundlePost);
-                       print(bundleCartUrl);
+                       if (kDebugMode) {
+                         print('fullBundleConf');
+                       }
+                       if (kDebugMode) {
+                         print(bundlePost);
+                       }
+                       if (kDebugMode) {
+                         print(bundleCartUrl);
+                       }
 
 
                        if(selectedBundleItems>=widget.minSize && selectedBundleItems<=widget.maxSize) {

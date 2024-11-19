@@ -35,7 +35,7 @@ class AddBundleToCartBloc
     try {
       final response = await service
           .addBundleToCart(AddBundleToCart(id: id, data: data, cartUrl: cartUrl, quantity: quantity));
-      yield AddBundleToCartState.addedProduct();
+      yield const AddBundleToCartState.addedProduct();
     } on ApiException catch (e) {
       yield const AddBundleToCartState.error();
     }

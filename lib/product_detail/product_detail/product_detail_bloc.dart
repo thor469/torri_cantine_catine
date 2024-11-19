@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:torri_cantine_app/product_detail/model/request/product_detail_request.dart';
@@ -28,8 +29,12 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent,ProductDetailState>{
       final response = await service.getProductDetail (ProductDetailRequest(id: id));
       yield ProductDetailState.loaded(response);
     } catch (e) {
-      print('ProductDetailState ERROR');
-      print(e);
+      if (kDebugMode) {
+        print('ProductDetailState ERROR');
+      }
+      if (kDebugMode) {
+        print(e);
+      }
       yield const ProductDetailState.error();
     }
   }

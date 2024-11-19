@@ -38,7 +38,7 @@ class _CustomBannerState extends State<CustomBanner> {
               ),
               // TODO check string
               Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Text(
                   "Sfoglia il catalogo completo dei nostri articoli",
                   style: TCTypography.of(context)

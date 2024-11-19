@@ -77,15 +77,15 @@ class _HomePageBodyState extends State<HomePageBody> {
                   child: RichText(
                       text: TextSpan(
                           text: 'Si è verificato un errore, ',
-                          style: TextStyle(
+                          style: const TextStyle(
                             //fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: const Color.fromARGB(255, 113, 112, 112),
+                            color: Color.fromARGB(255, 113, 112, 112),
                           ),
                           children: [
                             TextSpan(
                               text: 'riprova',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 //fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 color: Color.fromARGB(255, 161, 29, 51),
@@ -94,10 +94,10 @@ class _HomePageBodyState extends State<HomePageBody> {
                                 ..onTap = () {
                                   //MainNavigation.welcome();
                                   MainNavigation.push(context,
-                                      MainNavigation.welcome());
+                                      const MainNavigation.welcome());
                                 },
                             ),
-                            TextSpan(
+                            const TextSpan(
                               text: '.',
                             )
                           ]
@@ -140,7 +140,7 @@ class _HomePageBodyState extends State<HomePageBody> {
           // }, child: Text('test') ),
 
 
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(top: 24),
           ),
           const SlideBanners(),

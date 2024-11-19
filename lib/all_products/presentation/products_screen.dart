@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -103,7 +104,9 @@ class _ProductsState extends State<Products> {
         _pagingController.appendLastPage([]);
       }
     } catch (error) {
-      print(error);
+      if (kDebugMode) {
+        print(error);
+      }
       _pagingController.error = error;
     }
   }
@@ -124,7 +127,9 @@ class _ProductsState extends State<Products> {
         _pagingController.appendLastPage([]);
       }
     } catch (error) {
-      print(error);
+      if (kDebugMode) {
+        print(error);
+      }
       _pagingController.error = error;
     }
   }
@@ -148,7 +153,7 @@ class _ProductsState extends State<Products> {
             onPopInvoked : (didPop){
             },
             child: Scaffold(
-              backgroundColor: Color.fromARGB(255, 244, 244, 244),
+              backgroundColor: const Color.fromARGB(255, 244, 244, 244),
               appBar: PreferredSize(
                   preferredSize: Size.fromHeight(
                       MediaQuery.of(context).size.height * 0.07),
@@ -211,7 +216,7 @@ class _ProductsState extends State<Products> {
                           // ),
 
                           Container(
-                            padding: EdgeInsets.only(left: 10, right: 10),
+                            padding: const EdgeInsets.only(left: 10, right: 10),
                             child: GestureDetector(
                                 onTap: () => MainNavigation.push(
                                       context,
@@ -221,14 +226,14 @@ class _ProductsState extends State<Products> {
                                     alignment: Alignment.topCenter,
                                     clipBehavior: Clip.none,
                                     children: [
-                                      Container(width: 48, height: 48),
+                                      const SizedBox(width: 48, height: 48),
                                       Positioned(
                                         top: -11.0,
                                         child: CircleAvatar(
                                           radius: 30,
                                           backgroundColor: Colors.transparent,
                                           child: Container(
-                                            padding: EdgeInsets.only(top: 0),
+                                            padding: const EdgeInsets.only(top: 0),
                                             //padding: const EdgeInsets.all(6),
                                             child: Image.asset(
                                               "assets/torri.png",

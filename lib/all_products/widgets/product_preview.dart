@@ -106,22 +106,20 @@ class _ProductPreviewState extends State<ProductPreview> {
                 children: [
                   Stack(
                     children: [
-                      Container(
-                        child: SizedBox(
-                          height: MediaQuery.of(context).size.height / 4.3,
-                          width: MediaQuery.of(context).size.height / 3,
-                          child: widget.image == null
-                              ? const SizedBox()
-                              : CachedNetworkImage(
-                            imageUrl: widget.image!,
-                            cacheKey: DynamicCacheManager().generateKey(widget.image!),
-                            placeholder: (context, url) => const Center(
-                              child: CircularProgressIndicator(color:Color.fromARGB(255, 161, 29, 51) ,),
-                            ),
-                            errorWidget: (context, url, error) => const Icon(Icons.error),
-                            cacheManager: DynamicCacheManager(),
-                            fit: BoxFit.fitHeight,
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height / 4.3,
+                        width: MediaQuery.of(context).size.height / 3,
+                        child: widget.image == null
+                            ? const SizedBox()
+                            : CachedNetworkImage(
+                          imageUrl: widget.image!,
+                          cacheKey: DynamicCacheManager().generateKey(widget.image!),
+                          placeholder: (context, url) => const Center(
+                            child: CircularProgressIndicator(color:Color.fromARGB(255, 161, 29, 51) ,),
                           ),
+                          errorWidget: (context, url, error) => const Icon(Icons.error),
+                          cacheManager: DynamicCacheManager(),
+                          fit: BoxFit.fitHeight,
                         ),
                       ),
                       containsBioTag(widget.tags ?? [])
@@ -186,7 +184,7 @@ class _ProductPreviewState extends State<ProductPreview> {
                                         child: Center(
                                           child: Text(
                                             "+ ${widget.productPoint} pt",
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 9,
                                               fontWeight:
@@ -201,7 +199,7 @@ class _ProductPreviewState extends State<ProductPreview> {
                                   Container(
                                     width: 30,
                                     height: 30,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       color: Colors.white,
                                       shape: BoxShape.circle,
                                     ),

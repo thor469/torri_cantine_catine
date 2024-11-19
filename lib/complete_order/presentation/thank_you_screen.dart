@@ -32,7 +32,7 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
       canPop: false,
       onPopInvoked : (didPop){
       },
-      child: Scaffold(backgroundColor: Color.fromARGB(255, 244, 244, 244),
+      child: Scaffold(backgroundColor: const Color.fromARGB(255, 244, 244, 244),
         appBar: AppBar(
             toolbarHeight: MediaQuery.of(context).size.height * 0.07,
             backgroundColor: Colors.white,

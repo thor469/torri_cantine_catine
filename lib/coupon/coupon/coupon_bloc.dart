@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:collection/collection.dart';
@@ -40,7 +41,9 @@ class CouponBloc extends Bloc<CouponEvent, CouponState> {
       var response = await dio.post('/wp-json/wc/store/v1/cart/coupons', data: {"code": code});
       return AddCouponResponse.fromJson(response.data);
     }on DioError catch(e){
-      print(e.message);
+      if (kDebugMode) {
+        print(e.message);
+      }
       return null;
     }
   }
@@ -51,11 +54,15 @@ class CouponBloc extends Bloc<CouponEvent, CouponState> {
     try{
       var response = await dio.get('/wp-json/wc/store/v1/cart/coupons', queryParameters: {"code": code});
       //RIMAPPARE
-      print(response.statusCode);
+      if (kDebugMode) {
+        print(response.statusCode);
+      }
       final List<Coupons> couponsList = (response.data as List).map((json) => Coupons.fromJson(json as Map<String, dynamic>)).toList();
       return couponsList;
     }on DioError catch(e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       return null;
     }
   }
@@ -78,7 +85,9 @@ class CouponBloc extends Bloc<CouponEvent, CouponState> {
         yield const CouponState.error("ERRORE NELL'AGGIUNTA DEL COUPON");
       }
     } catch (e) {
-      print('ERROR FETCHING COUPON: $e');
+      if (kDebugMode) {
+        print('ERROR FETCHING COUPON: $e');
+      }
       yield const CouponState.error("ERRORE COUNPON NON ESISTENTE O NON VALIDO");
     }
   }
@@ -94,7 +103,9 @@ class CouponBloc extends Bloc<CouponEvent, CouponState> {
       }
       return false;
     }on DioError catch(e){
-      print(e.message);
+      if (kDebugMode) {
+        print(e.message);
+      }
       return false;
     }
   }

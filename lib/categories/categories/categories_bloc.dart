@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:http_services/http_services.dart';
@@ -66,7 +67,9 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
       var response = CategoriesResponse.fromJson({"categories" : codeInfo.data});
       return response;
     } on DioError catch (e) {
-      print(e.message);
+      if (kDebugMode) {
+        print(e.message);
+      }
       return null;
     }
   }

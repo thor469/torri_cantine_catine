@@ -235,13 +235,13 @@ class _CartScreenState extends State<CartScreen> {
 
                 var filteredItems = [];
 
-                cart.items.forEach((element) {
+                for (var element in cart.items) {
 
                   if(element.extensions?.bundles['bundled_item_data']?['is_hidden_in_cart'] != true
                       && element.extensions?.bundles['bundled_item_data']?['is_hidden_in_summary'] != true) {
                     filteredItems.add(element);
                   }
-                });
+                }
                 context.read<CounterSingleProductCubit>().emit({for (var e in cart.items) e.key ?? "": e.quantity ?? 0});
                 return PopScope(
                     canPop: false,
@@ -298,7 +298,7 @@ class _CartScreenState extends State<CartScreen> {
                                               style: TCTypography.of(context)
                                                   .text_16_bold),
                                           Text(
-                                            "€ ${taxedTotalItems} ",
+                                            "€ $taxedTotalItems ",
                                             style: TCTypography.of(context).text_16,
                                           ),
                                         ],
@@ -323,7 +323,7 @@ class _CartScreenState extends State<CartScreen> {
                                             ),
                                           ),
                                           Text(
-                                            "- € ${ cartTotalDiscount } ",
+                                            "- € $cartTotalDiscount  ",
                                             //"-€ ${(double.tryParse((int.tryParse(cart.totals.totalDiscount)!/100) as String)! + double.tryParse((int.tryParse(cart.totals.totalDiscount)!/100 * 0.22)  as String )!)!.toStringAsFixed(2).replaceAll('.',',') } ",
                                             style: TCTypography.of(context)
                                                 .text_16
@@ -348,7 +348,7 @@ class _CartScreenState extends State<CartScreen> {
                                           style: TCTypography.of(context).text_18_bold,
                                         ),
                                         Text(
-                                          "€ ${subTotal} ",
+                                          "€ $subTotal ",
                                           style: TCTypography.of(context).text_16_bold,
                                         ),
                                       ],

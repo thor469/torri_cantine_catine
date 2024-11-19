@@ -23,7 +23,6 @@ abstract class StripePaymentManager {
   } catch(err){
      _showFail(context);
     throw Exception(err.toString());
-     return false;
   }
   } 
   static Future<void> _initializePaymentSheet(String clientSecret, AddressResponse billing, int customerId) async {

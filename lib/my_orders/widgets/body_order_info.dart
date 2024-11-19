@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,13 +22,16 @@ class _BodyOrderInfoState extends State<BodyOrderInfo> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       int customerId = await storage.getCustomerId();
 
-      print('customerId');
-      print(customerId);
+      if (kDebugMode) {
+        print('customerId');
+      }
+      if (kDebugMode) {
+        print(customerId);
+      }
 
-      if (mounted)
-        context
-            .read<ListAllOrdersBloc>()
-            .add(ListAllOrdersEvent.fetch(customerId));
+      if (mounted) {
+        context.read<ListAllOrdersBloc>().add(ListAllOrdersEvent.fetch(customerId));
+      }
     });
     super.initState();
   }
@@ -37,56 +41,55 @@ class _BodyOrderInfoState extends State<BodyOrderInfo> {
     return BlocBuilder<ListAllOrdersBloc, ListAllOrdersState>(
         builder: (context, state) => state.maybeWhen(
             initial: () {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(
                   color: Color.fromARGB(255, 161, 29, 51),
                 ),
               );
             },
             loading: () {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(
                   color: Color.fromARGB(255, 161, 29, 51),
                 ),
               );
             },
             error: (e) {
-              print(e);
+              if (kDebugMode) {
+                print(e);
+              }
               return Center(
                 child: RichText(
                     text: TextSpan(
                         text: 'Si è verificato un errore, ',
-                        style: TextStyle(
+                        style: const TextStyle(
                           //fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: const Color.fromARGB(255, 113, 112, 112),
+                          color: Color.fromARGB(255, 113, 112, 112),
                         ),
                         children: [
                           TextSpan(
                             text: 'riprova',
-                            style: TextStyle(
+                            style: const TextStyle(
                               //fontSize: 20,
                               fontWeight: FontWeight.bold,
                               color: Color.fromARGB(255, 161, 29, 51),
                             ),
                             recognizer: TapGestureRecognizer()..onTap = () {
                               //MainNavigation.welcome();
-                              MainNavigation.push(context, MainNavigation.myOrders(true, false, false, false));
+                              MainNavigation.push(context, const MainNavigation.myOrders(true, false, false, false));
                             },
                           ),
-                          TextSpan(
+                          const TextSpan(
                             text: '.',
                           )
                         ]
                     )
                 ),
               );
-              return Text('error:: $e');
-              return SizedBox();
             },
             orElse: () {
-              return Text('orElse');
-              return SizedBox();
+              return const Text('orElse');
             },
             loaded: (orders) {
 
@@ -94,12 +97,14 @@ class _BodyOrderInfoState extends State<BodyOrderInfo> {
               return PopScope(
                   canPop: false,
                   onPopInvoked: (didPop) {
-                    print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
+                    if (kDebugMode) {
+                      print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
+                    }
                     MainNavigation.pop(context);
                     //return;
                   },
                   child: Scaffold(
-                    backgroundColor: Color.fromARGB(255, 244, 244, 244),
+                    backgroundColor: const Color.fromARGB(255, 244, 244, 244),
                     body: SingleChildScrollView(
                       child: orders.orders!.isEmpty
                           ? const Padding(
