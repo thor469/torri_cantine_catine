@@ -14,7 +14,9 @@ import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/cart/add_product_to_cart/add_product_to_cart_bloc.dart';
 import 'package:torri_cantine_app/cart/add_bundle_to_cart/add_bundle_to_cart_bloc.dart';
+import 'package:torri_cantine_app/cart/cart/cart_bloc.dart';
 import 'package:torri_cantine_app/cart/cubit/cart_badge_cubit_cubit.dart';
+import 'package:torri_cantine_app/cart/model/response/cart_response.dart';
 import 'package:torri_cantine_app/cart/presentation/cart_screen.dart';
 import 'package:torri_cantine_app/categories/presentation/categories_screen.dart';
 import 'package:torri_cantine_app/home_page/presentation/home_screen.dart';
@@ -46,6 +48,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   int selectedIndex = 0;
   int initialCartQty = 1;
   TextEditingController cartController = TextEditingController();
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -85,424 +88,451 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           MainNavigation.pop(context);
           //return;
         },
-        child:Container(
-          color: Colors.white,
-          child: SafeArea(
-            top: false,
-            child: Scaffold(
-              backgroundColor: Colors.white,
-              key: _key,
-              // drawer: const Drawer(
-              //   child: MenuScreen(),
-              // ),
-              //floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-              // floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
-              // floatingActionButton: const FloatingButton(),
-              // bottomNavigationBar: BottomBanvigationMenu(
-              //   scaffoldKey: _key,
-              //   initialSelectedIndex: 0,
-              //   context: context,
-              //   //notifyParent: () => refresh(selectedindex),
-              // ),
-              appBar: PreferredSize(
-                preferredSize: const Size.fromHeight(40),
-                child: AppBar(
-                  leading: IconButton(
-                    onPressed: () {
-                      MainNavigation.push(context, const MainNavigation.home());
-                    },
-                    icon: const Icon(
-                      Icons.arrow_back,
-                      color: Color.fromARGB(255, 110, 116, 119),
-                    ),
-                  ),
-                  elevation: 0,
-                  backgroundColor: Colors.white,
+        child:Scaffold(
+          backgroundColor: Colors.white,
+          key: _key,
+          drawer: const Drawer(
+            child: MenuScreen(),
+          ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          // floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
+          floatingActionButton: const FloatingButton(),
+          bottomNavigationBar: BottomBanvigationMenu(
+            scaffoldKey: _key,
+            initialSelectedIndex: 0,
+            context: context,
+            //notifyParent: () => refresh(selectedindex),
+          ),
+          appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(40),
+            child: AppBar(
+              leading: IconButton(
+                onPressed: () {
+                  MainNavigation.push(context, const MainNavigation.home());
+                },
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Color.fromARGB(255, 110, 116, 119),
                 ),
               ),
-              body: BlocBuilder<ProductDetailBloc, ProductDetailState>(
-                builder: (context, state) => state.maybeWhen(
-                  initial: () => const Center(
-                    child: CircularProgressIndicator(
-                      color: Color.fromARGB(255, 161, 29, 52),
-                    ),
-                  ),
-                  loading: () => const Center(
-                    child: CircularProgressIndicator(
-                      color: Color.fromARGB(255, 161, 29, 52),
-                    ),
-                  ),
-                  loaded: (state) {
+              elevation: 0,
+              backgroundColor: Colors.white,
+            ),
+          ),
+          body: BlocBuilder<ProductDetailBloc, ProductDetailState>(
+            builder: (context, state) => state.maybeWhen(
+              initial: () => const Center(
+                child: CircularProgressIndicator(
+                  color: Color.fromARGB(255, 161, 29, 52),
+                ),
+              ),
+              loading: () => const Center(
+                child: CircularProgressIndicator(
+                  color: Color.fromARGB(255, 161, 29, 52),
+                ),
+              ),
+              loaded: (state) {
 
-                    // var tada= state.meta_data!.where((element) => element.key.startsWith('_wine'));
-                    // print('DARIO bundles');
-                    // print(state.bundled_items);
-                    //var bundleItems = state.bundled_items!.sort(a,b)=>a.menu_order < b.menu_order;
-                    List<TextEditingController> controllers = [];
-                    if(state.bundled_items!=null) {
-                      for (int i = 0; i < state.bundled_items!.length; i++) {
-                        TextEditingController controller = TextEditingController();
-                        controllers.add(controller);
+                // var tada= state.meta_data!.where((element) => element.key.startsWith('_wine'));
+                // print('DARIO bundles');
+                // print(state.bundled_items);
+                //var bundleItems = state.bundled_items!.sort(a,b)=>a.menu_order < b.menu_order;
+                List<TextEditingController> controllers = [];
+                if(state.bundled_items!=null) {
+                  for (int i = 0; i < state.bundled_items!.length; i++) {
+                    TextEditingController controller = TextEditingController();
+                    controllers.add(controller);
 
-                        //setState(() {
-                        controllers[i].text = '${state.bundled_items![i].quantity_min??0}';
-                        //});
-                      }
-                    }
+                    //setState(() {
+                    controllers[i].text = '${state.bundled_items![i].quantity_min??0}';
+                    //});
+                  }
+                }
 
 
-                    return SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height / 1.9,
-                            child:  CachedNetworkImage(
-                              imageUrl: state.images!.first.src,
-                              cacheKey: DynamicCacheManager().generateKey(state.images!.first.src),
-                              placeholder: (context, url) => const Center(
-                                child: CircularProgressIndicator(
-                                  color: Color.fromARGB(255, 161, 29, 52),
-                                ),
-                              ),
-                              errorWidget: (context, url, error) => const Icon(Icons.error),
-                              cacheManager: DynamicCacheManager(),
-                              fit: BoxFit.fitHeight,
+                return SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height / 1.9,
+                        child:  CachedNetworkImage(
+                          imageUrl: state.images!.first.src,
+                          cacheKey: DynamicCacheManager().generateKey(state.images!.first.src),
+                          placeholder: (context, url) => const Center(
+                            child: CircularProgressIndicator(
+                              color: Color.fromARGB(255, 161, 29, 52),
                             ),
                           ),
-                          Padding(
-                            padding:
-                            const EdgeInsets.symmetric(horizontal: 25, vertical: 17),
-                            child: SizedBox(
-                              width: MediaQuery.of(context).size.width,
-                              child: Text(
-                                state.name,
-                                textAlign: TextAlign.left,
-                                style: TCTypography.of(context).text_18,
-                              ),
-                            ),
+                          errorWidget: (context, url, error) => const Icon(Icons.error),
+                          cacheManager: DynamicCacheManager(),
+                          fit: BoxFit.fitHeight,
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                        const EdgeInsets.symmetric(horizontal: 25, vertical: 17),
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: Text(
+                            state.name,
+                            textAlign: TextAlign.left,
+                            style: TCTypography.of(context).text_18,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 25, right: 25),
-                            child: state.regular_price != state.price
-                                ? Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 25, right: 25),
+                        child: state.regular_price != state.price
+                            ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
                               children: [
-                                Column(
+                                Row(
                                   children: [
-                                    Row(
-                                      children: [
-                                        Text(
-                                          "€ ${double.tryParse(state.regular_price ?? "0")!.toStringAsFixed(2).replaceAll('.', ',')} ",
+                                    Text(
+                                      "€ ${double.tryParse(state.regular_price ?? "0")!.toStringAsFixed(2).replaceAll('.', ',')} ",
+                                      style: TCTypography.of(context)
+                                          .text_22
+                                          .copyWith(
+                                          decoration:
+                                          TextDecoration.lineThrough),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 7),
+                                      child: Text("€ ${double.tryParse(state.price!)!.toStringAsFixed(2).replaceAll('.', ',')??''}",
                                           style: TCTypography.of(context)
-                                              .text_22
-                                              .copyWith(
-                                              decoration:
-                                              TextDecoration.lineThrough),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(left: 7),
-                                          child: Text("€ ${double.tryParse(state.price!)!.toStringAsFixed(2).replaceAll('.', ',')??''}",
-                                              style: TCTypography.of(context)
-                                                  .text_22_bold),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(left: 20),
-                                          child: Text(
-                                            state.price!.isNotEmpty
-                                                ? ("-${percentage(state.regular_price ?? "", state.price ?? "")}%")
-                                                : "",
-                                            style: TCTypography.of(context)
-                                                .text_22_bold
-                                                .copyWith(
-                                              color: const Color.fromARGB(
-                                                  255, 161, 29, 52),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                                              .text_22_bold),
                                     ),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    (state.average_rating!)=='0.00'?const SizedBox():Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.star_border_outlined,
-                                          color: Color.fromARGB(255, 13, 117, 161),
-                                        ),
-
-                                        BlocBuilder<ReviewsBloc, ReviewsState>(
-                                          builder: (context, state) => state.maybeWhen(
-                                            orElse: () => const Center(
-                                              child: SizedBox(
-                                                width: 20,
-                                                height: 20,
-                                                child:  CircularProgressIndicator(
-                                                  color: Color.fromARGB(255, 161, 29, 51),
-                                                ),
-                                              ),
-                                            ),
-                                            loaded: (model) => Text(
-                                              "${avgRating(model?.reviews ?? []).toStringAsFixed(1)} / 5", // Use the rating from Bloc
-                                              style: TCTypography.of(context)
-                                                  .text_22_bold
-                                                  .copyWith(
-                                                color: const Color.fromARGB(255, 13, 117, 161),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            )
-                                : Row(
-                              children: [
-                                Text("€ ${(state.regular_price ?? "0").replaceAll('.', ',')}",
-                                    style: TCTypography.of(context).text_18_bold),
-                                Expanded(child: Container()),
-                                (state.average_rating!)=='0.00'?const SizedBox():const Icon(
-                                  Icons.star_border_outlined,
-                                  color: Color.fromARGB(255, 13, 117, 161),
-                                ),
-                                (state.average_rating!)=='0.00'?const SizedBox():Text(
-                                  "${double.parse(state.average_rating!).toStringAsFixed(1)}/5",
-                                  style: TCTypography.of(context)
-                                      .text_14_bold
-                                      .copyWith(
-                                    color:
-                                    const Color.fromARGB(255, 13, 117, 161),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.fromLTRB(25, 20, 25, 12),
-                            child: Divider(
-                              thickness: 1.3,
-                            ),
-                          ),
-                          //BUNDLES
-                          Visibility(
-                            visible: state.type =='bundle',
-                            child: BundleItemsList(bundles: state.bundled_items!, minSize: state.bundle_min_size!, maxSize: state.bundle_max_size!,productId:widget.id, initialCartQty: initialCartQty, contx: context),
-
-                          ),
-
-                          Visibility(
-                            visible: state.type!='bundle',
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 23),
-                              child: Row(
-                                children: [
-                                  SizedBox(
-                                    width: MediaQuery.of(context).size.width /2.8,
-                                    height: 35,
-                                    child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                                      mainAxisAlignment: MainAxisAlignment.start,
-
-                                      children: [
-                                        Container(
-                                          height: 35,
-                                          width: 35,
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color:
-                                                  const Color.fromARGB(255, 99, 103, 106)),
-                                              borderRadius: const BorderRadius.only( topLeft: Radius.circular(5), bottomLeft: Radius.circular(5) )
-                                          ),
-                                          child:
-                                          IconButton(
-                                            padding: EdgeInsets.zero,
-                                            constraints: const BoxConstraints(),
-                                            onPressed: () {
-                                              setState(
-                                                    () {
-                                                  if (initialCartQty > 1) {
-                                                    initialCartQty--;
-                                                    cartController = TextEditingController(
-                                                        text: initialCartQty.toString());
-                                                  }
-                                                },
-                                              );
-                                            },
-                                            icon: const Icon(
-                                              Icons.remove,
-                                              color: Color.fromARGB(255, 99, 103, 106),
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 0),
-                                          child: Container(
-                                            decoration: const BoxDecoration(
-                                              border: Border.symmetric(
-                                                  horizontal: BorderSide(
-
-                                                      color:
-                                                      Color.fromARGB(255, 99, 103, 106)
-                                                  )
-                                              ),
-                                            ),
-                                            width: 45,
-                                            height: 35,
-                                            child: Container(
-                                              alignment: Alignment.center,
-                                              padding: const EdgeInsets.only(left: 2.5,bottom: 9),
-                                              child: TextField(
-                                                style: const TextStyle(fontStyle: FontStyle.normal, fontSize: 18),
-                                                textAlign: TextAlign.center,
-                                                decoration: const InputDecoration(
-                                                    border: InputBorder.none),
-                                                readOnly: true,
-                                                controller: cartController,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          height: 35,
-                                          width: 35,
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color:
-                                                  const Color.fromARGB(255, 99, 103, 106)),
-                                              borderRadius: const BorderRadius.only( topRight: Radius.circular(5), bottomRight: Radius.circular(5) )
-                                          ),
-                                          child: IconButton(
-                                            padding: EdgeInsets.zero,
-                                            constraints: const BoxConstraints(),
-                                            onPressed: () {
-                                              setState(() {
-                                                initialCartQty++;
-                                                cartController = TextEditingController(
-                                                    text: initialCartQty.toString());
-                                              });
-                                            },
-                                            icon: const Icon(
-                                              Icons.add,
-                                              color: Color.fromARGB(255, 99, 103, 106),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                                      child: PrimaryButton(
-                                        text: "AGGIUNGI",
-                                        ontap: () {
-                                          context.read<AddProductToCartBloc>().add(
-                                              AddProductToCartEvent.addProduct(
-                                                  widget.id, initialCartQty??1));
-                                          context.read<CartBadgeCubitCubit>().addCartItem( qty: initialCartQty??1);
-                                        },
-                                        icon: Padding(
-                                          padding: const EdgeInsets.only(right: 5),
-                                          child: SvgPicture.asset("assets/Menu-cart.svg",
-                                              // ignore: deprecated_member_use
-                                              color: Colors.white,
-                                              width: 25,
-                                              height: 25),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 20),
+                                      child: Text(
+                                        state.price!.isNotEmpty
+                                            ? ("-${percentage(state.regular_price ?? "", state.price ?? "")}%")
+                                            : "",
+                                        style: TCTypography.of(context)
+                                            .text_22_bold
+                                            .copyWith(
+                                          color: const Color.fromARGB(
+                                              255, 161, 29, 52),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  BlocBuilder<ProductsWishlistedCubit,
-                                      ProductsWishlistedState>(
-                                    builder: (context, state) {
-                                      return GestureDetector(
-                                        onTap: () {
-                                          context
-                                              .read<ProductsWishlistedCubit>()
-                                              .wishListed(widget.id);
-                                        },
-                                        child: state.wishListProducts.contains(widget.id)
-                                            ? const Icon(
-                                          Icons.favorite,
-                                          size: 25,
-                                          color: Color.fromARGB(255, 161, 29, 52),
-                                        )
-                                            : const Icon(
-                                          Icons.favorite_border,
-                                          size: 25,
-                                          color: Color.fromARGB(255, 99, 103, 106),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                (state.average_rating!)=='0.00'?const SizedBox():Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.star_border_outlined,
+                                      color: Color.fromARGB(255, 13, 117, 161),
+                                    ),
+
+                                    BlocBuilder<ReviewsBloc, ReviewsState>(
+                                      builder: (context, state) => state.maybeWhen(
+                                        orElse: () => const Center(
+                                          child: SizedBox(
+                                            width: 20,
+                                            height: 20,
+                                            child:  CircularProgressIndicator(
+                                              color: Color.fromARGB(255, 161, 29, 51),
+                                            ),
+                                          ),
                                         ),
-                                      );
-                                    },
-                                  ),
-                                ],
+                                        loaded: (model) => Text(
+                                          "${avgRating(model?.reviews ?? []).toStringAsFixed(1)} / 5", // Use the rating from Bloc
+                                          style: TCTypography.of(context)
+                                              .text_22_bold
+                                              .copyWith(
+                                            color: const Color.fromARGB(255, 13, 117, 161),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        )
+                            : Row(
+                          children: [
+                            Text("€ ${(state.regular_price ?? "0").replaceAll('.', ',')}",
+                                style: TCTypography.of(context).text_18_bold),
+                            Expanded(child: Container()),
+                            (state.average_rating!)=='0.00'?const SizedBox():const Icon(
+                              Icons.star_border_outlined,
+                              color: Color.fromARGB(255, 13, 117, 161),
+                            ),
+                            (state.average_rating!)=='0.00'?const SizedBox():Text(
+                              "${double.parse(state.average_rating!).toStringAsFixed(1)}/5",
+                              style: TCTypography.of(context)
+                                  .text_14_bold
+                                  .copyWith(
+                                color:
+                                const Color.fromARGB(255, 13, 117, 161),
                               ),
                             ),
-                          ),
-
-
-                          // Padding(
-                          //   padding: const EdgeInsets.fromLTRB(25, 34, 20, 0),
-                          //   child: Row(
-                          //     children: [
-                          //       SvgPicture.asset('assets/Ordine-spedizione.svg'),
-                          //       Padding(
-                          //         padding: const EdgeInsets.only(left: 15.0),
-                          //         child: Text(
-                          //           'Spedizione in 24h',
-                          //           style: TCTypography.of(context).text_14.copyWith(
-                          //               color: const Color.fromARGB(255, 37, 37, 37)),
-                          //         ),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
-                          const Padding(
-                            padding: EdgeInsets.fromLTRB(25, 20, 25, 16),
-                            child: Divider(
-                              thickness: 1.3,
-                            ),
-                          ),
-                          const CharList(),
-
-                          const CharListSecondary(),
-
-                          const DescriptionList(),
-                          const Padding(
-                            padding: EdgeInsets.fromLTRB(25, 16, 25, 16),
-                            child: Divider(
-                              thickness: 1.3,
-                            ),
-                          ),
-                          ReviewsList(
-                            product_id: widget.id,
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.fromLTRB(25, 16, 25, 16),
-                            child: Divider(
-                              thickness: 1.3,
-                            ),
-                          ),
-                          // Padding(
-                          //   padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                          //   child: Text("PRODOTTI E OFFERTE",
-                          //       style: TCTypography.of(context).text_14_bold),
-                          // ),
-                          // const SizedBox(height: 400),
-                        ],
+                          ],
+                        ),
                       ),
-                    );
-                  }
-                  ,
-                  error: () => const SizedBox(),
-                  orElse: () => const SizedBox(),
-                ),
-              ),
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(25, 20, 25, 12),
+                        child: Divider(
+                          thickness: 1.3,
+                        ),
+                      ),
+                      //BUNDLES
+                      Visibility(
+                        visible: state.type =='bundle',
+                        child: BundleItemsList(bundles: state.bundled_items!, minSize: state.bundle_min_size!, maxSize: state.bundle_max_size!,productId:widget.id, initialCartQty: initialCartQty, contx: context),
+
+                      ),
+
+                      Visibility(
+                        visible: state.type!='bundle',
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 23),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width /2.8,
+                                height: 35,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+
+                                  children: [
+                                    Container(
+                                      height: 35,
+                                      width: 35,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color:
+                                              const Color.fromARGB(255, 99, 103, 106)),
+                                          borderRadius: const BorderRadius.only( topLeft: Radius.circular(5), bottomLeft: Radius.circular(5) )
+                                      ),
+                                      child:
+                                      IconButton(
+                                        padding: EdgeInsets.zero,
+                                        constraints: const BoxConstraints(),
+                                        onPressed: () {
+                                          setState(
+                                                () {
+                                              if (initialCartQty > 1) {
+                                                initialCartQty--;
+                                                cartController = TextEditingController(
+                                                    text: initialCartQty.toString());
+                                              }
+                                            },
+                                          );
+                                        },
+                                        icon: const Icon(
+                                          Icons.remove,
+                                          color: Color.fromARGB(255, 99, 103, 106),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 0),
+                                      child: Container(
+                                        decoration: const BoxDecoration(
+                                          border: Border.symmetric(
+                                              horizontal: BorderSide(
+
+                                                  color:
+                                                  Color.fromARGB(255, 99, 103, 106)
+                                              )
+                                          ),
+                                        ),
+                                        width: 45,
+                                        height: 35,
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          padding: const EdgeInsets.only(left: 2.5,bottom: 9),
+                                          child: TextField(
+                                            style: const TextStyle(fontStyle: FontStyle.normal, fontSize: 18),
+                                            textAlign: TextAlign.center,
+                                            decoration: const InputDecoration(
+                                                border: InputBorder.none),
+                                            readOnly: true,
+                                            controller: cartController,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 35,
+                                      width: 35,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color:
+                                              const Color.fromARGB(255, 99, 103, 106)),
+                                          borderRadius: const BorderRadius.only( topRight: Radius.circular(5), bottomRight: Radius.circular(5) )
+                                      ),
+                                      child: IconButton(
+                                        padding: EdgeInsets.zero,
+                                        constraints: const BoxConstraints(),
+                                        onPressed: () {
+                                          setState(() {
+                                            initialCartQty++;
+                                            cartController = TextEditingController(
+                                                text: initialCartQty.toString());
+                                          });
+                                        },
+                                        icon: const Icon(
+                                          Icons.add,
+                                          color: Color.fromARGB(255, 99, 103, 106),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              BlocListener<AddProductToCartBloc, AddProductToCartState>(
+                                listener: (BuildContext context, AddProductToCartState state) {
+                                  state.maybeWhen(
+                                      addedProduct: (_) {
+                                        setState(() {isLoading = false;});
+                                        WidgetsBinding.instance.addPostFrameCallback((_) async{
+                                          CartResponse? cart = await context.read<CartBloc>().fetchItemCart();
+                                          context.read<CartBadgeCubitCubit>().addCartItem(qty: cart?.items.length ?? 0, isFromCart: true);
+                                        });
+                                      },
+                                      error: () {
+                                        setState(() {isLoading = false;});
+                                      },
+                                      orElse: () {}
+                                  );
+                                },
+                                child: Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                                    child:
+                                    PrimaryButton(
+                                      text: isLoading ? "" : "AGGIUNGI",
+                                      ontap: () {
+                                        if(!isLoading){
+                                          setState(() {
+                                            isLoading = true;
+                                          });
+                                          context.read<AddProductToCartBloc>().add(AddProductToCartEvent.addProduct(widget.id, initialCartQty??1));
+                                        }
+                                      },
+                                      icon:
+                                      Padding(
+                                        padding: const EdgeInsets.only(right: 5),
+                                        child:
+                                        isLoading ?
+                                        Center(
+                                          child: Container(
+                                            width: 25,
+                                            height: 25,
+                                            child: CircularProgressIndicator(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        )
+                                            :
+
+                                        SvgPicture.asset("assets/Menu-cart.svg",
+                                            // ignore: deprecated_member_use
+                                            color: Colors.white,
+                                            width: 25,
+                                            height: 25),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              BlocBuilder<ProductsWishlistedCubit, ProductsWishlistedState>(
+                                builder: (context, state) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      context
+                                          .read<ProductsWishlistedCubit>()
+                                          .wishListed(widget.id);
+                                    },
+                                    child: state.wishListProducts.contains(widget.id)
+                                        ? const Icon(
+                                      Icons.favorite,
+                                      size: 25,
+                                      color: Color.fromARGB(255, 161, 29, 52),
+                                    )
+                                        : const Icon(
+                                      Icons.favorite_border,
+                                      size: 25,
+                                      color: Color.fromARGB(255, 99, 103, 106),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+
+
+                      // Padding(
+                      //   padding: const EdgeInsets.fromLTRB(25, 34, 20, 0),
+                      //   child: Row(
+                      //     children: [
+                      //       SvgPicture.asset('assets/Ordine-spedizione.svg'),
+                      //       Padding(
+                      //         padding: const EdgeInsets.only(left: 15.0),
+                      //         child: Text(
+                      //           'Spedizione in 24h',
+                      //           style: TCTypography.of(context).text_14.copyWith(
+                      //               color: const Color.fromARGB(255, 37, 37, 37)),
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(25, 20, 25, 16),
+                        child: Divider(
+                          thickness: 1.3,
+                        ),
+                      ),
+                      const CharList(),
+
+                      const CharListSecondary(),
+
+                      const DescriptionList(),
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(25, 16, 25, 16),
+                        child: Divider(
+                          thickness: 1.3,
+                        ),
+                      ),
+                      ReviewsList(
+                        product_id: widget.id,
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(25, 16, 25, 16),
+                        child: Divider(
+                          thickness: 1.3,
+                        ),
+                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                      //   child: Text("PRODOTTI E OFFERTE",
+                      //       style: TCTypography.of(context).text_14_bold),
+                      // ),
+                      // const SizedBox(height: 400),
+                    ],
+                  ),
+                );
+              }
+              ,
+              error: () => const SizedBox(),
+              orElse: () => const SizedBox(),
             ),
           ),
         )

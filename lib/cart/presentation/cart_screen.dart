@@ -12,6 +12,7 @@ import 'package:torri_cantine_app/app/common/sub_page_appbar.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/app/utilitys/tc_typography.dart';
 import 'package:torri_cantine_app/cart/cart/cart_bloc.dart';
+import 'package:torri_cantine_app/cart/cubit/cart_badge_cubit_cubit.dart';
 import 'package:torri_cantine_app/cart/cubit/counter_single_product_cubit.dart';
 import 'package:torri_cantine_app/cart/widget/cart_item.dart';
 import 'package:torri_cantine_app/menu_screen/menu_screen.dart';
@@ -177,7 +178,7 @@ class _CartScreenState extends State<CartScreen> {
               cartEmpty: ()  {
                 if(isFirstLoad){
                   WidgetsBinding.instance.addPostFrameCallback((_) async{
-                    await storage.setTotalCartItems(0);
+                    context.read<CartBadgeCubitCubit>().removeCartItem();
                   });
                   isFirstLoad = false;
                 }

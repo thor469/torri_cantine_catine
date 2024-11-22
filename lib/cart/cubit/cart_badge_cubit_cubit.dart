@@ -13,19 +13,25 @@ class CartBadgeCubitCubit extends Cubit<int> {
     super.emit(state);
   }
 
-  void addCartItem( {int? qty} ) async {
+  void addCartItem( {int? qty, bool? isFromCart} ) async {
     int cartItems = await storage.getTotalCartItems();
     int quantity = 1;
     if (qty != null) {
       quantity = qty;
     }
-    if (cartItems < 0) {
+    if(isFromCart ?? false){
       await storage.setTotalCartItems(quantity);
       emit(quantity);
-    } else {
-      await storage.setTotalCartItems(cartItems + quantity);
-      emit(cartItems + quantity);
+    }else{
+      if (cartItems < 0) {
+        await storage.setTotalCartItems(quantity);
+        emit(quantity);
+      } else {
+        await storage.setTotalCartItems(cartItems + quantity);
+        emit(cartItems + quantity);
+      }
     }
+
   }
 
   void removeCartItem() async {
@@ -39,14 +45,4 @@ class CartBadgeCubitCubit extends Cubit<int> {
     }
   }
 
-  void setCartTotalItems() async {
-    int cartItems = await storage.getTotalCartItems();
-    await storage.setTotalCartItems(cartItems);
-    emit(cartItems);
-  }
-
-  void cleanCart() async {
-    storage.setTotalCartItems(0);
-    emit(0);
-  }
 }

@@ -10,6 +10,8 @@ import 'package:torri_cantine_app/cart/cart/cart_bloc.dart';
 import 'package:torri_cantine_app/cart/cubit/cart_badge_cubit_cubit.dart';
 import 'package:torri_cantine_app/cart/cubit/counter_single_product_cubit.dart';
 import 'package:torri_cantine_app/cart/remove_product_to_cart/remove_product_to_cart_bloc.dart';
+import 'package:torri_cantine_app/coupon/coupon/coupon_bloc.dart';
+import 'package:torri_cantine_app/utilities/local_storage.dart';
 
 class CartItem extends StatefulWidget {
   const CartItem({
@@ -36,6 +38,7 @@ class CartItem extends StatefulWidget {
 class _CartItemState extends State<CartItem> {
   bool isUpdating = false;
   List<int> updatingItems=[];
+  LocalStorage storage = LocalStorage();
 
   @override
   void initState() {
@@ -57,6 +60,12 @@ class _CartItemState extends State<CartItem> {
             ),
             removeProduct: (cart) => {
 
+              if(cart.items.length < 1){
+                context.read<CartBloc>().deleteCart(),
+                for(var item in cart.coupons ?? []){
+                  context.read<CouponBloc>().deleteCoupon(item.code),
+                },
+              },
               context.read<CartBadgeCubitCubit>().removeCartItem(),
               context.read<CartBloc>().add(const CartEvent.fetchTotals()),
               // setState(() {

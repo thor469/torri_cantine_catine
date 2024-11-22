@@ -57,6 +57,29 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     }
   }
 
+
+
+
+  Future<CartResponse?> fetchItemCart() async {
+    LocalStorage storage = LocalStorage();
+    try {
+      final response = await service.cart(CartRequest());
+      var isNotLogged = await storage.getTokenId() == null;
+      if (isNotLogged) {
+      } else {
+        if (response.items.isEmpty) {
+          return null;
+        }
+        else{
+         return response;
+        }
+      }
+    } on ApiException catch (e) {
+      return null;
+    }
+    return null;
+  }
+
   Stream<CartState> _fetchTotals() async* {
     // yield const CartState.initial();
     try {

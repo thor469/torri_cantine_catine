@@ -15,6 +15,7 @@ import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/app/utilitys/fixedFloatingPositions.dart';
 import 'package:torri_cantine_app/app/utilitys/html_tools.dart';
 import 'package:torri_cantine_app/cart/cart/cart_bloc.dart';
+import 'package:torri_cantine_app/cart/cubit/cart_badge_cubit_cubit.dart';
 import 'package:torri_cantine_app/cart/model/request/payment_gateway.dart';
 import 'package:torri_cantine_app/cart/model/request/shipping.dart';
 import 'package:torri_cantine_app/cart/model/response/cart_response.dart';
@@ -198,7 +199,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
     return BlocListener<MyOrdersBloc, MyOrdersState>(
       listener: (context, state) => state.maybeWhen(
         loaded: (response) => {
-          storage.deleteTotalCartItems(0),
+          context.read<CartBadgeCubitCubit>().removeCartItem(),
           context.read<CartBloc>().deleteCart(),
           MainNavigation.replace(context,[ const MainNavigation.home(),const MainNavigation.thankYou()]),
         },
@@ -1662,7 +1663,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
     if (mounted) {
       if (isSuccess) {
         // await storage.setTotalCartItems(0);
-        storage.deleteTotalCartItems(0);
+        context.read<CartBadgeCubitCubit>().removeCartItem();
         if(mounted){
           context.read<CartBloc>().deleteCart();
         }
@@ -1882,7 +1883,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
           if(response){
             if(mounted){
               // storage.setTotalCartItems(0));
-              storage.deleteTotalCartItems(0);
+              context.read<CartBadgeCubitCubit>().removeCartItem();
               context.read<CartBloc>().deleteCart();
     MainNavigation.replace(context,[ const MainNavigation.home(),const MainNavigation.thankYou()]);
             }

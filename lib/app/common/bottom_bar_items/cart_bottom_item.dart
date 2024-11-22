@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torri_cantine_app/cart/cart/cart_bloc.dart';
 import 'package:torri_cantine_app/cart/cubit/cart_badge_cubit_cubit.dart';
 import 'package:torri_cantine_app/app/utilitys/tc_typography.dart';
+import 'package:torri_cantine_app/cart/model/response/cart_response.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 
 class CartBottomItem extends StatefulWidget {
@@ -25,12 +26,18 @@ class CartBottomItem extends StatefulWidget {
 class _CartBottomItemState extends State<CartBottomItem> {
   @override
   void initState() {
-    context.read<CartBloc>().add(const CartEvent.fetch());
+    WidgetsBinding.instance.addPostFrameCallback((_) async{
+      CartResponse? cart = await context.read<CartBloc>().fetchItemCart();
+      context.read<CartBadgeCubitCubit>().addCartItem(qty: cart?.items.length ?? 0, isFromCart: true);
+    });
     super.initState();
   }
 
   LocalStorage storage = LocalStorage();
   double opacity = 1;
+
+
+
   @override
   Widget build(BuildContext context) {
     return Container(

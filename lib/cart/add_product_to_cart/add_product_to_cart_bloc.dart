@@ -29,8 +29,7 @@ class AddProductToCartBloc
   Stream<AddProductToCartState> _addProduct(int id, int quantity) async* {
     yield const AddProductToCartState.loading();
     try {
-      final response = await service
-          .addProductToCart(AddProductToCart(id: id, quantity: quantity));
+      final response = await service.addProductToCart(AddProductToCart(id: id, quantity: quantity));
       yield AddProductToCartState.addedProduct(response);
     } on ApiException catch (e) {
       yield const AddProductToCartState.error();

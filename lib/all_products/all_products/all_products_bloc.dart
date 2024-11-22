@@ -103,6 +103,8 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
     }
   }
 
+
+
   Future<AllProductsResponse?> fetch(int page, int perPage, String? orderBy, String? order) async{
     // List<Product> products = [];
     AllProductsResponse? response;
@@ -177,9 +179,7 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
     }
   }
 
-  Future<AllProductsResponse?> filterProducts(int? page,int? perPage, String? categories,
-      String? tags, String? minPrice, String? maxPrice,
-      catalogVisibility) async {
+  Future<AllProductsResponse?> filterProducts(int? page,int? perPage, String? categories, String? tags, String? minPrice, String? maxPrice, catalogVisibility) async {
     // List<Product> products = [];
     AllProductsResponse response;
     try {

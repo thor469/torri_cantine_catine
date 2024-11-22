@@ -22,17 +22,6 @@
     <string>1.3.6</string>
     <key>CFBundleSignature</key>
     <string>????</string>
-    <key>CFBundleURLTypes</key>
-    <array>
-        <dict>
-            <key>CFBundleTypeRole</key>
-            <string>Editor</string>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>com.googleusercontent.apps.683059644780-lv5jd91h62tgvqg41m7btml9h2dkapfv</string>
-            </array>
-        </dict>
-    </array>
     <key>CFBundleVersion</key>
     <string>1.3.6</string>
     <key>LSApplicationQueriesSchemes</key>
@@ -52,8 +41,6 @@
     <string>Accesso per la modifica della foto del profilo utente</string>
     <key>UIApplicationSupportsIndirectInputEvents</key>
     <true/>
-
-    <!-- Configurazione per Firebase Cloud Messaging -->
     <key>UIBackgroundModes</key>
     <array>
         <string>fetch</string>
@@ -61,7 +48,6 @@
     </array>
     <key>FirebaseAppDelegateProxyEnabled</key>
     <false/>
-
     <key>UILaunchStoryboardName</key>
     <string>LaunchScreen</string>
     <key>UIMainStoryboardFile</key>
@@ -82,11 +68,35 @@
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <false/>
 
-    <!-- Permessi di rete per WebView -->
+    <!-- Configurazione per App Transport Security -->
     <key>NSAppTransportSecurity</key>
     <dict>
         <key>NSAllowsArbitraryLoads</key>
         <true/>
     </dict>
+
+    <!-- Configurazione per URL schemes di Stripe -->
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>com.googleusercontent.apps.683059644780-lv5jd91h62tgvqg41m7btml9h2dkapfv</string>
+                <string>your_app_redirect_scheme</string>
+            </array>
+        </dict>
+    </array>
+
+    <!-- Descrizione per il supporto Face ID -->
+    <key>NSFaceIDUsageDescription</key>
+    <string>Utilizzato per autenticazione rapida</string>
+
+    <!-- Descrizione per l'uso della fotocamera e della libreria -->
+    <key>NSCameraUsageDescription</key>
+    <string>Necessario per caricare immagini del profilo</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Necessario per caricare immagini dalla galleria</string>
 </dict>
 </plist>

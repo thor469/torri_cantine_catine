@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -8,7 +9,9 @@ import 'package:torri_cantine_app/app/cache_manager/cache_manager.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/app/utilitys/tc_typography.dart';
 import 'package:torri_cantine_app/cart/add_product_to_cart/add_product_to_cart_bloc.dart';
+import 'package:torri_cantine_app/cart/cart/cart_bloc.dart';
 import 'package:torri_cantine_app/cart/cubit/cart_badge_cubit_cubit.dart';
+import 'package:torri_cantine_app/cart/model/response/cart_response.dart';
 import 'package:torri_cantine_app/product_detail/widgets/reviews.dart/model/response/reviews_response.dart';
 import 'package:torri_cantine_app/product_detail/widgets/reviews.dart/reviews/reviews_bloc.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
@@ -150,78 +153,60 @@ class _ProductPreviewState extends State<ProductPreview> {
                           : const SizedBox(),
                       BlocBuilder<ProductsWishlistedCubit, ProductsWishlistedState>(
                         builder: (context, state) {
-                          return Positioned(
-                            top: 5,
-                            right: 15,
-                            child: GestureDetector(
-                              onTap: () {
-                                context.read<ProductsWishlistedCubit>().wishListed(widget.id);
-                              },
-                              child: Row(
-                                children: [
-                                  // If 'BIO' is not in tags, show the blue score container
-                                  !containsBioTag(widget.tags ?? [])
-                                      ? Container(
-                                      width: 37,
-                                      height: 27,
-                                      decoration: BoxDecoration(
-                                        color: const Color.fromARGB(
-                                            255, 13, 117, 161),
-                                        borderRadius:
-                                        BorderRadius.circular(10),
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              !containsBioTag(widget.tags ?? [])
+                                  ? Container(
+                                    width: 40,
+                                    height: 27,
+                                    decoration: BoxDecoration(
+                                      color: const Color
+                                          .fromARGB(
+                                          255, 13, 117, 161),
+                                      borderRadius:
+                                      BorderRadius
+                                          .circular(10),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "+ ${widget.productPoint} pt",
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 9,
+                                          fontWeight:
+                                          FontWeight.bold,
+                                        ),
                                       ),
-                                      child: Container(
-                                        width: 40,
-                                        height: 27,
-                                        decoration: BoxDecoration(
-                                          color: const Color
-                                              .fromARGB(
-                                              255, 13, 117, 161),
-                                          borderRadius:
-                                          BorderRadius
-                                              .circular(10),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            "+ ${widget.productPoint} pt",
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 9,
-                                              fontWeight:
-                                              FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                      )
+                                    ),
                                   )
-                                      : const SizedBox(),
-                                  const SizedBox(width: 64),
-                                  Container(
-                                    width: 30,
-                                    height: 30,
-                                    decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: (state.wishListProducts != null &&
-                                        widget.id != null &&
-                                        state.wishListProducts
-                                            .contains(widget.id))
-                                        ? const Icon(
-                                      Icons.favorite,
-                                      size: 20,
-                                      color: Color.fromARGB(
-                                          255, 161, 29, 51),
-                                    )
-                                        : const Icon(
-                                      Icons.favorite_border,
-                                      size: 20,
-                                      color: Colors.grey,
-                                    ),
+                                  : const SizedBox(),
+                              GestureDetector(
+                                onTap: () {
+                                  context.read<ProductsWishlistedCubit>().wishListed(widget.id);
+                                },
+                                child: Container(
+                                  width: 30,
+                                  height: 30,
+                                  decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    shape: BoxShape.circle,
                                   ),
-                                ],
+                                  child: (state.wishListProducts != null && widget.id != null && state.wishListProducts.contains(widget.id))
+                                      ? const Icon(
+                                    Icons.favorite,
+                                    size: 20,
+                                    color: Color.fromARGB(
+                                        255, 161, 29, 51),
+                                  )
+                                      : const Icon(
+                                    Icons.favorite_border,
+                                    size: 20,
+                                    color: Colors.grey,
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           );
                         },
                       ),
@@ -294,12 +279,7 @@ class _ProductPreviewState extends State<ProductPreview> {
                     ),
                     Text(
                       "${percentage(widget.regular_price, widget.price ?? "")}%",
-                      style: TCTypography.of(context)
-                          .text_12_bold
-                          .copyWith(
-                          color:
-                          const Color.fromARGB(255, 161, 29, 51),
-                          fontWeight: FontWeight.bold),
+                      style: TCTypography.of(context).text_12_bold.copyWith(color: const Color.fromARGB(255, 161, 29, 51), fontWeight: FontWeight.bold),
                     ),
                   ],
                 )
@@ -323,7 +303,10 @@ class _ProductPreviewState extends State<ProductPreview> {
                             state.maybeWhen(
                                 addedProduct: (_) {
                                   setState(() {isLoading = false;});
-                                  context.read<CartBadgeCubitCubit>().addCartItem();
+                                  WidgetsBinding.instance.addPostFrameCallback((_) async {
+                                    CartResponse? cartItem = await context.read<CartBloc>().fetchItemCart();
+                                    context.read<CartBadgeCubitCubit>().addCartItem(qty: cartItem?.items.length ?? 0, isFromCart: cartItem != null && cartItem.items.length != 0);
+                                  });
                                 },
                                 error: () {
                                   setState(() {isLoading = false;});
@@ -400,9 +383,8 @@ class _ProductPreviewState extends State<ProductPreview> {
     // Calculate the average rating
     double ratingAverage = sumRating / validRatingCount; // Calculate the average out of valid ratings
 
-    // Store the average rating in shared preferences
 
-    return ratingAverage.toStringAsFixed(2).replaceAll('.', ','); // Return the average rating
+    return ratingAverage.toStringAsFixed(2).replaceAll('.', ',');
   }
 
   int percentage(String fullPrice, String halfPrice) {
