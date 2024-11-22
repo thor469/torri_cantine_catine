@@ -26,9 +26,7 @@ import 'package:torri_cantine_app/my_orders/model/response/my_orders_response.da
 import 'package:torri_cantine_app/my_orders/my_orders/my_orders_bloc.dart';
 import 'package:torri_cantine_app/points_balance_screen/bloc/points_bloc.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:uni_links/uni_links.dart';
 import 'dart:io' show Platform;
 
 
@@ -675,7 +673,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                         }
 
 
-                                        if(isEnabled){
+                                        if(isEnabled && ap != null){
                                           return SizedBox(
                                             height: containerHeight,
                                             child: GestureDetector(
@@ -722,12 +720,12 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                       height: 40,
                                                       child: Radio(
                                                           activeColor: const Color.fromARGB(255, 158, 29, 48),
-                                                          value: ap.id!,
+                                                          value: ap.id ?? "",
                                                           groupValue: gruppoval,
                                                           onChanged:
                                                               (val) {
                                                             setState(() {
-                                                              gruppoval = ap.id!;
+                                                              gruppoval = ap.id ?? "";
                                                               shippingPrice = 'GRATIS';
                                                               cartSummedPrice = cartTotalValue!;
                                                             });
@@ -1678,113 +1676,6 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
     }
   }
 
-
-  // void paymentWithPayPal(UserAddress model, UserAddress billing, CartResponse cart) async{
-  //   final myOrdersBloc = context.read<MyOrdersBloc>();
-  //   var a = await myOrdersBloc.createCheckOutForStripe(Billing(
-  //     first_name: billing.first_name,
-  //     last_name: billing.last_name,
-  //     company: billing.company,
-  //     address_1: billing.address_1,
-  //     address_2: billing.address_2,
-  //     city: billing.city,
-  //     state: billing.state,
-  //     postcode: billing.postcode,
-  //     country: "IT",
-  //     email: billing.email,
-  //     phone: billing.phone,
-  //   ),
-  //       Shipping(
-  //         first_name: model.first_name,
-  //         last_name: model.last_name,
-  //         company: model.company,
-  //         address_1: model.address_1,
-  //         address_2: model.address_2,
-  //         city: model.city,
-  //         state: model.state,
-  //         postcode: model.postcode,
-  //         country: "IT",
-  //         phone: model.phone,
-  //       ),
-  //       note.text,
-  //       "ppcp-gateway",
-  //       [],
-  //       widget.totPoint,
-  //       false
-  //   );
-  //
-  //   bool isSuccess = false;
-  //   var controller = WebViewController();
-  //   controller.setJavaScriptMode(JavaScriptMode.unrestricted);
-  //      Platform.isIOS ?
-  //      controller.setUserAgent('Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1')
-  //     : null;
-  //     controller.setNavigationDelegate(
-  //       NavigationDelegate(
-  //         onProgress: (int progress) {
-  //         },
-  //         onPageStarted: (String url) {},
-  //         onPageFinished: (String url) {
-  //           if (url.contains("/checkout/order-received/")) {
-  //             setState(() {
-  //               isSuccess = true;
-  //             });
-  //           }
-  //         },
-  //         onHttpError: (HttpResponseError error) {},
-  //         onWebResourceError: (WebResourceError error) {},
-  //         onNavigationRequest: (NavigationRequest request) {
-  //           if (request.url.startsWith(a?.payment_result?.redirect_url?? "")) {
-  //             return NavigationDecision.prevent;
-  //           }
-  //           return NavigationDecision.navigate;
-  //         },
-  //       ),
-  //     );
-  //     controller.loadRequest(Uri.parse(a?.payment_result?.redirect_url?? ""));
-  //
-  //   if(mounted){
-  //     await Navigator.of(context).push(MaterialPageRoute(
-  //         builder: (BuildContext ctx) => Scaffold(
-  //           appBar: AppBar(
-  //             backgroundColor: Colors.white,
-  //             leading: IconButton(
-  //               icon: Icon(Icons.close),
-  //               onPressed: () {
-  //                 Navigator.pop(context, "cancel");
-  //               },
-  //             ),
-  //           ),
-  //           body: WebViewWidget(
-  //             controller: controller,
-  //           ),
-  //         )
-  //     )
-  //     );
-  //   }
-  //
-  //   setState(() {
-  //     startedOrder = false;
-  //   });
-  //
-  //   if(mounted){
-  //     if (isSuccess) {
-  //       storage.setTotalCartItems(0);
-  //       context.read<CartBloc>().deleteCart();
-  //       MainNavigation.push(context, const MainNavigation.thankYou());
-  //
-  //     } else {
-  //       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-  //         content: Text('Pagamento fallito, riprovare'),
-  //         elevation: 1,
-  //       ));
-  //     }
-  //   }
-  // }
-
-
-
-
   void makeOrder(UserAddress shipping, UserAddress billing, type) {
     context.read<MyOrdersBloc>().add(MyOrdersEvent.createCheckout(
         billing !=null ?
@@ -1838,7 +1729,6 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   }
 
   Future<void> payWithMethodSelected(String paymentMethod, UserAddress shipping, UserAddress billing, CartResponse cart, int customerId) async{
-    int stripeAmount = ((int.tryParse((cartSummedPrice * 100).toStringAsFixed(0) ) ?? 0) - (couponTotalInt));
     context.read<MyOrdersBloc>().add(const MyOrdersEvent.loading());
 
     switch (paymentMethod) {
@@ -1882,7 +1772,6 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
           var response = await StripePaymentManager.makePayment(context, (orderId?.customer_id ?? 0), orderId!.billing_address!, orderId!.payment_result!.redirect_url!.replaceAll("#response=", ""));
           if(response){
             if(mounted){
-              // storage.setTotalCartItems(0));
               context.read<CartBadgeCubitCubit>().removeCartItem();
               context.read<CartBloc>().deleteCart();
     MainNavigation.replace(context,[ const MainNavigation.home(),const MainNavigation.thankYou()]);

@@ -70,12 +70,18 @@ class _ProductPreviewState extends State<ProductPreview> {
   late int product_id;
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   void initState() {
+    super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await getReview();
     });
-    super.initState();
   }
+
 
   Future<void> getReview() async {
     var model = await context.read<ReviewsBloc>().getReview(widget.id);
