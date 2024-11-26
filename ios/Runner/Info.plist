@@ -75,7 +75,6 @@
         <true/>
     </dict>
 
-    <!-- Configurazione per URL schemes di Stripe -->
     <key>CFBundleURLTypes</key>
     <array>
         <dict>
@@ -84,7 +83,6 @@
             <key>CFBundleURLSchemes</key>
             <array>
                 <string>com.googleusercontent.apps.683059644780-lv5jd91h62tgvqg41m7btml9h2dkapfv</string>
-                <string>your_app_redirect_scheme</string>
             </array>
         </dict>
     </array>
