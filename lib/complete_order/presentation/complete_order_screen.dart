@@ -666,75 +666,15 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
 
                                             if(_minAmount!=null && _valueDifference!<= 0){
                                               isEnabled = true;
-                                              ap = item;
-                                              min = _minAmount;
                                             }
                                           }
                                         }
 
-
-                                        if(isEnabled && ap != null){
-                                          return SizedBox(
-                                            height: containerHeight,
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                shippingPrice = 'GRATIS';
-                                                shippingPriceValue =0;
-                                                cartSummedPrice = cartTotalValue!;
-                                              },
-                                              child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    SvgPicture.asset(
-                                                      "assets/Articolo-spedizione.svg",
-                                                      width: 22,
-                                                      height: 22,
-                                                    ),
-                                                    Expanded(
-                                                      child:
-                                                      Container(
-                                                          alignment: Alignment.topLeft,
-                                                          padding: const EdgeInsets.only(top: 0.0, left: 15),
-                                                          child:
-                                                          Column(
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                            children: [
-                                                              RichText(
-                                                                text: TextSpan(
-                                                                  text: '',
-                                                                  style: const TextStyle(color: Colors.black),
-                                                                  children: <TextSpan>[
-                                                                    TextSpan(text: (ap !=null && ap.title != null)? '${ap.title}' :""),
-                                                                    TextSpan(
-                                                                      text: min != null ? ' a partire da € $min ' : '',
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          )),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 40,
-                                                      height: 40,
-                                                      child: Radio(
-                                                          activeColor: const Color.fromARGB(255, 158, 29, 48),
-                                                          value: ap.id ?? "",
-                                                          groupValue: gruppoval,
-                                                          onChanged:
-                                                              (val) {
-                                                            setState(() {
-                                                              gruppoval = ap.id ?? "";
-                                                              shippingPrice = 'GRATIS';
-                                                              cartSummedPrice = cartTotalValue!;
-                                                            });
-                                                          }),
-                                                    )
-                                                  ]),
-                                            ),
-                                          );
+                                        if(isEnabled){
+                                          sm!.removeWhere((e) => e!.methodId == "flat_rate");
                                         }
+
+
 
                                         return Container(
                                             alignment: Alignment.topLeft,
@@ -1610,7 +1550,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
               setState(() {
                 isSuccess = true;
               });
-              Navigator.pop(context, "success");
+              Navigator.pop(context);
             }
           },
           onNavigationRequest: (NavigationRequest request) {
@@ -1618,7 +1558,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
               setState(() {
                 isSuccess = true;
               });
-              return NavigationDecision.prevent;
+              Navigator.pop(context);
             }
             return NavigationDecision.navigate;
           },
@@ -1633,6 +1573,8 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
       )
       ..loadRequest(Uri.parse(redirectUrl));
 
+    print(controller);
+
     if (mounted) {
       await Navigator.of(context).push(
         MaterialPageRoute(
@@ -1642,7 +1584,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
               leading: IconButton(
                 icon: const Icon(Icons.close),
                 onPressed: () {
-                  Navigator.pop(context, "cancel");
+                  Navigator.pop(context);
                 },
               ),
             ),

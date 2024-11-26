@@ -105,7 +105,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     await storage.deleteUserName();
     await storage.deletePassword();
     await storage.deleteUserEmail();
-
+    FirebaseAuth.instance.signOut();
     await DefaultCacheManager().emptyCache();
     yield const LoginState.loggedOut();
   }
