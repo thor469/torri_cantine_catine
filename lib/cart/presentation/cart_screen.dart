@@ -45,10 +45,14 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   void initState() {
+    context.read<CartBloc>().add(const CartEvent.fetch());
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       if (mounted) {
-        context.read<CartBloc>().add(const CartEvent.fetch());
-        moneyDiscount = await context.read<PointsBloc>().getMoneyDiscountAvaible() ?? 0;
+        double money = 0.0;
+          money = await context.read<PointsBloc>().getMoneyDiscountAvaible() ?? 0;
+        setState(() {
+          moneyDiscount = money;
+        });
       }
     });
     super.initState();
