@@ -78,26 +78,29 @@ class _ProductPreviewState extends State<ProductPreview> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await getReview();
+      if (mounted) {
+        await getReview();
+      }
     });
   }
 
-
   Future<void> getReview() async {
-    var model = await context.read<ReviewsBloc>().getReview(widget.id);
-    if (model?.reviews != null && (model?.reviews?.isNotEmpty ?? false)) {
-      double sum = model?.reviews?.fold(
-        0,
-            (previousValue, review) => (previousValue ?? 0) + (review.rating ?? 0),
-      ) ??
-          0;
-      double averageRating = sum / (model?.reviews?.length ?? 1);
-      setState(() {
-        value = averageRating.toStringAsFixed(1);
-      });
+    try {
+      if (!mounted) return;
+      var model = await context.read<ReviewsBloc>().getReview(widget.id);
+      if (model?.reviews != null && (model?.reviews?.isNotEmpty ?? false)) {
+        double sum = model?.reviews?.fold(0, (previousValue, review) => (previousValue ?? 0) + (review.rating ?? 0),) ?? 0;
+        double averageRating = sum / (model?.reviews?.length ?? 1);
+        if (mounted) {
+          setState(() {
+            value = averageRating.toStringAsFixed(1);
+          });
+        }
+      }
+    } catch (e) {
+      debugPrint('Errore in getReview: $e');
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return Padding(

@@ -16,12 +16,12 @@ abstract class StripePaymentManager {
     await  _initializePaymentSheet(jsonData["client_secret"], billing ,customerId);
     await Stripe.instance.presentPaymentSheet();
 
-
     // ignore: use_build_context_synchronously
     _showSuccess(context);
     return true;
   } catch(err){
      _showFail(context);
+     return false;
     throw Exception(err.toString());
   }
   } 
@@ -32,11 +32,18 @@ abstract class StripePaymentManager {
         paymentIntentClientSecret: clientSecret,
         merchantDisplayName: "Pagamento Stripe",
         primaryButtonLabel: 'Paga ora',
-        style: ThemeMode.dark,
+        style: ThemeMode.light,
          appearance: const PaymentSheetAppearance(
             colors: PaymentSheetAppearanceColors(
-              background: Color.fromARGB(255, 255, 255, 255),
-              componentBorder: Colors.black,
+              background :   Colors.white,
+              componentBackground :   Colors.white,
+              componentDivider :   Colors.black,
+              componentText :   Colors.black,
+              primaryText :   Colors.black,
+              secondaryText :   Colors.black,
+              placeholderText :   Colors.grey,
+              icon :    Colors.black,
+              error : Colors.red
             ),),
             billingDetails: BillingDetails(
               name: billing.first_name,

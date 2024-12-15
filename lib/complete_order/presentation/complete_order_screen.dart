@@ -99,7 +99,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
       moneyDiscount = await context.read<PointsBloc>().getMoneyDiscountAvaible() ?? 0;
       await checkCart();
       customerId = await storage.getCustomerId();
-      if(mounted){
+      if (mounted) {
         context.read<AccountBloc>().add(const AccountEvent.fetchAddress());
       }
       getPayGateway();
@@ -107,37 +107,44 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
     super.initState();
   }
 
-  Future<void> checkCart() async{
+  Future<void> checkCart() async {
     if (widget.cart == null) {
       context.read<CartBloc>().add(const CartEvent.fetch());
       setState(() {
         isCartNullOrRefreshed = true;
       });
-    }else{
+    } else {
       await initCart(widget.cart!);
     }
   }
 
-  Future<void> initCart(CartResponse cart) async{
+  Future<void> initCart(CartResponse cart) async {
     setState(() {
       filteredItems.clear();
-      taxedTotalItems = (int.tryParse((cart.totals.totalItems ?? "0"))! + int.tryParse(cart.totals.totalItemsTax ?? "0")! ).toString();
-      if(moneyDiscount >= 5.0 && (int.parse(taxedTotalItems ?? "0") >= 5000)){
-        taxedTotalItems = (int.tryParse((cart.totals.totalItems ?? "0"))! + int.tryParse(cart.totals.totalItemsTax ?? "0")! - 500).toString();
-      }else{
-        taxedTotalItems = (int.tryParse((cart.totals.totalItems ?? "0"))! + int.tryParse(cart.totals.totalItemsTax ?? "0")! ).toString();
-      }
-      if(cart.totals.totalDiscount != "0"){
-        taxedTotalItems = (int.tryParse(taxedTotalItems ?? "0")! - (int.tryParse(cart.totals.totalDiscount ?? "0")! + int.tryParse(cart.totals.totalDiscountTax ?? "0")!)).toString();
+
+      final totalItems = int.tryParse(cart.totals.totalItems ?? "0") ?? 0;
+      final totalTax = int.tryParse(cart.totals.totalItemsTax ?? "0") ?? 0;
+      var taxedTotal = totalItems + totalTax;
+
+      if (moneyDiscount >= 5.0 && taxedTotal >= 5000) {
+        taxedTotal -= 500;
       }
 
-      if(taxedTotalItems != "0"){
-        taxedTotalItemsValue = double.tryParse('${taxedTotalItems?.substring(0, (taxedTotalItems?.length ?? 0) - 2)}.${taxedTotalItems?.substring((taxedTotalItems?.length ?? 0) - 2)}')!;
-        taxedTotalItems = '${taxedTotalItems?.substring(0,(taxedTotalItems?.length ?? 0) -2 )},${taxedTotalItems?.substring((taxedTotalItems?.length ?? 0) -2)}';
-      }
-      cartTotalValue =  taxedTotalItemsValue;
+      final totalDiscount = int.tryParse(cart.totals.totalDiscount ?? "0") ?? 0;
+      final totalDiscountTax = int.tryParse(cart.totals.totalDiscountTax ?? "0") ?? 0;
+      taxedTotal -= (totalDiscount + totalDiscountTax);
 
-      if(cart.coupons != null && cart.coupons!.isNotEmpty) {
+      if (taxedTotal > 0) {
+        taxedTotalItems = "${(taxedTotal ~/ 100)},${(taxedTotal % 100).toString().padLeft(2, '0')}";
+        taxedTotalItemsValue = taxedTotal / 100.0;
+      } else {
+        taxedTotalItems = "0,00";
+        taxedTotalItemsValue = 0.0;
+      }
+
+      cartTotalValue = taxedTotalItemsValue;
+
+      if (cart.coupons != null && cart.coupons!.isNotEmpty) {
         sumCouponDiscount(cart.coupons);
         coupons = cart.coupons;
       }
@@ -145,49 +152,52 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
       cartSummedPrice = cartTotalValue ?? 0;
       cartFirstLoad = false;
 
-
       for (var element in cart.items) {
-        if(element.extensions?.bundles['bundled_item_data']?['is_hidden_in_cart'] != true
-            && element.extensions?.bundles['bundled_item_data']?['is_hidden_in_summary'] != true) {
+        if (element.extensions?.bundles['bundled_item_data']?['is_hidden_in_cart'] != true &&
+            element.extensions?.bundles['bundled_item_data']?['is_hidden_in_summary'] != true) {
           filteredItems.add(element);
         }
       }
     });
   }
 
-  getShippingMethods(postcode) async  {
-    shippingMethodsFuture =  processShippingMethods(postcode) ;
+  getShippingMethods(postcode) async {
+    shippingMethodsFuture = processShippingMethods(postcode);
   }
 
-  getPayGateway() async  {
-    paymentGatewayFuture =  processPaymentGateway() ;
+  getPayGateway() async {
+    paymentGatewayFuture = processPaymentGateway();
   }
 
   static _dockedFabLocation(context) {
     if (MediaQuery.of(context).viewInsets.bottom != 0) {
-      return FixedCenterDockedFabLocation(bottomDistance: MediaQuery.of(context).viewInsets.bottom, context: context);
+      return FixedCenterDockedFabLocation(
+          bottomDistance: MediaQuery.of(context).viewInsets.bottom, context: context);
     } else {
       return FloatingActionButtonLocation.miniCenterDocked;
     }
   }
 
-  Future<void> sumCouponDiscount(List<Coupon?>? couponResponse) async{
-    int couponTotalInt_ =0 ;
-    double couponTotalValue_= 0.0;
-    String couponTotal_ = '0.0';
-    for (var cp in couponResponse!) {
-      couponTotalInt_ += int.tryParse(cp?.totals.totalDiscount??'0')! ;
-      couponTotalInt_ += int.tryParse(cp?.totals.totalDiscountTax??'0')! ;
+  Future<void> sumCouponDiscount(List<Coupon?>? couponResponse) async {
+    int couponTotalInt_ = 0;
+    double couponTotalValue_ = 0.0;
+    String couponTotal_ = '0,00';
+
+    for (var cp in couponResponse ?? []) {
+      final discount = int.tryParse(cp?.totals.totalDiscount ?? '0') ?? 0;
+      final discountTax = int.tryParse(cp?.totals.totalDiscountTax ?? '0') ?? 0;
+      couponTotalInt_ += (discount + discountTax);
     }
-    couponTotalValue_ = double.tryParse((couponTotalInt_/100).toString())!;
+
+    couponTotalValue_ = couponTotalInt_ / 100.0;
     couponTotal_ = couponTotalValue_.toStringAsFixed(2).replaceAll('.', ',');
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-    setState(() {
-      couponTotalInt = couponTotalInt_;
-      couponTotalValue = couponTotalValue_;
-      couponTotal = couponTotal_;
-    });
+      setState(() {
+        couponTotalInt = couponTotalInt_;
+        couponTotalValue = couponTotalValue_;
+        couponTotal = couponTotal_;
+      });
     });
   }
 
@@ -347,144 +357,228 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                     ),
                                   ),
                                   customDiv,
-                                  BlocBuilder<CouponBloc, CouponState>(
-                                    builder: (context, state) => state.maybeWhen(
-                                      loading: () {
-                                        isFirsCouponLoad = true;
-                                        return const Center(
-                                          child: CircularProgressIndicator(
-                                            color: Color.fromARGB(255, 161, 29, 51),
-                                          ),
-                                        );
-                                      },
-                                      orElse: () {
-                                        if(isFirsCouponLoad){
-                                          context.read<CartBloc>().add(const CartEvent.fetch());
-                                          isFirsCouponLoad = false;
-                                        }
-                                        return Column(
-                                          children: [
-                                            buildCupon(""),
-                                           if(coupons != null && coupons!.isNotEmpty)...[SizedBox(
-                                              height: (cart.coupons?.length ?? 0) * 30,
-                                              child: Row(
-                                                children: [
-                                                  ListView.builder(
-                                                    physics: const NeverScrollableScrollPhysics(),
-                                                    scrollDirection: Axis.horizontal,
-                                                    shrinkWrap: true,
-                                                    itemCount: cart.coupons?.length ?? 0,
-                                                    itemBuilder: (context, index) {
-                                                      final couponItem = cart.coupons![index];
-                                                      return Container(
-                                                        alignment: Alignment.topLeft,
-                                                        height: 30,
-                                                        child: InputChip(
-                                                          label: Text(
-                                                            couponItem!.code,
-                                                            style: const TextStyle(color: Colors.white, fontSize: 12),
-                                                          ),
-                                                          deleteIconColor: Colors.white,
-                                                          backgroundColor: const Color.fromARGB(255, 161, 29, 51),
-                                                          shape: const RoundedRectangleBorder(
-                                                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                                                          ),
-                                                          onDeleted: () {
-                                                            context.read<CouponBloc>().add(CouponEvent.delete(couponItem.code)
-                                                            );
-                                                          },
-                                                          padding: const EdgeInsets.only(left:5 , bottom: 3),
-                                                          onPressed: null,
-                                                          onSelected: null,
+                              BlocBuilder<CouponBloc, CouponState>(
+                                builder: (context, state) => state.maybeWhen(
+                                  loading: () {
+                                    isFirsCouponLoad = true;
+                                    return const Center(
+                                      child: CircularProgressIndicator(
+                                        color: Color.fromARGB(255, 161, 29, 51),
+                                      ),
+                                    );
+                                  },
+                                  orElse: () {
+                                    if (isFirsCouponLoad) {
+                                      context.read<CartBloc>().add(const CartEvent.fetch());
+                                      isFirsCouponLoad = false;
+                                    }
+                                    return Column(
+                                      children: [
+                                        buildCupon(""),
+                                        if (cart.coupons != null && cart.coupons!.isNotEmpty) ...[
+                                          SizedBox(
+                                            height: (cart.coupons?.length ?? 0) * 30,
+                                            child: Row(
+                                              children: [
+                                                ListView.builder(
+                                                  physics: const NeverScrollableScrollPhysics(),
+                                                  scrollDirection: Axis.horizontal,
+                                                  shrinkWrap: true,
+                                                  itemCount: cart.coupons?.length ?? 0,
+                                                  itemBuilder: (context, index) {
+                                                    final couponItem = cart.coupons?[index];
+                                                    if (couponItem == null) return const SizedBox();
+                                                    return Container(
+                                                      alignment: Alignment.topLeft,
+                                                      height: 30,
+                                                      child: InputChip(
+                                                        label: Text(
+                                                          couponItem.code,
+                                                          style: const TextStyle(color: Colors.white, fontSize: 12),
                                                         ),
-                                                      );
-                                                    },
-                                                  ),
-                                                ],
-                                              ),
-                                            )]
-                                          ],
-                                        );
-                                      },
-                                      couponNotFound: (error) {
-                                        return buildCupon(error);
-                                      },
-                                      error: (error){
-                                        return buildCupon(error);
-                                      },
-                                      gotCoupon: (coupons) {
-                                        if(isFirsCouponLoad){
-                                          context.read<CartBloc>().add(const CartEvent.fetch());
-                                          sumCouponDiscount(cart.coupons);
-                                          WidgetsBinding.instance.addPostFrameCallback((_) {
-                                            setState(() {
-                                              appliedCoupon = double.tryParse(coupons.amount)!;
-                                              isFirsCouponLoad = false;
-                                              isCartNullOrRefreshed = true;
-                                              couponController.text = "";
-                                            });
-                                          });
-                                        }
-                                        return Column(
-                                          children: [
-                                            buildCupon(""),
-                                            // if (appliedCoupon > 0)
-                                            //   PrimaryButton(
-                                            //     ontap: () {
-                                            //       context.read<CouponBloc>().add(CouponEvent.delete(appliedCouponCRode ?? ""));
-                                            //       context.read<CartBloc>().add(CartEvent.fetch());
-                                            //       setState(() {
-                                            //         appliedCoupon = 0.0;
-                                            //         appliedCouponCode = null;
-                                            //       });
-                                            //     },
-                                            //     text: 'Rimuovi Coupon',
-                                            //   ),
-                                            (cart.coupons?.isEmpty ?? false)
-                                                ? const SizedBox()
-                                                : SizedBox(
-                                              height: (cart.coupons?.length ?? 0) * 30,
-                                              child: Row(
-                                                children: [
-                                                  ListView.builder(
-                                                    physics: const NeverScrollableScrollPhysics(),
-                                                    scrollDirection: Axis.horizontal,
-                                                    shrinkWrap: true,
-                                                    itemCount: cart.coupons?.length ?? 0,
-                                                    itemBuilder: (context, index) {
-                                                      final couponItem = cart.coupons![index];
-                                                      return Container(
-                                                        alignment: Alignment.topLeft,
-                                                        height: 30,
-                                                        child: InputChip(
-                                                          label: Text(
-                                                            couponItem!.code,
-                                                            style: const TextStyle(color: Colors.white, fontSize: 12),
-                                                          ),
-                                                          deleteIconColor: Colors.white,
-                                                          backgroundColor: const Color.fromARGB(255, 161, 29, 51),
-                                                          shape: const RoundedRectangleBorder(
-                                                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                                                          ),
-                                                          onDeleted: () {
-                                                            context.read<CouponBloc>().add(CouponEvent.delete(couponItem.code)
-                                                            );
-                                                          },
-                                                          padding: const EdgeInsets.only(left:5 , bottom: 3),
-                                                          onPressed: null,
-                                                          onSelected: null,
+                                                        deleteIconColor: Colors.white,
+                                                        backgroundColor: const Color.fromARGB(255, 161, 29, 51),
+                                                        shape: const RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.all(Radius.circular(20)),
                                                         ),
-                                                      );
-                                                    },
-                                                  ),
-                                                ],
-                                              ),
+                                                        onDeleted: () {
+                                                          context.read<CouponBloc>().add(CouponEvent.delete(couponItem.code));
+                                                        },
+                                                        padding: const EdgeInsets.only(left: 5, bottom: 3),
+                                                        onPressed: null,
+                                                        onSelected: null,
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              ],
                                             ),
-                                          ],
-                                        );
-                                      },
-                                    ),
-                                  ),
+                                          )
+                                        ]
+                                      ],
+                                    );
+                                  },
+                                  couponNotFound: (error) {
+                                    return Column(
+                                      children: [
+                                        buildCupon(error),
+                                        if (cart.coupons != null && cart.coupons!.isNotEmpty) ...[
+                                          SizedBox(
+                                            height: (cart.coupons?.length ?? 0) * 30,
+                                            child: Row(
+                                              children: [
+                                                ListView.builder(
+                                                  physics: const NeverScrollableScrollPhysics(),
+                                                  scrollDirection: Axis.horizontal,
+                                                  shrinkWrap: true,
+                                                  itemCount: cart.coupons?.length ?? 0,
+                                                  itemBuilder: (context, index) {
+                                                    final couponItem = cart.coupons?[index];
+                                                    if (couponItem == null) return const SizedBox();
+                                                    return Container(
+                                                      alignment: Alignment.topLeft,
+                                                      height: 30,
+                                                      child: InputChip(
+                                                        label: Text(
+                                                          couponItem.code,
+                                                          style: const TextStyle(color: Colors.white, fontSize: 12),
+                                                        ),
+                                                        deleteIconColor: Colors.white,
+                                                        backgroundColor: const Color.fromARGB(255, 161, 29, 51),
+                                                        shape: const RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                                                        ),
+                                                        onDeleted: () {
+                                                          context
+                                                              .read<CouponBloc>()
+                                                              .add(CouponEvent.delete(couponItem.code));
+                                                        },
+                                                        padding: const EdgeInsets.only(left: 5, bottom: 3),
+                                                        onPressed: null,
+                                                        onSelected: null,
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ]
+                                      ],
+                                    );
+                                  },
+                                  error: (error) {
+                                    return Column(
+                                      children: [
+                                        buildCupon(error),
+                                        if (cart.coupons != null && cart.coupons!.isNotEmpty) ...[
+                                          SizedBox(
+                                            height: (cart.coupons?.length ?? 0) * 30,
+                                            child: Row(
+                                              children: [
+                                                ListView.builder(
+                                                  physics: const NeverScrollableScrollPhysics(),
+                                                  scrollDirection: Axis.horizontal,
+                                                  shrinkWrap: true,
+                                                  itemCount: cart.coupons?.length ?? 0,
+                                                  itemBuilder: (context, index) {
+                                                    final couponItem = cart.coupons?[index];
+                                                    if (couponItem == null) return const SizedBox();
+                                                    return Container(
+                                                      alignment: Alignment.topLeft,
+                                                      height: 30,
+                                                      child: InputChip(
+                                                        label: Text(
+                                                          couponItem.code,
+                                                          style: const TextStyle(color: Colors.white, fontSize: 12),
+                                                        ),
+                                                        deleteIconColor: Colors.white,
+                                                        backgroundColor: const Color.fromARGB(255, 161, 29, 51),
+                                                        shape: const RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                                                        ),
+                                                        onDeleted: () {
+                                                          context
+                                                              .read<CouponBloc>()
+                                                              .add(CouponEvent.delete(couponItem.code));
+                                                        },
+                                                        padding: const EdgeInsets.only(left: 5, bottom: 3),
+                                                        onPressed: null,
+                                                        onSelected: null,
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ]
+                                      ],
+                                    );
+                                  },
+                                  gotCoupon: (coupon) {
+                                    if (isFirsCouponLoad) {
+                                      context.read<CartBloc>().add(const CartEvent.fetch());
+                                      sumCouponDiscount(cart.coupons);
+                                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                                        setState(() {
+                                          appliedCoupon = double.tryParse(coupon.amount) ?? 0.0;
+                                          isFirsCouponLoad = false;
+                                          isCartNullOrRefreshed = true;
+                                          couponController.text = "";
+                                        });
+                                      });
+                                    }
+                                    return Column(
+                                      children: [
+                                        buildCupon(""),
+                                        if (cart.coupons != null && cart.coupons!.isNotEmpty) ...[
+                                          SizedBox(
+                                            height: (cart.coupons?.length ?? 0) * 30,
+                                            child: Row(
+                                              children: [
+                                                ListView.builder(
+                                                  physics: const NeverScrollableScrollPhysics(),
+                                                  scrollDirection: Axis.horizontal,
+                                                  shrinkWrap: true,
+                                                  itemCount: cart.coupons?.length ?? 0,
+                                                  itemBuilder: (context, index) {
+                                                    final couponItem = cart.coupons?[index];
+                                                    if (couponItem == null) return const SizedBox();
+                                                    return Container(
+                                                      alignment: Alignment.topLeft,
+                                                      height: 30,
+                                                      child: InputChip(
+                                                        label: Text(
+                                                          couponItem.code,
+                                                          style: const TextStyle(color: Colors.white, fontSize: 12),
+                                                        ),
+                                                        deleteIconColor: Colors.white,
+                                                        backgroundColor: const Color.fromARGB(255, 161, 29, 51),
+                                                        shape: const RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                                                        ),
+                                                        onDeleted: () {
+                                                          context
+                                                              .read<CouponBloc>()
+                                                              .add(CouponEvent.delete(couponItem.code));
+                                                        },
+                                                        padding: const EdgeInsets.only(left: 5, bottom: 3),
+                                                        onPressed: null,
+                                                        onSelected: null,
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ]
+                                      ],
+                                    );
+                                  },
+                                ),
+                              ),
                                   customDiv,
                                   const Padding(
                                     padding: EdgeInsets.symmetric(vertical: 18.0),
@@ -1479,9 +1573,6 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
             orElse: () => const SizedBox.shrink(),
           ),
         ),
-
-
-
       ),
     );
   }
@@ -1547,20 +1638,11 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
         NavigationDelegate(
           onPageFinished: (String url) {
             if (url.contains("/checkout/order-received/")) {
+              Navigator.pop(context);
               setState(() {
                 isSuccess = true;
               });
-              Navigator.pop(context);
             }
-          },
-          onNavigationRequest: (NavigationRequest request) {
-            if (request.url.contains("/checkout/order-received/")) {
-              setState(() {
-                isSuccess = true;
-              });
-              Navigator.pop(context);
-            }
-            return NavigationDecision.navigate;
           },
           onWebResourceError: (WebResourceError error) {
             if (kDebugMode) {
@@ -1602,12 +1684,10 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
 
     if (mounted) {
       if (isSuccess) {
-        // await storage.setTotalCartItems(0);
         context.read<CartBadgeCubitCubit>().removeCartItem();
         if(mounted){
           context.read<CartBloc>().deleteCart();
         }
-
         MainNavigation.replace(context,[ const MainNavigation.home(),const MainNavigation.thankYou()]);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -1710,14 +1790,18 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
             widget.totPoint,
            true
         );
-            if(mounted){
-          var response = await StripePaymentManager.makePayment(context, (orderId?.customer_id ?? 0), orderId!.billing_address!, orderId!.payment_result!.redirect_url!.replaceAll("#response=", ""));
+        if(mounted){
+          var response = await StripePaymentManager.makePayment(context, (orderId?.customer_id ?? 0), orderId!.billing_address!, orderId.payment_result!.redirect_url!.replaceAll("#response=", ""));
           if(response){
             if(mounted){
               context.read<CartBadgeCubitCubit>().removeCartItem();
               context.read<CartBloc>().deleteCart();
-    MainNavigation.replace(context,[ const MainNavigation.home(),const MainNavigation.thankYou()]);
+              MainNavigation.replace(context,[ const MainNavigation.home(),const MainNavigation.thankYou()]);
             }
+          }else{
+            setState(() {
+              startedOrder = false;
+            });
           }
         }
         setState(() {

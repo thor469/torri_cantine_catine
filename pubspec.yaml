@@ -60,7 +60,7 @@ dependencies:
   infinite_scroll_pagination: ^4.0.0
   flutter_rating_bar: ^4.0.1
   flutter_html: ^3.0.0-beta.2
-  flutter_stripe: ^9.4.0
+  flutter_stripe: ^11.3.0
 #  flutter_facebook_auth: ^6.0.4
   freezed_annotation: ^2.4.1
   flutter_meta_sdk: ^1.0.2
