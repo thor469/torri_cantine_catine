@@ -160,7 +160,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   }
 
   getShippingMethods(postcode) async {
-    shippingMethodsFuture = processShippingMethods(postcode);
+    shippingMethodsFuture =  processShippingMethods(postcode);
   }
 
   getPayGateway() async {
@@ -762,13 +762,11 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                   if(_shippingCostValue != null && _shippingCostValue != '') {
                                                     shippingPrice = _shippingCost;
                                                     shippingPriceValue = _shippingCostValue;
-                                                    cartSummedPrice = cartTotalValue! + _shippingCostValue;
-
                                                   } else {
                                                     shippingPrice = 'GRATIS';
                                                     shippingPriceValue =0;
-                                                    cartSummedPrice = cartTotalValue!;
                                                   }
+                                                  cartSummedPrice = cartTotalValue!;
                                                 })
                                               });
 
@@ -831,13 +829,11 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                       if(shippingCostValue != null && shippingCostValue != '') {
                                                         shippingPrice = shippingCost;
                                                         shippingPriceValue = shippingCostValue;
-                                                        cartSummedPrice = cartTotalValue! + shippingCostValue;
-
                                                       } else {
                                                         shippingPrice = 'GRATIS';
                                                         shippingPriceValue =0;
-                                                        cartSummedPrice = cartTotalValue!;
                                                       }
+                                                      cartSummedPrice = cartTotalValue!;
                                                     })
                                                   });
 
@@ -852,23 +848,16 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                     onTap: () {
                                                       if((minAmount == null || (minAmount!=null && valueDifference!<= 0)) ) {
                                                           gruppoval = sm[index]!.id!;
-                                                          if(shippingCostValue != null && shippingCostValue != '') {
-                                                            setState(() {
-
-                                                            shippingPrice = shippingCost;
-                                                            shippingPriceValue = shippingCostValue;
-                                                                cartSummedPrice = cartTotalValue! + shippingCostValue;
-                                                            });
-
-
-                                                          } else {
-                                                            setState(() {
+                                                          setState(() {
+                                                            if(shippingCostValue != null && shippingCostValue != '') {
+                                                              shippingPrice = shippingCost;
+                                                              shippingPriceValue = shippingCostValue;
+                                                            } else {
                                                               shippingPrice = 'GRATIS';
                                                               shippingPriceValue =0;
-                                                              cartSummedPrice = cartTotalValue!;
-                                                            });
-
-                                                          }
+                                                            }
+                                                            cartSummedPrice = cartTotalValue!;
+                                                          });
                                                       }
                                                     },
                                                     child: Row(
@@ -931,26 +920,21 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                                     value: sm[index]!.id!,
                                                                     groupValue: gruppoval,
                                                                     onChanged: (minAmount != null && valueDifference! > 0) ? null:
-                                                                      (val) {
-                                                                              gruppoval = sm[index]!.id!;
-                                                                              if (shippingCostValue != null && shippingCostValue != '') {
-                                                                                setState(() {
-                                                                                shippingPrice = shippingCost;
-                                                                                cartSummedPrice = cartTotalValue! + shippingCostValue;
-                                                                                });
+                                                                        (val) {
+                                                                      gruppoval = sm[index]!.id!;
+                                                                      setState(() {
+                                                                        if (shippingCostValue != null && shippingCostValue != '') {
+                                                                            shippingPrice = shippingCost;
+                                                                        } else {
+                                                                            shippingPrice = 'GRATIS';
 
-                                                                              } else {
-                    setState(() {
-
-                                                                                shippingPrice = 'GRATIS';
-                                                                                cartSummedPrice = cartTotalValue!;
-                    });
-
-                                                                              }
-                                                                          }),
+                                                                      }
+                                                                        cartSummedPrice = cartTotalValue!;
+                                                                    });
+                                                                    })
                                                               )
                                                             ]),
-                                                      ),
+                                                  ),
                                                 );
                                               },
                                             )
@@ -1476,37 +1460,13 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            BlocBuilder<CouponBloc, CouponState>(
-                                              builder: (context, state) {
-                                                return state.maybeWhen(
-                                                  orElse: () {
-                                                    // Display total price when no coupon is applied
-                                                    return Text(
-                                                      "€ ${cartSummedPrice.toStringAsFixed(2).replaceAll('.', ',')}",
-                                                      style: const TextStyle(
-                                                        fontSize: 16,
-                                                        fontWeight: FontWeight.bold,
-                                                      ),
-                                                    );
-                                                  },
-                                                  gotCoupon: (coupons) {
-                                                    // Calculate the total after applying the coupon
-                                                    double total = cartSummedPrice + shippingPriceValue;
-
-                                                    // Ensure total does not go below zero
-                                                    total = total < 0 ? 0 : total;
-
-                                                    return Text(
-                                                      "€ ${total.toStringAsFixed(2).replaceAll('.', ',')}",
-                                                      style: const TextStyle(
-                                                        fontSize: 16,
-                                                        fontWeight: FontWeight.bold,
-                                                      ),
-                                                    );
-                                                  },
-                                                );
-                                              },
-                                            ),
+                                            Text(
+                                              "€ ${(cartSummedPrice + shippingPriceValue).toStringAsFixed(2).replaceAll('.', ',')}",
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            )
                                           ],
                                         ),
                                       ),
