@@ -20,6 +20,7 @@ class NewAddressFromAccountScreen extends StatefulWidget {
   final int? point;
   String returnPage;
   final CartResponse? cart;
+  final String subTotal;
 
   NewAddressFromAccountScreen({
     super.key,
@@ -27,7 +28,7 @@ class NewAddressFromAccountScreen extends StatefulWidget {
     required this.editFatturazione,
     required this.editShipping,
     this.existingAddress,
-    required this.returnPage, required this.isNewAddress,  this.point, this.cart
+    required this.returnPage, required this.isNewAddress,  this.point, this.cart, required this.subTotal
   });
   @override
   State<NewAddressFromAccountScreen> createState() => _NewAddressFromAccountScreenState();
@@ -723,7 +724,7 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
                                     break;
                                   }
                                   case 'completeorder' : {
-                                    MainNavigation.push(context, MainNavigation.completeOrder(widget.point ?? 0, widget.cart));
+                                    MainNavigation.push(context, MainNavigation.completeOrder(widget.point ?? 0, widget.subTotal ?? ""));
                                     break;
                                   }
                                   default : {

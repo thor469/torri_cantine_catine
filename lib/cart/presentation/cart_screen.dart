@@ -391,7 +391,7 @@ class _CartScreenState extends State<CartScreen> {
                                         }
                                       }
                                     }
-                                    MainNavigation.push(context, MainNavigation.completeOrder(point, cart));
+                                    MainNavigation.push(context, MainNavigation.completeOrder(point, subTotal));
                                   },
                                 ),
                               )

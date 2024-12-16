@@ -35,7 +35,7 @@ mixin _$MainNavigation {
     required TResult Function(bool fromMenu, bool fromAccount) pointsBalance,
     required TResult Function(bool fromMenu) account,
     required TResult Function(Order order) orderDetail,
-    required TResult Function(int totPoint, CartResponse? cart) completeOrder,
+    required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
@@ -52,7 +52,7 @@ mixin _$MainNavigation {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)
+            String total)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) =>
@@ -75,7 +75,7 @@ mixin _$MainNavigation {
     TResult? Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult? Function(bool fromMenu)? account,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
@@ -92,7 +92,7 @@ mixin _$MainNavigation {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) =>
@@ -115,7 +115,7 @@ mixin _$MainNavigation {
     TResult Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult Function(bool fromMenu)? account,
     TResult Function(Order order)? orderDetail,
-    TResult Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
@@ -132,7 +132,7 @@ mixin _$MainNavigation {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -294,7 +294,7 @@ class _$_Home implements _Home {
     required TResult Function(bool fromMenu, bool fromAccount) pointsBalance,
     required TResult Function(bool fromMenu) account,
     required TResult Function(Order order) orderDetail,
-    required TResult Function(int totPoint, CartResponse? cart) completeOrder,
+    required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
@@ -311,7 +311,7 @@ class _$_Home implements _Home {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)
+            String total)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -337,7 +337,7 @@ class _$_Home implements _Home {
     TResult? Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult? Function(bool fromMenu)? account,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
@@ -354,7 +354,7 @@ class _$_Home implements _Home {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -380,7 +380,7 @@ class _$_Home implements _Home {
     TResult Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult Function(bool fromMenu)? account,
     TResult Function(Order order)? orderDetail,
-    TResult Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
@@ -397,7 +397,7 @@ class _$_Home implements _Home {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -562,7 +562,7 @@ class _$_Welcome implements _Welcome {
     required TResult Function(bool fromMenu, bool fromAccount) pointsBalance,
     required TResult Function(bool fromMenu) account,
     required TResult Function(Order order) orderDetail,
-    required TResult Function(int totPoint, CartResponse? cart) completeOrder,
+    required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
@@ -579,7 +579,7 @@ class _$_Welcome implements _Welcome {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)
+            String total)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -605,7 +605,7 @@ class _$_Welcome implements _Welcome {
     TResult? Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult? Function(bool fromMenu)? account,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
@@ -622,7 +622,7 @@ class _$_Welcome implements _Welcome {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -648,7 +648,7 @@ class _$_Welcome implements _Welcome {
     TResult Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult Function(bool fromMenu)? account,
     TResult Function(Order order)? orderDetail,
-    TResult Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
@@ -665,7 +665,7 @@ class _$_Welcome implements _Welcome {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -829,7 +829,7 @@ class _$_Login implements _Login {
     required TResult Function(bool fromMenu, bool fromAccount) pointsBalance,
     required TResult Function(bool fromMenu) account,
     required TResult Function(Order order) orderDetail,
-    required TResult Function(int totPoint, CartResponse? cart) completeOrder,
+    required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
@@ -846,7 +846,7 @@ class _$_Login implements _Login {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)
+            String total)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -872,7 +872,7 @@ class _$_Login implements _Login {
     TResult? Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult? Function(bool fromMenu)? account,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
@@ -889,7 +889,7 @@ class _$_Login implements _Login {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -915,7 +915,7 @@ class _$_Login implements _Login {
     TResult Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult Function(bool fromMenu)? account,
     TResult Function(Order order)? orderDetail,
-    TResult Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
@@ -932,7 +932,7 @@ class _$_Login implements _Login {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -1098,7 +1098,7 @@ class _$_Products implements _Products {
     required TResult Function(bool fromMenu, bool fromAccount) pointsBalance,
     required TResult Function(bool fromMenu) account,
     required TResult Function(Order order) orderDetail,
-    required TResult Function(int totPoint, CartResponse? cart) completeOrder,
+    required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
@@ -1115,7 +1115,7 @@ class _$_Products implements _Products {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)
+            String total)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -1141,7 +1141,7 @@ class _$_Products implements _Products {
     TResult? Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult? Function(bool fromMenu)? account,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
@@ -1158,7 +1158,7 @@ class _$_Products implements _Products {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -1184,7 +1184,7 @@ class _$_Products implements _Products {
     TResult Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult Function(bool fromMenu)? account,
     TResult Function(Order order)? orderDetail,
-    TResult Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
@@ -1201,7 +1201,7 @@ class _$_Products implements _Products {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -1367,7 +1367,7 @@ class _$_FirstRegistration implements _FirstRegistration {
     required TResult Function(bool fromMenu, bool fromAccount) pointsBalance,
     required TResult Function(bool fromMenu) account,
     required TResult Function(Order order) orderDetail,
-    required TResult Function(int totPoint, CartResponse? cart) completeOrder,
+    required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
@@ -1384,7 +1384,7 @@ class _$_FirstRegistration implements _FirstRegistration {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)
+            String total)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -1410,7 +1410,7 @@ class _$_FirstRegistration implements _FirstRegistration {
     TResult? Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult? Function(bool fromMenu)? account,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
@@ -1427,7 +1427,7 @@ class _$_FirstRegistration implements _FirstRegistration {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -1453,7 +1453,7 @@ class _$_FirstRegistration implements _FirstRegistration {
     TResult Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult Function(bool fromMenu)? account,
     TResult Function(Order order)? orderDetail,
-    TResult Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
@@ -1470,7 +1470,7 @@ class _$_FirstRegistration implements _FirstRegistration {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -1670,7 +1670,7 @@ class _$_SecondRegistration implements _SecondRegistration {
     required TResult Function(bool fromMenu, bool fromAccount) pointsBalance,
     required TResult Function(bool fromMenu) account,
     required TResult Function(Order order) orderDetail,
-    required TResult Function(int totPoint, CartResponse? cart) completeOrder,
+    required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
@@ -1687,7 +1687,7 @@ class _$_SecondRegistration implements _SecondRegistration {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)
+            String total)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -1713,7 +1713,7 @@ class _$_SecondRegistration implements _SecondRegistration {
     TResult? Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult? Function(bool fromMenu)? account,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
@@ -1730,7 +1730,7 @@ class _$_SecondRegistration implements _SecondRegistration {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -1756,7 +1756,7 @@ class _$_SecondRegistration implements _SecondRegistration {
     TResult Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult Function(bool fromMenu)? account,
     TResult Function(Order order)? orderDetail,
-    TResult Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
@@ -1773,7 +1773,7 @@ class _$_SecondRegistration implements _SecondRegistration {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -1945,7 +1945,7 @@ class _$_ThirdRegistration implements _ThirdRegistration {
     required TResult Function(bool fromMenu, bool fromAccount) pointsBalance,
     required TResult Function(bool fromMenu) account,
     required TResult Function(Order order) orderDetail,
-    required TResult Function(int totPoint, CartResponse? cart) completeOrder,
+    required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
@@ -1962,7 +1962,7 @@ class _$_ThirdRegistration implements _ThirdRegistration {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)
+            String total)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -1988,7 +1988,7 @@ class _$_ThirdRegistration implements _ThirdRegistration {
     TResult? Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult? Function(bool fromMenu)? account,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
@@ -2005,7 +2005,7 @@ class _$_ThirdRegistration implements _ThirdRegistration {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -2031,7 +2031,7 @@ class _$_ThirdRegistration implements _ThirdRegistration {
     TResult Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult Function(bool fromMenu)? account,
     TResult Function(Order order)? orderDetail,
-    TResult Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
@@ -2048,7 +2048,7 @@ class _$_ThirdRegistration implements _ThirdRegistration {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -2272,7 +2272,7 @@ class _$_Cart implements _Cart {
     required TResult Function(bool fromMenu, bool fromAccount) pointsBalance,
     required TResult Function(bool fromMenu) account,
     required TResult Function(Order order) orderDetail,
-    required TResult Function(int totPoint, CartResponse? cart) completeOrder,
+    required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
@@ -2289,7 +2289,7 @@ class _$_Cart implements _Cart {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)
+            String total)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -2315,7 +2315,7 @@ class _$_Cart implements _Cart {
     TResult? Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult? Function(bool fromMenu)? account,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
@@ -2332,7 +2332,7 @@ class _$_Cart implements _Cart {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -2358,7 +2358,7 @@ class _$_Cart implements _Cart {
     TResult Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult Function(bool fromMenu)? account,
     TResult Function(Order order)? orderDetail,
-    TResult Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
@@ -2375,7 +2375,7 @@ class _$_Cart implements _Cart {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -2609,7 +2609,7 @@ class _$_MyOrders implements _MyOrders {
     required TResult Function(bool fromMenu, bool fromAccount) pointsBalance,
     required TResult Function(bool fromMenu) account,
     required TResult Function(Order order) orderDetail,
-    required TResult Function(int totPoint, CartResponse? cart) completeOrder,
+    required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
@@ -2626,7 +2626,7 @@ class _$_MyOrders implements _MyOrders {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)
+            String total)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -2652,7 +2652,7 @@ class _$_MyOrders implements _MyOrders {
     TResult? Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult? Function(bool fromMenu)? account,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
@@ -2669,7 +2669,7 @@ class _$_MyOrders implements _MyOrders {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -2696,7 +2696,7 @@ class _$_MyOrders implements _MyOrders {
     TResult Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult Function(bool fromMenu)? account,
     TResult Function(Order order)? orderDetail,
-    TResult Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
@@ -2713,7 +2713,7 @@ class _$_MyOrders implements _MyOrders {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -2924,7 +2924,7 @@ class _$_PointsBalance implements _PointsBalance {
     required TResult Function(bool fromMenu, bool fromAccount) pointsBalance,
     required TResult Function(bool fromMenu) account,
     required TResult Function(Order order) orderDetail,
-    required TResult Function(int totPoint, CartResponse? cart) completeOrder,
+    required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
@@ -2941,7 +2941,7 @@ class _$_PointsBalance implements _PointsBalance {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)
+            String total)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -2967,7 +2967,7 @@ class _$_PointsBalance implements _PointsBalance {
     TResult? Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult? Function(bool fromMenu)? account,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
@@ -2984,7 +2984,7 @@ class _$_PointsBalance implements _PointsBalance {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -3010,7 +3010,7 @@ class _$_PointsBalance implements _PointsBalance {
     TResult Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult Function(bool fromMenu)? account,
     TResult Function(Order order)? orderDetail,
-    TResult Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
@@ -3027,7 +3027,7 @@ class _$_PointsBalance implements _PointsBalance {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -3226,7 +3226,7 @@ class _$_Account implements _Account {
     required TResult Function(bool fromMenu, bool fromAccount) pointsBalance,
     required TResult Function(bool fromMenu) account,
     required TResult Function(Order order) orderDetail,
-    required TResult Function(int totPoint, CartResponse? cart) completeOrder,
+    required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
@@ -3243,7 +3243,7 @@ class _$_Account implements _Account {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)
+            String total)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -3269,7 +3269,7 @@ class _$_Account implements _Account {
     TResult? Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult? Function(bool fromMenu)? account,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
@@ -3286,7 +3286,7 @@ class _$_Account implements _Account {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -3312,7 +3312,7 @@ class _$_Account implements _Account {
     TResult Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult Function(bool fromMenu)? account,
     TResult Function(Order order)? orderDetail,
-    TResult Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
@@ -3329,7 +3329,7 @@ class _$_Account implements _Account {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -3536,7 +3536,7 @@ class _$_OrderDetail implements _OrderDetail {
     required TResult Function(bool fromMenu, bool fromAccount) pointsBalance,
     required TResult Function(bool fromMenu) account,
     required TResult Function(Order order) orderDetail,
-    required TResult Function(int totPoint, CartResponse? cart) completeOrder,
+    required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
@@ -3553,7 +3553,7 @@ class _$_OrderDetail implements _OrderDetail {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)
+            String total)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -3579,7 +3579,7 @@ class _$_OrderDetail implements _OrderDetail {
     TResult? Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult? Function(bool fromMenu)? account,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
@@ -3596,7 +3596,7 @@ class _$_OrderDetail implements _OrderDetail {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -3622,7 +3622,7 @@ class _$_OrderDetail implements _OrderDetail {
     TResult Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult Function(bool fromMenu)? account,
     TResult Function(Order order)? orderDetail,
-    TResult Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
@@ -3639,7 +3639,7 @@ class _$_OrderDetail implements _OrderDetail {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -3761,9 +3761,7 @@ abstract class _$$_CompleteOrderCopyWith<$Res> {
           _$_CompleteOrder value, $Res Function(_$_CompleteOrder) then) =
       __$$_CompleteOrderCopyWithImpl<$Res>;
   @useResult
-  $Res call({int totPoint, CartResponse? cart});
-
-  $CartResponseCopyWith<$Res>? get cart;
+  $Res call({int totPoint, String cartSubTotal});
 }
 
 /// @nodoc
@@ -3778,46 +3776,34 @@ class __$$_CompleteOrderCopyWithImpl<$Res>
   @override
   $Res call({
     Object? totPoint = null,
-    Object? cart = freezed,
+    Object? cartSubTotal = null,
   }) {
     return _then(_$_CompleteOrder(
       null == totPoint
           ? _value.totPoint
           : totPoint // ignore: cast_nullable_to_non_nullable
               as int,
-      freezed == cart
-          ? _value.cart
-          : cart // ignore: cast_nullable_to_non_nullable
-              as CartResponse?,
+      null == cartSubTotal
+          ? _value.cartSubTotal
+          : cartSubTotal // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $CartResponseCopyWith<$Res>? get cart {
-    if (_value.cart == null) {
-      return null;
-    }
-
-    return $CartResponseCopyWith<$Res>(_value.cart!, (value) {
-      return _then(_value.copyWith(cart: value));
-    });
   }
 }
 
 /// @nodoc
 
 class _$_CompleteOrder implements _CompleteOrder {
-  const _$_CompleteOrder(this.totPoint, this.cart);
+  const _$_CompleteOrder(this.totPoint, this.cartSubTotal);
 
   @override
   final int totPoint;
   @override
-  final CartResponse? cart;
+  final String cartSubTotal;
 
   @override
   String toString() {
-    return 'MainNavigation.completeOrder(totPoint: $totPoint, cart: $cart)';
+    return 'MainNavigation.completeOrder(totPoint: $totPoint, cartSubTotal: $cartSubTotal)';
   }
 
   @override
@@ -3827,11 +3813,12 @@ class _$_CompleteOrder implements _CompleteOrder {
             other is _$_CompleteOrder &&
             (identical(other.totPoint, totPoint) ||
                 other.totPoint == totPoint) &&
-            (identical(other.cart, cart) || other.cart == cart));
+            (identical(other.cartSubTotal, cartSubTotal) ||
+                other.cartSubTotal == cartSubTotal));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, totPoint, cart);
+  int get hashCode => Object.hash(runtimeType, totPoint, cartSubTotal);
 
   @JsonKey(ignore: true)
   @override
@@ -3859,7 +3846,7 @@ class _$_CompleteOrder implements _CompleteOrder {
     required TResult Function(bool fromMenu, bool fromAccount) pointsBalance,
     required TResult Function(bool fromMenu) account,
     required TResult Function(Order order) orderDetail,
-    required TResult Function(int totPoint, CartResponse? cart) completeOrder,
+    required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
@@ -3876,11 +3863,11 @@ class _$_CompleteOrder implements _CompleteOrder {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)
+            String total)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
-    return completeOrder(totPoint, this.cart);
+    return completeOrder(totPoint, cartSubTotal);
   }
 
   @override
@@ -3902,7 +3889,7 @@ class _$_CompleteOrder implements _CompleteOrder {
     TResult? Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult? Function(bool fromMenu)? account,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
@@ -3919,11 +3906,11 @@ class _$_CompleteOrder implements _CompleteOrder {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
-    return completeOrder?.call(totPoint, this.cart);
+    return completeOrder?.call(totPoint, cartSubTotal);
   }
 
   @override
@@ -3945,7 +3932,7 @@ class _$_CompleteOrder implements _CompleteOrder {
     TResult Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult Function(bool fromMenu)? account,
     TResult Function(Order order)? orderDetail,
-    TResult Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
@@ -3962,13 +3949,13 @@ class _$_CompleteOrder implements _CompleteOrder {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
   }) {
     if (completeOrder != null) {
-      return completeOrder(totPoint, this.cart);
+      return completeOrder(totPoint, cartSubTotal);
     }
     return orElse();
   }
@@ -4070,11 +4057,11 @@ class _$_CompleteOrder implements _CompleteOrder {
 }
 
 abstract class _CompleteOrder implements MainNavigation {
-  const factory _CompleteOrder(final int totPoint, final CartResponse? cart) =
+  const factory _CompleteOrder(final int totPoint, final String cartSubTotal) =
       _$_CompleteOrder;
 
   int get totPoint;
-  CartResponse? get cart;
+  String get cartSubTotal;
   @JsonKey(ignore: true)
   _$$_CompleteOrderCopyWith<_$_CompleteOrder> get copyWith =>
       throw _privateConstructorUsedError;
@@ -4171,7 +4158,7 @@ class _$_Categories implements _Categories {
     required TResult Function(bool fromMenu, bool fromAccount) pointsBalance,
     required TResult Function(bool fromMenu) account,
     required TResult Function(Order order) orderDetail,
-    required TResult Function(int totPoint, CartResponse? cart) completeOrder,
+    required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
@@ -4188,7 +4175,7 @@ class _$_Categories implements _Categories {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)
+            String total)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -4214,7 +4201,7 @@ class _$_Categories implements _Categories {
     TResult? Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult? Function(bool fromMenu)? account,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
@@ -4231,7 +4218,7 @@ class _$_Categories implements _Categories {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -4257,7 +4244,7 @@ class _$_Categories implements _Categories {
     TResult Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult Function(bool fromMenu)? account,
     TResult Function(Order order)? orderDetail,
-    TResult Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
@@ -4274,7 +4261,7 @@ class _$_Categories implements _Categories {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -4474,7 +4461,7 @@ class _$_AddReview implements _AddReview {
     required TResult Function(bool fromMenu, bool fromAccount) pointsBalance,
     required TResult Function(bool fromMenu) account,
     required TResult Function(Order order) orderDetail,
-    required TResult Function(int totPoint, CartResponse? cart) completeOrder,
+    required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
@@ -4491,7 +4478,7 @@ class _$_AddReview implements _AddReview {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)
+            String total)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -4517,7 +4504,7 @@ class _$_AddReview implements _AddReview {
     TResult? Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult? Function(bool fromMenu)? account,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
@@ -4534,7 +4521,7 @@ class _$_AddReview implements _AddReview {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -4560,7 +4547,7 @@ class _$_AddReview implements _AddReview {
     TResult Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult Function(bool fromMenu)? account,
     TResult Function(Order order)? orderDetail,
-    TResult Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
@@ -4577,7 +4564,7 @@ class _$_AddReview implements _AddReview {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -4775,7 +4762,7 @@ class _$_ProductDetail implements _ProductDetail {
     required TResult Function(bool fromMenu, bool fromAccount) pointsBalance,
     required TResult Function(bool fromMenu) account,
     required TResult Function(Order order) orderDetail,
-    required TResult Function(int totPoint, CartResponse? cart) completeOrder,
+    required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
@@ -4792,7 +4779,7 @@ class _$_ProductDetail implements _ProductDetail {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)
+            String total)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -4818,7 +4805,7 @@ class _$_ProductDetail implements _ProductDetail {
     TResult? Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult? Function(bool fromMenu)? account,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
@@ -4835,7 +4822,7 @@ class _$_ProductDetail implements _ProductDetail {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -4861,7 +4848,7 @@ class _$_ProductDetail implements _ProductDetail {
     TResult Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult Function(bool fromMenu)? account,
     TResult Function(Order order)? orderDetail,
-    TResult Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
@@ -4878,7 +4865,7 @@ class _$_ProductDetail implements _ProductDetail {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -5085,7 +5072,7 @@ class _$_PersonalInfo implements _PersonalInfo {
     required TResult Function(bool fromMenu, bool fromAccount) pointsBalance,
     required TResult Function(bool fromMenu) account,
     required TResult Function(Order order) orderDetail,
-    required TResult Function(int totPoint, CartResponse? cart) completeOrder,
+    required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
@@ -5102,7 +5089,7 @@ class _$_PersonalInfo implements _PersonalInfo {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)
+            String total)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -5128,7 +5115,7 @@ class _$_PersonalInfo implements _PersonalInfo {
     TResult? Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult? Function(bool fromMenu)? account,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
@@ -5145,7 +5132,7 @@ class _$_PersonalInfo implements _PersonalInfo {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -5171,7 +5158,7 @@ class _$_PersonalInfo implements _PersonalInfo {
     TResult Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult Function(bool fromMenu)? account,
     TResult Function(Order order)? orderDetail,
-    TResult Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
@@ -5188,7 +5175,7 @@ class _$_PersonalInfo implements _PersonalInfo {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -5385,7 +5372,7 @@ class _$_CategoriesDetail implements _CategoriesDetail {
     required TResult Function(bool fromMenu, bool fromAccount) pointsBalance,
     required TResult Function(bool fromMenu) account,
     required TResult Function(Order order) orderDetail,
-    required TResult Function(int totPoint, CartResponse? cart) completeOrder,
+    required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
@@ -5402,7 +5389,7 @@ class _$_CategoriesDetail implements _CategoriesDetail {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)
+            String total)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -5428,7 +5415,7 @@ class _$_CategoriesDetail implements _CategoriesDetail {
     TResult? Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult? Function(bool fromMenu)? account,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
@@ -5445,7 +5432,7 @@ class _$_CategoriesDetail implements _CategoriesDetail {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -5471,7 +5458,7 @@ class _$_CategoriesDetail implements _CategoriesDetail {
     TResult Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult Function(bool fromMenu)? account,
     TResult Function(Order order)? orderDetail,
-    TResult Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
@@ -5488,7 +5475,7 @@ class _$_CategoriesDetail implements _CategoriesDetail {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -5659,7 +5646,7 @@ class _$_ThankYou implements _ThankYou {
     required TResult Function(bool fromMenu, bool fromAccount) pointsBalance,
     required TResult Function(bool fromMenu) account,
     required TResult Function(Order order) orderDetail,
-    required TResult Function(int totPoint, CartResponse? cart) completeOrder,
+    required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
@@ -5676,7 +5663,7 @@ class _$_ThankYou implements _ThankYou {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)
+            String total)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -5702,7 +5689,7 @@ class _$_ThankYou implements _ThankYou {
     TResult? Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult? Function(bool fromMenu)? account,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
@@ -5719,7 +5706,7 @@ class _$_ThankYou implements _ThankYou {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -5745,7 +5732,7 @@ class _$_ThankYou implements _ThankYou {
     TResult Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult Function(bool fromMenu)? account,
     TResult Function(Order order)? orderDetail,
-    TResult Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
@@ -5762,7 +5749,7 @@ class _$_ThankYou implements _ThankYou {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -5926,7 +5913,7 @@ class _$_Menu implements _Menu {
     required TResult Function(bool fromMenu, bool fromAccount) pointsBalance,
     required TResult Function(bool fromMenu) account,
     required TResult Function(Order order) orderDetail,
-    required TResult Function(int totPoint, CartResponse? cart) completeOrder,
+    required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
@@ -5943,7 +5930,7 @@ class _$_Menu implements _Menu {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)
+            String total)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -5969,7 +5956,7 @@ class _$_Menu implements _Menu {
     TResult? Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult? Function(bool fromMenu)? account,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
@@ -5986,7 +5973,7 @@ class _$_Menu implements _Menu {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -6012,7 +5999,7 @@ class _$_Menu implements _Menu {
     TResult Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult Function(bool fromMenu)? account,
     TResult Function(Order order)? orderDetail,
-    TResult Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
@@ -6029,7 +6016,7 @@ class _$_Menu implements _Menu {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -6231,7 +6218,7 @@ class _$_WishlistScreen implements _WishlistScreen {
     required TResult Function(bool fromMenu, bool fromAccount) pointsBalance,
     required TResult Function(bool fromMenu) account,
     required TResult Function(Order order) orderDetail,
-    required TResult Function(int totPoint, CartResponse? cart) completeOrder,
+    required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
@@ -6248,7 +6235,7 @@ class _$_WishlistScreen implements _WishlistScreen {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)
+            String total)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -6274,7 +6261,7 @@ class _$_WishlistScreen implements _WishlistScreen {
     TResult? Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult? Function(bool fromMenu)? account,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
@@ -6291,7 +6278,7 @@ class _$_WishlistScreen implements _WishlistScreen {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -6317,7 +6304,7 @@ class _$_WishlistScreen implements _WishlistScreen {
     TResult Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult Function(bool fromMenu)? account,
     TResult Function(Order order)? orderDetail,
-    TResult Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
@@ -6334,7 +6321,7 @@ class _$_WishlistScreen implements _WishlistScreen {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
@@ -6467,10 +6454,9 @@ abstract class _$$_MyAddressFromAccountScreenCopyWith<$Res> {
       String returnPage,
       bool isNewAddress,
       int? point,
-      CartResponse? cart});
+      String total});
 
   $UserAddressCopyWith<$Res>? get user;
-  $CartResponseCopyWith<$Res>? get cart;
 }
 
 /// @nodoc
@@ -6492,7 +6478,7 @@ class __$$_MyAddressFromAccountScreenCopyWithImpl<$Res>
     Object? returnPage = null,
     Object? isNewAddress = null,
     Object? point = freezed,
-    Object? cart = freezed,
+    Object? total = null,
   }) {
     return _then(_$_MyAddressFromAccountScreen(
       null == id
@@ -6523,10 +6509,10 @@ class __$$_MyAddressFromAccountScreenCopyWithImpl<$Res>
           ? _value.point
           : point // ignore: cast_nullable_to_non_nullable
               as int?,
-      freezed == cart
-          ? _value.cart
-          : cart // ignore: cast_nullable_to_non_nullable
-              as CartResponse?,
+      null == total
+          ? _value.total
+          : total // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 
@@ -6539,18 +6525,6 @@ class __$$_MyAddressFromAccountScreenCopyWithImpl<$Res>
 
     return $UserAddressCopyWith<$Res>(_value.user!, (value) {
       return _then(_value.copyWith(user: value));
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $CartResponseCopyWith<$Res>? get cart {
-    if (_value.cart == null) {
-      return null;
-    }
-
-    return $CartResponseCopyWith<$Res>(_value.cart!, (value) {
-      return _then(_value.copyWith(cart: value));
     });
   }
 }
@@ -6566,7 +6540,7 @@ class _$_MyAddressFromAccountScreen implements _MyAddressFromAccountScreen {
       this.returnPage,
       this.isNewAddress,
       this.point,
-      this.cart);
+      this.total);
 
   @override
   final int id;
@@ -6583,11 +6557,11 @@ class _$_MyAddressFromAccountScreen implements _MyAddressFromAccountScreen {
   @override
   final int? point;
   @override
-  final CartResponse? cart;
+  final String total;
 
   @override
   String toString() {
-    return 'MainNavigation.newAddressFromAccount(id: $id, editFatturazione: $editFatturazione, editShipping: $editShipping, user: $user, returnPage: $returnPage, isNewAddress: $isNewAddress, point: $point, cart: $cart)';
+    return 'MainNavigation.newAddressFromAccount(id: $id, editFatturazione: $editFatturazione, editShipping: $editShipping, user: $user, returnPage: $returnPage, isNewAddress: $isNewAddress, point: $point, total: $total)';
   }
 
   @override
@@ -6606,12 +6580,12 @@ class _$_MyAddressFromAccountScreen implements _MyAddressFromAccountScreen {
             (identical(other.isNewAddress, isNewAddress) ||
                 other.isNewAddress == isNewAddress) &&
             (identical(other.point, point) || other.point == point) &&
-            (identical(other.cart, cart) || other.cart == cart));
+            (identical(other.total, total) || other.total == total));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, id, editFatturazione,
-      editShipping, user, returnPage, isNewAddress, point, cart);
+      editShipping, user, returnPage, isNewAddress, point, total);
 
   @JsonKey(ignore: true)
   @override
@@ -6640,7 +6614,7 @@ class _$_MyAddressFromAccountScreen implements _MyAddressFromAccountScreen {
     required TResult Function(bool fromMenu, bool fromAccount) pointsBalance,
     required TResult Function(bool fromMenu) account,
     required TResult Function(Order order) orderDetail,
-    required TResult Function(int totPoint, CartResponse? cart) completeOrder,
+    required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
@@ -6657,12 +6631,12 @@ class _$_MyAddressFromAccountScreen implements _MyAddressFromAccountScreen {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)
+            String total)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
     return newAddressFromAccount(id, editFatturazione, editShipping, user,
-        returnPage, isNewAddress, point, this.cart);
+        returnPage, isNewAddress, point, total);
   }
 
   @override
@@ -6684,7 +6658,7 @@ class _$_MyAddressFromAccountScreen implements _MyAddressFromAccountScreen {
     TResult? Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult? Function(bool fromMenu)? account,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
@@ -6701,12 +6675,12 @@ class _$_MyAddressFromAccountScreen implements _MyAddressFromAccountScreen {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
     return newAddressFromAccount?.call(id, editFatturazione, editShipping, user,
-        returnPage, isNewAddress, point, this.cart);
+        returnPage, isNewAddress, point, total);
   }
 
   @override
@@ -6728,7 +6702,7 @@ class _$_MyAddressFromAccountScreen implements _MyAddressFromAccountScreen {
     TResult Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult Function(bool fromMenu)? account,
     TResult Function(Order order)? orderDetail,
-    TResult Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
@@ -6745,14 +6719,14 @@ class _$_MyAddressFromAccountScreen implements _MyAddressFromAccountScreen {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
   }) {
     if (newAddressFromAccount != null) {
       return newAddressFromAccount(id, editFatturazione, editShipping, user,
-          returnPage, isNewAddress, point, this.cart);
+          returnPage, isNewAddress, point, total);
     }
     return orElse();
   }
@@ -6862,7 +6836,7 @@ abstract class _MyAddressFromAccountScreen implements MainNavigation {
       final String returnPage,
       final bool isNewAddress,
       final int? point,
-      final CartResponse? cart) = _$_MyAddressFromAccountScreen;
+      final String total) = _$_MyAddressFromAccountScreen;
 
   int get id;
   bool get editFatturazione;
@@ -6871,7 +6845,7 @@ abstract class _MyAddressFromAccountScreen implements MainNavigation {
   String get returnPage;
   bool get isNewAddress;
   int? get point;
-  CartResponse? get cart;
+  String get total;
   @JsonKey(ignore: true)
   _$$_MyAddressFromAccountScreenCopyWith<_$_MyAddressFromAccountScreen>
       get copyWith => throw _privateConstructorUsedError;
@@ -6959,7 +6933,7 @@ class _$_MyAddressListScreen implements _MyAddressListScreen {
     required TResult Function(bool fromMenu, bool fromAccount) pointsBalance,
     required TResult Function(bool fromMenu) account,
     required TResult Function(Order order) orderDetail,
-    required TResult Function(int totPoint, CartResponse? cart) completeOrder,
+    required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
     required TResult Function(int product_id) addReview,
     required TResult Function(int productId) productDetail,
@@ -6976,7 +6950,7 @@ class _$_MyAddressListScreen implements _MyAddressListScreen {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)
+            String total)
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
@@ -7002,7 +6976,7 @@ class _$_MyAddressListScreen implements _MyAddressListScreen {
     TResult? Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult? Function(bool fromMenu)? account,
     TResult? Function(Order order)? orderDetail,
-    TResult? Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
     TResult? Function(int product_id)? addReview,
     TResult? Function(int productId)? productDetail,
@@ -7019,7 +6993,7 @@ class _$_MyAddressListScreen implements _MyAddressListScreen {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
@@ -7045,7 +7019,7 @@ class _$_MyAddressListScreen implements _MyAddressListScreen {
     TResult Function(bool fromMenu, bool fromAccount)? pointsBalance,
     TResult Function(bool fromMenu)? account,
     TResult Function(Order order)? orderDetail,
-    TResult Function(int totPoint, CartResponse? cart)? completeOrder,
+    TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
     TResult Function(int product_id)? addReview,
     TResult Function(int productId)? productDetail,
@@ -7062,7 +7036,7 @@ class _$_MyAddressListScreen implements _MyAddressListScreen {
             String returnPage,
             bool isNewAddress,
             int? point,
-            CartResponse? cart)?
+            String total)?
         newAddressFromAccount,
     TResult Function(int id)? addressList,
     required TResult orElse(),
