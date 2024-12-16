@@ -762,13 +762,11 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                   if(_shippingCostValue != null && _shippingCostValue != '') {
                                                     shippingPrice = _shippingCost;
                                                     shippingPriceValue = _shippingCostValue;
-                                                    cartSummedPrice = cartTotalValue!;
-
                                                   } else {
                                                     shippingPrice = 'GRATIS';
                                                     shippingPriceValue =0;
-                                                    cartSummedPrice = cartTotalValue!;
                                                   }
+                                                  cartSummedPrice = cartTotalValue!;
                                                 })
                                               });
 
@@ -831,13 +829,11 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                       if(shippingCostValue != null && shippingCostValue != '') {
                                                         shippingPrice = shippingCost;
                                                         shippingPriceValue = shippingCostValue;
-                                                        cartSummedPrice = cartTotalValue!;
-
                                                       } else {
                                                         shippingPrice = 'GRATIS';
                                                         shippingPriceValue =0;
-                                                        cartSummedPrice = cartTotalValue!;
                                                       }
+                                                      cartSummedPrice = cartTotalValue!;
                                                     })
                                                   });
 
@@ -852,23 +848,16 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                     onTap: () {
                                                       if((minAmount == null || (minAmount!=null && valueDifference!<= 0)) ) {
                                                           gruppoval = sm[index]!.id!;
-                                                          if(shippingCostValue != null && shippingCostValue != '') {
-                                                            setState(() {
-
-                                                            shippingPrice = shippingCost;
-                                                            shippingPriceValue = shippingCostValue;
-                                                                cartSummedPrice = cartTotalValue!;
-                                                            });
-
-
-                                                          } else {
-                                                            setState(() {
+                                                          setState(() {
+                                                            if(shippingCostValue != null && shippingCostValue != '') {
+                                                              shippingPrice = shippingCost;
+                                                              shippingPriceValue = shippingCostValue;
+                                                            } else {
                                                               shippingPrice = 'GRATIS';
                                                               shippingPriceValue =0;
-                                                              cartSummedPrice = cartTotalValue!;
-                                                            });
-
-                                                          }
+                                                            }
+                                                            cartSummedPrice = cartTotalValue!;
+                                                          });
                                                       }
                                                     },
                                                     child: Row(
@@ -933,19 +922,16 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                                     onChanged: (minAmount != null && valueDifference! > 0) ? null:
                                                                         (val) {
                                                                       gruppoval = sm[index]!.id!;
-                                                                      if (shippingCostValue != null && shippingCostValue != '') {
-                                                                        setState(() {
-                                                                          shippingPrice = shippingCost;
-                                                                          cartSummedPrice = cartTotalValue!;
-                                                                        });
-                                                                      } else {
-                                                                        setState(() {
-                                                                          shippingPrice = 'GRATIS';
-                                                                          cartSummedPrice = cartTotalValue!;
-                                                                        });
+                                                                      setState(() {
+                                                                        if (shippingCostValue != null && shippingCostValue != '') {
+                                                                            shippingPrice = shippingCost;
+                                                                        } else {
+                                                                            shippingPrice = 'GRATIS';
 
                                                                       }
-                                                                    }),
+                                                                        cartSummedPrice = cartTotalValue!;
+                                                                    });
+                                                                    })
                                                               )
                                                             ]),
                                                   ),
