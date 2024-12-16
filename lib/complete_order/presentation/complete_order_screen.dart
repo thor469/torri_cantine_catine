@@ -1460,38 +1460,13 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            BlocBuilder<CouponBloc, CouponState>(
-                                              builder: (context, state) {
-                                                return state.maybeWhen(
-                                                  orElse: () {
-                                                    // Display total price when no coupon is applied
-                                                    double total = cartSummedPrice + shippingPriceValue;
-                                                    return Text(
-                                                      "€ ${total.toStringAsFixed(2).replaceAll('.', ',')}",
-                                                      style: const TextStyle(
-                                                        fontSize: 16,
-                                                        fontWeight: FontWeight.bold,
-                                                      ),
-                                                    );
-                                                  },
-                                                  gotCoupon: (coupons) {
-                                                    // Calculate the total after applying the coupon
-                                                    double total = cartSummedPrice + shippingPriceValue;
-
-                                                    // Ensure total does not go below zero
-                                                    total = total < 0 ? 0 : total;
-
-                                                    return Text(
-                                                      "€ ${total.toStringAsFixed(2).replaceAll('.', ',')}",
-                                                      style: const TextStyle(
-                                                        fontSize: 16,
-                                                        fontWeight: FontWeight.bold,
-                                                      ),
-                                                    );
-                                                  },
-                                                );
-                                              },
-                                            ),
+                                            Text(
+                                              "€ ${(cartSummedPrice + shippingPriceValue).toStringAsFixed(2).replaceAll('.', ',')}",
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            )
                                           ],
                                         ),
                                       ),
