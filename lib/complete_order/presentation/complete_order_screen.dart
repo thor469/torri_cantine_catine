@@ -1461,7 +1461,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                               ),
                                             ),
                                             Text(
-                                              "€ ${(cartSummedPrice + shippingPriceValue).toStringAsFixed(2).replaceAll('.', ',')}",
+                                              "€ ${calculateTotal(cartSummedPrice, shippingPriceValue).toStringAsFixed(2).replaceAll('.', ',')}",
                                               style: const TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold,
@@ -1866,6 +1866,8 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
       ],
     );
   }
-
-
+  double calculateTotal(double cartSummedPrice,double shippingPriceValue){
+    double totalPrice = cartSummedPrice + shippingPriceValue;
+    return totalPrice < 0 ? 0 : totalPrice;
+  }
 }
