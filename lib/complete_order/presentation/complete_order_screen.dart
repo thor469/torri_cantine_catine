@@ -160,7 +160,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   }
 
   getShippingMethods(postcode) async {
-    shippingMethodsFuture = processShippingMethods(postcode);
+    shippingMethodsFuture =  processShippingMethods(postcode);
   }
 
   getPayGateway() async {
@@ -762,7 +762,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                   if(_shippingCostValue != null && _shippingCostValue != '') {
                                                     shippingPrice = _shippingCost;
                                                     shippingPriceValue = _shippingCostValue;
-                                                    cartSummedPrice = cartTotalValue! + _shippingCostValue;
+                                                    cartSummedPrice = cartTotalValue!;
 
                                                   } else {
                                                     shippingPrice = 'GRATIS';
@@ -831,7 +831,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                       if(shippingCostValue != null && shippingCostValue != '') {
                                                         shippingPrice = shippingCost;
                                                         shippingPriceValue = shippingCostValue;
-                                                        cartSummedPrice = cartTotalValue! + shippingCostValue;
+                                                        cartSummedPrice = cartTotalValue!;
 
                                                       } else {
                                                         shippingPrice = 'GRATIS';
@@ -857,7 +857,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
 
                                                             shippingPrice = shippingCost;
                                                             shippingPriceValue = shippingCostValue;
-                                                                cartSummedPrice = cartTotalValue! + shippingCostValue;
+                                                                cartSummedPrice = cartTotalValue!;
                                                             });
 
 
@@ -931,26 +931,24 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                                     value: sm[index]!.id!,
                                                                     groupValue: gruppoval,
                                                                     onChanged: (minAmount != null && valueDifference! > 0) ? null:
-                                                                      (val) {
-                                                                              gruppoval = sm[index]!.id!;
-                                                                              if (shippingCostValue != null && shippingCostValue != '') {
-                                                                                setState(() {
-                                                                                shippingPrice = shippingCost;
-                                                                                cartSummedPrice = cartTotalValue! + shippingCostValue;
-                                                                                });
+                                                                        (val) {
+                                                                      gruppoval = sm[index]!.id!;
+                                                                      if (shippingCostValue != null && shippingCostValue != '') {
+                                                                        setState(() {
+                                                                          shippingPrice = shippingCost;
+                                                                          cartSummedPrice = cartTotalValue!;
+                                                                        });
+                                                                      } else {
+                                                                        setState(() {
+                                                                          shippingPrice = 'GRATIS';
+                                                                          cartSummedPrice = cartTotalValue!;
+                                                                        });
 
-                                                                              } else {
-                    setState(() {
-
-                                                                                shippingPrice = 'GRATIS';
-                                                                                cartSummedPrice = cartTotalValue!;
-                    });
-
-                                                                              }
-                                                                          }),
+                                                                      }
+                                                                    }),
                                                               )
                                                             ]),
-                                                      ),
+                                                  ),
                                                 );
                                               },
                                             )
@@ -1481,8 +1479,9 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                 return state.maybeWhen(
                                                   orElse: () {
                                                     // Display total price when no coupon is applied
+                                                    double total = cartSummedPrice + shippingPriceValue;
                                                     return Text(
-                                                      "€ ${cartSummedPrice.toStringAsFixed(2).replaceAll('.', ',')}",
+                                                      "€ ${total.toStringAsFixed(2).replaceAll('.', ',')}",
                                                       style: const TextStyle(
                                                         fontSize: 16,
                                                         fontWeight: FontWeight.bold,
