@@ -395,10 +395,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 ),
                               ),
 
-                              BlocListener<AddBundleToCartBloc, AddBundleToCartState>(
-                                listener: (BuildContext context, AddBundleToCartState state) {
+                              BlocListener<AddProductToCartBloc, AddProductToCartState>(
+                                listener: (BuildContext context, AddProductToCartState state) {
                                   state.maybeWhen(
-                                      addedProduct: () {
+                                      addedProduct: (_) {
                                         setState(() {isLoading = false;});
                                         WidgetsBinding.instance.addPostFrameCallback((_) async{
                                           CartResponse? cart = await context.read<CartBloc>().fetchItemCart();
