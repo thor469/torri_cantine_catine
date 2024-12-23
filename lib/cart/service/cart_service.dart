@@ -29,7 +29,7 @@ class CartService extends HttpServiceBase {
 
 
   Future<CartResponse> addBundleToCart(AddBundleToCart request) => postData(
-    expectedStatusCode: 201,
+    expectedStatusCode: 200,
     queryParameters: request.toData(),
     request: request,
     mapper: (json, _) => CartResponse.fromJson(json),

@@ -437,12 +437,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                               color: Colors.white,
                                             ),
                                           ),
-                                        )
-                                            :
-
-                                        SvgPicture.asset("assets/Menu-cart.svg",
-                                            // ignore: deprecated_member_use
-                                            color: Colors.white,
+                                        ) :
+                                        SvgPicture.asset("assets/Menu-cart.svg", color: Colors.white,
                                             width: 25,
                                             height: 25),
                                       ),
@@ -600,6 +596,7 @@ class BundleItemsList extends StatefulWidget {
 class _BundleItemsListState extends State<BundleItemsList> {
   List<TextEditingController> controllers = [];
   int selectedBundleItems = 0;
+  bool isLoading = false;
 
 
     @override
@@ -620,7 +617,6 @@ class _BundleItemsListState extends State<BundleItemsList> {
   Widget build(BuildContext context) {
 
     double containerHeight = (80 * widget.bundles!.length).toDouble();
-
 
    return PopScope(
      canPop: false,
@@ -756,18 +752,36 @@ class _BundleItemsListState extends State<BundleItemsList> {
                },
              ),
            ),
-           Padding(
+         BlocListener<AddProductToCartBloc, AddProductToCartState>(
+           listener: (BuildContext context, AddProductToCartState state) {
+             state.maybeWhen(
+                 addedProduct: (_) {
+                   setState(() {isLoading = false;});
+                   WidgetsBinding.instance.addPostFrameCallback((_) async{
+                     CartResponse? cart = await context.read<CartBloc>().fetchItemCart();
+                     context.read<CartBadgeCubitCubit>().addCartItem(qty: cart?.items.length ?? 0, isFromCart: true);
+                   });
+                 },
+                 error: () {
+                   setState(() {isLoading = false;});
+                 },
+                 orElse: () {}
+             );
+           },
+           child: Padding(
              padding: const EdgeInsets.only(left: 23, right:23, top:23),
              child: Row(
                children: [
-
                  Expanded(
                    child: Padding(
                      padding: const EdgeInsets.symmetric(horizontal: 10),
                      child: PrimaryButton(
-                       text: "AGGIUNGI",
+                       text:  isLoading ? "": "AGGIUNGI",
                        disabled: !(selectedBundleItems>=widget.minSize && selectedBundleItems<=widget.maxSize),
                        ontap: () {
+                         setState(() {
+                           isLoading = true;
+                         });
 
                          int ind = 0;
                          List<dynamic> bundleConf=[];
@@ -792,13 +806,13 @@ class _BundleItemsListState extends State<BundleItemsList> {
 
 
                          var bundlePost = {
-                            "line_items": [
-                                {
-                                  "product_id": widget.productId,
-                                  "quantity": 1,
-                                  "bundle_configuration": bundleConf
-                               }
-                             ]
+                           "line_items": [
+                             {
+                               "product_id": widget.productId,
+                               "quantity": 1,
+                               "bundle_configuration": bundleConf
+                             }
+                           ]
                          };
 
                          if (kDebugMode) {
@@ -813,19 +827,22 @@ class _BundleItemsListState extends State<BundleItemsList> {
 
 
                          if(selectedBundleItems>=widget.minSize && selectedBundleItems<=widget.maxSize) {
-                           // context.read<AddProductToCartBloc>().add(
-                           //     AddProductToCartEvent.addProduct(
-                           //         widget.productId, widget.initialCartQty??1));
-
-
-                           context.read<AddBundleToCartBloc>().add(
-                               AddBundleToCartEvent.addBundle(
-                                   widget.productId,bundlePost,bundleCartUrl, widget.initialCartQty??1));
+                           context.read<AddBundleToCartBloc>().add(AddBundleToCartEvent.addBundle(widget.productId,bundlePost,bundleCartUrl, widget.initialCartQty??1));
                            context.read<CartBadgeCubitCubit>().addCartItem( qty: widget.initialCartQty??1);
                          }
 
                        },
-                       icon: Padding(
+
+                       icon: isLoading ? Center(
+                         child: Container(
+                           width: 25,
+                           height: 25,
+                           child: CircularProgressIndicator(
+                             color: Colors.white,
+                           ),
+                         ),
+                       ):
+                       Padding(
                          padding: const EdgeInsets.only(right: 5),
                          child: SvgPicture.asset("assets/Menu-cart.svg",
                              // ignore: deprecated_member_use
@@ -862,6 +879,8 @@ class _BundleItemsListState extends State<BundleItemsList> {
                ],
              ),
            ),
+         ),
+
          ],
        )
 

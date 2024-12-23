@@ -42,6 +42,9 @@ class _CartScreenState extends State<CartScreen> {
   int selectedIndex = 0;
   double moneyDiscount = 0;
   bool isFirstLoad = true;
+  int cartPointDiscountValue = 0;
+  bool isPointDiscountEnabled = false;
+
 
   @override
   void initState() {
@@ -217,13 +220,13 @@ class _CartScreenState extends State<CartScreen> {
 
                 var cartTotalDiscountValue = (int.tryParse(cart.totals.totalDiscount??'0')! + int.tryParse(cart.totals.totalDiscountTax??'0')!)/100;
                 if(moneyDiscount >= 5.0 && taxedTotalItemsValue >= 50){
-                  cartTotalDiscountValue += 5;
-                  isDiscountEnabled = true;
+                  cartPointDiscountValue += 5;
+                  isPointDiscountEnabled = true;
                 }
                 var cartTotalDiscount = double.tryParse(cartTotalDiscountValue.toString())!.toStringAsFixed(2).replaceAll('.', ',');
 
 
-                var subTotal = double.tryParse((taxedTotalItemsValue-cartTotalDiscountValue).toString())!.toStringAsFixed(2).replaceAll('.', ',');
+                var subTotal = double.tryParse((taxedTotalItemsValue-cartTotalDiscountValue-cartPointDiscountValue).toString())!.toStringAsFixed(2).replaceAll('.', ',');
 
 
                 var filteredItems = [];
@@ -308,9 +311,7 @@ class _CartScreenState extends State<CartScreen> {
                                         children: [
                                           Text(
                                             "Sconto applicato:",
-                                            style: TCTypography.of(context)
-                                                .text_16_bold
-                                                .copyWith(
+                                            style: TCTypography.of(context).text_16_bold.copyWith(
                                               color: const Color.fromARGB(
                                                   255, 13, 117, 161),
                                             ),
@@ -329,6 +330,35 @@ class _CartScreenState extends State<CartScreen> {
                                     ),
 
                                   ),
+                                  Visibility(
+                                    visible:isPointDiscountEnabled,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10.0, vertical: 8),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "Raccolta punti:",
+                                            style: TCTypography.of(context).text_16_bold.copyWith(
+                                              color: const Color.fromARGB(
+                                                  255, 13, 117, 161),
+                                            ),
+                                          ),
+                                          Text(
+                                            "- € $cartPointDiscountValue.00",
+                                            //"-€ ${(double.tryParse((int.tryParse(cart.totals.totalDiscount)!/100) as String)! + double.tryParse((int.tryParse(cart.totals.totalDiscount)!/100 * 0.22)  as String )!)!.toStringAsFixed(2).replaceAll('.',',') } ",
+                                            style: TCTypography.of(context)
+                                                .text_16
+                                                .copyWith(
+                                                color: const Color.fromARGB(
+                                                    255, 13, 117, 161)),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+
 
                                   Padding(
                                     padding: const EdgeInsets.only(

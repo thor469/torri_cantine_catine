@@ -20,21 +20,15 @@ class AddBundleToCartBloc
   AddBundleToCartBloc(this.service) : super(const _Initial());
 
   @override
-  Stream<AddBundleToCartState> mapEventToState(
-      AddBundleToCartEvent event,
-      ) async* {
-    yield* event.when(
-      addBundle: _addBundle,
-      updateBundle: _updateBundle,
-    );
+  Stream<AddBundleToCartState> mapEventToState(AddBundleToCartEvent event) async* {
+    yield* event.when(addBundle: _addBundle, updateBundle: _updateBundle,);
   }
 
 
   Stream<AddBundleToCartState> _addBundle(int id, Map data, String cartUrl, int quantity) async* {
     yield const AddBundleToCartState.loading();
     try {
-      final response = await service
-          .addBundleToCart(AddBundleToCart(id: id, data: data, cartUrl: cartUrl, quantity: quantity));
+       await service.addBundleToCart(AddBundleToCart(id: id, data: data, cartUrl: cartUrl, quantity: quantity));
       yield const AddBundleToCartState.addedProduct();
     } on ApiException catch (e) {
       yield const AddBundleToCartState.error();

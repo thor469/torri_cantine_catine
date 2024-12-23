@@ -585,16 +585,15 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
                           controller: numPostController,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
-                            labelStyle:
-                            const TextStyle(decoration: TextDecoration.none),
+                            labelStyle: const TextStyle(decoration: TextDecoration.none),
                             hintText: "Codice Postale",
                             hintStyle: TCTypography.of(context).text_12,
                             border: InputBorder.none,
-                            contentPadding:
-                            const EdgeInsets.only(left: 10, bottom: 10),
+                            contentPadding: const EdgeInsets.only(left: 10, bottom: 10),
                           ),
                           inputFormatters: [
-                            FilteringTextInputFormatter.allow(RegExp(r'[0-9]'),)
+                            FilteringTextInputFormatter.allow(RegExp(r'[0-9]'),),
+                            LengthLimitingTextInputFormatter(5),
                           ],
                         ),
                       ),
