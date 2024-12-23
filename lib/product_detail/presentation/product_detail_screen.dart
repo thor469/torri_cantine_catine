@@ -394,10 +394,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   ],
                                 ),
                               ),
-                              BlocListener<AddProductToCartBloc, AddProductToCartState>(
-                                listener: (BuildContext context, AddProductToCartState state) {
+
+                              BlocListener<AddBundleToCartBloc, AddBundleToCartState>(
+                                listener: (BuildContext context, AddBundleToCartState state) {
                                   state.maybeWhen(
-                                      addedProduct: (_) {
+                                      addedProduct: () {
                                         setState(() {isLoading = false;});
                                         WidgetsBinding.instance.addPostFrameCallback((_) async{
                                           CartResponse? cart = await context.read<CartBloc>().fetchItemCart();
@@ -418,9 +419,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                       text: isLoading ? "" : "AGGIUNGI",
                                       ontap: () {
                                         if(!isLoading){
-                                          setState(() {
-                                            isLoading = true;
-                                          });
+                                          setState(() {isLoading = true;});
                                           context.read<AddProductToCartBloc>().add(AddProductToCartEvent.addProduct(widget.id, initialCartQty??1));
                                         }
                                       },
@@ -620,7 +619,6 @@ class _BundleItemsListState extends State<BundleItemsList> {
 
    return PopScope(
      canPop: false,
-     onPopInvoked: (_){},
      child: Container(
        padding: const EdgeInsets.symmetric(horizontal: 20),
        child: Column(
@@ -673,9 +671,6 @@ class _BundleItemsListState extends State<BundleItemsList> {
                                      controllers[index].text = (int.parse(controllers[index].text)-1).toString();
                                      selectedBundleItems -=1;
                                    });
-
-
-
                                  },
                                  icon: const Icon(
                                    Icons.remove,
@@ -752,23 +747,23 @@ class _BundleItemsListState extends State<BundleItemsList> {
                },
              ),
            ),
-         BlocListener<AddProductToCartBloc, AddProductToCartState>(
-           listener: (BuildContext context, AddProductToCartState state) {
-             state.maybeWhen(
-                 addedProduct: (_) {
-                   setState(() {isLoading = false;});
-                   WidgetsBinding.instance.addPostFrameCallback((_) async{
-                     CartResponse? cart = await context.read<CartBloc>().fetchItemCart();
-                     context.read<CartBadgeCubitCubit>().addCartItem(qty: cart?.items.length ?? 0, isFromCart: true);
-                   });
-                 },
-                 error: () {
-                   setState(() {isLoading = false;});
-                 },
-                 orElse: () {}
-             );
-           },
-           child: Padding(
+           BlocListener<AddBundleToCartBloc, AddBundleToCartState>(
+             listener: (BuildContext context, AddBundleToCartState state) {
+               state.maybeWhen(
+                   addedProduct: () {
+                     setState(() {isLoading = false;});
+                     WidgetsBinding.instance.addPostFrameCallback((_) async{
+                       CartResponse? cart = await context.read<CartBloc>().fetchItemCart();
+                       context.read<CartBadgeCubitCubit>().addCartItem(qty: cart?.items.length ?? 0, isFromCart: true);
+                     });
+                   },
+                   error: () {
+                     setState(() {isLoading = false;});
+                   },
+                   orElse: () {}
+               );
+             },
+             child: Padding(
              padding: const EdgeInsets.only(left: 23, right:23, top:23),
              child: Row(
                children: [
