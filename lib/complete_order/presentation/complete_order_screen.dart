@@ -854,7 +854,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                               shippingPriceValue = shippingCostValue;
                                                             } else {
                                                               shippingPrice = 'GRATIS';
-                                                              shippingPriceValue =0;
+                                                              shippingPriceValue = 0;
                                                             }
                                                             cartSummedPrice = cartTotalValue!;
                                                           });
@@ -924,14 +924,16 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                                       gruppoval = sm[index]!.id!;
                                                                       setState(() {
                                                                         if (shippingCostValue != null && shippingCostValue != '') {
-                                                                            shippingPrice = shippingCost;
+                                                                          shippingPrice = shippingCost;
+                                                                          shippingPriceValue = shippingCostValue;
                                                                         } else {
-                                                                            shippingPrice = 'GRATIS';
-
-                                                                      }
+                                                                          shippingPrice = 'GRATIS';
+                                                                          shippingPriceValue = 0;
+                                                                        }
                                                                         cartSummedPrice = cartTotalValue!;
-                                                                    });
-                                                                    })
+                                                                      });
+                                                                    },
+                                                                )
                                                               )
                                                             ]),
                                                   ),
