@@ -719,15 +719,15 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
 
                                 switch (widget.returnPage) {
                                   case 'account' : {
-                                    MainNavigation.push(context, const MainNavigation.account(false));
+                                    MainNavigation.replace(context, [const MainNavigation.account(false)]);
                                     break;
                                   }
                                   case 'completeorder' : {
-                                    MainNavigation.push(context, MainNavigation.completeOrder(widget.point ?? 0, widget.subTotal ?? ""));
+                                    MainNavigation.replace(context, [MainNavigation.completeOrder(widget.point ?? 0, widget.subTotal ?? "")]);
                                     break;
                                   }
                                   default : {
-                                    MainNavigation.push(context, const MainNavigation.account(false));
+                                    MainNavigation.replace(context, [const MainNavigation.account(false)]);
                                     break;
                                   }
                                 }

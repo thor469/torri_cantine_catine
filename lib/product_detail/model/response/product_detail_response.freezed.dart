@@ -38,6 +38,7 @@ mixin _$ProductDetailResponse {
       throw _privateConstructorUsedError; // @Default(0) int? bundle_min_size,
 // @Default(0) int? bundle_max_size,
   String? get bundle_stock_status => throw _privateConstructorUsedError;
+  bool? get purchasable => throw _privateConstructorUsedError;
   @JsonKey(fromJson: parseToString)
   String? get bundle_stock_quantity =>
       throw _privateConstructorUsedError; // String? bundle_stock_quantity,
@@ -75,6 +76,7 @@ abstract class $ProductDetailResponseCopyWith<$Res> {
       @JsonKey(name: 'bundle_max_size', fromJson: parseInter)
       int bundle_max_size,
       String? bundle_stock_status,
+      bool? purchasable,
       @JsonKey(fromJson: parseToString) String? bundle_stock_quantity,
       List<ImageProduct>? images,
       List<ProductTags>? tags,
@@ -110,6 +112,7 @@ class _$ProductDetailResponseCopyWithImpl<$Res,
     Object? bundle_min_size = null,
     Object? bundle_max_size = null,
     Object? bundle_stock_status = freezed,
+    Object? purchasable = freezed,
     Object? bundle_stock_quantity = freezed,
     Object? images = freezed,
     Object? tags = freezed,
@@ -170,6 +173,10 @@ class _$ProductDetailResponseCopyWithImpl<$Res,
           ? _value.bundle_stock_status
           : bundle_stock_status // ignore: cast_nullable_to_non_nullable
               as String?,
+      purchasable: freezed == purchasable
+          ? _value.purchasable
+          : purchasable // ignore: cast_nullable_to_non_nullable
+              as bool?,
       bundle_stock_quantity: freezed == bundle_stock_quantity
           ? _value.bundle_stock_quantity
           : bundle_stock_quantity // ignore: cast_nullable_to_non_nullable
@@ -222,6 +229,7 @@ abstract class _$$_ProductDetailResponseCopyWith<$Res>
       @JsonKey(name: 'bundle_max_size', fromJson: parseInter)
       int bundle_max_size,
       String? bundle_stock_status,
+      bool? purchasable,
       @JsonKey(fromJson: parseToString) String? bundle_stock_quantity,
       List<ImageProduct>? images,
       List<ProductTags>? tags,
@@ -254,6 +262,7 @@ class __$$_ProductDetailResponseCopyWithImpl<$Res>
     Object? bundle_min_size = null,
     Object? bundle_max_size = null,
     Object? bundle_stock_status = freezed,
+    Object? purchasable = freezed,
     Object? bundle_stock_quantity = freezed,
     Object? images = freezed,
     Object? tags = freezed,
@@ -314,6 +323,10 @@ class __$$_ProductDetailResponseCopyWithImpl<$Res>
           ? _value.bundle_stock_status
           : bundle_stock_status // ignore: cast_nullable_to_non_nullable
               as String?,
+      purchasable: freezed == purchasable
+          ? _value.purchasable
+          : purchasable // ignore: cast_nullable_to_non_nullable
+              as bool?,
       bundle_stock_quantity: freezed == bundle_stock_quantity
           ? _value.bundle_stock_quantity
           : bundle_stock_quantity // ignore: cast_nullable_to_non_nullable
@@ -361,6 +374,7 @@ class _$_ProductDetailResponse implements _ProductDetailResponse {
       @JsonKey(name: 'bundle_max_size', fromJson: parseInter)
       this.bundle_max_size = 0,
       this.bundle_stock_status,
+      this.purchasable,
       @JsonKey(fromJson: parseToString) this.bundle_stock_quantity,
       final List<ImageProduct>? images = const <ImageProduct>[],
       final List<ProductTags>? tags = const <ProductTags>[],
@@ -406,6 +420,8 @@ class _$_ProductDetailResponse implements _ProductDetailResponse {
 // @Default(0) int? bundle_max_size,
   @override
   final String? bundle_stock_status;
+  @override
+  final bool? purchasable;
   @override
   @JsonKey(fromJson: parseToString)
   final String? bundle_stock_quantity;
@@ -463,7 +479,7 @@ class _$_ProductDetailResponse implements _ProductDetailResponse {
 
   @override
   String toString() {
-    return 'ProductDetailResponse(name: $name, price: $price, regular_price: $regular_price, description: $description, type: $type, on_sale: $on_sale, short_description: $short_description, average_rating: $average_rating, weight: $weight, featured: $featured, bundle_min_size: $bundle_min_size, bundle_max_size: $bundle_max_size, bundle_stock_status: $bundle_stock_status, bundle_stock_quantity: $bundle_stock_quantity, images: $images, tags: $tags, meta_data: $meta_data, categories: $categories, bundled_items: $bundled_items)';
+    return 'ProductDetailResponse(name: $name, price: $price, regular_price: $regular_price, description: $description, type: $type, on_sale: $on_sale, short_description: $short_description, average_rating: $average_rating, weight: $weight, featured: $featured, bundle_min_size: $bundle_min_size, bundle_max_size: $bundle_max_size, bundle_stock_status: $bundle_stock_status, purchasable: $purchasable, bundle_stock_quantity: $bundle_stock_quantity, images: $images, tags: $tags, meta_data: $meta_data, categories: $categories, bundled_items: $bundled_items)';
   }
 
   @override
@@ -492,6 +508,8 @@ class _$_ProductDetailResponse implements _ProductDetailResponse {
                 other.bundle_max_size == bundle_max_size) &&
             (identical(other.bundle_stock_status, bundle_stock_status) ||
                 other.bundle_stock_status == bundle_stock_status) &&
+            (identical(other.purchasable, purchasable) ||
+                other.purchasable == purchasable) &&
             (identical(other.bundle_stock_quantity, bundle_stock_quantity) ||
                 other.bundle_stock_quantity == bundle_stock_quantity) &&
             const DeepCollectionEquality().equals(other._images, _images) &&
@@ -521,6 +539,7 @@ class _$_ProductDetailResponse implements _ProductDetailResponse {
         bundle_min_size,
         bundle_max_size,
         bundle_stock_status,
+        purchasable,
         bundle_stock_quantity,
         const DeepCollectionEquality().hash(_images),
         const DeepCollectionEquality().hash(_tags),
@@ -561,6 +580,7 @@ abstract class _ProductDetailResponse implements ProductDetailResponse {
       @JsonKey(name: 'bundle_max_size', fromJson: parseInter)
       final int bundle_max_size,
       final String? bundle_stock_status,
+      final bool? purchasable,
       @JsonKey(fromJson: parseToString) final String? bundle_stock_quantity,
       final List<ImageProduct>? images,
       final List<ProductTags>? tags,
@@ -600,6 +620,8 @@ abstract class _ProductDetailResponse implements ProductDetailResponse {
   @override // @Default(0) int? bundle_min_size,
 // @Default(0) int? bundle_max_size,
   String? get bundle_stock_status;
+  @override
+  bool? get purchasable;
   @override
   @JsonKey(fromJson: parseToString)
   String? get bundle_stock_quantity;

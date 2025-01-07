@@ -93,7 +93,6 @@ class _FirstRegistrScreenState extends State<FirstRegistrScreen> {
               context
                   .read<LoginBloc>()
                   .add(LoginEvent.login(password, password, fcmtoken)),
-              //MainNavigation.push(context, const MainNavigation.home()),
             },
             loaded: (response) => MainNavigation.push(
                 context, const MainNavigation.thirdRegistration()),

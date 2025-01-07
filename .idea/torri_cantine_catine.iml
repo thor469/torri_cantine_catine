@@ -213,6 +213,24 @@
       <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/webview_flutter_wkwebview/example/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/webview_flutter_wkwebview/example/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/webview_flutter_wkwebview/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/firebase_in_app_messaging/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/firebase_in_app_messaging/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/firebase_in_app_messaging/build" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/firebase_in_app_messaging/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/firebase_in_app_messaging/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/firebase_in_app_messaging/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/sqflite_darwin/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/sqflite_darwin/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/sqflite_darwin/build" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/sqflite_darwin/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/sqflite_darwin/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/sqflite_darwin/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/uni_links/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/uni_links/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/uni_links/build" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/uni_links/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/uni_links/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/uni_links/example/build" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

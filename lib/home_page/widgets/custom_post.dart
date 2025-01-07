@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:torri_cantine_app/app/cache_manager/cache_manager.dart';
+import 'package:torri_cantine_app/app/cache_manager/http_cache_manager.dart';
 import 'package:torri_cantine_app/app/dependency_injection/dependency_factory_impl.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 
@@ -131,6 +132,40 @@ Future<List<WpCustomBanner?>> getCustomPosts() async {
   const dep = DependencyFactoryImpl();
   Dio dio = dep.createDioForApi().dio;
 
+  // Chiavi per entrambi i cache manager
+  final dynamicCacheKey = 'getCustomPosts';
+  final customCacheKey = 'custom_posts';
+
+  // DynamicCacheManager
+  final dynamicCache = DynamicCacheManager();
+
+  // CacheManager
+  final customCacheManager = CacheManager<List<WpCustomBanner?>>(
+    cacheDuration: const Duration(minutes: 15),
+  );
+
+  // Verifica la cache con DynamicCacheManager
+  try {
+    final cachedFile = await dynamicCache.getFileFromCache(dynamicCacheKey);
+    if (cachedFile != null) {
+      final data = cachedFile.file.readAsStringSync();
+      final List<dynamic> posts = json.decode(data);
+      banners = posts.map((post) => WpCustomBanner.fromJson(post)).toList();
+      return banners;
+    }
+  } catch (e) {
+    if (kDebugMode) {
+      print('DynamicCacheManager error: $e');
+    }
+  }
+
+  // Verifica la cache con CacheManager personalizzato
+  final cachedResponse = customCacheManager.get(customCacheKey);
+  if (cachedResponse != null) {
+    return cachedResponse;
+  }
+
+  // Effettua la chiamata al server se non ci sono dati nella cache
   try {
     var response = await dio.request(
       '/wp-json/wp/v2/app_slides?orderby=date&order=desc&status=publish&per_page=5&_fields[]=id&_fields[]=title&_fields[]=slug&_fields[]=featured_media&_fields[]=meta',
@@ -160,6 +195,22 @@ Future<List<WpCustomBanner?>> getCustomPosts() async {
           }
         }
       }
+
+      // Salva nella cache con DynamicCacheManager
+      try {
+        final jsonData = json.encode(posts);
+        await dynamicCache.putFile(
+          dynamicCacheKey,
+          Uint8List.fromList(utf8.encode(jsonData)),
+        );
+      } catch (e) {
+        if (kDebugMode) {
+          print('Error saving to DynamicCacheManager: $e');
+        }
+      }
+
+      // Salva nella cache con CacheManager personalizzato
+      customCacheManager.set(customCacheKey, banners);
     } else {
       throw Exception('Failed to load posts');
     }
@@ -168,6 +219,7 @@ Future<List<WpCustomBanner?>> getCustomPosts() async {
       print('getCustomPosts() error: $e');
     }
   }
+
   return banners;
 }
 

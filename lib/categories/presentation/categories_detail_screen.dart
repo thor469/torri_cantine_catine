@@ -63,6 +63,7 @@ class _CategoriesDetailScreenState extends State<CategoriesDetailScreen> {
               builderDelegate: PagedChildBuilderDelegate<Product>(
                 itemBuilder: (context, product, index) {
                   return ProductPreview(
+                    isPurchasableSable: product.purchasable ?? false,
                     id: product.id ?? 0,
                     image: product.images.isEmpty ? "" : product.images.first?.src ?? "",
                     name: product.name ?? 'Unknown Product',

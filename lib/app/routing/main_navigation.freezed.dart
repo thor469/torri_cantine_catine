@@ -37,7 +37,7 @@ mixin _$MainNavigation {
     required TResult Function(Order order) orderDetail,
     required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function(int product_id) addReview,
+    required TResult Function(int productId) addReview,
     required TResult Function(int productId) productDetail,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
@@ -77,7 +77,7 @@ mixin _$MainNavigation {
     TResult? Function(Order order)? orderDetail,
     TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function(int product_id)? addReview,
+    TResult? Function(int productId)? addReview,
     TResult? Function(int productId)? productDetail,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
@@ -117,7 +117,7 @@ mixin _$MainNavigation {
     TResult Function(Order order)? orderDetail,
     TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function(int product_id)? addReview,
+    TResult Function(int productId)? addReview,
     TResult Function(int productId)? productDetail,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
@@ -296,7 +296,7 @@ class _$_Home implements _Home {
     required TResult Function(Order order) orderDetail,
     required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function(int product_id) addReview,
+    required TResult Function(int productId) addReview,
     required TResult Function(int productId) productDetail,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
@@ -339,7 +339,7 @@ class _$_Home implements _Home {
     TResult? Function(Order order)? orderDetail,
     TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function(int product_id)? addReview,
+    TResult? Function(int productId)? addReview,
     TResult? Function(int productId)? productDetail,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
@@ -382,7 +382,7 @@ class _$_Home implements _Home {
     TResult Function(Order order)? orderDetail,
     TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function(int product_id)? addReview,
+    TResult Function(int productId)? addReview,
     TResult Function(int productId)? productDetail,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
@@ -564,7 +564,7 @@ class _$_Welcome implements _Welcome {
     required TResult Function(Order order) orderDetail,
     required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function(int product_id) addReview,
+    required TResult Function(int productId) addReview,
     required TResult Function(int productId) productDetail,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
@@ -607,7 +607,7 @@ class _$_Welcome implements _Welcome {
     TResult? Function(Order order)? orderDetail,
     TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function(int product_id)? addReview,
+    TResult? Function(int productId)? addReview,
     TResult? Function(int productId)? productDetail,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
@@ -650,7 +650,7 @@ class _$_Welcome implements _Welcome {
     TResult Function(Order order)? orderDetail,
     TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function(int product_id)? addReview,
+    TResult Function(int productId)? addReview,
     TResult Function(int productId)? productDetail,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
@@ -831,7 +831,7 @@ class _$_Login implements _Login {
     required TResult Function(Order order) orderDetail,
     required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function(int product_id) addReview,
+    required TResult Function(int productId) addReview,
     required TResult Function(int productId) productDetail,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
@@ -874,7 +874,7 @@ class _$_Login implements _Login {
     TResult? Function(Order order)? orderDetail,
     TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function(int product_id)? addReview,
+    TResult? Function(int productId)? addReview,
     TResult? Function(int productId)? productDetail,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
@@ -917,7 +917,7 @@ class _$_Login implements _Login {
     TResult Function(Order order)? orderDetail,
     TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function(int product_id)? addReview,
+    TResult Function(int productId)? addReview,
     TResult Function(int productId)? productDetail,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
@@ -1100,7 +1100,7 @@ class _$_Products implements _Products {
     required TResult Function(Order order) orderDetail,
     required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function(int product_id) addReview,
+    required TResult Function(int productId) addReview,
     required TResult Function(int productId) productDetail,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
@@ -1143,7 +1143,7 @@ class _$_Products implements _Products {
     TResult? Function(Order order)? orderDetail,
     TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function(int product_id)? addReview,
+    TResult? Function(int productId)? addReview,
     TResult? Function(int productId)? productDetail,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
@@ -1186,7 +1186,7 @@ class _$_Products implements _Products {
     TResult Function(Order order)? orderDetail,
     TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function(int product_id)? addReview,
+    TResult Function(int productId)? addReview,
     TResult Function(int productId)? productDetail,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
@@ -1369,7 +1369,7 @@ class _$_FirstRegistration implements _FirstRegistration {
     required TResult Function(Order order) orderDetail,
     required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function(int product_id) addReview,
+    required TResult Function(int productId) addReview,
     required TResult Function(int productId) productDetail,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
@@ -1412,7 +1412,7 @@ class _$_FirstRegistration implements _FirstRegistration {
     TResult? Function(Order order)? orderDetail,
     TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function(int product_id)? addReview,
+    TResult? Function(int productId)? addReview,
     TResult? Function(int productId)? productDetail,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
@@ -1455,7 +1455,7 @@ class _$_FirstRegistration implements _FirstRegistration {
     TResult Function(Order order)? orderDetail,
     TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function(int product_id)? addReview,
+    TResult Function(int productId)? addReview,
     TResult Function(int productId)? productDetail,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
@@ -1672,7 +1672,7 @@ class _$_SecondRegistration implements _SecondRegistration {
     required TResult Function(Order order) orderDetail,
     required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function(int product_id) addReview,
+    required TResult Function(int productId) addReview,
     required TResult Function(int productId) productDetail,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
@@ -1715,7 +1715,7 @@ class _$_SecondRegistration implements _SecondRegistration {
     TResult? Function(Order order)? orderDetail,
     TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function(int product_id)? addReview,
+    TResult? Function(int productId)? addReview,
     TResult? Function(int productId)? productDetail,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
@@ -1758,7 +1758,7 @@ class _$_SecondRegistration implements _SecondRegistration {
     TResult Function(Order order)? orderDetail,
     TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function(int product_id)? addReview,
+    TResult Function(int productId)? addReview,
     TResult Function(int productId)? productDetail,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
@@ -1947,7 +1947,7 @@ class _$_ThirdRegistration implements _ThirdRegistration {
     required TResult Function(Order order) orderDetail,
     required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function(int product_id) addReview,
+    required TResult Function(int productId) addReview,
     required TResult Function(int productId) productDetail,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
@@ -1990,7 +1990,7 @@ class _$_ThirdRegistration implements _ThirdRegistration {
     TResult? Function(Order order)? orderDetail,
     TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function(int product_id)? addReview,
+    TResult? Function(int productId)? addReview,
     TResult? Function(int productId)? productDetail,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
@@ -2033,7 +2033,7 @@ class _$_ThirdRegistration implements _ThirdRegistration {
     TResult Function(Order order)? orderDetail,
     TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function(int product_id)? addReview,
+    TResult Function(int productId)? addReview,
     TResult Function(int productId)? productDetail,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
@@ -2274,7 +2274,7 @@ class _$_Cart implements _Cart {
     required TResult Function(Order order) orderDetail,
     required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function(int product_id) addReview,
+    required TResult Function(int productId) addReview,
     required TResult Function(int productId) productDetail,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
@@ -2317,7 +2317,7 @@ class _$_Cart implements _Cart {
     TResult? Function(Order order)? orderDetail,
     TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function(int product_id)? addReview,
+    TResult? Function(int productId)? addReview,
     TResult? Function(int productId)? productDetail,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
@@ -2360,7 +2360,7 @@ class _$_Cart implements _Cart {
     TResult Function(Order order)? orderDetail,
     TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function(int product_id)? addReview,
+    TResult Function(int productId)? addReview,
     TResult Function(int productId)? productDetail,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
@@ -2611,7 +2611,7 @@ class _$_MyOrders implements _MyOrders {
     required TResult Function(Order order) orderDetail,
     required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function(int product_id) addReview,
+    required TResult Function(int productId) addReview,
     required TResult Function(int productId) productDetail,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
@@ -2654,7 +2654,7 @@ class _$_MyOrders implements _MyOrders {
     TResult? Function(Order order)? orderDetail,
     TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function(int product_id)? addReview,
+    TResult? Function(int productId)? addReview,
     TResult? Function(int productId)? productDetail,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
@@ -2698,7 +2698,7 @@ class _$_MyOrders implements _MyOrders {
     TResult Function(Order order)? orderDetail,
     TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function(int product_id)? addReview,
+    TResult Function(int productId)? addReview,
     TResult Function(int productId)? productDetail,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
@@ -2926,7 +2926,7 @@ class _$_PointsBalance implements _PointsBalance {
     required TResult Function(Order order) orderDetail,
     required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function(int product_id) addReview,
+    required TResult Function(int productId) addReview,
     required TResult Function(int productId) productDetail,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
@@ -2969,7 +2969,7 @@ class _$_PointsBalance implements _PointsBalance {
     TResult? Function(Order order)? orderDetail,
     TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function(int product_id)? addReview,
+    TResult? Function(int productId)? addReview,
     TResult? Function(int productId)? productDetail,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
@@ -3012,7 +3012,7 @@ class _$_PointsBalance implements _PointsBalance {
     TResult Function(Order order)? orderDetail,
     TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function(int product_id)? addReview,
+    TResult Function(int productId)? addReview,
     TResult Function(int productId)? productDetail,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
@@ -3228,7 +3228,7 @@ class _$_Account implements _Account {
     required TResult Function(Order order) orderDetail,
     required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function(int product_id) addReview,
+    required TResult Function(int productId) addReview,
     required TResult Function(int productId) productDetail,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
@@ -3271,7 +3271,7 @@ class _$_Account implements _Account {
     TResult? Function(Order order)? orderDetail,
     TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function(int product_id)? addReview,
+    TResult? Function(int productId)? addReview,
     TResult? Function(int productId)? productDetail,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
@@ -3314,7 +3314,7 @@ class _$_Account implements _Account {
     TResult Function(Order order)? orderDetail,
     TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function(int product_id)? addReview,
+    TResult Function(int productId)? addReview,
     TResult Function(int productId)? productDetail,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
@@ -3538,7 +3538,7 @@ class _$_OrderDetail implements _OrderDetail {
     required TResult Function(Order order) orderDetail,
     required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function(int product_id) addReview,
+    required TResult Function(int productId) addReview,
     required TResult Function(int productId) productDetail,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
@@ -3581,7 +3581,7 @@ class _$_OrderDetail implements _OrderDetail {
     TResult? Function(Order order)? orderDetail,
     TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function(int product_id)? addReview,
+    TResult? Function(int productId)? addReview,
     TResult? Function(int productId)? productDetail,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
@@ -3624,7 +3624,7 @@ class _$_OrderDetail implements _OrderDetail {
     TResult Function(Order order)? orderDetail,
     TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function(int product_id)? addReview,
+    TResult Function(int productId)? addReview,
     TResult Function(int productId)? productDetail,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
@@ -3848,7 +3848,7 @@ class _$_CompleteOrder implements _CompleteOrder {
     required TResult Function(Order order) orderDetail,
     required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function(int product_id) addReview,
+    required TResult Function(int productId) addReview,
     required TResult Function(int productId) productDetail,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
@@ -3891,7 +3891,7 @@ class _$_CompleteOrder implements _CompleteOrder {
     TResult? Function(Order order)? orderDetail,
     TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function(int product_id)? addReview,
+    TResult? Function(int productId)? addReview,
     TResult? Function(int productId)? productDetail,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
@@ -3934,7 +3934,7 @@ class _$_CompleteOrder implements _CompleteOrder {
     TResult Function(Order order)? orderDetail,
     TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function(int product_id)? addReview,
+    TResult Function(int productId)? addReview,
     TResult Function(int productId)? productDetail,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
@@ -4160,7 +4160,7 @@ class _$_Categories implements _Categories {
     required TResult Function(Order order) orderDetail,
     required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function(int product_id) addReview,
+    required TResult Function(int productId) addReview,
     required TResult Function(int productId) productDetail,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
@@ -4203,7 +4203,7 @@ class _$_Categories implements _Categories {
     TResult? Function(Order order)? orderDetail,
     TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function(int product_id)? addReview,
+    TResult? Function(int productId)? addReview,
     TResult? Function(int productId)? productDetail,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
@@ -4246,7 +4246,7 @@ class _$_Categories implements _Categories {
     TResult Function(Order order)? orderDetail,
     TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function(int product_id)? addReview,
+    TResult Function(int productId)? addReview,
     TResult Function(int productId)? productDetail,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
@@ -4385,7 +4385,7 @@ abstract class _$$_AddReviewCopyWith<$Res> {
           _$_AddReview value, $Res Function(_$_AddReview) then) =
       __$$_AddReviewCopyWithImpl<$Res>;
   @useResult
-  $Res call({int product_id});
+  $Res call({int productId});
 }
 
 /// @nodoc
@@ -4399,12 +4399,12 @@ class __$$_AddReviewCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? product_id = null,
+    Object? productId = null,
   }) {
     return _then(_$_AddReview(
-      null == product_id
-          ? _value.product_id
-          : product_id // ignore: cast_nullable_to_non_nullable
+      null == productId
+          ? _value.productId
+          : productId // ignore: cast_nullable_to_non_nullable
               as int,
     ));
   }
@@ -4413,14 +4413,14 @@ class __$$_AddReviewCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_AddReview implements _AddReview {
-  const _$_AddReview(this.product_id);
+  const _$_AddReview(this.productId);
 
   @override
-  final int product_id;
+  final int productId;
 
   @override
   String toString() {
-    return 'MainNavigation.addReview(product_id: $product_id)';
+    return 'MainNavigation.addReview(productId: $productId)';
   }
 
   @override
@@ -4428,12 +4428,12 @@ class _$_AddReview implements _AddReview {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AddReview &&
-            (identical(other.product_id, product_id) ||
-                other.product_id == product_id));
+            (identical(other.productId, productId) ||
+                other.productId == productId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, product_id);
+  int get hashCode => Object.hash(runtimeType, productId);
 
   @JsonKey(ignore: true)
   @override
@@ -4463,7 +4463,7 @@ class _$_AddReview implements _AddReview {
     required TResult Function(Order order) orderDetail,
     required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function(int product_id) addReview,
+    required TResult Function(int productId) addReview,
     required TResult Function(int productId) productDetail,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
@@ -4482,7 +4482,7 @@ class _$_AddReview implements _AddReview {
         newAddressFromAccount,
     required TResult Function(int id) addressList,
   }) {
-    return addReview(product_id);
+    return addReview(productId);
   }
 
   @override
@@ -4506,7 +4506,7 @@ class _$_AddReview implements _AddReview {
     TResult? Function(Order order)? orderDetail,
     TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function(int product_id)? addReview,
+    TResult? Function(int productId)? addReview,
     TResult? Function(int productId)? productDetail,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
@@ -4525,7 +4525,7 @@ class _$_AddReview implements _AddReview {
         newAddressFromAccount,
     TResult? Function(int id)? addressList,
   }) {
-    return addReview?.call(product_id);
+    return addReview?.call(productId);
   }
 
   @override
@@ -4549,7 +4549,7 @@ class _$_AddReview implements _AddReview {
     TResult Function(Order order)? orderDetail,
     TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function(int product_id)? addReview,
+    TResult Function(int productId)? addReview,
     TResult Function(int productId)? productDetail,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
@@ -4570,7 +4570,7 @@ class _$_AddReview implements _AddReview {
     required TResult orElse(),
   }) {
     if (addReview != null) {
-      return addReview(product_id);
+      return addReview(productId);
     }
     return orElse();
   }
@@ -4672,9 +4672,9 @@ class _$_AddReview implements _AddReview {
 }
 
 abstract class _AddReview implements MainNavigation {
-  const factory _AddReview(final int product_id) = _$_AddReview;
+  const factory _AddReview(final int productId) = _$_AddReview;
 
-  int get product_id;
+  int get productId;
   @JsonKey(ignore: true)
   _$$_AddReviewCopyWith<_$_AddReview> get copyWith =>
       throw _privateConstructorUsedError;
@@ -4764,7 +4764,7 @@ class _$_ProductDetail implements _ProductDetail {
     required TResult Function(Order order) orderDetail,
     required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function(int product_id) addReview,
+    required TResult Function(int productId) addReview,
     required TResult Function(int productId) productDetail,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
@@ -4807,7 +4807,7 @@ class _$_ProductDetail implements _ProductDetail {
     TResult? Function(Order order)? orderDetail,
     TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function(int product_id)? addReview,
+    TResult? Function(int productId)? addReview,
     TResult? Function(int productId)? productDetail,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
@@ -4850,7 +4850,7 @@ class _$_ProductDetail implements _ProductDetail {
     TResult Function(Order order)? orderDetail,
     TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function(int product_id)? addReview,
+    TResult Function(int productId)? addReview,
     TResult Function(int productId)? productDetail,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
@@ -5074,7 +5074,7 @@ class _$_PersonalInfo implements _PersonalInfo {
     required TResult Function(Order order) orderDetail,
     required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function(int product_id) addReview,
+    required TResult Function(int productId) addReview,
     required TResult Function(int productId) productDetail,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
@@ -5117,7 +5117,7 @@ class _$_PersonalInfo implements _PersonalInfo {
     TResult? Function(Order order)? orderDetail,
     TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function(int product_id)? addReview,
+    TResult? Function(int productId)? addReview,
     TResult? Function(int productId)? productDetail,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
@@ -5160,7 +5160,7 @@ class _$_PersonalInfo implements _PersonalInfo {
     TResult Function(Order order)? orderDetail,
     TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function(int product_id)? addReview,
+    TResult Function(int productId)? addReview,
     TResult Function(int productId)? productDetail,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
@@ -5374,7 +5374,7 @@ class _$_CategoriesDetail implements _CategoriesDetail {
     required TResult Function(Order order) orderDetail,
     required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function(int product_id) addReview,
+    required TResult Function(int productId) addReview,
     required TResult Function(int productId) productDetail,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
@@ -5417,7 +5417,7 @@ class _$_CategoriesDetail implements _CategoriesDetail {
     TResult? Function(Order order)? orderDetail,
     TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function(int product_id)? addReview,
+    TResult? Function(int productId)? addReview,
     TResult? Function(int productId)? productDetail,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
@@ -5460,7 +5460,7 @@ class _$_CategoriesDetail implements _CategoriesDetail {
     TResult Function(Order order)? orderDetail,
     TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function(int product_id)? addReview,
+    TResult Function(int productId)? addReview,
     TResult Function(int productId)? productDetail,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
@@ -5648,7 +5648,7 @@ class _$_ThankYou implements _ThankYou {
     required TResult Function(Order order) orderDetail,
     required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function(int product_id) addReview,
+    required TResult Function(int productId) addReview,
     required TResult Function(int productId) productDetail,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
@@ -5691,7 +5691,7 @@ class _$_ThankYou implements _ThankYou {
     TResult? Function(Order order)? orderDetail,
     TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function(int product_id)? addReview,
+    TResult? Function(int productId)? addReview,
     TResult? Function(int productId)? productDetail,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
@@ -5734,7 +5734,7 @@ class _$_ThankYou implements _ThankYou {
     TResult Function(Order order)? orderDetail,
     TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function(int product_id)? addReview,
+    TResult Function(int productId)? addReview,
     TResult Function(int productId)? productDetail,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
@@ -5915,7 +5915,7 @@ class _$_Menu implements _Menu {
     required TResult Function(Order order) orderDetail,
     required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function(int product_id) addReview,
+    required TResult Function(int productId) addReview,
     required TResult Function(int productId) productDetail,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
@@ -5958,7 +5958,7 @@ class _$_Menu implements _Menu {
     TResult? Function(Order order)? orderDetail,
     TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function(int product_id)? addReview,
+    TResult? Function(int productId)? addReview,
     TResult? Function(int productId)? productDetail,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
@@ -6001,7 +6001,7 @@ class _$_Menu implements _Menu {
     TResult Function(Order order)? orderDetail,
     TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function(int product_id)? addReview,
+    TResult Function(int productId)? addReview,
     TResult Function(int productId)? productDetail,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
@@ -6220,7 +6220,7 @@ class _$_WishlistScreen implements _WishlistScreen {
     required TResult Function(Order order) orderDetail,
     required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function(int product_id) addReview,
+    required TResult Function(int productId) addReview,
     required TResult Function(int productId) productDetail,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
@@ -6263,7 +6263,7 @@ class _$_WishlistScreen implements _WishlistScreen {
     TResult? Function(Order order)? orderDetail,
     TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function(int product_id)? addReview,
+    TResult? Function(int productId)? addReview,
     TResult? Function(int productId)? productDetail,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
@@ -6306,7 +6306,7 @@ class _$_WishlistScreen implements _WishlistScreen {
     TResult Function(Order order)? orderDetail,
     TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function(int product_id)? addReview,
+    TResult Function(int productId)? addReview,
     TResult Function(int productId)? productDetail,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
@@ -6616,7 +6616,7 @@ class _$_MyAddressFromAccountScreen implements _MyAddressFromAccountScreen {
     required TResult Function(Order order) orderDetail,
     required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function(int product_id) addReview,
+    required TResult Function(int productId) addReview,
     required TResult Function(int productId) productDetail,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
@@ -6660,7 +6660,7 @@ class _$_MyAddressFromAccountScreen implements _MyAddressFromAccountScreen {
     TResult? Function(Order order)? orderDetail,
     TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function(int product_id)? addReview,
+    TResult? Function(int productId)? addReview,
     TResult? Function(int productId)? productDetail,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
@@ -6704,7 +6704,7 @@ class _$_MyAddressFromAccountScreen implements _MyAddressFromAccountScreen {
     TResult Function(Order order)? orderDetail,
     TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function(int product_id)? addReview,
+    TResult Function(int productId)? addReview,
     TResult Function(int productId)? productDetail,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,
@@ -6935,7 +6935,7 @@ class _$_MyAddressListScreen implements _MyAddressListScreen {
     required TResult Function(Order order) orderDetail,
     required TResult Function(int totPoint, String cartSubTotal) completeOrder,
     required TResult Function(bool showAppBar, bool fromMenu) categories,
-    required TResult Function(int product_id) addReview,
+    required TResult Function(int productId) addReview,
     required TResult Function(int productId) productDetail,
     required TResult Function(AccountResponse user) personalInfo,
     required TResult Function(int id) categoriesDetail,
@@ -6978,7 +6978,7 @@ class _$_MyAddressListScreen implements _MyAddressListScreen {
     TResult? Function(Order order)? orderDetail,
     TResult? Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult? Function(bool showAppBar, bool fromMenu)? categories,
-    TResult? Function(int product_id)? addReview,
+    TResult? Function(int productId)? addReview,
     TResult? Function(int productId)? productDetail,
     TResult? Function(AccountResponse user)? personalInfo,
     TResult? Function(int id)? categoriesDetail,
@@ -7021,7 +7021,7 @@ class _$_MyAddressListScreen implements _MyAddressListScreen {
     TResult Function(Order order)? orderDetail,
     TResult Function(int totPoint, String cartSubTotal)? completeOrder,
     TResult Function(bool showAppBar, bool fromMenu)? categories,
-    TResult Function(int product_id)? addReview,
+    TResult Function(int productId)? addReview,
     TResult Function(int productId)? productDetail,
     TResult Function(AccountResponse user)? personalInfo,
     TResult Function(int id)? categoriesDetail,

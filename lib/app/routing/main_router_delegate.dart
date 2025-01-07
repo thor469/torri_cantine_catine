@@ -48,31 +48,22 @@ class MainRouterDelegate extends RouterDelegate<MainNavigationStack>
   }
 
   bool _onNotification(MainNavigationNotification notification) {
-
-    // print('on Notification @#@#@#@#@#@#0');
-    // print(stack);
-    // print(stack.items.length);
-
-
-    notification.when(
-      push: (page) => stack.push(page),
-      pop: () => stack.pop(),
-      replace: (newStack) => stack.items = newStack,
-      popUntil: (page) => stack.items = _getPopUntilStack(page),
-    );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notification.when(
+        push: (page) => stack.push(page),
+        pop: () => stack.pop(),
+        replace: (newStack) => stack.items = newStack,
+        popUntil: (page) => stack.items = _getPopUntilStack(page),
+      );
+    });
     return true;
   }
 
   List<MainNavigation> _getPopUntilStack(MainNavigation page) {
     final index = stack.items.lastIndexOf(page);
-    if (index == stack.items.length - 1) {
-      return stack.items;
-    }
-
     if (index >= 0) {
       return stack.items.sublist(0, index + 1);
     }
-
     return [];
   }
 
@@ -105,8 +96,7 @@ class MainRouterDelegate extends RouterDelegate<MainNavigationStack>
               ),
               secondRegistration: (registrationDatas) => FadePage(
                 key: ValueKey('secondRegistration_${entry.key}'),
-                child:
-                    SecondRegistrScreen(registrationDatas: registrationDatas),
+                child: SecondRegistrScreen(registrationDatas: registrationDatas),
               ),
               thirdRegistration: () => FadePage(
                 key: ValueKey('thirdRegistration_${entry.key}'),
@@ -114,24 +104,24 @@ class MainRouterDelegate extends RouterDelegate<MainNavigationStack>
               ),
               cart: (showAppBar, fromMenu, fromCompleteOrder, fromHomePage) =>
                   FadePage(
-                key: ValueKey('cart_${entry.key}'),
-                child: CartScreen(
-                  showAppBar: showAppBar,
-                  fromMenu: fromMenu,
-                  fromCompleteOrder: fromCompleteOrder,
-                  fromHomePage: fromHomePage,
-                ),
-              ),
-              myOrders:
-                  (fromMenu, fromAccount, fromThankScreen, fromOrderDetails) =>
-                      FadePage(
-                key: ValueKey('myOrders_${entry.key}'),
-                child: MyOrders(
-                    fromMenu: fromMenu,
-                    fromAccount: fromAccount,
-                    fromThankScreen: fromThankScreen,
-                    fromOrderDetails: fromOrderDetails),
-              ),
+                    key: ValueKey('cart_${entry.key}'),
+                    child: CartScreen(
+                      showAppBar: showAppBar,
+                      fromMenu: fromMenu,
+                      fromCompleteOrder: fromCompleteOrder,
+                      fromHomePage: fromHomePage,
+                    ),
+                  ),
+              myOrders: (fromMenu, fromAccount, fromThankScreen, fromOrderDetails) =>
+                  FadePage(
+                    key: ValueKey('myOrders_${entry.key}'),
+                    child: MyOrders(
+                      fromMenu: fromMenu,
+                      fromAccount: fromAccount,
+                      fromThankScreen: fromThankScreen,
+                      fromOrderDetails: fromOrderDetails,
+                    ),
+                  ),
               pointsBalance: (fromMenu, fromAccount) => FadePage(
                 key: ValueKey('pointsBalance_${entry.key}'),
                 child: PointsBalance(
@@ -143,100 +133,83 @@ class MainRouterDelegate extends RouterDelegate<MainNavigationStack>
                 key: ValueKey('account_${entry.key}'),
                 child: AccountPage(fromSecondPage: fromSecondPage),
               ),
-              // notification: () => FadePage(
-              //   key: ValueKey('notification_${entry.key}'),
-              //   child: const NotificationPage(),
-              // ),
               orderDetail: (order) => FadePage(
                 key: ValueKey('orderDetail_${entry.key}'),
                 child: OrderDetail(order: order),
               ),
               products: () => FadePage(
                 key: ValueKey('products_${entry.key}'),
-                child: Products( fromMenu: true, showAppBar: true,),
+                child: Products(fromMenu: true, showAppBar: true),
               ),
-              completeOrder: (totPoint,total) => FadePage(
+              completeOrder: (totPoint, total) => FadePage(
                 key: ValueKey('completeOrder_${entry.key}'),
-                child:  CompleteOrderScreen(totPoint: totPoint, cartSubTotal: total,
+                child: CompleteOrderScreen(
+                  totPoint: totPoint,
+                  cartSubTotal: total,
                 ),
               ),
               categories: (showAppBar, fromMenu) => FadePage(
                 key: ValueKey('categories_${entry.key}'),
                 child: CategoriesScreen(
-                    showAppBar: showAppBar, fromMenu: fromMenu),
+                  showAppBar: showAppBar,
+                  fromMenu: fromMenu,
+                ),
               ),
-              // modifyAddress: () => FadePage(
-              //   key: ValueKey('modifyAddress_${entry.key}'),
-              //   child: const ModifyAddressScreen(),
-              // ),
               productDetail: (id) => FadePage(
                 key: ValueKey('productDetail_${entry.key}'),
-                child: ProductDetailPage(
-                  id: id,
-                ),
+                child: ProductDetailPage(id: id),
               ),
-              // newAddress: (id) => FadePage(
-              //   key: ValueKey('newAddress_${entry.key}'),
-              //   child: NewAddressScreen(
-              //     customerdId: id,
-              //   ),
-              // ),
               addressList: (id) => FadePage(
                 key: ValueKey('addressList_${entry.key}'),
-                child: AddressListScreen(
-                  customerdId: id,
-                ),
+                child: AddressListScreen(customerdId: id),
               ),
-              // newShipping: (id) => FadePage(
-              //   key: ValueKey('newShipping_${entry.key}'),
-              //   child: NewShippingScreen(
-              //     customerdId: id,
-              //   ),
-              // ),
               categoriesDetail: (id) => FadePage(
                 key: ValueKey('categoriesDetail_${entry.key}'),
-                child: CategoriesDetailScreen(
-                  id: id,
-                ),
+                child: CategoriesDetailScreen(id: id),
               ),
               wishList: (fromMenu, fromAccount) => FadePage(
                 key: ValueKey('wishList_${entry.key}'),
                 child: WishlistScreen(
-                    fromMenu: fromMenu, fromAccount: fromAccount),
+                  fromMenu: fromMenu,
+                  fromAccount: fromAccount,
+                ),
               ),
               thankYou: () => FadePage(
                 key: ValueKey('thankYou_${entry.key}'),
                 child: const ThankYouScreen(),
               ),
-              addReview: (product_id) => FadePage(
+              addReview: (productId) => FadePage(
                 key: ValueKey('addReview_${entry.key}'),
-                child: AddReviewScreen(product_id: product_id),
+                child: AddReviewScreen(product_id: productId),
               ),
               menu: () => FadePage(
                 key: ValueKey('menu_${entry.key}'),
                 child: const MenuScreen(),
               ),
               personalInfo: (user) => FadePage(
-                key: ValueKey('newAddress_${entry.key}'),
+                key: ValueKey('personalInfo_${entry.key}'),
                 child: PersonalInfo(user: user),
               ),
-              newAddressFromAccount: (id, editFatturazione, editShipping, existingAddress, returnPage, isNewAddress, point, cart) => FadePage(
-                key: ValueKey('newAddressFromAccount_${entry.key}'),
-                child: NewAddressFromAccountScreen(
-                  customerdId: id,
-                  editFatturazione: editFatturazione,
-                  editShipping: editShipping,
-                  existingAddress: existingAddress,
-                  returnPage: returnPage, isNewAddress: isNewAddress, point: point, subTotal:cart
-                ),
-              ),
+              newAddressFromAccount: (id, editFatturazione, editShipping,
+                  existingAddress, returnPage, isNewAddress, point, cart) =>
+                  FadePage(
+                    key: ValueKey('newAddressFromAccount_${entry.key}'),
+                    child: NewAddressFromAccountScreen(
+                      customerdId: id,
+                      editFatturazione: editFatturazione,
+                      editShipping: editShipping,
+                      existingAddress: existingAddress,
+                      returnPage: returnPage,
+                      isNewAddress: isNewAddress,
+                      point: point,
+                      subTotal: cart,
+                    ),
+                  ),
             ),
         ],
         key: navigatorKey,
         onPopPage: (route, result) {
-          if (!route.didPop(result)) {
-            return false;
-          }
+          if (!route.didPop(result)) return false;
           stack.pop();
           return true;
         },

@@ -44,7 +44,9 @@ class _AddressListScreenState extends State<AddressListScreen> {
 Widget build(BuildContext context) {
 return PopScope(
     canPop: false,
-    onPopInvoked: (_){},
+    onPopInvoked: (_){
+      MainNavigation.replace(context, [const MainNavigation.account(true)]);
+    },
   child: Container(
     color: const Color.fromARGB(255, 244, 244, 244),
     child: SafeArea(
@@ -55,7 +57,7 @@ return PopScope(
           preferredSize: const Size.fromHeight(60),
           child: SubPageAppbar(
             onTap: () {
-              MainNavigation.push(context, const MainNavigation.account(false));
+              MainNavigation.replace(context, [const MainNavigation.account(false)]);
             },
             text: "I MIEI INDIRIZZI",
           ),
@@ -339,7 +341,7 @@ return PopScope(
   // Metodo per aggiornare l'indirizzo predefinito
   Future<void> _updateDefaultAddress(UserAddress address, String type, String id) async {
 
-    MainNavigation.push(context, const MainNavigation.account(true));
+    MainNavigation.replace(context, [const MainNavigation.account(true)]);
 
     context.read<AccountBloc>().add(
         AccountEvent.updateAddress(

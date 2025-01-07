@@ -1,8 +1,11 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:torri_cantine_app/app/app_config.dart';
+import 'package:torri_cantine_app/app/dependency_injection/dependency_factory_impl.dart';
 import 'package:torri_cantine_app/my_orders/my_orders/list_all_orders/model/response/list_all_orders_response.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -89,9 +92,32 @@ class _OrderNumberState extends State<OrderNumber> {
                 padding: const EdgeInsets.only(right: 20),
                 child: GestureDetector(
                   onTap: () async {
-                    launchURL(
-                      "${AppConfig.baseUrl}/track-order/?orderid= ${widget.order.id}",
-                    );
+                    try{
+                      const dep = DependencyFactoryImpl();
+                      Dio dio = dep.createDioForApiCart().dio;
+                      var codeInfo = await dio.request(
+                          '/wp-json/wp/v2/get_track_link',
+                          options: Options(
+                            method: 'GET',
+                          ),
+                          queryParameters: {
+                            "id" : widget.order.id
+                          }
+                      );
+                      // AddressResponse data = AddressResponse.fromJson(codeInfo.data);
+                      if (kDebugMode) {
+                        print(codeInfo.data);
+                      }
+                    }
+                    catch (e){
+                      if (kDebugMode) {
+                        print(e);
+                      }
+                    }
+
+                    // launchURL(
+                    //   "${AppConfig.baseUrl}/get_track_link/?d= ${widget.order.id}",
+                    // );
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.40,

@@ -100,11 +100,16 @@ class _MenuScreenState extends State<MenuScreen> {
                       GestureDetector(
                         onTap: ()async {
                           await storage.setBottomTabState(0);
-                          MainNavigation.push(context, const MainNavigation.home());
+                          if(context.mounted){
+                            MainNavigation.replace(context, [const MainNavigation.home()]);
+                          }
                         },
-                        child: const MenuItems(
-                          title: "HOME",
-                          imgSVG: "assets/Menu-home.svg",
+                        child: Container(
+                          color: Colors.transparent,
+                          child: const MenuItems(
+                            title: "HOME",
+                            imgSVG: "assets/Menu-home.svg",
+                          ),
                         ),
                       ),
                       const Padding(

@@ -100,7 +100,7 @@ class _BottomBanvigationMenuState extends State<BottomBanvigationMenu> {
 
           // Center Logo
           GestureDetector(
-            onTap: () => MainNavigation.push(context, const MainNavigation.home()),
+            onTap: () => MainNavigation.replace(context, [const MainNavigation.home()]),
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Stack(

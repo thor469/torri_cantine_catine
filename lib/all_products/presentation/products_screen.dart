@@ -603,7 +603,7 @@ class _ProductsState extends State<Products> {
                                 tags: product.tags ?? [],  // Default to empty list
                                 categories: product.categories ?? [],  // Default empty list
                                 type: product.type ?? 'Unknown',
-                                productPoint: product.points ?? 0,),
+                                productPoint: product.points ?? 0, isPurchasableSable: product.purchasable ?? false,),
                             ),
                           ),
                         ),

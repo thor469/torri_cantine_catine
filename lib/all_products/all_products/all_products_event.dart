@@ -4,8 +4,7 @@ part of 'all_products_bloc.dart';
 class AllProductsEvent with _$AllProductsEvent {
   const factory AllProductsEvent.fetch(
       {int? page, String? orderBy, String? order}) = _Fetch;
-  const factory AllProductsEvent.filterProducts(
-      {int? page,
+  const factory AllProductsEvent.filterProducts({int? page,
       String? categories,
       String? tags,
       String? minPrice,

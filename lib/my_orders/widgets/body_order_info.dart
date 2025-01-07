@@ -77,7 +77,7 @@ class _BodyOrderInfoState extends State<BodyOrderInfo> {
                             ),
                             recognizer: TapGestureRecognizer()..onTap = () {
                               //MainNavigation.welcome();
-                              MainNavigation.push(context, const MainNavigation.myOrders(true, false, false, false));
+                              MainNavigation.replace(context, [const MainNavigation.myOrders(true, false, false, false)]);
                             },
                           ),
                           const TextSpan(

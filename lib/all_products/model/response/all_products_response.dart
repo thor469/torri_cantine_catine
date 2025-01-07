@@ -28,6 +28,7 @@ class Product with _$Product {
     bool? featured,
     String? date_created,
     int? points,
+    bool? purchasable,
     @Default(<ImageProduct>[]) List<ImageProduct> images,
     @Default(<ProductTags>[]) List<ProductTags>? tags, 
     @Default(<MetaData>[]) List<MetaData>? metadata,

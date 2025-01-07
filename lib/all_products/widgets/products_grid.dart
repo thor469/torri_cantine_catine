@@ -22,6 +22,7 @@ class ProductGrid extends StatelessWidget {
         itemBuilder: (context, index) {
           final product = products[index];
           return ProductPreview(
+            isPurchasableSable: product.purchasable ?? false,
             id: product.id ?? 0,
             image: product.images.isEmpty ? "" : product.images.first?.src ?? "",
             name: product.name ?? 'Unknown Product',

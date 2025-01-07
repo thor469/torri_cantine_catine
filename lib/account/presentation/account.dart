@@ -72,7 +72,7 @@ class _AccountPageState extends State<AccountPage> {
   @override
   void initState() {
     widget.fromSecondPage ? null :
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       String email = await storage.getUserEmail() ?? "";
       if (mounted) context.read<AccountBloc>().add(AccountEvent.fetch(email));
     });
@@ -310,8 +310,8 @@ class _AccountPageState extends State<AccountPage> {
                                 ),
                                 onTap: () async {
                                    await storage.setBottomTabState(5);
-                                   if(mounted){
-                                     MainNavigation.push(context, const MainNavigation.wishList(true, true));
+                                   if(context.mounted){
+                                     MainNavigation.replace(context, [const MainNavigation.wishList(true, true)]);
                                    }
                                   }
                               ),

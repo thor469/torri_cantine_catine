@@ -108,7 +108,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             child: AppBar(
               leading: IconButton(
                 onPressed: () {
-                  MainNavigation.push(context, const MainNavigation.home());
+                  MainNavigation.replace(context, [const MainNavigation.home()]);
                 },
                 icon: const Icon(
                   Icons.arrow_back,
@@ -416,6 +416,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                     padding: const EdgeInsets.symmetric(horizontal: 10),
                                     child:
                                     PrimaryButton(
+                                      disabled: !(state.purchasable ?? false),
                                       text: isLoading ? "" : "AGGIUNGI",
                                       ontap: () {
                                         if(!isLoading){

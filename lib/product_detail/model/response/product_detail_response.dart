@@ -45,6 +45,7 @@ class ProductDetailResponse extends ResponseBase with _$ProductDetailResponse {
     // @Default(0) int? bundle_min_size,
     // @Default(0) int? bundle_max_size,
     String? bundle_stock_status,
+    bool? purchasable,
     @JsonKey(fromJson: parseToString) String? bundle_stock_quantity,
     // String? bundle_stock_quantity,
 

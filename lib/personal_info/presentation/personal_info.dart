@@ -65,35 +65,15 @@ class _PersonalInfoState extends State<PersonalInfo> {
     return PopScope(
         canPop: false,
         onPopInvoked: (didPop) {
-          MainNavigation.push(context, const MainNavigation.account(true));
-          // if (kDebugMode) {
-          //   print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
-          // }
-          // MainNavigation.pop(context);
-          //return;
+          MainNavigation.replace(context, [const MainNavigation.account(true)]);
         },
         child:Scaffold(
           backgroundColor: const Color.fromARGB(255, 244, 244, 244),
           key: _key,
           appBar: SubPageAppbar(
             text: "INFORMAZIONI PERSONALI",
-            onTap: () => MainNavigation.push(context, const MainNavigation.account(true)),
-            // onTap: () => MainNavigation.push(
-            //   context,
-            //   const MainNavigation.account(false),
-            // ),
+            onTap: () => MainNavigation.replace(context, [const MainNavigation.account(true)]),
           ),
-          // drawer: const Drawer(
-          //   child: MenuScreen(),
-          // ),
-          // floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
-          // floatingActionButton: const FloatingButton(),
-          // bottomNavigationBar: BottomBanvigationMenu(
-          //   scaffoldKey: _key,
-          //   initialSelectedIndex:0,
-          //   context: context,
-          //   //notifyParent: () => refresh(selectedindex),r
-          // ),
           body: BlocBuilder<AccountBloc, AccountState>(
             builder: (context, state) => state.maybeWhen(
               initial: () => const Center(

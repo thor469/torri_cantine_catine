@@ -34,6 +34,7 @@ class ProductPreview extends StatefulWidget {
   List<ProductTags>? tags;
   List<ProductCategories>? categories;
   String? type;
+  final bool isPurchasableSable;
 
   ProductPreview({
     super.key,
@@ -52,7 +53,7 @@ class ProductPreview extends StatefulWidget {
     this.weight,
     this.tags,
     this.categories,
-    this.type,
+    this.type, required this.isPurchasableSable,
   });
 
   @override
@@ -325,18 +326,24 @@ class _ProductPreviewState extends State<ProductPreview> {
                           },
                           child: ElevatedButton.icon(
                             onPressed: () {
-
-                              if (widget.type == 'bundle') {
-                                MainNavigation.push(context, MainNavigation.productDetail(widget.id));
-                              } else {
-                                if (!isLoading) {
-                                  setState(() {isLoading = true;});
-                                  context.read<AddProductToCartBloc>().add(AddProductToCartEvent.addProduct(widget.id, 1));
+                              if(widget.isPurchasableSable){
+                                if (widget.type == 'bundle') {
+                                  MainNavigation.push(context, MainNavigation.productDetail(widget.id));
+                                } else {
+                                  if (!isLoading) {
+                                    setState(() {isLoading = true;});
+                                    context.read<AddProductToCartBloc>().add(AddProductToCartEvent.addProduct(widget.id, 1));
+                                  }
                                 }
                               }
                             },
-                            style: ElevatedButton.styleFrom(
+                            style: widget.isPurchasableSable ? ElevatedButton.styleFrom(
                               backgroundColor: const Color.fromARGB(255, 161, 29, 51),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(7),
+                              ),
+                            ) : ElevatedButton.styleFrom(
+                              backgroundColor: Colors.grey,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(7),
                               ),

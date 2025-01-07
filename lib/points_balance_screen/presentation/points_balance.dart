@@ -97,12 +97,7 @@ class _PointsBalanceState extends State<PointsBalance> {
     return PopScope(
         canPop: false,
         onPopInvoked: (didPop) {
-          MainNavigation.push(context, const MainNavigation.account(false));
-          // if (kDebugMode) {
-          //   print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
-          // }
-          // MainNavigation.pop(context);
-          // //return;
+          MainNavigation.replace(context, [const MainNavigation.account(false)]);
         },
         child: Container(
           color: const Color.fromARGB(255, 244, 244, 244),
@@ -114,7 +109,7 @@ class _PointsBalanceState extends State<PointsBalance> {
                   preferredSize: const Size.fromHeight(60),
                   child: SubPageAppbar(
                     text: "RACCOLTA PUNTI",
-                    onTap: () => MainNavigation.push(context, const MainNavigation.account(false)),
+                    onTap: () => MainNavigation.replace(context, [const MainNavigation.account(false)]),
                   ),
                 ),
                 body: BlocBuilder<PointsBloc, PointsState>(

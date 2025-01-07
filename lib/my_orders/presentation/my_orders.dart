@@ -51,7 +51,7 @@ class _MyOrdersState extends State<MyOrders> {
               preferredSize: const Size.fromHeight(60),
               child: SubPageAppbar(
                 text: "I MIEI ORDINI",
-                onTap: () => MainNavigation.push(context, const MainNavigation.account(false)),
+                onTap: () => MainNavigation.replace(context, [const MainNavigation.account(false)]),
               )
           ),
 

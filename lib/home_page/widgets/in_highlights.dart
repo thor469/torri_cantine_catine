@@ -90,6 +90,7 @@ class _HighlightsState extends State<Highlights> {
                   width: MediaQuery.of(context).size.width * 0.44,
                   height: MediaQuery.of(context).size.height / 100,
                   child: ProductPreview(
+                      isPurchasableSable: product.purchasable ?? false,
                     image: (product.images.isNotEmpty && product.images.first.src != null)
                         ? product.images.first.src!  // Use null check operator if assured
                         : "",  // Default empty string if no image is available

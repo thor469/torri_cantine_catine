@@ -173,14 +173,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
               context.read<LoginBloc>().add(LoginEvent.login(username, password, fcmtoken)),
               // overlayLoader.hide(context),
-              MainNavigation.push(context, const MainNavigation.home()),
+              MainNavigation.replace(context, [const MainNavigation.home()]),
 
             },
             loaded: (response) =>
             {
               //overlayLoader.hide(context),
-              MainNavigation.push(
-                context, const MainNavigation.thirdRegistration()),
+              MainNavigation.replace(
+                context, const [MainNavigation.thirdRegistration()]),
               // overlayLoader.hide(context),
             },
 

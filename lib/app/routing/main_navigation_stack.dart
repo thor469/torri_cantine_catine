@@ -11,9 +11,12 @@ class MainNavigationStack with ChangeNotifier {
 
   UnmodifiableListView<MainNavigation> get items =>
       UnmodifiableListView(_items);
+
   set items(List<MainNavigation> newItems) {
-    _items = List.from(newItems);
-    notifyListeners();
+    Future.microtask(() {
+      _items = List.from(newItems);
+      notifyListeners();
+    });
   }
 
   void push(MainNavigation item) {
@@ -22,45 +25,11 @@ class MainNavigationStack with ChangeNotifier {
   }
 
   MainNavigation? pop() {
-    LocalStorage storage = LocalStorage();
-
-    if (kDebugMode) {
-      print('MainNavigation  @#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
-    }
-    if (kDebugMode) {
-      print(_items);
-    }
-    if (kDebugMode) {
-      print(_items.last);
-    }
-
-
-    //return null;
-    if(_items.length>1) {
-      try {
-        final poppedItem = _items.removeLast();
-
-        Future.wait([storage.setBottomTabState(0)]);
-        if (kDebugMode) {
-          print('-- ${_items.last.toString()}');
-        }
-        if( (_items.last.toString()).contains('MainNavigation.wishList') ) {
-          Future.wait([storage.setBottomTabState(5)]);
-        }
-        if( (_items.last.toString()).contains('MainNavigation.account') ) {
-          Future.wait([storage.setBottomTabState(0)]);
-        }
-        if( (_items.last.toString()).contains('MainNavigation.cart') ) {
-          Future.wait([storage.setBottomTabState(6)]);
-        }
-
-        notifyListeners();
-        return poppedItem;
-      } catch (e) {
-        return null;
-      }
+    if (_items.length > 1) {
+      final poppedItem = _items.removeLast();
+      notifyListeners();
+      return poppedItem;
     }
     return null;
-
   }
 }

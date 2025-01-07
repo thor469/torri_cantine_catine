@@ -43,8 +43,7 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                 size: 30,
               ),
               onPressed: () {
-                // Navigator.pop(context);
-                MainNavigation.push(context, const MainNavigation.home());
+                MainNavigation.replace(context, [const MainNavigation.home()]);
               },
             ),
             title: Text(
@@ -119,7 +118,7 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                   text: "VISUALIZZA ORDINE",
                   colorText: Colors.white,
                   ontap: () {
-                    MainNavigation.push(context, const MainNavigation.myOrders(false, false, true, false));
+                    MainNavigation.replace(context, [const MainNavigation.myOrders(false, false, true, false)]);
                   },
                 ),
               ),

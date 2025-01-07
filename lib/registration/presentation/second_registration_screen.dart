@@ -68,7 +68,6 @@ class _SecondRegistrScreenState extends State<SecondRegistrScreen> {
               .read<LoginBloc>()
               .add(LoginEvent.login(password, password, fcmtoken));
           return null;
-          // MainNavigation.push(context, const MainNavigation.home());
         },
         loaded: (response) => MainNavigation.push(
             context, const MainNavigation.thirdRegistration()),

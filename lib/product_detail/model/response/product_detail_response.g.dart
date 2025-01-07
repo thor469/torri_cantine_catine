@@ -26,6 +26,7 @@ _$_ProductDetailResponse _$$_ProductDetailResponseFromJson(
           ? 0
           : parseInter(json['bundle_max_size']),
       bundle_stock_status: json['bundle_stock_status'] as String?,
+      purchasable: json['purchasable'] as bool?,
       bundle_stock_quantity: parseToString(json['bundle_stock_quantity']),
       images: (json['images'] as List<dynamic>?)
               ?.map((e) => ImageProduct.fromJson(e as Map<String, dynamic>))
@@ -66,6 +67,7 @@ Map<String, dynamic> _$$_ProductDetailResponseToJson(
       'bundle_min_size': instance.bundle_min_size,
       'bundle_max_size': instance.bundle_max_size,
       'bundle_stock_status': instance.bundle_stock_status,
+      'purchasable': instance.purchasable,
       'bundle_stock_quantity': instance.bundle_stock_quantity,
       'images': instance.images,
       'tags': instance.tags,
