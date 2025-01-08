@@ -92,32 +92,41 @@ class _OrderNumberState extends State<OrderNumber> {
                 padding: const EdgeInsets.only(right: 20),
                 child: GestureDetector(
                   onTap: () async {
-                    try{
-                      const dep = DependencyFactoryImpl();
-                      Dio dio = dep.createDioForApiCart().dio;
-                      var codeInfo = await dio.request(
-                          '/wp-json/wp/v2/get_track_link',
-                          options: Options(
-                            method: 'GET',
-                          ),
-                          queryParameters: {
-                            "id" : widget.order.id
-                          }
-                      );
-                      // AddressResponse data = AddressResponse.fromJson(codeInfo.data);
-                      if (kDebugMode) {
-                        print(codeInfo.data);
-                      }
-                    }
-                    catch (e){
-                      if (kDebugMode) {
-                        print(e);
-                      }
-                    }
+                    var codeInfo;
+                    try {
+                      final dep = DependencyFactoryImpl();
+                      final Dio dio = dep.createDioForApiCart().dio;
 
-                    // launchURL(
-                    //   "${AppConfig.baseUrl}/get_track_link/?d= ${widget.order.id}",
-                    // );
+                      codeInfo = await dio.request(
+                        '/wp-json/wp/v2/get_track_link',
+                        options: Options(
+                          method: 'GET',
+                        ),
+                        queryParameters: {
+                          "id": widget.order.id,
+                        },
+                      );
+
+                      // Verifica se la risposta contiene i dati attesi
+                      if (codeInfo.data != null && codeInfo.data['track_link'] != null) {
+                        final trackLink = codeInfo.data['track_link'];
+
+                        if (kDebugMode) {
+                          print("URL da lanciare: $trackLink");
+                        }
+
+                        // Passa solo l'URL a launchURL
+                        launchURL(trackLink);
+                      } else {
+                        if (kDebugMode) {
+                          print("La risposta non contiene 'track_link': ${codeInfo.data}");
+                        }
+                      }
+                    } catch (e) {
+                      if (kDebugMode) {
+                        print("Errore durante la richiesta: $e");
+                      }
+                    }
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.40,
