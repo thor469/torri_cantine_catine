@@ -245,9 +245,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
               size: 30,
             ),
             onPressed: () {
-              context.router.push(
-                CartRoute (showAppBar: false,fromMenu:  false,fromCompleteOrder:  true,fromHomePage:  false),
-              );
+              context.router.back();
             },
           ),
           title: const Text("DETTAGLI ORDINE",

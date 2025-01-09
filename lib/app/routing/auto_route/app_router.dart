@@ -12,7 +12,6 @@ import 'package:torri_cantine_app/categories/presentation/categories_detail_scre
 import 'package:torri_cantine_app/categories/presentation/categories_screen.dart';
 import 'package:torri_cantine_app/complete_order/presentation/complete_order_screen.dart';
 import 'package:torri_cantine_app/complete_order/presentation/thank_you_screen.dart';
-import 'package:torri_cantine_app/home_page/presentation/home_screen.dart';
 import 'package:torri_cantine_app/login/presentation/login_screen.dart';
 import 'package:torri_cantine_app/menu_screen/menu_screen.dart';
 import 'package:torri_cantine_app/my_orders/my_orders/list_all_orders/model/response/list_all_orders_response.dart';
@@ -33,6 +32,11 @@ import 'package:torri_cantine_app/wishlist_screen/presentation/wishlist_screen.d
 
   @AutoRouterConfig(replaceInRouteName: 'Screen,Route')
 class AppRouter extends _$AppRouter {
+
+    @override
+    RouteType get defaultRouteType => RouteType.custom(
+      transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(opacity: animation, child: child),
+    );
 
     @override
     List<AutoRoute> get routes => [

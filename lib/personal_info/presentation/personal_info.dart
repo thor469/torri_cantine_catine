@@ -66,116 +66,108 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
   @override
   Widget build(BuildContext context) {
 
-    return PopScope(
-        canPop: false,
-        onPopInvoked: (didPop) {
-          context.router.replaceAll([AccountRoute(fromSecondPage: true)]);
-          // MainNavigation.replace(context, [const MainNavigation.account(true)]);
-        },
-        child:Scaffold(
-          backgroundColor: const Color.fromARGB(255, 244, 244, 244),
-          key: _key,
-          appBar: SubPageAppbar(
-            text: "INFORMAZIONI PERSONALI",
-            onTap: () =>           context.router.replaceAll([AccountRoute(fromSecondPage: true)]),
-          ),
-          body: BlocBuilder<AccountBloc, AccountState>(
-            builder: (context, state) => state.maybeWhen(
-              initial: () => const Center(
-                child: CircularProgressIndicator(
-                  color: Color.fromARGB(255, 161, 29, 51),
-                ),
-              ),
-              loading: () => const Center(
-                child: CircularProgressIndicator(
-                  color: Color.fromARGB(255, 161, 29, 51),
-                ),
-              ),
-              loaded: (model) => SingleChildScrollView(
-
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      inputController(
-                          "Nome",
-                          widget.user.user.first.first_name,
-                          TCTypography.of(context).text_14_bold,
-                          TCTypography.of(context).text_14,
-                          controller['name'], null),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5),
-                        child: inputController(
-                            "Cognome",
-                            widget.user.user.first.last_name,
-                            TCTypography.of(context).text_14_bold,
-                            TCTypography.of(context).text_14,
-                            controller['surname'], null),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5),
-                        child: inputController(
-                            "Telefono",
-                            widget.user.user.first.billing!.phone!,
-                            TCTypography.of(context).text_14_bold,
-                            TCTypography.of(context).text_14,
-                            controller['phoneNumber'], null),
-                      ),
-                      // Padding(
-                      //   padding: const EdgeInsets.only(top: 5),
-                      //   child: inputController(
-                      //       "Dati Di Nascita",
-                      //       "DD/MM/YYYY",
-                      //       TCTypography.of(context).text_14_bold,
-                      //       TCTypography.of(context).text_14,
-                      //       birthDayController, true),
-                      // ),
-                      // Expanded(
-                      //   child: Container( height: 20,),
-                      // ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 40),
-                        child: PrimaryButton(
-                            text: "SALVA LE MODIFICHE",
-                            ontap: () async {
-                              if (validation()) {
-                                context.read<UpdateCustomerBloc>().add(
-                                  UpdateCustomerEvent.update(
-                                    id: widget.user.user.first.id,
-                                    firstName: controller['name'].text.trim() == ""
-                                        ? widget.user.user.first.first_name
-                                        : controller['name'].text,
-                                    lastName: controller['surname'].text.trim() == ""
-                                        ? widget.user.user.first.last_name
-                                        : controller['surname'].text,
-                                    phone: controller['phoneNumber'].text.trim() == ""
-                                        ? widget.user.user.first.billing!.phone!
-                                        : controller['phoneNumber'].text,
-                                  ),
-                                );
-                                context.router.push(MainRoute());
-
-                                final email = await storage.getUserEmail();
-                                if (mounted) {
-                                  context
-                                      .read<AccountBloc>()
-                                      .add(AccountEvent.fetch(email ?? ""));
-                                }
-                              }
-                            }),
-                      ),
-                      const SizedBox(height: 50),
-                    ],
-                  ),
-                ),
-              ),
-              orElse: () => const SizedBox(),
+    return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 244, 244, 244),
+      key: _key,
+      appBar: SubPageAppbar(
+        text: "INFORMAZIONI PERSONALI",
+        onTap: () => context.router.back(),
+      ),
+      body: BlocBuilder<AccountBloc, AccountState>(
+        builder: (context, state) => state.maybeWhen(
+          initial: () => const Center(
+            child: CircularProgressIndicator(
+              color: Color.fromARGB(255, 161, 29, 51),
             ),
           ),
-        )
+          loading: () => const Center(
+            child: CircularProgressIndicator(
+              color: Color.fromARGB(255, 161, 29, 51),
+            ),
+          ),
+          loaded: (model) => SingleChildScrollView(
 
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  inputController(
+                      "Nome",
+                      widget.user.user.first.first_name,
+                      TCTypography.of(context).text_14_bold,
+                      TCTypography.of(context).text_14,
+                      controller['name'], null),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5),
+                    child: inputController(
+                        "Cognome",
+                        widget.user.user.first.last_name,
+                        TCTypography.of(context).text_14_bold,
+                        TCTypography.of(context).text_14,
+                        controller['surname'], null),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5),
+                    child: inputController(
+                        "Telefono",
+                        widget.user.user.first.billing!.phone!,
+                        TCTypography.of(context).text_14_bold,
+                        TCTypography.of(context).text_14,
+                        controller['phoneNumber'], null),
+                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(top: 5),
+                  //   child: inputController(
+                  //       "Dati Di Nascita",
+                  //       "DD/MM/YYYY",
+                  //       TCTypography.of(context).text_14_bold,
+                  //       TCTypography.of(context).text_14,
+                  //       birthDayController, true),
+                  // ),
+                  // Expanded(
+                  //   child: Container( height: 20,),
+                  // ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 40),
+                    child: PrimaryButton(
+                        text: "SALVA LE MODIFICHE",
+                        ontap: () async {
+                          if (validation()) {
+                            context.read<UpdateCustomerBloc>().add(
+                              UpdateCustomerEvent.update(
+                                id: widget.user.user.first.id,
+                                firstName: controller['name'].text.trim() == ""
+                                    ? widget.user.user.first.first_name
+                                    : controller['name'].text,
+                                lastName: controller['surname'].text.trim() == ""
+                                    ? widget.user.user.first.last_name
+                                    : controller['surname'].text,
+                                phone: controller['phoneNumber'].text.trim() == ""
+                                    ? widget.user.user.first.billing!.phone!
+                                    : controller['phoneNumber'].text,
+                              ),
+                            );
+                            context.router.push(MainRoute());
+
+                            final email = await storage.getUserEmail();
+                            if (mounted) {
+                              context
+                                  .read<AccountBloc>()
+                                  .add(AccountEvent.fetch(email ?? ""));
+                            }
+                          }
+                        }),
+                  ),
+                  const SizedBox(height: 50),
+                ],
+              ),
+            ),
+          ),
+          orElse: () => const SizedBox(),
+        ),
+      ),
     );
 
 

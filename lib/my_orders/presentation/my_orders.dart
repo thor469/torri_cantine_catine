@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:torri_cantine_app/app/common/sub_page_appbar.dart';
-import 'package:torri_cantine_app/app/routing/main_navigation.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/my_orders/widgets/body_order_info.dart';
 import '../../utilities/local_storage.dart';
 
@@ -34,8 +34,11 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
   Widget build(BuildContext context) {
 
     return PopScope(
-        canPop: false,
-        onPopInvoked : (didPop){
+        canPop: true,
+        onPopInvokedWithResult: (didPop, _){
+          if(didPop){
+            storage.setBottomTabState(4);
+          }
         },
         child:Scaffold(
           backgroundColor: const Color.fromARGB(255, 244, 244, 244),
@@ -44,7 +47,10 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
               preferredSize: const Size.fromHeight(60),
               child: SubPageAppbar(
                 text: "I MIEI ORDINI",
-                onTap: () => MainNavigation.replace(context, [const MainNavigation.account(false)]),
+                onTap: () {
+                  storage.setBottomTabState(4);
+                  context.router.back();
+                },
               )
           ),
 

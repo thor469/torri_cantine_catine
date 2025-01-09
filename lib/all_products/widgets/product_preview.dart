@@ -110,7 +110,7 @@ class _ProductPreviewState extends State<ProductPreview> {
       padding: const EdgeInsets.symmetric(horizontal: 5),
       child: GestureDetector(
         onTap: () {
-          context.router.replaceAll([ProductDetailRoute(id: widget.id)]);
+          context.router.push(ProductDetailRoute(id: widget.id));
           // MainNavigation.push(context, MainNavigation.productDetail(widget.id));
         },
         child: SizedBox(
@@ -331,7 +331,7 @@ class _ProductPreviewState extends State<ProductPreview> {
                             onPressed: () {
                               if(widget.isPurchasableSable){
                                 if (widget.type == 'bundle') {
-                                  context.router.replaceAll([ProductDetailRoute(id: widget.id)]);
+                                  context.router.push(ProductDetailRoute(id: widget.id));
 
                                   // MainNavigation.push(context, MainNavigation.productDetail(widget.id));
                                 } else {

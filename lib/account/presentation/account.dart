@@ -73,9 +73,10 @@ class _AccountScreenState extends State<AccountScreen> {
     widget.fromSecondPage ? null :
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       String email = await storage.getUserEmail() ?? "";
-      if (mounted) context.read<AccountBloc>().add(AccountEvent.fetch(email));
+      if (mounted) {context.read<AccountBloc>().add(AccountEvent.fetch(email));}
     });
     super.initState();
+    setState(() {});
   }
 
   int selectedindex =0;
@@ -84,260 +85,262 @@ class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-        canPop: false,
-        onPopInvoked : (didPop){
-        },
-        child:Scaffold(
-          backgroundColor: const Color.fromARGB(255, 244, 244, 244),
-          key: _key,
-          drawer: const Drawer(
-            child: MenuScreen(),
+      canPop: true,
+      onPopInvokedWithResult: (didPop, _){
+        if(didPop){
+          storage.setBottomTabState(0);
+        }
+      },
+      child: Scaffold(
+        backgroundColor: const Color.fromARGB(255, 244, 244, 244),
+        key: _key,
+        drawer: const Drawer(
+          child: MenuScreen(),
+        ),
+        floatingActionButton:  const FloatingButton(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
+        bottomNavigationBar: BottomBanvigationMenu(
+          scaffoldKey: _key,
+          initialSelectedIndex: 4,
+          context: context,
+        ),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(60),
+          child: SubPageAppbar(
+            showLeading: false,
+            onTap: (){},
+            text: "IL MIO ACCOUNT",
           ),
-          floatingActionButton:  const FloatingButton(),
-          floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
-          bottomNavigationBar: BottomBanvigationMenu(
-            scaffoldKey: _key,
-            initialSelectedIndex: 4,
-            context: context,
-          ),
-          appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(60),
-            child: SubPageAppbar(
-              showLeading: false,
-              onTap: (){},
-              text: "IL MIO ACCOUNT",
+        ),
+        body: BlocBuilder<AccountBloc, AccountState>(
+          builder: (context, state) => state.maybeWhen(
+            initial: () => const Center(
+              child: CircularProgressIndicator(
+                color: Color.fromARGB(255, 161, 29, 51),
+              ),
             ),
-          ),
-          body: BlocBuilder<AccountBloc, AccountState>(
-            builder: (context, state) => state.maybeWhen(
-              initial: () => const Center(
-                child: CircularProgressIndicator(
-                  color: Color.fromARGB(255, 161, 29, 51),
-                ),
+            loading: () => const Center(
+              child: CircularProgressIndicator(
+                color: Color.fromARGB(255, 161, 29, 51),
               ),
-              loading: () => const Center(
-                child: CircularProgressIndicator(
-                  color: Color.fromARGB(255, 161, 29, 51),
+            ),
+            notLogged: () {
+              return SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('Accedi/Registrati per accedere al tuo account'),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: PrimaryButton(text: 'Login/Registrazione', ontap: () {
+                        context.router.replace(WelcomeRoute());
+                      },),
+                    )
+                  ],
                 ),
-              ),
-              notLogged: () {
-                return SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
+              );
+            },
+            loaded: (model) {
+              return Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Center(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text('Accedi/Registrati per accedere al tuo account'),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: PrimaryButton(text: 'Login/Registrazione', ontap: () {
-                          context.router.replace(WelcomeRoute());
-                        },),
-                      )
-                    ],
-                  ),
-                );
-              },
-              loaded: (model) {
-                return Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Stack(
-                          children: [
-                            GestureDetector(
-                              onTap: _changeImage,
-                              child: CircleAvatar(
-                                radius: 65,
-                                backgroundImage:
-                                NetworkImage(model.user.first.avatar_url),
-                              ),
+                      Stack(
+                        children: [
+                          GestureDetector(
+                            onTap: _changeImage,
+                            child: CircleAvatar(
+                              radius: 65,
+                              backgroundImage:
+                              NetworkImage(model.user.first.avatar_url),
                             ),
-                            Positioned(
-                              right: 4,
-                              child: IconButton(
-                                icon: const Icon(
-                                  Icons.edit_document,
-                                  color: Colors.grey,
+                          ),
+                          Positioned(
+                            right: 4,
+                            child: IconButton(
+                              icon: const Icon(
+                                Icons.edit_document,
+                                color: Colors.grey,
+                              ),
+                              onPressed: _changeImage,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        "${model.user.first.first_name} ${model.user.first.last_name}",
+                        style: TCTypography.of(context).text_22_bold,
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        "#${model.user.first.id}",
+                        style: TCTypography.of(context)
+                            .text_18
+                            .copyWith(color: Colors.grey),
+                      ),
+                      Expanded(
+                        child: ListView(
+                          children: [
+                            ListTile(
+                              leading: SvgPicture.asset(
+                                'assets/Account-datipers.svg',
+                                height: 25,
+                                width: 25,
+                              ),
+                              title: Text(
+                                "Informazioni personali",
+                                style: TCTypography.of(context).text_16_bold,
+                              ),
+                              trailing: const Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(Icons.arrow_forward_ios),
+                                ],
+                              ),
+                              onTap: () {
+                                context.router.push(PersonalInfoRoute(user: model));
+                              },
+                            ),
+                            const Divider(
+                              color: Color.fromARGB(255, 138, 137, 137),
+                              height: 1,
+                              indent: 15,
+                              endIndent: 20,
+                            ),
+                            ListTile(
+                              leading: SvgPicture.asset(
+                                'assets/Account-ordini.svg',
+                                height: 25,
+                                width: 25,
+                              ),
+                              title: Text("I miei ordini",
+                                  style: TCTypography.of(context).text_16_bold),
+                              trailing:const  Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(Icons.arrow_forward_ios),
+                                ],
+                              ),
+                              onTap: () {
+                                context.router.push( MyOrdersRoute(
+                                      fromMenu: false, fromAccount:  true,
+                                    fromOrderDetails: false, fromThankScreen: false),
+                                );
+                              },
+                            ),
+                            const Divider(
+                              color: Color.fromARGB(255, 138, 137, 137),
+                              height: 1,
+                              indent: 15,
+                              endIndent: 20,
+                            ),
+                            ListTile(
+                              leading: SvgPicture.asset(
+                                'assets/Account-indirizzi.svg',
+                                height: 25,
+                                width: 25,
+                              ),
+                              title: Text("I miei indirizzi",
+                                  style: TCTypography.of(context).text_16_bold),
+                              trailing:const Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(Icons.arrow_forward_ios),
+                                ],
+                              ),
+                              onTap: () {
+                                context.router.push(AddressListRoute(customerdId: model.user.first.id),
+                                );
+                              },
+                            ),
+                            const Divider(
+                              color: Color.fromARGB(255, 138, 137, 137),
+                              height: 1,
+                              indent: 15,
+                              endIndent: 20,
+                            ),
+                            ListTile(
+                              leading: SvgPicture.asset(
+                                'assets/Account-metodipagamento.svg',
+                                height: 25,
+                                width: 25,
+                              ),
+                              title: Text("Metodi di pagamento",
+                                  style: TCTypography.of(context).text_16_bold),
+                              trailing:const Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(Icons.arrow_forward_ios),
+                                ],
+                              ),
+                              onTap: () async {
+                                launchURL(
+                                    "https://shop.torricantine.it/modalita-di-pagamento/");
+                              },
+                            ),
+                            const Divider(
+                              color: Color.fromARGB(255, 138, 137, 137),
+                              height: 1,
+                              indent: 15,
+                              endIndent: 20,
+                            ),
+                            ListTile(
+                              leading: SvgPicture.asset(
+                                'assets/Account-wishlist.svg',
+                                height: 25,
+                                width: 25,
+                              ),
+                              title: Text("Wishlist",
+                                  style: TCTypography.of(context).text_16_bold),
+                              trailing: const Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(Icons.arrow_forward_ios),
+                                ],
+                              ),
+                              onTap: () async {
+                                 await storage.setBottomTabState(5);
+                                 if(context.mounted){
+                                   context.router.replace(WishlistRoute(fromMenu: true, fromAccount: true));
+                                 }
+                                }
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 55.0, left: 5),
+                              child: ListTile(
+                                leading: SvgPicture.asset(
+                                  'assets/Account-esci.svg',
+                                  height: 25,
+                                  width: 25,
                                 ),
-                                onPressed: _changeImage,
+                                title: Text("Logout",
+                                    style: TCTypography.of(context).text_16_bold),
+                                onTap: () async {
+                                  context
+                                      .read<LoginBloc>()
+                                      .add(const LoginEvent.logout());
+                                  context.router.replace(WelcomeRoute());
+                                },
                               ),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 10),
-                        Text(
-                          "${model.user.first.first_name} ${model.user.first.last_name}",
-                          style: TCTypography.of(context).text_22_bold,
-                        ),
-                        const SizedBox(height: 5),
-                        Text(
-                          "#${model.user.first.id}",
-                          style: TCTypography.of(context)
-                              .text_18
-                              .copyWith(color: Colors.grey),
-                        ),
-                        Expanded(
-                          child: ListView(
-                            children: [
-                              ListTile(
-                                leading: SvgPicture.asset(
-                                  'assets/Account-datipers.svg',
-                                  height: 25,
-                                  width: 25,
-                                ),
-                                title: Text(
-                                  "Informazioni personali",
-                                  style: TCTypography.of(context).text_16_bold,
-                                ),
-                                trailing: const Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Icon(Icons.arrow_forward_ios),
-                                  ],
-                                ),
-                                onTap: () {
-                                  context.router.push(PersonalInfoRoute(user: model));
-                                },
-                              ),
-                              const Divider(
-                                color: Color.fromARGB(255, 138, 137, 137),
-                                height: 1,
-                                indent: 15,
-                                endIndent: 20,
-                              ),
-                              ListTile(
-                                leading: SvgPicture.asset(
-                                  'assets/Account-ordini.svg',
-                                  height: 25,
-                                  width: 25,
-                                ),
-                                title: Text("I miei ordini",
-                                    style: TCTypography.of(context).text_16_bold),
-                                trailing:const  Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Icon(Icons.arrow_forward_ios),
-                                  ],
-                                ),
-                                onTap: () {
-                                  context.router.push( MyOrdersRoute(
-                                        fromMenu: false, fromAccount:  true,
-                                      fromOrderDetails: false, fromThankScreen: false),
-                                  );
-                                },
-                              ),
-                              const Divider(
-                                color: Color.fromARGB(255, 138, 137, 137),
-                                height: 1,
-                                indent: 15,
-                                endIndent: 20,
-                              ),
-                              ListTile(
-                                leading: SvgPicture.asset(
-                                  'assets/Account-indirizzi.svg',
-                                  height: 25,
-                                  width: 25,
-                                ),
-                                title: Text("I miei indirizzi",
-                                    style: TCTypography.of(context).text_16_bold),
-                                trailing:const Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Icon(Icons.arrow_forward_ios),
-                                  ],
-                                ),
-                                onTap: () {
-                                  context.router.push(AddressListRoute(customerdId: model.user.first.id),
-                                  );
-                                },
-                              ),
-                              const Divider(
-                                color: Color.fromARGB(255, 138, 137, 137),
-                                height: 1,
-                                indent: 15,
-                                endIndent: 20,
-                              ),
-                              ListTile(
-                                leading: SvgPicture.asset(
-                                  'assets/Account-metodipagamento.svg',
-                                  height: 25,
-                                  width: 25,
-                                ),
-                                title: Text("Metodi di pagamento",
-                                    style: TCTypography.of(context).text_16_bold),
-                                trailing:const Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Icon(Icons.arrow_forward_ios),
-                                  ],
-                                ),
-                                onTap: () async {
-                                  launchURL(
-                                      "https://shop.torricantine.it/modalita-di-pagamento/");
-                                },
-                              ),
-                              const Divider(
-                                color: Color.fromARGB(255, 138, 137, 137),
-                                height: 1,
-                                indent: 15,
-                                endIndent: 20,
-                              ),
-                              ListTile(
-                                leading: SvgPicture.asset(
-                                  'assets/Account-wishlist.svg',
-                                  height: 25,
-                                  width: 25,
-                                ),
-                                title: Text("Wishlist",
-                                    style: TCTypography.of(context).text_16_bold),
-                                trailing: const Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Icon(Icons.arrow_forward_ios),
-                                  ],
-                                ),
-                                onTap: () async {
-                                   await storage.setBottomTabState(5);
-                                   if(context.mounted){
-                                     context.router.replace(WishlistRoute(fromMenu: true, fromAccount: true));
-                                   }
-                                  }
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 55.0, left: 5),
-                                child: ListTile(
-                                  leading: SvgPicture.asset(
-                                    'assets/Account-esci.svg',
-                                    height: 25,
-                                    width: 25,
-                                  ),
-                                  title: Text("Logout",
-                                      style: TCTypography.of(context).text_16_bold),
-                                  onTap: () async {
-                                    context
-                                        .read<LoginBloc>()
-                                        .add(const LoginEvent.logout());
-                                    context.router.replace(WelcomeRoute());
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                );
-              },
-              orElse: () => const SizedBox.shrink(),
-            ),
+                ),
+              );
+            },
+            orElse: () => const SizedBox.shrink(),
           ),
-        )
-
+        ),
+      ),
     );
 
 

@@ -253,7 +253,7 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
               ),
               onPressed: () {
                 popBackButton =true;
-                context.router.popForced();
+                context.router.back();
               },
             ),
             title: Text(widget.existingAddress!=null?"MODIFICA INDIRIZZO":"NUOVO INDIRIZZO",
@@ -721,19 +721,19 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
 
                                 switch (widget.returnPage) {
                                   case 'account' : {
-                                    context.router.replaceAll([AccountRoute(fromSecondPage: false)]);
+                                    context.router.replaceAll([const MainRoute(), AccountRoute(fromSecondPage: false)]);
 
                                     // MainNavigation.replace(context, [const MainNavigation.account(false)]);
                                     break;
                                   }
                                   case 'completeorder' : {
-                                    context.router.popForced();
+                                    context.router.back();
 
                                     // MainNavigation.replace(context, [MainNavigation.completeOrder(widget.point ?? 0, widget.subTotal ?? "")]);
                                     break;
                                   }
                                   default : {
-                                    context.router.replaceAll([AccountRoute(fromSecondPage: false)]);
+                                    context.router.replaceAll([const MainRoute(), AccountRoute(fromSecondPage: false)]);
 
                                     // MainNavigation.replace(context, [const MainNavigation.account(false)]);
                                     break;

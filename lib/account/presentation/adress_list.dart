@@ -46,11 +46,12 @@ class _AddressListScreenState extends State<AddressListScreen> {
   @override
 Widget build(BuildContext context) {
 return PopScope(
-    canPop: false,
-    onPopInvoked: (_){
-      context.router.replaceAll([AccountRoute(fromSecondPage: true)]);
-      // MainNavigation.replace(context, [const MainNavigation.account(true)]);
-    },
+    canPop: true,
+  onPopInvokedWithResult: (didPop, _){
+    if(didPop){
+      storage.setBottomTabState(4);
+    }
+  },
   child: Container(
     color: const Color.fromARGB(255, 244, 244, 244),
     child: SafeArea(
@@ -61,7 +62,7 @@ return PopScope(
           preferredSize: const Size.fromHeight(60),
           child: SubPageAppbar(
             onTap: () {
-              context.router.replaceAll([AccountRoute(fromSecondPage: false)]);
+              context.router.back();
 
               // MainNavigation.replace(context, [const MainNavigation.account(false)]);
             },

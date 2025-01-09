@@ -239,7 +239,10 @@ class _MenuScreenState extends State<MenuScreen> {
                                           title: "Il mio account",
                                           isSelected: currentProfile ==
                                               PersonalProfile.myaccount,
-                                          onTapNavigation: const MainNavigation.account(true)),
+                                          onNavigationTap : () {
+                                            context.router.push(AccountRoute(fromSecondPage: true));
+                                            },
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -253,8 +256,10 @@ class _MenuScreenState extends State<MenuScreen> {
                                           id: 11,
                                           title: "I miei ordini",
                                           isSelected: currentProfile == PersonalProfile.myorders,
-                                          onTapNavigation: const MainNavigation.myOrders(true, false, false, false)
-
+                                          onNavigationTap: (){
+                                            context.router.push(MyOrdersRoute(
+                                                fromMenu: true,fromAccount: false,fromThankScreen: false,fromOrderDetails: false)
+                                            );},
                                       ),
                                     ),
                                   ],
@@ -270,9 +275,11 @@ class _MenuScreenState extends State<MenuScreen> {
                                         title: "Raccolta Punti",
                                         isSelected: currentProfile ==
                                             PersonalProfile.points,
-                                        onTapNavigation:
-                                            const MainNavigation.pointsBalance(
-                                                true, false),
+                                        onNavigationTap: (){
+                                          context.router.push(PointsBalanceRoute(
+                                            fromMenu: true, fromAccount: false,
+                                          )
+                                          );},
                                       ),
                                     ),
                                   ],
@@ -443,7 +450,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         padding: const EdgeInsets.only(top: 30, bottom: 30),
                         child: GestureDetector(
                           onTap: () {
-                            MainNavigation.replace(context, [const MainNavigation.welcome()] // Wrap it in a list
+                            context.router.replace(WelcomeRoute() // Wrap it in a list
                             );
                             context.read<LoginBloc>().add(const LoginEvent.logout());
                             setState(() {
@@ -462,11 +469,7 @@ class _MenuScreenState extends State<MenuScreen> {
                 ),
               ],
             ),
-
           ),
     );
-
-
-
   }
 }

@@ -6,6 +6,7 @@ import 'package:torri_cantine_app/app/common/sub_page_appbar.dart';
 import 'package:torri_cantine_app/menu_screen/menu_screen.dart';
 import 'package:torri_cantine_app/my_orders/my_orders/list_all_orders/model/response/list_all_orders_response.dart' as listOrders;
 import 'package:torri_cantine_app/order_detail/widgets/body_order_detail.dart';
+import 'package:torri_cantine_app/utilities/local_storage.dart';
 
 @RoutePage()
 class OrderDetailScreen extends StatefulWidget {
@@ -21,46 +22,37 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
 
   final GlobalKey<ScaffoldState> _key = GlobalKey();
   int selectedIndex = 0;
+  LocalStorage storage = LocalStorage();
 
   @override
   Widget build(BuildContext context) {
 
-    return PopScope(
-        canPop: false,
-        onPopInvoked: (didPop) {
-          print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
-          context.router.back();
-          //return;
-        },
-        child:Scaffold(
-          key: _key,
-
-          drawer: Drawer(
-            child: MenuScreen(),
-          ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
-          floatingActionButton: FloatingButton()
-          ,
-          bottomNavigationBar: BottomBanvigationMenu(
-            scaffoldKey: _key,
-            initialSelectedIndex: 0,
-            context: context,
-            //notifyParent: () => refresh(selectedindex),
-          ),
-          appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(60),
-            child: SubPageAppbar(
-              text: "DETTAGLI ORDINE",
-              onTap: () => context.router..back(),
-              // onTap: () => MainNavigation.push(
-              //   context,
-              //   const MainNavigation.myOrders(false, false, false, true),
-              // ),
-            ),
-          ),
-          body: BodyOrderDetail(order:widget.order,),
-        )
-
+    return Scaffold(
+      key: _key,
+      drawer: const Drawer(
+        child: MenuScreen(),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
+      floatingActionButton: const FloatingButton()
+      ,
+      bottomNavigationBar: BottomBanvigationMenu(
+        scaffoldKey: _key,
+        initialSelectedIndex: 0,
+        context: context,
+        //notifyParent: () => refresh(selectedindex),
+      ),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: SubPageAppbar(
+          text: "DETTAGLI ORDINE",
+          onTap: () => context.router..back(),
+          // onTap: () => MainNavigation.push(
+          //   context,
+          //   const MainNavigation.myOrders(false, false, false, true),
+          // ),
+        ),
+      ),
+      body: BodyOrderDetail(order:widget.order,),
     );
 
 
