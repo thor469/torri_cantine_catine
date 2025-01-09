@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -7,6 +8,7 @@ import 'package:torri_cantine_app/all_products/widgets/product_preview.dart';
 import 'package:torri_cantine_app/app/common/sub_page_appbar.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 
+@RoutePage()
 class CategoriesDetailScreen extends StatefulWidget {
   final int id;
   const CategoriesDetailScreen({super.key, required this.id});

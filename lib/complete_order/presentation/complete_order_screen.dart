@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ import 'package:torri_cantine_app/app/cache_manager/cache_manager.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/bottom_bar.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/floating_action_button.dart';
 import 'package:torri_cantine_app/app/common/primary_button.dart';
-import 'package:torri_cantine_app/app/routing/main_navigation.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/app/utilitys/fixedFloatingPositions.dart';
 import 'package:torri_cantine_app/app/utilitys/html_tools.dart';
 import 'package:torri_cantine_app/cart/cart/cart_bloc.dart';
@@ -29,6 +30,7 @@ import 'package:torri_cantine_app/utilities/local_storage.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:io' show Platform;
 
+@RoutePage()
 class CompleteOrderScreen extends StatefulWidget {
   final int totPoint;
   final String cartSubTotal;
@@ -211,7 +213,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
         loaded: (response) => {
           context.read<CartBadgeCubitCubit>().removeCartItem(),
           context.read<CartBloc>().deleteCart(),
-          MainNavigation.replace(context,[ const MainNavigation.home(),const MainNavigation.thankYou()]),
+          context.router.replaceAll([const MainRoute(),const ThankYouRoute()]),
         },
         loading: () => const Center(
           child: CircularProgressIndicator(
@@ -240,9 +242,8 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
               size: 30,
             ),
             onPressed: () {
-              MainNavigation.push(
-                context,
-                const MainNavigation.cart(false, false, true, false),
+              context.router.push(
+                CartRoute (showAppBar: false,fromMenu:  false,fromCompleteOrder:  true,fromHomePage:  false),
               );
             },
           ),
@@ -324,10 +325,10 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                               fontSize: 16),
                                         ),
                                         onTap: () {
-                                          MainNavigation.push(
-                                            context,
-                                            const MainNavigation.cart(
-                                                false, false, false, false),
+                                          context.router.push(
+                                            CartRoute(
+                                                showAppBar: false,fromMenu:  false,
+                                                fromCompleteOrder:  false,fromHomePage:  false),
                                           );
                                         },
                                       ),
@@ -613,7 +614,13 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                       text:
                                       'Aggiungi un indirizzo per la Fatturazione',
                                       ontap: () {
-                                        MainNavigation.push(context, MainNavigation.newAddressFromAccount(customerId, true , false, null, "completeorder", true, widget.totPoint, widget.cartSubTotal));
+                                        context.router.push(NewAddressFromAccountRoute(
+                                            customerdId: customerId,editFatturazione:  true ,editShipping:  false,
+                                            existingAddress: null,
+                                            returnPage: "completeorder",
+                                            isNewAddress: true,
+                                            point: widget.totPoint,
+                                            subTotal: widget.cartSubTotal));
                                       },
                                     ),
                                   )
@@ -665,7 +672,12 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                           height: 22,
                                                         ),
                                                         onTap: () {
-                                                          MainNavigation.push(context, MainNavigation.newAddressFromAccount(customerId, true, false, model.billing[index], 'completeorder', false, widget.totPoint, widget.cartSubTotal));
+                                                          context.router.push(NewAddressFromAccountRoute(
+                                                              customerdId: customerId,editFatturazione:  true,editShipping:  false,
+                                                              existingAddress: model.billing[index],returnPage: 'completeorder',
+                                                              isNewAddress: false,
+                                                              point: widget.totPoint,
+                                                              subTotal:  widget.cartSubTotal));
                                                         },
                                                       ),
                                                     ),
@@ -684,8 +696,13 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                     padding: const EdgeInsets.only(top : 15.0),
                                     child: GestureDetector(
                                       onTap: (){
-                                        MainNavigation.push(context, MainNavigation.newAddressFromAccount(customerId, true, false, null,'completeorder',true, widget.totPoint,  widget.cartSubTotal));
-                                        // context.read<AccountBloc>().addAddress();
+                                        context.router.push(NewAddressFromAccountRoute(
+                                            customerdId: customerId,editFatturazione:  true ,editShipping:  false,
+                                            existingAddress: null,
+                                            returnPage: "completeorder",
+                                            isNewAddress: true,
+                                            point: widget.totPoint,
+                                            subTotal: widget.cartSubTotal));                                        // context.read<AccountBloc>().addAddress();
                                       },
                                       child: const Row(
                                         children: [
@@ -993,7 +1010,12 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                       child: PrimaryButton(
                                         text:'Inserisci un indirizzo di spedizione',
                                         ontap: () {
-                                          MainNavigation.push(context, MainNavigation.newAddressFromAccount(customerId, false,true, null,'completeorder', true, widget.totPoint,  widget.cartSubTotal));
+                                          context.router.push(NewAddressFromAccountRoute(customerdId: customerId,editFatturazione:  false,
+                                              editShipping: true,
+                                              existingAddress: null,returnPage: 'completeorder',
+                                              isNewAddress:  true,
+                                              point: widget.totPoint,
+                                              subTotal:   widget.cartSubTotal));
                                           //MainNavigation.newShipping(model.user.first.id));
                                         },
                                       ))
@@ -1045,7 +1067,11 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                           height: 22,
                                                         ),
                                                         onTap: () {
-                                                          MainNavigation.push(context, MainNavigation.newAddressFromAccount(customerId, false, true, model.shipping[index], 'completeorder', false, widget.totPoint,  widget.cartSubTotal));
+                                                          context.router.push(NewAddressFromAccountRoute(
+                                                              customerdId: customerId, editFatturazione:  false,editShipping:  true,
+                                                              existingAddress: model.shipping[index],
+                                                              returnPage: 'completeorder',isNewAddress: false,
+                                                             point:  widget.totPoint,  subTotal: widget.cartSubTotal));
                                                         },
                                                       ),
                                                     ),
@@ -1065,7 +1091,10 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                     padding: const EdgeInsets.only(top : 15.0),
                                     child: GestureDetector(
                                       onTap: (){
-                                        MainNavigation.push(context, MainNavigation.newAddressFromAccount(customerId, false, true, null, "completeorder", true, widget.totPoint,  widget.cartSubTotal));
+                                        context.router.push(NewAddressFromAccountRoute(
+                                            customerdId: customerId,editFatturazione:  false,editShipping:  true,
+                                            existingAddress: null,returnPage:  "completeorder",
+                                            isNewAddress: true,point:  widget.totPoint,subTotal:   widget.cartSubTotal));
                                         // context.read<AccountBloc>().addAddress();
                                       },
                                       child: const Row(
@@ -1678,7 +1707,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
         if(mounted){
           context.read<CartBloc>().deleteCart();
         }
-        MainNavigation.replace(context,[ const MainNavigation.home(),const MainNavigation.thankYou()]);
+        context.router.replaceAll(const [MainRoute(), ThankYouRoute()]);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Pagamento fallito, riprovare'),
@@ -1786,7 +1815,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
             if(mounted){
               context.read<CartBadgeCubitCubit>().removeCartItem();
               context.read<CartBloc>().deleteCart();
-              MainNavigation.replace(context,[ const MainNavigation.home(),const MainNavigation.thankYou()]);
+              context.router.replaceAll(const [MainRoute(), ThankYouRoute()]);
             }
           }else{
             setState(() {

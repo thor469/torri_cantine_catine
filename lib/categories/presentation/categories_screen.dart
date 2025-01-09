@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:torri_cantine_app/app/cache_manager/cache_manager.dart';
@@ -13,6 +14,7 @@ import 'package:torri_cantine_app/product_detail/model/response/product_detail_r
 
 import '../../app/common/bottom_bar_items/bottom_bar.dart';
 
+@RoutePage()
 class CategoriesScreen extends StatefulWidget {
   final bool showAppBar;
   final bool fromMenu;

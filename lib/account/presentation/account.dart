@@ -1,7 +1,6 @@
 // ignore_for_file: deprecated_member_use
-
 import 'dart:io';
-
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,26 +10,26 @@ import 'package:torri_cantine_app/app/common/bottom_bar_items/bottom_bar.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/floating_action_button.dart';
 import 'package:torri_cantine_app/app/common/primary_button.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
-import 'package:torri_cantine_app/app/routing/main_navigation.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/login/login/login_bloc.dart';
 import 'package:torri_cantine_app/menu_screen/menu_screen.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../app/common/sub_page_appbar.dart';
-
-class AccountPage extends StatefulWidget {
+@RoutePage()
+class AccountScreen extends StatefulWidget {
   final bool fromSecondPage;
-  const AccountPage({
+  const AccountScreen({
     Key? key,
     required this.fromSecondPage
   }) : super(key: key);
 
   @override
-  _AccountPageState createState() => _AccountPageState();
+  _AccountScreenState createState() => _AccountScreenState();
 }
 
-class _AccountPageState extends State<AccountPage> {
+class _AccountScreenState extends State<AccountScreen> {
   void launchURL(String url) async {
     if (await canLaunch(url)) {
       await launch(
@@ -55,13 +54,13 @@ class _AccountPageState extends State<AccountPage> {
           TextButton(
             child: const Text('Scatta una foto'),
             onPressed: () async {
-              Navigator.of(context).pop(await picker.pickImage(source: ImageSource.camera));
+              context.router.pop(await picker.pickImage(source: ImageSource.camera));
             },
           ),
           TextButton(
             child: const Text('Scegli dalla galleria'),
             onPressed: () async {
-              Navigator.of(context).pop(await picker.pickImage(source: ImageSource.gallery));
+              context.router.pop(await picker.pickImage(source: ImageSource.gallery));
             },
           ),
         ],
@@ -133,9 +132,7 @@ class _AccountPageState extends State<AccountPage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: PrimaryButton(text: 'Login/Registrazione', ontap: () {
-                          MainNavigation.replace(context, [
-                            const MainNavigation.welcome()
-                          ]);
+                          context.router.replace(WelcomeRoute());
                         },),
                       )
                     ],
@@ -203,8 +200,7 @@ class _AccountPageState extends State<AccountPage> {
                                   ],
                                 ),
                                 onTap: () {
-                                  MainNavigation.push(
-                                      context, MainNavigation.personalInfo(model));
+                                  context.router.push(PersonalInfoRoute(user: model));
                                 },
                               ),
                               const Divider(
@@ -228,10 +224,9 @@ class _AccountPageState extends State<AccountPage> {
                                   ],
                                 ),
                                 onTap: () {
-                                  MainNavigation.push(
-                                    context,
-                                    const MainNavigation.myOrders(
-                                        false, true, false, false),
+                                  context.router.push( MyOrdersRoute(
+                                        fromMenu: false, fromAccount:  true,
+                                      fromOrderDetails: false, fromThankScreen: false),
                                   );
                                 },
                               ),
@@ -256,10 +251,7 @@ class _AccountPageState extends State<AccountPage> {
                                   ],
                                 ),
                                 onTap: () {
-                                  MainNavigation.push(
-                                    context,
-                                    MainNavigation.addressList(
-                                        model.user.first.id),
+                                  context.router.push(AddressListRoute(customerdId: model.user.first.id),
                                   );
                                 },
                               ),
@@ -311,7 +303,7 @@ class _AccountPageState extends State<AccountPage> {
                                 onTap: () async {
                                    await storage.setBottomTabState(5);
                                    if(context.mounted){
-                                     MainNavigation.replace(context, [const MainNavigation.wishList(true, true)]);
+                                     context.router.replace(WishlistRoute(fromMenu: true, fromAccount: true));
                                    }
                                   }
                               ),
@@ -329,9 +321,7 @@ class _AccountPageState extends State<AccountPage> {
                                     context
                                         .read<LoginBloc>()
                                         .add(const LoginEvent.logout());
-                                    MainNavigation.replace(context, [
-                                      const MainNavigation.welcome(),
-                                    ]);
+                                    context.router.replace(WelcomeRoute());
                                   },
                                 ),
                               ),

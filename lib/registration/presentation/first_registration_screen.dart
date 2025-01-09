@@ -1,13 +1,15 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torri_cantine_app/app/common/primary_button.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
-import 'package:torri_cantine_app/app/routing/main_navigation.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/login/login/login_bloc.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 
 import '../registration/registration_bloc.dart';
 
+@RoutePage()
 class FirstRegistrScreen extends StatefulWidget {
   const FirstRegistrScreen({super.key});
 
@@ -94,8 +96,8 @@ class _FirstRegistrScreenState extends State<FirstRegistrScreen> {
                   .read<LoginBloc>()
                   .add(LoginEvent.login(password, password, fcmtoken)),
             },
-            loaded: (response) => MainNavigation.push(
-                context, const MainNavigation.thirdRegistration()),
+            loaded: (response) =>
+                context.router.push(const ThirdRegistrRoute()),
             error: (error, errorCode) async {
               final username = await storage.getUserName();
               final password = await storage.getPassword();
@@ -123,7 +125,7 @@ class _FirstRegistrScreenState extends State<FirstRegistrScreen> {
         BlocListener<LoginBloc, LoginState>(
           listener: (context, state) => state.maybeWhen(
             loggedIn: (user) => {
-              MainNavigation.replace(context, [const MainNavigation.home()])
+              context.router.replace(const MainRoute())
             },
             error: (error) {
               const snackBar = SnackBar(
@@ -144,7 +146,7 @@ class _FirstRegistrScreenState extends State<FirstRegistrScreen> {
           backgroundColor: const Color.fromARGB(255, 227, 231, 233),
           leading: IconButton(
             onPressed: () {
-              MainNavigation.pop(context);
+              context.router.back();
             },
             icon: const Icon(
               Icons.arrow_back,
@@ -354,9 +356,9 @@ class _FirstRegistrScreenState extends State<FirstRegistrScreen> {
                         text: "AVANTI",
                         ontap: () {
                           if (validation()) {
-                            MainNavigation.push(
-                                context,
-                                MainNavigation.secondRegistration([
+                            context.router.push(
+                                SecondRegistrRoute(registrationDatas:
+                                [
                                   _controllers['name'].text,
                                   _controllers['surname'].text,
                                   _controllers['email'].text,
@@ -463,8 +465,7 @@ class _FirstRegistrScreenState extends State<FirstRegistrScreen> {
                               ),
                         ),
                         onTap: () {
-                          MainNavigation.replace(
-                              context, const [MainNavigation.login()]);
+                          context.router.replace(const LoginRoute());
                         },
                       ),
                     ),

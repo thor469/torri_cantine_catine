@@ -1,22 +1,23 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/bottom_bar.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/floating_action_button.dart';
 import 'package:torri_cantine_app/app/common/sub_page_appbar.dart';
-import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/menu_screen/menu_screen.dart';
 import 'package:torri_cantine_app/my_orders/my_orders/list_all_orders/model/response/list_all_orders_response.dart' as listOrders;
 import 'package:torri_cantine_app/order_detail/widgets/body_order_detail.dart';
 
-class OrderDetail extends StatefulWidget {
+@RoutePage()
+class OrderDetailScreen extends StatefulWidget {
   listOrders.Order order;
 
-   OrderDetail({super.key,required this.order,});
+   OrderDetailScreen({super.key,required this.order,});
 
   @override
-  State<OrderDetail> createState() => _OrderDetailState();
+  State<OrderDetailScreen> createState() => _OrderDetailScreenState();
 }
 
-class _OrderDetailState extends State<OrderDetail> {
+class _OrderDetailScreenState extends State<OrderDetailScreen> {
 
   final GlobalKey<ScaffoldState> _key = GlobalKey();
   int selectedIndex = 0;
@@ -28,7 +29,7 @@ class _OrderDetailState extends State<OrderDetail> {
         canPop: false,
         onPopInvoked: (didPop) {
           print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
-          MainNavigation.pop(context);
+          context.router.back();
           //return;
         },
         child:Scaffold(
@@ -50,7 +51,7 @@ class _OrderDetailState extends State<OrderDetail> {
             preferredSize: const Size.fromHeight(60),
             child: SubPageAppbar(
               text: "DETTAGLI ORDINE",
-              onTap: () => MainNavigation.pop(context),
+              onTap: () => context.router..back(),
               // onTap: () => MainNavigation.push(
               //   context,
               //   const MainNavigation.myOrders(false, false, false, true),

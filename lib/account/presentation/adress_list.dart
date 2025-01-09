@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,6 +15,7 @@ import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/menu_screen/menu_screen.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 
+@RoutePage()
 class AddressListScreen extends StatefulWidget {
   final int customerdId;
   const AddressListScreen({super.key, required this.customerdId});

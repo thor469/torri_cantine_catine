@@ -1,9 +1,9 @@
-import 'package:flutter/foundation.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:torri_cantine_app/app/common/sub_page_appbar.dart';
-import 'package:torri_cantine_app/app/routing/main_navigation.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
 import 'package:torri_cantine_app/my_orders/my_orders/list_all_orders/list_all_orders_bloc.dart';
 import 'package:torri_cantine_app/my_orders/my_orders/list_all_orders/model/response/list_all_orders_response.dart';
@@ -11,20 +11,21 @@ import 'package:torri_cantine_app/points_balance_screen/bloc/points_bloc.dart';
 import 'package:torri_cantine_app/points_balance_screen/model/response/point_response.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 
-class PointsBalance extends StatefulWidget {
+@RoutePage()
+class PointsBalanceScreen extends StatefulWidget {
   final bool fromMenu;
   final bool fromAccount;
-  const PointsBalance({
+  const PointsBalanceScreen({
     super.key,
     required this.fromMenu,
     required this.fromAccount,
   });
 
   @override
-  State<PointsBalance> createState() => _PointsBalanceState();
+  State<PointsBalanceScreen> createState() => _PointsBalanceScreenState();
 }
 
-class _PointsBalanceState extends State<PointsBalance> {
+class _PointsBalanceScreenState extends State<PointsBalanceScreen> {
   int totalPoints = 0;
   bool _isDescending = true;
   LocalStorage storage = LocalStorage();
@@ -97,7 +98,7 @@ class _PointsBalanceState extends State<PointsBalance> {
     return PopScope(
         canPop: false,
         onPopInvoked: (didPop) {
-          MainNavigation.replace(context, [const MainNavigation.account(false)]);
+          context.router.replace( AccountRoute(fromSecondPage: false));
         },
         child: Container(
           color: const Color.fromARGB(255, 244, 244, 244),
@@ -109,7 +110,7 @@ class _PointsBalanceState extends State<PointsBalance> {
                   preferredSize: const Size.fromHeight(60),
                   child: SubPageAppbar(
                     text: "RACCOLTA PUNTI",
-                    onTap: () => MainNavigation.replace(context, [const MainNavigation.account(false)]),
+                    onTap: () => context.router.replace(AccountRoute(fromSecondPage: false)),
                   ),
                 ),
                 body: BlocBuilder<PointsBloc, PointsState>(

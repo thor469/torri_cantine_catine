@@ -1,25 +1,18 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:torri_cantine_app/account/presentation/account.dart';
-import 'package:torri_cantine_app/app/common/bottom_bar_items/bottom_bar.dart';
-import 'package:torri_cantine_app/app/common/bottom_bar_items/floating_action_button.dart';
 import 'package:torri_cantine_app/app/common/sub_page_appbar.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/my_orders/widgets/body_order_info.dart';
-
-import '../../app/common/bottom_bar_items/account_bottom.dart';
-import '../../app/common/bottom_bar_items/cart_bottom_item.dart';
-import '../../app/common/bottom_bar_items/menu_bottom_item.dart';
-import '../../app/common/bottom_bar_items/wishlist_bottom_item.dart';
-import '../../menu_screen/menu_screen.dart';
 import '../../utilities/local_storage.dart';
 
-class MyOrders extends StatefulWidget {
+@RoutePage()
+class MyOrdersScreen extends StatefulWidget {
   final bool fromMenu;
   final bool fromAccount;
   final bool fromThankScreen;
   final bool fromOrderDetails;
 
-  const MyOrders({
+  const MyOrdersScreen({
     super.key,
     required this.fromMenu,
     required this.fromAccount,
@@ -28,10 +21,10 @@ class MyOrders extends StatefulWidget {
   });
 
   @override
-  State<MyOrders> createState() => _MyOrdersState();
+  State<MyOrdersScreen> createState() => _MyOrdersScreenState();
 }
 
-class _MyOrdersState extends State<MyOrders> {
+class _MyOrdersScreenState extends State<MyOrdersScreen> {
   LocalStorage storage = LocalStorage();
   int selectedIndex = 0;
 

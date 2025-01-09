@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torri_cantine_app/all_products/all_products/all_products_bloc.dart';
@@ -12,6 +13,7 @@ import 'package:torri_cantine_app/utilities/local_storage.dart';
 import 'package:torri_cantine_app/wishlist_screen/presentation/wishlist_future.dart';
 import 'package:torri_cantine_app/wishlist_screen/widgets/wishlist_items.dart';
 
+@RoutePage()
 class WishlistScreen extends StatefulWidget {
   final bool fromMenu;
   final bool fromAccount;

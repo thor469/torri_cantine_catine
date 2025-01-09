@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -5,13 +6,14 @@ import 'package:torri_cantine_app/all_products/cubit/products_wishlisted_cubit.d
 import 'package:torri_cantine_app/app/common/primary_button.dart';
 import 'package:torri_cantine_app/app/common/secondary_button.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
-import 'package:torri_cantine_app/app/routing/main_navigation.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/cart/cart/cart_bloc.dart';
 import 'package:torri_cantine_app/cart/cubit/cart_badge_cubit_cubit.dart';
 import 'package:torri_cantine_app/login/login/login_bloc.dart';
 import 'package:torri_cantine_app/registration/registration/registration_bloc.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 
+@RoutePage()
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key, mounted = true});
 
@@ -82,8 +84,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               setState(() {
                 isLoading = false;
               });
-              if (mounted) {
-                MainNavigation.replace(context, [const MainNavigation.home()]);
+              if (context.mounted) {
+                context.router.replaceAll(const [MainRoute()]);
               }
               return null;
             },
@@ -122,13 +124,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               // overlayLoader.hide(context);
 
               context.read<CartBadgeCubitCubit>().emit(response.totalItems);
-              //overlayLoader.hide();
-              // MainNavigation.replace(
-              //   context,
-              //   [
-              //     const MainNavigation.home(),
-              //   ],
-              // );
               return null;
             },
             error: (error) {
@@ -143,12 +138,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             cartEmpty: () => {
               context.read<CartBadgeCubitCubit>().emit(0),
               // overlayLoader.hide(context),
-              MainNavigation.replace(
-                context,
-                [
-                  const MainNavigation.home(),
-                ],
-              ),
+            context.router.replaceAll(const [MainRoute()]),
             },
             orElse: () => const SizedBox(),
             // orElse: () => const SizedBox(),
@@ -173,14 +163,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
               context.read<LoginBloc>().add(LoginEvent.login(username, password, fcmtoken)),
               // overlayLoader.hide(context),
-              MainNavigation.replace(context, [const MainNavigation.home()]),
-
+            context.router.replaceAll(const [MainRoute()]),
             },
             loaded: (response) =>
             {
               //overlayLoader.hide(context),
-              MainNavigation.replace(
-                context, const [MainNavigation.thirdRegistration()]),
+            context.router.replace(const ThirdRegistrRoute()),
               // overlayLoader.hide(context),
             },
 
@@ -275,14 +263,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         final fcmToken = await token.getFCMToken();
 
                         if (username.isEmpty || password.isEmpty) {
-                          if (mounted) {
-                            MainNavigation.push(
-                                context, const MainNavigation.login());
+                          if (context.mounted) {
+                            context.router.push(const LoginRoute());
                           }
                         } else {
-                          if (mounted) {
-                            context.read<LoginBloc>().add(
-                                LoginEvent.login(username, password, fcmToken));
+                          if (context.mounted) {
+                            context.read<LoginBloc>().add(LoginEvent.login(username, password, fcmToken));
                           }
                         }
                       }),
@@ -293,8 +279,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     child: SecondaryButton(
                       text: "REGISTRATI",
                       ontap: () {
-                        MainNavigation.push(
-                            context, const MainNavigation.firstRegistration());
+                        context.router.push(const FirstRegistrRoute());
                       },
                     ),
                   ),
@@ -355,8 +340,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               }
                             } else if (mounted) {
                               context.read<LoginBloc>().add(const LoginEvent.loginWithGoogle());
-                              //     MainNavigation.push(
-                              // context, const MainNavigation.home());}
                             }
                           },
                           child: SizedBox(
@@ -420,11 +403,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           // print(Overlay.of(context).mounted   );
                           // print(Overlay.of(context).context   );
                           //
-
-
-
-                          MainNavigation.replace(
-                              context, [const MainNavigation.home()]);
+                          context.router.replaceAll(const [MainRoute()]);
                         },
                       ),
                     ),

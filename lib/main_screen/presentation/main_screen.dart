@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,8 +11,6 @@ import 'package:torri_cantine_app/app/common/bottom_bar_items/cart_bottom_item.d
 import 'package:torri_cantine_app/app/common/bottom_bar_items/floating_action_button.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/menu_bottom_item.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/wishlist_bottom_item.dart';
-import 'package:torri_cantine_app/app/routing/main_navigation.dart';
-import 'package:torri_cantine_app/cart/add_product_to_cart/add_product_to_cart_bloc.dart';
 import 'package:torri_cantine_app/cart/presentation/cart_screen.dart';
 import 'package:torri_cantine_app/categories/presentation/categories_screen.dart';
 import 'package:torri_cantine_app/home_page/presentation/home_screen.dart';
@@ -20,7 +19,7 @@ import 'package:torri_cantine_app/promotions/presentation/promotions_screen.dart
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 import 'package:torri_cantine_app/wishlist_screen/presentation/wishlist_screen.dart';
 
-
+  @RoutePage()
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
@@ -87,7 +86,8 @@ class _MainScreenState extends State<MainScreen> {
           floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
           floatingActionButton: const FloatingButton(),
           body: selectPage(selectedIndex),
-          bottomNavigationBar: true==true?BottomBanvigationMenu(
+          bottomNavigationBar: true==true?
+          BottomBanvigationMenu(
             scaffoldKey: _key,
             initialSelectedIndex: 0,
             context: context,
@@ -176,7 +176,7 @@ class _MainScreenState extends State<MainScreen> {
       case 0:
         return const HomeScreen();
       case 1:
-        return Products(fromMenu: false,
+        return ProductsScreen(fromMenu: false,
           showAppBar: false,);
         return const CategoriesScreen(
           showAppBar: false,
@@ -187,7 +187,7 @@ class _MainScreenState extends State<MainScreen> {
       case 3:
         return const MenuScreen();
       case 4:
-        return const AccountPage(
+        return const AccountScreen(
           fromSecondPage: false,
         );
       case 5:

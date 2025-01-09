@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -16,11 +17,12 @@ import 'package:torri_cantine_app/app/common/bottom_bar_items/menu_bottom_item.d
 import 'package:torri_cantine_app/app/common/bottom_bar_items/wishlist_bottom_item.dart';
 import 'package:torri_cantine_app/app/common/sub_page_appbar.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
-import 'package:torri_cantine_app/app/routing/main_navigation.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 import '../../app/utilitys/fixedFloatingPositions.dart';
 
-class Products extends StatefulWidget {
+@RoutePage()
+class ProductsScreen extends StatefulWidget {
   double? minPrice;
   double? maxPrice;
   bool? orderAsc;
@@ -35,7 +37,7 @@ class Products extends StatefulWidget {
   final bool showAppBar;
   final bool fromMenu;
 
-  Products({
+  ProductsScreen({
     super.key,
     this.minPrice,
     this.maxPrice,
@@ -53,10 +55,10 @@ class Products extends StatefulWidget {
   });
 
   @override
-  State<Products> createState() => _ProductsState();
+  State<ProductsScreen> createState() => _ProductsScreenState();
 }
 
-class _ProductsState extends State<Products> {
+class _ProductsScreenState extends State<ProductsScreen> {
   LocalStorage storage = LocalStorage();
   int selectedIndex = 0;
   int setDrawer = 0;
@@ -159,7 +161,7 @@ class _ProductsState extends State<Products> {
                       MediaQuery.of(context).size.height * 0.07),
                   child: widget.showAppBar
                       ? SubPageAppbar(
-                          onTap: () => MainNavigation.pop(context),
+                          onTap: () => context.router.back(),
                           text: "TUTTI I PRODOTTI",
                         )
                       : const SizedBox()),
@@ -184,10 +186,7 @@ class _ProductsState extends State<Products> {
                               setState(() {
                                 selectedIndex = 3;
                               });
-                              MainNavigation.push(
-                                context,
-                                const MainNavigation.menu(),
-                              );
+                              context.router.push(const MenuRoute(),);
                             },
                             child: MenuBottomItem(
                               text: 'Menu',
@@ -200,9 +199,7 @@ class _ProductsState extends State<Products> {
                               setState(() {
                                 selectedIndex = 4;
                               });
-                              MainNavigation.push(
-                                context,
-                                const MainNavigation.account(false),
+                              context.router.push(AccountRoute(fromSecondPage: false),
                               );
                             },
                             child: AccountBottomItem(
@@ -218,10 +215,7 @@ class _ProductsState extends State<Products> {
                           Container(
                             padding: const EdgeInsets.only(left: 10, right: 10),
                             child: GestureDetector(
-                                onTap: () => MainNavigation.push(
-                                      context,
-                                      const MainNavigation.home(),
-                                    ),
+                                onTap: () => context.router.push(const MainRoute()),
                                 child: Stack(
                                     alignment: Alignment.topCenter,
                                     clipBehavior: Clip.none,
@@ -251,10 +245,7 @@ class _ProductsState extends State<Products> {
                               setState(() {
                                 selectedIndex = 5;
                               });
-                              MainNavigation.push(
-                                context,
-                                const MainNavigation.wishList(true, false),
-                              );
+                              context.router.push(WishlistRoute(fromMenu: true, fromAccount: false),);
                             },
                             child: WishListBottomItem(
                               text: 'Wishlist',
@@ -267,10 +258,7 @@ class _ProductsState extends State<Products> {
                               setState(() {
                                 selectedIndex = 6;
                               });
-                              MainNavigation.push(
-                                context,
-                                const MainNavigation.cart(
-                                    true, false, false, true),
+                              context.router.push(CartRoute(showAppBar: true,fromMenu:  false,fromCompleteOrder:  false,fromHomePage:  true),
                               );
                             },
                             child: CartBottomItem(

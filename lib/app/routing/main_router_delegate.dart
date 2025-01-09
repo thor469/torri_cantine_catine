@@ -115,7 +115,7 @@ class MainRouterDelegate extends RouterDelegate<MainNavigationStack>
               myOrders: (fromMenu, fromAccount, fromThankScreen, fromOrderDetails) =>
                   FadePage(
                     key: ValueKey('myOrders_${entry.key}'),
-                    child: MyOrders(
+                    child: MyOrdersScreen(
                       fromMenu: fromMenu,
                       fromAccount: fromAccount,
                       fromThankScreen: fromThankScreen,
@@ -124,22 +124,22 @@ class MainRouterDelegate extends RouterDelegate<MainNavigationStack>
                   ),
               pointsBalance: (fromMenu, fromAccount) => FadePage(
                 key: ValueKey('pointsBalance_${entry.key}'),
-                child: PointsBalance(
+                child: PointsBalanceScreen(
                   fromMenu: fromMenu,
                   fromAccount: fromAccount,
                 ),
               ),
               account: (fromSecondPage) => FadePage(
                 key: ValueKey('account_${entry.key}'),
-                child: AccountPage(fromSecondPage: fromSecondPage),
+                child: AccountScreen(fromSecondPage: fromSecondPage),
               ),
               orderDetail: (order) => FadePage(
                 key: ValueKey('orderDetail_${entry.key}'),
-                child: OrderDetail(order: order),
+                child: OrderDetailScreen(order: order),
               ),
               products: () => FadePage(
                 key: ValueKey('products_${entry.key}'),
-                child: Products(fromMenu: true, showAppBar: true),
+                child: ProductsScreen(fromMenu: true, showAppBar: true),
               ),
               completeOrder: (totPoint, total) => FadePage(
                 key: ValueKey('completeOrder_${entry.key}'),
@@ -157,7 +157,7 @@ class MainRouterDelegate extends RouterDelegate<MainNavigationStack>
               ),
               productDetail: (id) => FadePage(
                 key: ValueKey('productDetail_${entry.key}'),
-                child: ProductDetailPage(id: id),
+                child: ProductDetailScreen(id: id),
               ),
               addressList: (id) => FadePage(
                 key: ValueKey('addressList_${entry.key}'),
@@ -180,7 +180,7 @@ class MainRouterDelegate extends RouterDelegate<MainNavigationStack>
               ),
               addReview: (productId) => FadePage(
                 key: ValueKey('addReview_${entry.key}'),
-                child: AddReviewScreen(product_id: productId),
+                child: AddReviewScreen(productId: productId),
               ),
               menu: () => FadePage(
                 key: ValueKey('menu_${entry.key}'),
@@ -188,7 +188,7 @@ class MainRouterDelegate extends RouterDelegate<MainNavigationStack>
               ),
               personalInfo: (user) => FadePage(
                 key: ValueKey('personalInfo_${entry.key}'),
-                child: PersonalInfo(user: user),
+                child: PersonalInfoScreen(user: user),
               ),
               newAddressFromAccount: (id, editFatturazione, editShipping,
                   existingAddress, returnPage, isNewAddress, point, cart) =>

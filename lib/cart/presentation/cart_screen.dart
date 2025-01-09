@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,7 +10,7 @@ import 'package:torri_cantine_app/app/common/bottom_bar_items/menu_bottom_item.d
 import 'package:torri_cantine_app/app/common/bottom_bar_items/wishlist_bottom_item.dart';
 import 'package:torri_cantine_app/app/common/primary_button.dart';
 import 'package:torri_cantine_app/app/common/sub_page_appbar.dart';
-import 'package:torri_cantine_app/app/routing/main_navigation.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/app/utilitys/tc_typography.dart';
 import 'package:torri_cantine_app/cart/cart/cart_bloc.dart';
 import 'package:torri_cantine_app/cart/cubit/cart_badge_cubit_cubit.dart';
@@ -19,7 +20,7 @@ import 'package:torri_cantine_app/menu_screen/menu_screen.dart';
 import 'package:torri_cantine_app/points_balance_screen/bloc/points_bloc.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 
-
+@RoutePage()
 class CartScreen extends StatefulWidget {
   final bool showAppBar;
   final bool fromMenu;
@@ -126,10 +127,7 @@ class _CartScreenState extends State<CartScreen> {
                     setState(() {
                       selectedIndex = 4;
                     });
-                    MainNavigation.push(
-                      context,
-                      const MainNavigation.account(false),
-                    );
+                    context.router.push(AccountRoute(fromSecondPage: false),);
                   },
                   child: AccountBottomItem(
                     text: 'Account',
@@ -145,10 +143,7 @@ class _CartScreenState extends State<CartScreen> {
                     setState(() {
                       selectedIndex = 5;
                     });
-                    MainNavigation.push(
-                      context,
-                      const MainNavigation.wishList(false, false),
-                    );
+                    context.router.push(WishlistRoute(fromMenu:false , fromAccount:false));
                   },
                   child: WishListBottomItem(
                     text: 'Wishlist',
@@ -161,9 +156,10 @@ class _CartScreenState extends State<CartScreen> {
                     setState(() {
                       selectedIndex = 6;
                     });
-                    MainNavigation.push(
-                      context,
-                      const MainNavigation.cart(true, false, false, false),
+                    context.router.push(
+                      CartRoute(
+                          showAppBar: true, fromMenu:  false,
+                          fromCompleteOrder:  false, fromHomePage:  false),
                     );
                   },
                   child: CartBottomItem(
@@ -204,8 +200,7 @@ class _CartScreenState extends State<CartScreen> {
                       child: PrimaryButton(
                         text: 'Login/Registrazione',
                         ontap: () {
-                          MainNavigation.replace(
-                              context, [const MainNavigation.welcome()]);
+                          context.router.replace( WelcomeRoute());
                         },
                       ),
                     )
@@ -421,7 +416,7 @@ class _CartScreenState extends State<CartScreen> {
                                         }
                                       }
                                     }
-                                    MainNavigation.push(context, MainNavigation.completeOrder(point, subTotal));
+                                    context.router.push(CompleteOrderRoute(totPoint: point,cartSubTotal:  subTotal));
                                   },
                                 ),
                               )

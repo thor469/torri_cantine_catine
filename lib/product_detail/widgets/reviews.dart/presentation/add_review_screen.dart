@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -14,11 +15,11 @@ import 'package:torri_cantine_app/product_detail/widgets/reviews.dart/model/resp
 import 'package:torri_cantine_app/product_detail/widgets/reviews.dart/reviews/reviews_bloc.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 
-
+@RoutePage()
 class AddReviewScreen extends StatefulWidget {
-  final int product_id;
+  final int productId;
 
-  const AddReviewScreen({super.key, required this.product_id});
+  const AddReviewScreen({super.key, required this.productId});
 
   @override
   State<AddReviewScreen> createState() => _AddReviewScreenState();
@@ -216,7 +217,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                             // Create the review
                             context.read<ReviewsBloc>().add(
                               ReviewsEvent.createReview(
-                                widget.product_id,
+                                widget.productId,
                                 reviewsController.text,
                                 await storage.getUserName(),
                                 await storage.getUserEmail(),
@@ -229,7 +230,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ProductDetailPage(id: widget.product_id), // Pass any parameters if needed
+                                builder: (context) => ProductDetailScreen(id: widget.productId), // Pass any parameters if needed
                               ),
                             );
                           },

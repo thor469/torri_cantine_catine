@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,15 +16,16 @@ import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
 
 import '../../account/account/account_bloc.dart';
 
-class PersonalInfo extends StatefulWidget {
+@RoutePage()
+class PersonalInfoScreen extends StatefulWidget {
   final AccountResponse user;
-  const PersonalInfo({super.key, required this.user});
+  const PersonalInfoScreen({super.key, required this.user});
 
   @override
-  State<PersonalInfo> createState() => _PersonalInfoState();
+  State<PersonalInfoScreen> createState() => _PersonalInfoScreenState();
 }
 
-class _PersonalInfoState extends State<PersonalInfo> {
+class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
   final Map<String, dynamic> controller = {
     'name': TextEditingController(),
     'surname': TextEditingController(),

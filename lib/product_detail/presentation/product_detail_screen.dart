@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -34,15 +35,16 @@ import '../../app/common/bottom_bar_items/floating_action_button.dart';
 import '../model/response/product_detail_response.dart';
 import '../widgets/reviews.dart/reviews/reviews_bloc.dart';
 
-class ProductDetailPage extends StatefulWidget {
+@RoutePage()
+class ProductDetailScreen extends StatefulWidget {
   final int id;
-  const ProductDetailPage({super.key, required this.id});
+  const ProductDetailScreen({super.key, required this.id});
 
   @override
-  State<ProductDetailPage> createState() => _ProductDetailPageState();
+  State<ProductDetailScreen> createState() => _ProductDetailScreenState();
 }
 
-class _ProductDetailPageState extends State<ProductDetailPage> {
+class _ProductDetailScreenState extends State<ProductDetailScreen> {
   LocalStorage storage = LocalStorage();
   double? storedRating;
   int selectedIndex = 0;
@@ -558,7 +560,7 @@ Widget selectPage(int i) {
     case 3:
       return const MenuScreen();
     case 4:
-      return const AccountPage(
+      return const AccountScreen(
         fromSecondPage: false,
       );
     case 5:

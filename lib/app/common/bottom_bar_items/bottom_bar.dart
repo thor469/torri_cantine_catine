@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/cart/add_product_to_cart/add_product_to_cart_bloc.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
@@ -165,10 +167,8 @@ class _BottomBanvigationMenuState extends State<BottomBanvigationMenu> {
                   setState(() {
                     widget.selectedIndex = 6;
                   });
-                  MainNavigation.push(
-                    context,
-                    const MainNavigation.cart(true, false, false, false),
-                  );
+
+                  context.router.replaceAll( [CartRoute(showAppBar: true, fromMenu: false, fromCompleteOrder: false, fromHomePage: false)]);
                 }
 
               },

@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +11,7 @@ import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/cart/model/response/cart_response.dart';
 import 'package:torri_cantine_app/personal_info/update_customer/update_customer_bloc.dart';
 
-
+@RoutePage()
 class NewAddressFromAccountScreen extends StatefulWidget {
   final int customerdId;
   final bool editFatturazione;

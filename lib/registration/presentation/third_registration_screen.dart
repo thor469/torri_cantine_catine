@@ -1,11 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:torri_cantine_app/app/common/primary_button.dart';
 import 'package:torri_cantine_app/app/common/secondary_button.dart';
-import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
-
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
+@RoutePage()
 class ThirdRegistrScreen extends StatefulWidget {
   const ThirdRegistrScreen({super.key});
 
@@ -22,7 +23,7 @@ class _ThirdRegistrScreenState extends State<ThirdRegistrScreen> {
           if (kDebugMode) {
             print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
           }
-          MainNavigation.pop(context);
+          context.router.back();
           //return;
         },
         child:Scaffold(
@@ -37,7 +38,7 @@ class _ThirdRegistrScreenState extends State<ThirdRegistrScreen> {
               ),
               color: Colors.grey,
               onPressed: () {
-                Navigator.pop(context);
+                context.router.back();
               },
             ),
             actions: [
@@ -132,8 +133,7 @@ class _ThirdRegistrScreenState extends State<ThirdRegistrScreen> {
                     PrimaryButton(
                         text: "ACCEDI",
                         ontap: () {
-                          MainNavigation.push(
-                              context, const MainNavigation.login());
+                          context.router.push(const LoginRoute());
                         }),
                     Padding(
                       padding: EdgeInsets.only(
@@ -156,12 +156,7 @@ class _ThirdRegistrScreenState extends State<ThirdRegistrScreen> {
                           ),
                         ),
                         onTap: () {
-                          MainNavigation.replace(
-                            context,
-                            [
-                              const MainNavigation.home(),
-                            ],
-                          );
+                          context.router.replace(const MainRoute());
                         },
                       ),
                     ),
