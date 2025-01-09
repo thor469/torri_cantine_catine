@@ -8,6 +8,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:torri_cantine_app/app/common/primary_button.dart';
 import 'package:torri_cantine_app/app/common/sub_page_appbar.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/login/login/login_bloc.dart';
 import 'package:torri_cantine_app/product_detail/presentation/product_detail_screen.dart';
@@ -89,7 +90,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
           canPop: false,
           onPopInvoked: (didPop) {
             // print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
-            MainNavigation.pop(context);
+            context.router.popForced();
             //return;
           },
           child:Scaffold(
@@ -98,8 +99,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
           child: SubPageAppbar(
             text: "RECENSIONI",
             onTap: () {
-              MainNavigation.pop(
-                  context, );
+              context.router.popForced();
             },
           ),
         ),
@@ -250,10 +250,8 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                             child: PrimaryButton(
                               text: "Login/Registrazione",
                               ontap: () async {
-                                MainNavigation.push(
-                                  context,
-                                  const MainNavigation.login(),
-                                );
+                                context.router.replaceAll([LoginRoute()]);
+                                // MainNavigation.push(context, const MainNavigation.login(),);
                               },
                             ),
                           )

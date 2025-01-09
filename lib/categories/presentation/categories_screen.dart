@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/floating_action_button.dart';
 import 'package:torri_cantine_app/app/common/sub_page_appbar.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/app/utilitys/tc_typography.dart';
 import 'package:torri_cantine_app/categories/categories/categories_bloc.dart';
@@ -79,7 +80,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             appBar: widget.showAppBar
                 ? SubPageAppbar(
               text: "TUTTE LE CATEGORIE",
-              onTap:  () => MainNavigation.pop(context),
+              onTap:  () => context.router.popForced(),
             )
                 : null,
             // floatingActionButton: const FloatingButton(),
@@ -108,10 +109,13 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 ),
                 itemBuilder: (context, category, index) => GestureDetector(
                   onTap: () {
-                    MainNavigation.push(
-                      context,
-                      MainNavigation.categoriesDetail(category.id),
-                    );
+                    context.router.push(CategoriesDetailRoute(id: category.id));
+
+
+                    // MainNavigation.push(
+                    //   context,
+                    //   MainNavigation.categoriesDetail(category.id),
+                    // );
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

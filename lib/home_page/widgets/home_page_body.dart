@@ -1,9 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torri_cantine_app/all_products/all_products/all_products_bloc.dart';
 import 'package:torri_cantine_app/all_products/model/response/all_products_response.dart';
 import 'package:torri_cantine_app/all_products/widgets/categories_carousel.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/categories/categories/categories_bloc.dart';
 import 'package:torri_cantine_app/home_page/widgets/custom_post.dart';
@@ -93,8 +95,8 @@ class _HomePageBodyState extends State<HomePageBody> {
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
                                   //MainNavigation.welcome();
-                                  MainNavigation.push(context,
-                                      const MainNavigation.welcome());
+                                  context.router.push(WishlistRoute(fromMenu: false, fromAccount: false));
+                                  // MainNavigation.push(context, const MainNavigation.welcome());
                                 },
                             ),
                             const TextSpan(

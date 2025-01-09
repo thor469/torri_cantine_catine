@@ -1,7 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torri_cantine_app/app/cache_manager/cache_manager.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/app/utilitys/tc_typography.dart';
 import 'package:torri_cantine_app/categories/categories/categories_bloc.dart';
@@ -41,10 +43,8 @@ class _CategoriesCarouselState extends State<CategoriesCarousel> {
                   ),
                 ),
                 TextButton(
-                  onPressed: () => MainNavigation.push(
-                    context,
-                    const MainNavigation.categories(true, false),
-                  ),
+                  onPressed: () => context.router.push(CategoriesRoute(fromMenu: false, showAppBar: true)),
+                  // onPressed: () => MainNavigation.push(context, const MainNavigation.categories(true, false),),
                   child: Text(
                     "Vedi tutte",
                     style: TCTypography.of(context).text_14_bold.copyWith(
@@ -83,10 +83,12 @@ class _CategoriesCarouselState extends State<CategoriesCarousel> {
 
                     return GestureDetector(
                       onTap: () {
-                        MainNavigation.push(
-                            context,
-                            MainNavigation.categoriesDetail(
-                                model.categories![index].id));
+                        context.router.replaceAll([CategoriesDetailRoute(id: model.categories![index].id)]);
+
+                        // MainNavigation.push(
+                        //     context,
+                        //     MainNavigation.categoriesDetail(
+                        //         model.categories![index].id));
                       },
                       child: Card(
                         elevation: 2,

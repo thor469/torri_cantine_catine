@@ -11,6 +11,7 @@ import 'package:torri_cantine_app/all_products/model/response/all_products_respo
 import 'package:torri_cantine_app/app/cache_manager/cache_manager.dart';
 import 'package:torri_cantine_app/app/common/tc_appbar.dart';
 import 'package:torri_cantine_app/app/dependency_injection/dependency_factory.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/categories/categories/categories_bloc.dart';
 import 'package:torri_cantine_app/categories/model/response/categories_response.dart';
@@ -345,7 +346,9 @@ class CustomSearch extends SearchDelegate {
 
             return GestureDetector(
               onTap: () {
-                MainNavigation.push(context, MainNavigation.productDetail(product.id));
+                context.router.push(ProductDetailRoute(id: product.id));
+
+                // MainNavigation.push(context, MainNavigation.productDetail(product.id));
               },
               child: ListTile(
                 leading: CachedNetworkImage(

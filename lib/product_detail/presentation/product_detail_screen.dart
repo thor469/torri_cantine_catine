@@ -12,6 +12,7 @@ import 'package:torri_cantine_app/app/cache_manager/cache_manager.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/bottom_bar.dart';
 import 'package:torri_cantine_app/app/common/primary_button.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/cart/add_product_to_cart/add_product_to_cart_bloc.dart';
 import 'package:torri_cantine_app/cart/add_bundle_to_cart/add_bundle_to_cart_bloc.dart';
@@ -87,7 +88,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           if (kDebugMode) {
             print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
           }
-          MainNavigation.pop(context);
+          context.router.popForced();
           //return;
         },
         child:Scaffold(
@@ -110,7 +111,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             child: AppBar(
               leading: IconButton(
                 onPressed: () {
-                  MainNavigation.replace(context, [const MainNavigation.home()]);
+                  context.router.push(MainRoute());
+                  // MainNavigation.replace(context, [const MainNavigation.home()]);
                 },
                 icon: const Icon(
                   Icons.arrow_back,

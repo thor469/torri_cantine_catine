@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:torri_cantine_app/account/account/account_bloc.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/login/login/login_bloc.dart';
 import 'package:torri_cantine_app/menu_screen/widgets/menu_items.dart';
@@ -103,7 +104,9 @@ class _MenuScreenState extends State<MenuScreen> {
                         onTap: ()async {
                           await storage.setBottomTabState(0);
                           if(context.mounted){
-                            MainNavigation.replace(context, [const MainNavigation.home()]);
+                            context.router.push(MainRoute());
+
+                            // MainNavigation.replace(context, [const MainNavigation.home()]);
                           }
                         },
                         child: Container(
@@ -123,9 +126,10 @@ class _MenuScreenState extends State<MenuScreen> {
                       GestureDetector(
                         onTap: () async{
                           await storage.setBottomTabState(6);
-
-                          MainNavigation.push(context,
-                              const MainNavigation.cart(true, false, false, false));
+                          if(context.mounted){
+                            context.router.push(CartRoute(showAppBar: true, fromMenu: false, fromCompleteOrder: false, fromHomePage: false));
+                          }
+                          // MainNavigation.push(context, const MainNavigation.cart(true, false, false, false));
                         },
                         child: const MenuItems(
                           title: "CARRELLO",
@@ -141,8 +145,10 @@ class _MenuScreenState extends State<MenuScreen> {
                       GestureDetector(
                         onTap: () async{
                           await storage.setBottomTabState(5);
-                          MainNavigation.push(context,
-                              const MainNavigation.wishList(true, false));
+                          if(context.mounted){
+                            context.router.push(WishlistRoute(fromMenu: true, fromAccount: false));
+                          }
+
                         },
                         child: const MenuItems(
                           title: "WISHLIST",
@@ -158,9 +164,13 @@ class _MenuScreenState extends State<MenuScreen> {
                       GestureDetector(
                         onTap: () async{
                           await storage.setBottomTabState(0);
+                          if(context.mounted){
+                            context.router.push(CategoriesRoute(fromMenu: false, showAppBar: true));
 
-                          MainNavigation.push(context,
-                              const MainNavigation.categories(true, false));
+                          }
+
+                          // MainNavigation.push(context,
+                          //     const MainNavigation.categories(true, false));
                         },
                         child: const MenuItems(
                           title: "CATEGORIE PRODOTTI",
@@ -229,8 +239,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                           title: "Il mio account",
                                           isSelected: currentProfile ==
                                               PersonalProfile.myaccount,
-                                          onTapNavigation:
-                                          const MainNavigation.account(true)),
+                                          onTapNavigation: const MainNavigation.account(true)),
                                     ),
                                   ],
                                 ),
@@ -243,10 +252,10 @@ class _MenuScreenState extends State<MenuScreen> {
                                       child: ProfileItems(
                                           id: 11,
                                           title: "I miei ordini",
-                                          isSelected: currentProfile ==
-                                              PersonalProfile.myorders,
-                                          onTapNavigation:
-                                          const MainNavigation.myOrders(true, false, false, false)),
+                                          isSelected: currentProfile == PersonalProfile.myorders,
+                                          onTapNavigation: const MainNavigation.myOrders(true, false, false, false)
+
+                                      ),
                                     ),
                                   ],
                                 ),

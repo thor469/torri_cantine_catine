@@ -7,6 +7,7 @@ import 'package:torri_cantine_app/account/model/request/add_address_request.dart
 import 'package:torri_cantine_app/account/model/response/add_address_response.dart';
 import 'package:torri_cantine_app/app/common/primary_button.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/cart/model/response/cart_response.dart';
 import 'package:torri_cantine_app/personal_info/update_customer/update_customer_bloc.dart';
@@ -252,7 +253,7 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
               ),
               onPressed: () {
                 popBackButton =true;
-                MainNavigation.pop(context, );
+                context.router.popForced();
               },
             ),
             title: Text(widget.existingAddress!=null?"MODIFICA INDIRIZZO":"NUOVO INDIRIZZO",
@@ -720,15 +721,21 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
 
                                 switch (widget.returnPage) {
                                   case 'account' : {
-                                    MainNavigation.replace(context, [const MainNavigation.account(false)]);
+                                    context.router.replaceAll([AccountRoute(fromSecondPage: false)]);
+
+                                    // MainNavigation.replace(context, [const MainNavigation.account(false)]);
                                     break;
                                   }
                                   case 'completeorder' : {
-                                    MainNavigation.replace(context, [MainNavigation.completeOrder(widget.point ?? 0, widget.subTotal ?? "")]);
+                                    context.router.popForced();
+
+                                    // MainNavigation.replace(context, [MainNavigation.completeOrder(widget.point ?? 0, widget.subTotal ?? "")]);
                                     break;
                                   }
                                   default : {
-                                    MainNavigation.replace(context, [const MainNavigation.account(false)]);
+                                    context.router.replaceAll([AccountRoute(fromSecondPage: false)]);
+
+                                    // MainNavigation.replace(context, [const MainNavigation.account(false)]);
                                     break;
                                   }
                                 }

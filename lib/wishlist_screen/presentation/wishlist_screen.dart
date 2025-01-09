@@ -7,6 +7,7 @@ import 'package:torri_cantine_app/all_products/model/response/all_products_respo
 import 'package:torri_cantine_app/app/common/bottom_bar_items/bottom_bar.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/floating_action_button.dart';
 import 'package:torri_cantine_app/app/common/sub_page_appbar.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/menu_screen/menu_screen.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
@@ -117,18 +118,11 @@ class _WishlistScreenState extends State<WishlistScreen> {
                   ?  (){
                 setState(() {
                 });
-                MainNavigation.pop(context);
-
+                context.router.popForced();
               }
                   : widget.fromAccount
-                  ? () => MainNavigation.push(
-                context,
-                const MainNavigation.account(false),
-              )
-                  : () => MainNavigation.push(
-                context,
-                const MainNavigation.home(),
-              ),
+                  ? () =>  context.router.push(AccountRoute(fromSecondPage: false))
+                : () => context.router.push(MainRoute())
             ),
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,

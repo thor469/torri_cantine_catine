@@ -100,7 +100,7 @@ class _BodyOrderInfoState extends State<BodyOrderInfo> {
                     if (kDebugMode) {
                       print('@#@#@#@ #@#@#@#@# @# @#@ #@# @# @# @# @ # #@ #@ @# pop invoked');
                     }
-                    MainNavigation.pop(context);
+                    context.router.popForced()
                     //return;
                   },
                   child: Scaffold(

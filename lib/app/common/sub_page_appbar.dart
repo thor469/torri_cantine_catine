@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/app/utilitys/tc_typography.dart';
 
@@ -95,10 +97,11 @@ class _SubPageAppbarState extends State<SubPageAppbar> {
                           child: widget.icon3),
                     ),
                   ),
-                  onTap: () => MainNavigation.push(
-                    context,
-                    const MainNavigation.cart(false, false, false, false),
-                  ),
+                  onTap: () => context.router.replaceAll([CartRoute(showAppBar: false, fromMenu: false, fromCompleteOrder: false, fromHomePage: false)]),
+                  // onTap: () => MainNavigation.push(
+                  //   context,
+                  //   const MainNavigation.cart(false, false, false, false),
+                  // ),
                 ),
               )
             : const SizedBox()]

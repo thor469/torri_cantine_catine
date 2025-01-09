@@ -88,10 +88,8 @@ class _BottomBanvigationMenuState extends State<BottomBanvigationMenu> {
               setState(() {
                 widget.selectedIndex = 4;
               });
-              MainNavigation.push(
-                context,
-                const MainNavigation.account(true),
-              );
+              context.router.push(AccountRoute(fromSecondPage: true));
+              // MainNavigation.push(context, const MainNavigation.account(true),);
             },
             child: AccountBottomItem(
               text: 'Account',
@@ -102,7 +100,8 @@ class _BottomBanvigationMenuState extends State<BottomBanvigationMenu> {
 
           // Center Logo
           GestureDetector(
-            onTap: () => MainNavigation.replace(context, [const MainNavigation.home()]),
+            onTap: () => context.router.replaceAll([MainRoute()]),
+            // onTap: () => MainNavigation.replace(context, [const MainNavigation.home()]),
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Stack(
@@ -134,10 +133,12 @@ class _BottomBanvigationMenuState extends State<BottomBanvigationMenu> {
               setState(() {
                 widget.selectedIndex = 5;
               });
-              MainNavigation.push(
-                context,
-                const MainNavigation.wishList(true, false),
-              );
+              context.router.replaceAll([WishlistRoute(fromMenu: true, fromAccount: false)]);
+
+              // MainNavigation.push(
+              //   context,
+              //   const MainNavigation.wishList(true, false),
+              // );
             },
             child: WishListBottomItem(
               text: 'Wishlist',

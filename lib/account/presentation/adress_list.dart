@@ -11,6 +11,7 @@ import 'package:torri_cantine_app/app/common/bottom_bar_items/floating_action_bu
 import 'package:torri_cantine_app/app/common/primary_button.dart';
 import 'package:torri_cantine_app/app/common/sub_page_appbar.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/menu_screen/menu_screen.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
@@ -47,7 +48,8 @@ Widget build(BuildContext context) {
 return PopScope(
     canPop: false,
     onPopInvoked: (_){
-      MainNavigation.replace(context, [const MainNavigation.account(true)]);
+      context.router.replaceAll([AccountRoute(fromSecondPage: true)]);
+      // MainNavigation.replace(context, [const MainNavigation.account(true)]);
     },
   child: Container(
     color: const Color.fromARGB(255, 244, 244, 244),
@@ -59,7 +61,9 @@ return PopScope(
           preferredSize: const Size.fromHeight(60),
           child: SubPageAppbar(
             onTap: () {
-              MainNavigation.replace(context, [const MainNavigation.account(false)]);
+              context.router.replaceAll([AccountRoute(fromSecondPage: false)]);
+
+              // MainNavigation.replace(context, [const MainNavigation.account(false)]);
             },
             text: "I MIEI INDIRIZZI",
           ),
@@ -107,7 +111,9 @@ return PopScope(
                             model.billing.isEmpty
                                 ? GestureDetector(
                               onTap: (){
-                                MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, true, false, null, "account", true,null, ""));},
+                                context.router.push(NewAddressFromAccountRoute(customerdId: widget.customerdId, editFatturazione: true, editShipping: false, returnPage:  "account", isNewAddress: true, subTotal: ""));
+                              },
+                                // MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, true, false, null, "account", true,null, ""));},
                               child: const Row(
                                 children: [
                                   Text(
@@ -134,7 +140,9 @@ return PopScope(
                                     _buildBillingAddress(model.billing.first),
                                     GestureDetector(
                                       onTap: (){
-                                        MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, false, false, null, "account", true,null, "null"));
+                                        context.router.push(NewAddressFromAccountRoute(customerdId: widget.customerdId, editFatturazione: false, editShipping: false, returnPage:  "account", isNewAddress: true, subTotal: "null"));
+
+                                        // MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, false, false, null, "account", true,null, "null"));
                                       },
                                       child: const Row(
                                         children: [
@@ -181,7 +189,9 @@ return PopScope(
                                     ),
                                     GestureDetector(
                                       onTap: (){
-                                        MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, true, false, null, "account", true,null, "null"));
+                                        context.router.push(NewAddressFromAccountRoute(customerdId: widget.customerdId, editFatturazione: true, editShipping: false, returnPage:  "account", isNewAddress: true, subTotal: ""));
+
+                                        // MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, true, false, null, "account", true,null, "null"));
                                       },
                                       child: const Row(
                                         children: [
@@ -203,7 +213,9 @@ return PopScope(
                             model.shipping.isEmpty
                                 ? GestureDetector(
                               onTap: (){
-                                MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, false, true, null, "account", true,null, "null"));
+                                context.router.push(NewAddressFromAccountRoute(customerdId: widget.customerdId, editFatturazione: false, editShipping: true, returnPage:  "account", isNewAddress: true, subTotal: ""));
+
+                                // MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, false, true, null, "account", true,null, "null"));
                               },
                               child: const Row(
                                 children: [
@@ -231,7 +243,9 @@ return PopScope(
                                     _buildShippingAddress(model.shipping.first),
                                     GestureDetector(
                                       onTap: (){
-                                        MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, false, false, null, "account", true,null, "null"));
+                                        context.router.push(NewAddressFromAccountRoute(customerdId: widget.customerdId, editFatturazione: false, editShipping: false, returnPage:  "account", isNewAddress: true, subTotal: ""));
+
+                                        // MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, false, false, null, "account", true,null, "null"));
                                       },
                                       child: const Row(
                                         children: [
@@ -278,7 +292,9 @@ return PopScope(
                                     ),
                                     GestureDetector(
                                       onTap: (){
-                                        MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, false, true, null, "account", true,null, "null"));
+                                        context.router.push(NewAddressFromAccountRoute(customerdId: widget.customerdId, editFatturazione: false, editShipping: true, returnPage:  "account", isNewAddress: true, subTotal: ""));
+
+                                        // MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, false, true, null, "account", true,null, "null"));
                                       },
                                       child: const Row(
                                         children: [
@@ -315,16 +331,18 @@ return PopScope(
                             text: "Aggiungi nuovo indirizzo",
                             colorText: Colors.white,
                             ontap: () {
-                              MainNavigation.push(context, MainNavigation.newAddressFromAccount(
-                                  widget.customerdId,
-                                  false,
-                                  true,
-                                  null,
-                                  'account',
-                                  true,
-                                  null, "null"
-                              ),
-                              );
+                              context.router.push(NewAddressFromAccountRoute(customerdId: widget.customerdId, editFatturazione: false, editShipping: true, returnPage:  "account", isNewAddress: true, subTotal: ""));
+
+                              // MainNavigation.push(context, MainNavigation.newAddressFromAccount(
+                              //     widget.customerdId,
+                              //     false,
+                              //     true,
+                              //     null,
+                              //     'account',
+                              //     true,
+                              //     null, "null"
+                              // ),
+                              // );
                             },
                           ),
                         ),
@@ -343,7 +361,9 @@ return PopScope(
   // Metodo per aggiornare l'indirizzo predefinito
   Future<void> _updateDefaultAddress(UserAddress address, String type, String id) async {
 
-    MainNavigation.replace(context, [const MainNavigation.account(true)]);
+    context.router.replaceAll([AccountRoute(fromSecondPage: true)]);
+
+    // MainNavigation.replace(context, [const MainNavigation.account(true)]);
 
     context.read<AccountBloc>().add(
         AccountEvent.updateAddress(
@@ -411,17 +431,21 @@ return PopScope(
           text: "MODIFICA",
           colorText: Colors.white,
           ontap: () {
-            MainNavigation.push(
-              context,
-              MainNavigation.newAddressFromAccount(
-                widget.customerdId,
-                billing.is_default,
-                false,
-                billing,
-                'account',
-                false,null, "null"
-              ),
-            );
+            context.router.push(NewAddressFromAccountRoute(customerdId: widget.customerdId, editFatturazione: billing.is_default,existingAddress: billing, editShipping: false, returnPage:  "account", isNewAddress: false, subTotal: ""));
+
+
+
+            // MainNavigation.push(
+            //   context,
+            //   MainNavigation.newAddressFromAccount(
+            //     widget.customerdId,
+            //     billing.is_default,
+            //     false,
+            //     billing,
+            //     'account',
+            //     false,null, "null"
+            //   ),
+            // );
           },
         ),
         const SizedBox(
@@ -471,19 +495,20 @@ return PopScope(
           text: "MODIFICA",
           colorText: Colors.white,
           ontap: () {
-            MainNavigation.push(
-              context,
-              MainNavigation.newAddressFromAccount(
-                widget.customerdId,
-                false,
-                shipping.is_default,
-                shipping,
-                'account',
-                false,
-                  null,
-                  "null"
-              ),
-            );
+            context.router.push(NewAddressFromAccountRoute(customerdId: widget.customerdId, editFatturazione: shipping.is_default,existingAddress: shipping, editShipping: false, returnPage:  "account", isNewAddress: false, subTotal: ""));
+            // MainNavigation.push(
+            //   context,
+            //   MainNavigation.newAddressFromAccount(
+            //     widget.customerdId,
+            //     false,
+            //     shipping.is_default,
+            //     shipping,
+            //     'account',
+            //     false,
+            //       null,
+            //       "null"
+            //   ),
+            // );
           },
         ),
         const SizedBox(

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:torri_cantine_app/app/common/bottom_bar_items/bottom_bar.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/floating_action_button.dart';
 import 'package:torri_cantine_app/app/common/primary_button.dart';
 import 'package:torri_cantine_app/app/common/sub_page_appbar.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/menu_screen/menu_screen.dart';
 import 'package:torri_cantine_app/personal_info/update_customer/update_customer_bloc.dart';
@@ -67,14 +69,15 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
     return PopScope(
         canPop: false,
         onPopInvoked: (didPop) {
-          MainNavigation.replace(context, [const MainNavigation.account(true)]);
+          context.router.replaceAll([AccountRoute(fromSecondPage: true)]);
+          // MainNavigation.replace(context, [const MainNavigation.account(true)]);
         },
         child:Scaffold(
           backgroundColor: const Color.fromARGB(255, 244, 244, 244),
           key: _key,
           appBar: SubPageAppbar(
             text: "INFORMAZIONI PERSONALI",
-            onTap: () => MainNavigation.replace(context, [const MainNavigation.account(true)]),
+            onTap: () =>           context.router.replaceAll([AccountRoute(fromSecondPage: true)]),
           ),
           body: BlocBuilder<AccountBloc, AccountState>(
             builder: (context, state) => state.maybeWhen(
@@ -152,10 +155,8 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                                         : controller['phoneNumber'].text,
                                   ),
                                 );
-                                MainNavigation.push(
-                                  context,
-                                  const MainNavigation.home(),
-                                );
+                                context.router.push(MainRoute());
+
                                 final email = await storage.getUserEmail();
                                 if (mounted) {
                                   context

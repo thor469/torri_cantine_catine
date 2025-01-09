@@ -52,7 +52,7 @@ class _CategoriesDetailScreenState extends State<CategoriesDetailScreen> {
             backgroundColor: const Color.fromARGB(255, 244, 244, 244),
             appBar: SubPageAppbar(
               text: "PRODOTTI PER CATEGORIA",
-              onTap: () => MainNavigation.pop(context),
+              onTap: () => context.router.popForced(),
             ),
             body: PagedGridView<int, Product>(
               pagingController: _pagingController,

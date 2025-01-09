@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:torri_cantine_app/app/common/primary_button.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/cart/cubit/cart_badge_cubit_cubit.dart';
 import 'package:torri_cantine_app/my_orders/my_orders/my_orders_bloc.dart';
@@ -45,7 +46,9 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                 size: 30,
               ),
               onPressed: () {
-                MainNavigation.replace(context, [const MainNavigation.home()]);
+                context.router.replaceAll([MainRoute()]);
+
+                // MainNavigation.replace(context, [const MainNavigation.home()]);
               },
             ),
             title: Text(
@@ -120,7 +123,9 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                   text: "VISUALIZZA ORDINE",
                   colorText: Colors.white,
                   ontap: () {
-                    MainNavigation.replace(context, [const MainNavigation.myOrders(false, false, true, false)]);
+                    context.router.replaceAll([MyOrdersRoute(fromMenu: false, fromAccount: false, fromThankScreen: true, fromOrderDetails: false)]);
+
+                    // MainNavigation.replace(context, [const MainNavigation.myOrders(false, false, true, false)]);
                   },
                 ),
               ),

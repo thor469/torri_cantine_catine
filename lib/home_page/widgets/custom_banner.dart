@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:torri_cantine_app/app/common/primary_button.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 
 import '../../app/routing/main_navigation.dart';
 
@@ -58,14 +60,12 @@ class _CustomBannerState extends State<CustomBanner> {
                   child: Center(
                     child: PrimaryButton(
                       text: "SCOPRI",
-                      ontap: () => MainNavigation.push(
-                        context,
-                        const MainNavigation.products(),
+                      ontap: () => context.router.push(ProductsRoute(showAppBar: false, fromMenu: false)),
+                      // ontap: () => MainNavigation.push(context, const MainNavigation.products(),
                       ),
                     ),
                   ),
                 ),
-              ),
             ],
           ),
         ),
