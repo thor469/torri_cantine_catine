@@ -19,6 +19,9 @@ class OrderNumber extends StatefulWidget {
 }
 
 class _OrderNumberState extends State<OrderNumber> {
+
+  bool isDisabled = false;
+
   void launchURL(String url) async {
     if (await canLaunch(url)) {
       await launch(
@@ -92,48 +95,49 @@ class _OrderNumberState extends State<OrderNumber> {
                 padding: const EdgeInsets.only(right: 20),
                 child: GestureDetector(
                   onTap: () async {
-                    var codeInfo;
-                    try {
-                      final dep = DependencyFactoryImpl();
-                      final Dio dio = dep.createDioForApiCart().dio;
 
-                      codeInfo = await dio.request(
-                        '/wp-json/wp/v2/get_track_link',
-                        options: Options(
-                          method: 'GET',
-                        ),
-                        queryParameters: {
-                          "id": widget.order.id,
-                        },
-                      );
+                    if(!isDisabled){
+                      var codeInfo;
+                      try {
+                        final dep = DependencyFactoryImpl();
+                        final Dio dio = dep.createDioForApiCart().dio;
 
-                      // Verifica se la risposta contiene i dati attesi
-                      if (codeInfo.data != null && codeInfo.data['track_link'] != null) {
-                        final trackLink = codeInfo.data['track_link'];
+                        codeInfo = await dio.request(
+                          '/wp-json/wp/v2/get_track_link',
+                          options: Options(
+                            method: 'GET',
+                          ),
+                          queryParameters: {
+                            "id": widget.order.id,
+                          },
+                        );
 
-                        if (kDebugMode) {
-                          print("URL da lanciare: $trackLink");
+                        if (codeInfo.data != null && codeInfo.data != null) {
+                          final trackLink = codeInfo.data;
+                          if(trackLink == "notrack"){
+                            setState(() {
+                              isDisabled = true;
+                            });
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                              content: Text('Tracciamento non disponibile torna quando il tuo ordine verrà spedito'),
+                              elevation: 1,
+                            ));
+                          }else{
+                            launchURL(trackLink);
+                          }
                         }
 
-                        // Passa solo l'URL a launchURL
-                        launchURL(trackLink);
-                      } else {
-                        if (kDebugMode) {
-                          print("La risposta non contiene 'track_link': ${codeInfo.data}");
-                        }
-                      }
-                    } catch (e) {
-                      if (kDebugMode) {
-                        print("Errore durante la richiesta: $e");
-                      }
+                      } catch (e) {}
                     }
+
+
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.40,
                     height: 30,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(7),
-                      color: const Color.fromARGB(255, 161, 29, 52),
+                      color: isDisabled ? Colors.grey : const Color.fromARGB(255, 161, 29, 52),
                     ),
                     child: Center(
                       child: Text(

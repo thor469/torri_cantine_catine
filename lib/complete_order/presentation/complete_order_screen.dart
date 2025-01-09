@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:html_unescape/html_unescape.dart';
+import 'package:http_services/http_services.dart';
 import 'package:torri_cantine_app/account/account/account_bloc.dart';
 import 'package:torri_cantine_app/account/model/response/add_address_response.dart';
 import 'package:torri_cantine_app/app/cache_manager/cache_manager.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/bottom_bar.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/floating_action_button.dart';
 import 'package:torri_cantine_app/app/common/primary_button.dart';
+import 'package:torri_cantine_app/app/dependency_injection/dependency_factory_impl.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/app/utilitys/fixedFloatingPositions.dart';
 import 'package:torri_cantine_app/app/utilitys/html_tools.dart';
@@ -91,6 +93,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   List<Coupon?>? coupons;
   String subPrice = "";
   bool couponDeleted = false;
+  Response? codeInfo;
 
   @override
   void initState() {
@@ -1064,7 +1067,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                   Padding(
                                     padding: const EdgeInsets.only(top : 15.0),
                                     child: GestureDetector(
-                                      onTap: (){
+                                      onTap: () async{
                                         MainNavigation.push(context, MainNavigation.newAddressFromAccount(customerId, false, true, null, "completeorder", true, widget.totPoint,  widget.cartSubTotal));
                                         // context.read<AccountBloc>().addAddress();
                                       },
@@ -1088,17 +1091,11 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                   ),
                                   const Text(
                                     "METODO DI PAGAMENTO",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold, fontSize: 16),
+                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                                   ),
-
-
                                   FutureBuilder(
                                     future: paymentGatewayFuture,
                                     builder: (context,snapshot) {
-
-
-
                                       if(snapshot.connectionState != ConnectionState.done) {
                                         return const Center(
                                             child: CircularProgressIndicator(
@@ -1107,17 +1104,15 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                         );
                                       }
                                       if(snapshot.hasData) {
+
                                         var pg = snapshot.data;
                                         double containerHeight = 80;
-
                                         var unescape = HtmlUnescape();
-                                        //print(sm!.length);
+
                                         if(!payDefaultDefined) {
                                           paymentMethodSelected = pg![0]!.id!;
                                           payDefaultDefined = true;
-
                                         }
-
 
                                         return Container(
                                             alignment: Alignment.topLeft,
@@ -1128,7 +1123,6 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                               shrinkWrap: true,
                                               itemCount: pg.length,
                                               itemBuilder: (context,index){
-
                                                 String? pgIcon = '';
                                                 String pgDescr = unescape.convert('${pg[index]?.description}');
                                                 pgDescr = removeAllHtmlTags(
@@ -1165,14 +1159,39 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                 return pg[index]?.title == null
                                                     ? const SizedBox.shrink()
                                                     : SizedBox(
-
-                                                  height: containerHeight,
+                                                        height: containerHeight,
                                                   child: GestureDetector(
-                                                    onTap: () {
+                                                    onTap: () async{
                                                       setState(() {
                                                         paymentMethodSelected = pg[index]!.id!;
                                                         gruppoval2 = index;
                                                       });
+
+                                                      if(pg[index]!.id == "cod"){
+                                                        try {
+                                                          final dep = DependencyFactoryImpl();
+                                                          final Dio dio = dep.createDioForApiCart().dio;
+
+                                                          codeInfo = await dio.request(
+                                                            '/wp-json/wp/v2/get_cod_price',
+                                                            options: Options(
+                                                              method: 'GET',
+                                                            ),
+                                                          );
+
+                                                        } catch (e) {}
+
+                                                        setState(() {
+                                                          cartSummedPrice += codeInfo?.data;
+                                                        });
+                                                      }else{
+                                                        setState(() {
+                                                          cartSummedPrice -= codeInfo?.data;
+                                                          codeInfo?.data = 0;
+                                                        });
+                                                      }
+
+
                                                     },
                                                     child: Row(
                                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1230,11 +1249,38 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                                 activeColor: const Color.fromARGB(255, 158, 29, 48),
                                                                 value: index,
                                                                 groupValue: gruppoval2,
-                                                                onChanged: (val) {
+                                                                onChanged: (val) async{
+
                                                                   setState(() {
                                                                     paymentMethodSelected = pg[index]!.id!;
                                                                     gruppoval2 = index;
                                                                   });
+
+                                                                  if(pg[index]!.id == "cod"){
+                                                                    try {
+                                                                      final dep = DependencyFactoryImpl();
+                                                                      final Dio dio = dep.createDioForApiCart().dio;
+
+                                                                      codeInfo = await dio.request(
+                                                                        '/wp-json/wp/v2/get_cod_price',
+                                                                        options: Options(
+                                                                          method: 'GET',
+                                                                        ),
+                                                                      );
+
+                                                                    } catch (e) {}
+
+                                                                    setState(() {
+                                                                      cartSummedPrice += codeInfo?.data;
+                                                                    });
+                                                                  }else{
+                                                                    setState(() {
+                                                                      cartSummedPrice -= codeInfo?.data;
+                                                                      codeInfo?.data = 0;
+                                                                    });
+                                                                  }
+
+
                                                                 }
                                                             ) ,
                                                           )
@@ -1447,6 +1493,32 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                             style: const TextStyle(fontSize: 13),
                                           ),
                                         ],
+                                      ),
+
+                                      Visibility(
+                                        visible: codeInfo?.data != null &&  codeInfo?.data != 0,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 5.0),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              const Text(
+                                                "Costo contrassegno:",
+                                                style: TextStyle(
+                                                  fontSize: 13,
+                                                  color: Color.fromARGB(255, 13, 117, 161),
+                                                ),
+                                              ),
+                                              Text(
+                                                "€ ${codeInfo?.data}.00",
+                                                style: const TextStyle(
+                                                  fontSize: 13,
+                                                  color: Color.fromARGB(255, 13, 117, 161),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                       ),
 
                                       // Total Price Section
