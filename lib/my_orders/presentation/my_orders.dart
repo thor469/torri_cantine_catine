@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:torri_cantine_app/app/common/sub_page_appbar.dart';
-import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/my_orders/widgets/body_order_info.dart';
 import '../../utilities/local_storage.dart';
 
@@ -37,7 +37,9 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
         canPop: true,
         onPopInvokedWithResult: (didPop, _){
           if(didPop){
-            storage.setBottomTabState(4);
+            if(widget.fromAccount){
+              storage.setBottomTabState(4);
+            }
           }
         },
         child:Scaffold(
@@ -48,9 +50,11 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
               child: SubPageAppbar(
                 text: "I MIEI ORDINI",
                 onTap: () {
-                  storage.setBottomTabState(4);
-                  context.router.back();
-                },
+                  if(widget.fromAccount){
+                    storage.setBottomTabState(4);
+                  }
+                  context.router.popForced();
+                  },
               )
           ),
 

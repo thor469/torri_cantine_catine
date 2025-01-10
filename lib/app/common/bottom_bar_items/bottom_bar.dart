@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
@@ -162,7 +163,6 @@ class _BottomBanvigationMenuState extends State<BottomBanvigationMenu> {
 
                   context.router.replaceAll([const MainRoute(), CartRoute(showAppBar: true, fromMenu: false, fromCompleteOrder: false, fromHomePage: false),]);
                 }
-
               },
               child: CartBottomItem(
                 text: 'Carrello',

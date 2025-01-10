@@ -104,7 +104,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         onTap: ()async {
                           await storage.setBottomTabState(0);
                           if(context.mounted){
-                            context.router.push(MainRoute());
+                            context.router.popAndPush(const MainRoute());
 
                             // MainNavigation.replace(context, [const MainNavigation.home()]);
                           }
@@ -257,6 +257,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                           title: "I miei ordini",
                                           isSelected: currentProfile == PersonalProfile.myorders,
                                           onNavigationTap: (){
+                                            storage.setBottomTabState(0);
                                             context.router.push(MyOrdersRoute(
                                                 fromMenu: true,fromAccount: false,fromThankScreen: false,fromOrderDetails: false)
                                             );},
@@ -276,6 +277,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                         isSelected: currentProfile ==
                                             PersonalProfile.points,
                                         onNavigationTap: (){
+                                          storage.setBottomTabState(0);
                                           context.router.push(PointsBalanceRoute(
                                             fromMenu: true, fromAccount: false,
                                           )

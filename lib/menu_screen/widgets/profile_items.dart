@@ -31,7 +31,7 @@ class _ProfileItemsState extends State<ProfileItems> {
       child: Container(
         color: Colors.white,
         child: InkWell(
-          onTap: ()async {
+          onTap: () async {
             await storage.setBottomTabState(4);
             widget.onNavigationTap();
             // MainNavigation.push(context, widget.onTapNavigation);

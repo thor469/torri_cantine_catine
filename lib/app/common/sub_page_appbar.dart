@@ -97,7 +97,7 @@ class _SubPageAppbarState extends State<SubPageAppbar> {
                           child: widget.icon3),
                     ),
                   ),
-                  onTap: () => context.router.replaceAll([CartRoute(showAppBar: false, fromMenu: false, fromCompleteOrder: false, fromHomePage: false)]),
+                  onTap: () => context.router.replaceAll([const MainRoute(), CartRoute(showAppBar: false, fromMenu: false, fromCompleteOrder: false, fromHomePage: false)]),
                   // onTap: () => MainNavigation.push(
                   //   context,
                   //   const MainNavigation.cart(false, false, false, false),

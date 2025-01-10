@@ -45,7 +45,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
         preferredSize: const Size.fromHeight(60),
         child: SubPageAppbar(
           text: "DETTAGLI ORDINE",
-          onTap: () => context.router..back(),
+          onTap:() => context.router.popForced(),
           // onTap: () => MainNavigation.push(
           //   context,
           //   const MainNavigation.myOrders(false, false, false, true),

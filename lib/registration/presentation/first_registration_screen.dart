@@ -146,7 +146,7 @@ class _FirstRegistrScreenState extends State<FirstRegistrScreen> {
           backgroundColor: const Color.fromARGB(255, 227, 231, 233),
           leading: IconButton(
             onPressed: () {
-              context.router.back();
+              context.router.popForced();
             },
             icon: const Icon(
               Icons.arrow_back,

@@ -216,7 +216,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
         loaded: (response) => {
           context.read<CartBadgeCubitCubit>().removeCartItem(),
           context.read<CartBloc>().deleteCart(),
-          context.router.replaceAll([const MainRoute(),const ThankYouRoute()]),
+          context.router.push(const ThankYouRoute())
         },
         loading: () => const Center(
           child: CircularProgressIndicator(
@@ -245,7 +245,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
               size: 30,
             ),
             onPressed: () {
-              context.router.back();
+              context.router.popForced();
             },
           ),
           title: const Text("DETTAGLI ORDINE",
@@ -1777,7 +1777,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
         if(mounted){
           context.read<CartBloc>().deleteCart();
         }
-        context.router.replaceAll(const [MainRoute(), ThankYouRoute()]);
+        context.router.push(const ThankYouRoute());
       } else {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Pagamento fallito, riprovare'),
@@ -1885,7 +1885,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
             if(mounted){
               context.read<CartBadgeCubitCubit>().removeCartItem();
               context.read<CartBloc>().deleteCart();
-              context.router.replaceAll(const [MainRoute(), ThankYouRoute()]);
+              context.router.push(const ThankYouRoute());
             }
           }else{
             setState(() {

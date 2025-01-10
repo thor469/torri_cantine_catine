@@ -102,8 +102,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         child: AppBar(
           leading: IconButton(
             onPressed: () {
-              context.router.back();
-              // MainNavigation.replace(context, [const MainNavigation.home()]);
+              context.router.popForced();
             },
             icon: const Icon(
               Icons.arrow_back,

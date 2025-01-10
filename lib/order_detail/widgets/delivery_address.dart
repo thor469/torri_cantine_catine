@@ -41,7 +41,9 @@ class _AddressDeliveryState extends State<AddressDelivery> {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 20),
                           child: Text("INDIRIZZO DI SPEDIZIONE",
-                              style: TCTypography.of(context).text_18_bold),
+                              style: TCTypography.of(context).text_18_bold,
+                              ),
+
                         ),
                       ],
                     ),
@@ -58,36 +60,39 @@ class _AddressDeliveryState extends State<AddressDelivery> {
                                 color: Colors.grey,
                               ),
                               const SizedBox(width: 5),
-                              Text(
-                                  model.user.first.billing!.address_1
-                                      .toString(),
-                                  style: TCTypography.of(context).text_16_bold)
+                              Flexible(
+                                child: Text(
+                                    model.user.first.billing!.address_1
+                                        .toString(),
+                                    style: TCTypography.of(context).text_16_bold,
+                                  overflow: TextOverflow.ellipsis, maxLines: 2,),
+                              )
                             ],
                           ),
                         ),
                         Text(
                           "${model.user.first.billing!.first_name} ${model.user.first.billing!.last_name}",
                           style: TCTypography.of(context).text_14.copyWith(
-                                color: const Color.fromARGB(255, 127, 127, 127),
-                              ),
+                                color: const Color.fromARGB(255, 127, 127, 127),),
+                          overflow: TextOverflow.ellipsis, maxLines: 2,
                         ),
                         Text(
                           model.user.first.billing!.address_2 ?? "",
                           style: TCTypography.of(context).text_14.copyWith(
                                 color: const Color.fromARGB(255, 127, 127, 127),
-                              ),
+                              ), overflow: TextOverflow.ellipsis, maxLines: 2,
                         ),
                         Text(
                           "${model.user.first.billing!.city ?? ""}, ${model.user.first.billing!.postcode ?? ""}",
                           style: TCTypography.of(context).text_14.copyWith(
                                 color: const Color.fromARGB(255, 127, 127, 127),
-                              ),
+                              ),overflow: TextOverflow.ellipsis, maxLines: 2,
                         ),
                         Text(
                           model.user.first.billing!.country ?? "",
                           style: TCTypography.of(context).text_14.copyWith(
                                 color: const Color.fromARGB(255, 127, 127, 127),
-                              ),
+                              ),overflow: TextOverflow.ellipsis, maxLines: 2,
                         ),
                       ],
                     ),

@@ -31,13 +31,15 @@ class _AddressListScreenState extends State<AddressListScreen> {
   Map<int, bool> indSpedizioneExpandedMap = {};
   int? selectedBillingIndex;
   int? selectedShippingIndex;
+  String? userEmail;
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      String email = await storage.getUserEmail() ?? "";
+      userEmail = await storage.getUserEmail() ?? "";
       if (mounted) {
         context.read<AccountBloc>().add(const AccountEvent.fetchAddress());
+
       }
     });
     super.initState();
@@ -46,10 +48,11 @@ class _AddressListScreenState extends State<AddressListScreen> {
   @override
 Widget build(BuildContext context) {
 return PopScope(
-    canPop: true,
-  onPopInvokedWithResult: (didPop, _){
-    if(didPop){
-      storage.setBottomTabState(4);
+  canPop: true,
+  onPopInvokedWithResult: (didPop, _) {
+      if(didPop){
+        storage.setBottomTabState(4);
+        context.read<AccountBloc>().add(AccountEvent.fetch(userEmail ?? ""));
     }
   },
   child: Container(
@@ -62,9 +65,8 @@ return PopScope(
           preferredSize: const Size.fromHeight(60),
           child: SubPageAppbar(
             onTap: () {
-              context.router.back();
-
-              // MainNavigation.replace(context, [const MainNavigation.account(false)]);
+              context.read<AccountBloc>().add(AccountEvent.fetch(userEmail ?? ""));
+              context.router.popForced();
             },
             text: "I MIEI INDIRIZZI",
           ),
@@ -362,7 +364,7 @@ return PopScope(
   // Metodo per aggiornare l'indirizzo predefinito
   Future<void> _updateDefaultAddress(UserAddress address, String type, String id) async {
 
-    context.router.replaceAll([AccountRoute(fromSecondPage: true)]);
+    context.router.replaceAll([const MainRoute(),AccountRoute(fromSecondPage: true)]);
 
     // MainNavigation.replace(context, [const MainNavigation.account(true)]);
 

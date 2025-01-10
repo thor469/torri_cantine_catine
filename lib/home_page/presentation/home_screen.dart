@@ -10,12 +10,7 @@ import 'package:torri_cantine_app/all_products/all_products/all_products_bloc.da
 import 'package:torri_cantine_app/all_products/model/response/all_products_response.dart';
 import 'package:torri_cantine_app/app/cache_manager/cache_manager.dart';
 import 'package:torri_cantine_app/app/common/tc_appbar.dart';
-import 'package:torri_cantine_app/app/dependency_injection/dependency_factory.dart';
 import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
-import 'package:torri_cantine_app/app/routing/main_navigation.dart';
-import 'package:torri_cantine_app/categories/categories/categories_bloc.dart';
-import 'package:torri_cantine_app/categories/model/response/categories_response.dart';
-import 'package:torri_cantine_app/categories/presentation/categories_screen.dart';
 import 'package:torri_cantine_app/home_page/widgets/home_page_body.dart';
 import 'package:torri_cantine_app/promotions/presentation/promotions_screen.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';

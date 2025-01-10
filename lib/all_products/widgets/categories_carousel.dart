@@ -83,12 +83,7 @@ class _CategoriesCarouselState extends State<CategoriesCarousel> {
 
                     return GestureDetector(
                       onTap: () {
-                        context.router.replaceAll([CategoriesDetailRoute(id: model.categories![index].id)]);
-
-                        // MainNavigation.push(
-                        //     context,
-                        //     MainNavigation.categoriesDetail(
-                        //         model.categories![index].id));
+                        context.router.push(CategoriesDetailRoute(id: model.categories![index].id));
                       },
                       child: Card(
                         elevation: 2,

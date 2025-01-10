@@ -72,85 +72,79 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       color: const Color.fromARGB(255, 244, 244, 244),
       child: SafeArea(
         top: false ,
-        child: PopScope(
-          canPop: false,
-          onPopInvoked : (didPop){},
-          child: Scaffold(
-            backgroundColor: const Color.fromARGB(255, 244, 244, 244),
-            appBar: widget.showAppBar
-                ? SubPageAppbar(
-              text: "TUTTE LE CATEGORIE",
-              onTap:  () => context.router.popForced(),
-            )
-                : null,
-            // floatingActionButton: const FloatingButton(),
-            // floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
-            // bottomNavigationBar: BottomBanvigationMenu(
-            //   scaffoldKey: GlobalKey(),
-            //   initialSelectedIndex: 0,
-            //   context: context,
-            // ),
-            body: PagedGridView<int, ProductCategories>(
-              pagingController: _pagingController,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 0.7,
+        child: Scaffold(
+          backgroundColor: const Color.fromARGB(255, 244, 244, 244),
+          appBar: widget.showAppBar
+              ? SubPageAppbar(
+            text: "TUTTE LE CATEGORIE",
+            onTap:  () => context.router.popForced(),
+          )
+              : null,
+          // floatingActionButton: const FloatingButton(),
+          // floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
+          // bottomNavigationBar: BottomBanvigationMenu(
+          //   scaffoldKey: GlobalKey(),
+          //   initialSelectedIndex: 0,
+          //   context: context,
+          // ),
+          body: PagedGridView<int, ProductCategories>(
+            pagingController: _pagingController,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 0.7,
+            ),
+            builderDelegate: PagedChildBuilderDelegate<ProductCategories>(
+              firstPageProgressIndicatorBuilder: (context) => const Center(
+                child: CircularProgressIndicator(
+                  color: Color.fromARGB(255, 161, 29, 51),
+                ),
               ),
-              builderDelegate: PagedChildBuilderDelegate<ProductCategories>(
-                firstPageProgressIndicatorBuilder: (context) => const Center(
-                  child: CircularProgressIndicator(
-                    color: Color.fromARGB(255, 161, 29, 51),
-                  ),
+              newPageProgressIndicatorBuilder: (context) => const Center(
+                child: CircularProgressIndicator(
+                  color: Color.fromARGB(255, 161, 29, 51),
                 ),
-                newPageProgressIndicatorBuilder: (context) => const Center(
-                  child: CircularProgressIndicator(
-                    color: Color.fromARGB(255, 161, 29, 51),
-                  ),
-                ),
-                itemBuilder: (context, category, index) => GestureDetector(
-                  onTap: () {
-                    context.router.push(CategoriesDetailRoute(id: category.id));
-
-
-                    // MainNavigation.push(
-                    //   context,
-                    //   MainNavigation.categoriesDetail(category.id),
-                    // );
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Card(
-                      elevation: 2,
-                      clipBehavior: Clip.antiAlias,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: <Widget>[
-                          Expanded(
-                            child: category.image?.src != null && category.image?.src is String
-                                ? CachedNetworkImage(
-                              imageUrl: category.image?.src ?? "",
-                              cacheKey: DynamicCacheManager().generateKey(category.image!.src),
-                              placeholder: (context, url) => const Center(
-                                child: CircularProgressIndicator(
-                                  color: Color.fromARGB(255, 161, 29, 51),
-                                ),
+              ),
+              itemBuilder: (context, category, index) => GestureDetector(
+                onTap: () {
+                  context.router.push(CategoriesDetailRoute(id: category.id));
+                  // MainNavigation.push(
+                  //   context,
+                  //   MainNavigation.categoriesDetail(category.id),
+                  // );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Card(
+                    elevation: 2,
+                    clipBehavior: Clip.antiAlias,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        Expanded(
+                          child: category.image?.src != null && category.image?.src is String
+                              ? CachedNetworkImage(
+                            imageUrl: category.image?.src ?? "",
+                            cacheKey: DynamicCacheManager().generateKey(category.image!.src),
+                            placeholder: (context, url) => const Center(
+                              child: CircularProgressIndicator(
+                                color: Color.fromARGB(255, 161, 29, 51),
                               ),
-                              errorWidget: (context, url, error) => const Icon(Icons.error),
-                              cacheManager: DynamicCacheManager(),
-                              fit: BoxFit.cover,
-                            )
-                                : const SizedBox.shrink(),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(
-                              category.name ?? "",
-                              style: TCTypography.of(context).text_14_bold,
-                              textAlign: TextAlign.center,
                             ),
+                            errorWidget: (context, url, error) => const Icon(Icons.error),
+                            cacheManager: DynamicCacheManager(),
+                            fit: BoxFit.cover,
+                          )
+                              : const SizedBox.shrink(),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(
+                            category.name ?? "",
+                            style: TCTypography.of(context).text_14_bold,
+                            textAlign: TextAlign.center,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),

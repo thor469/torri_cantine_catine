@@ -76,7 +76,6 @@ class _AccountScreenState extends State<AccountScreen> {
       if (mounted) {context.read<AccountBloc>().add(AccountEvent.fetch(email));}
     });
     super.initState();
-    setState(() {});
   }
 
   int selectedindex =0;
@@ -89,6 +88,7 @@ class _AccountScreenState extends State<AccountScreen> {
       onPopInvokedWithResult: (didPop, _){
         if(didPop){
           storage.setBottomTabState(0);
+          context.router.removeUntil((route) => route.name == MainRoute.name);
         }
       },
       child: Scaffold(
@@ -255,8 +255,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                 ],
                               ),
                               onTap: () {
-                                context.router.push(AddressListRoute(customerdId: model.user.first.id),
-                                );
+                                context.router.push(AddressListRoute(customerdId: model.user.first.id),);
                               },
                             ),
                             const Divider(
@@ -307,7 +306,7 @@ class _AccountScreenState extends State<AccountScreen> {
                               onTap: () async {
                                  await storage.setBottomTabState(5);
                                  if(context.mounted){
-                                   context.router.replace(WishlistRoute(fromMenu: true, fromAccount: true));
+                                   context.router.push(WishlistRoute(fromMenu: true, fromAccount: true));
                                  }
                                 }
                             ),
@@ -322,10 +321,8 @@ class _AccountScreenState extends State<AccountScreen> {
                                 title: Text("Logout",
                                     style: TCTypography.of(context).text_16_bold),
                                 onTap: () async {
-                                  context
-                                      .read<LoginBloc>()
-                                      .add(const LoginEvent.logout());
-                                  context.router.replace(WelcomeRoute());
+                                  context.read<LoginBloc>().add(const LoginEvent.logout());
+                                  context.router.replaceAll([WelcomeRoute()]);
                                 },
                               ),
                             ),

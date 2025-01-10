@@ -126,7 +126,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
               }
                   : widget.fromAccount
                   ? () =>  context.router.push(AccountRoute(fromSecondPage: false))
-                : () => context.router.push(MainRoute())
+                : () => context.router.push(const MainRoute())
             ),
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,

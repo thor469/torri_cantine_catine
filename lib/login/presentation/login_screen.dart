@@ -142,7 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             color: Colors.grey,
             onPressed: () {
-              context.router.back();
+              context.router.popForced();
             },
           ),
           actions: [
