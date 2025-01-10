@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torri_cantine_app/all_products/all_products/all_products_bloc.dart';
@@ -6,12 +7,13 @@ import 'package:torri_cantine_app/all_products/model/response/all_products_respo
 import 'package:torri_cantine_app/app/common/bottom_bar_items/bottom_bar.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/floating_action_button.dart';
 import 'package:torri_cantine_app/app/common/sub_page_appbar.dart';
-import 'package:torri_cantine_app/app/routing/main_navigation.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/menu_screen/menu_screen.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 import 'package:torri_cantine_app/wishlist_screen/presentation/wishlist_future.dart';
 import 'package:torri_cantine_app/wishlist_screen/widgets/wishlist_items.dart';
 
+@RoutePage()
 class WishlistScreen extends StatefulWidget {
   final bool fromMenu;
   final bool fromAccount;
@@ -32,6 +34,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
   List<int> wl = [];
   late Future<List<Product?>> itemsList ;
   List<Product> itemsList2 = [] ;
+  LocalStorage storage = LocalStorage();
 
 
   void removeItem(int productId) {
@@ -97,8 +100,12 @@ class _WishlistScreenState extends State<WishlistScreen> {
     final GlobalKey<ScaffoldState> key = GlobalKey();
 
     return PopScope(
-        canPop: false,
-        onPopInvoked: (didPop) {},
+        canPop: true,
+        onPopInvokedWithResult: (didPop, _){
+          if(didPop){
+          storage.setBottomTabState(0);
+          }
+        },
         child:Scaffold(
           backgroundColor: const Color.fromARGB(255, 244, 244, 244),
           key: key,
@@ -115,18 +122,11 @@ class _WishlistScreenState extends State<WishlistScreen> {
                   ?  (){
                 setState(() {
                 });
-                MainNavigation.pop(context);
-
+                context.router.popForced();
               }
                   : widget.fromAccount
-                  ? () => MainNavigation.push(
-                context,
-                const MainNavigation.account(false),
-              )
-                  : () => MainNavigation.push(
-                context,
-                const MainNavigation.home(),
-              ),
+                  ? () =>  context.router.push(AccountRoute(fromSecondPage: false))
+                : () => context.router.push(const MainRoute())
             ),
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
@@ -148,98 +148,98 @@ class _WishlistScreenState extends State<WishlistScreen> {
               // print(snap.connectionState);
               // print(snap.data);
 
-              if(snap.connectionState != ConnectionState.done) {
-                return const Center(
-                    child: CircularProgressIndicator(
-                      color: Color.fromARGB(255, 161, 29, 52),
-                    ));
-              }
+          if(snap.connectionState != ConnectionState.done) {
+            return const Center(
+                child: CircularProgressIndicator(
+                  color: Color.fromARGB(255, 161, 29, 52),
+                ));
+          }
 
 
 
-              if(snap.hasData) {
-                var model = snap.data!;
+          if(snap.hasData) {
+            var model = snap.data!;
 
-                if(model.isEmpty) {
-                  return const Center(child: Text('Non ci sono elementi'));
-                }
-
-                //var model = itemsList2;
-                return ListView.builder(
-                  itemCount: model.length,
-                  itemBuilder: (context, index) {
-
-                    //print('WISHLIST LOADED');
-                    //print(wishListProd(model ?? []));
-
-                    //getWishlistProducts(wl);
-
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: WishlistItems(
-                        onRemove: () => removeItem(
-                          model[index]!.id,
-                        ),
-                        productId: model[index]!.id,
-                        image: model[index]!.images.first.src,
-                        description:
-                        model[index]!.name,
-                        price: double.parse(
-                            model[index]!.price ?? ""),
-                        regularPrice: double.parse(
-                            model[index]!.regular_price ?? ""),
-                      ),
-                    );
-                  },
-                );
-
-              }
-
+            if(model.isEmpty) {
               return const Center(child: Text('Non ci sono elementi'));
-            },
-          ),
+            }
 
-          // BlocBuilder<AllProductsBloc, AllProductsState>(
-          //   builder: (context, state) => state.maybeWhen(
-          //     initial: () => const Center(
-          //         child: CircularProgressIndicator(
-          //       color: Color.fromARGB(255, 161, 29, 52),
-          //     )),
-          //     loading: () => const Center(
-          //       child: CircularProgressIndicator(
-          //         color: Color.fromARGB(255, 161, 29, 52),
-          //       ),
-          //     ),
-          //     loaded: (model, page) => wishListProd(model ?? []).length>0?ListView.builder(
-          //       itemCount: wishListProd(model ?? []).length,
-          //       itemBuilder: (context, index) {
-          //
-          //         print('WISHLIST LOADED');
-          //         //print(wishListProd(model ?? []));
-          //         print(wishListProd(model ?? []).length);
-          //         //getWishlistProducts(wl);
-          //
-          //         return Padding(
-          //           padding: const EdgeInsets.symmetric(horizontal: 15),
-          //           child: WishlistItems(
-          //             onRemove: () => removeItem(
-          //               wishListProd(model ?? [])[index].id,
-          //             ),
-          //             productId: wishListProd(model ?? [])[index].id,
-          //             image: wishListProd(model ?? [])[index].images!.first.src,
-          //             description:
-          //                 wishListProd(model ?? [])[index].name ?? "",
-          //             price: double.parse(
-          //                 wishListProd(model ?? [])[index].price ?? ""),
-          //             regularPrice: double.parse(
-          //                 wishListProd(model ?? [])[index].regular_price ?? ""),
-          //           ),
-          //         );
-          //       },
-          //     ):Center(child: Text('Non ci sono elementi')),
-          //     orElse: () => const SizedBox(),
-          //   ),
-          // ),
+            //var model = itemsList2;
+            return ListView.builder(
+              itemCount: model.length,
+              itemBuilder: (context, index) {
+
+                //print('WISHLIST LOADED');
+                //print(wishListProd(model ?? []));
+
+                //getWishlistProducts(wl);
+
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: WishlistItems(
+                    onRemove: () => removeItem(
+                      model[index]!.id,
+                    ),
+                    productId: model[index]!.id,
+                    image: model[index]!.images.first.src,
+                    description:
+                    model[index]!.name,
+                    price: double.parse(
+                        model[index]!.price ?? ""),
+                    regularPrice: double.parse(
+                        model[index]!.regular_price ?? ""),
+                  ),
+                );
+              },
+            );
+
+          }
+
+          return const Center(child: Text('Non ci sono elementi'));
+        },
+      ),
+
+      // BlocBuilder<AllProductsBloc, AllProductsState>(
+      //   builder: (context, state) => state.maybeWhen(
+      //     initial: () => const Center(
+      //         child: CircularProgressIndicator(
+      //       color: Color.fromARGB(255, 161, 29, 52),
+      //     )),
+      //     loading: () => const Center(
+      //       child: CircularProgressIndicator(
+      //         color: Color.fromARGB(255, 161, 29, 52),
+      //       ),
+      //     ),
+      //     loaded: (model, page) => wishListProd(model ?? []).length>0?ListView.builder(
+      //       itemCount: wishListProd(model ?? []).length,
+      //       itemBuilder: (context, index) {
+      //
+      //         print('WISHLIST LOADED');
+      //         //print(wishListProd(model ?? []));
+      //         print(wishListProd(model ?? []).length);
+      //         //getWishlistProducts(wl);
+      //
+      //         return Padding(
+      //           padding: const EdgeInsets.symmetric(horizontal: 15),
+      //           child: WishlistItems(
+      //             onRemove: () => removeItem(
+      //               wishListProd(model ?? [])[index].id,
+      //             ),
+      //             productId: wishListProd(model ?? [])[index].id,
+      //             image: wishListProd(model ?? [])[index].images!.first.src,
+      //             description:
+      //                 wishListProd(model ?? [])[index].name ?? "",
+      //             price: double.parse(
+      //                 wishListProd(model ?? [])[index].price ?? ""),
+      //             regularPrice: double.parse(
+      //                 wishListProd(model ?? [])[index].regular_price ?? ""),
+      //           ),
+      //         );
+      //       },
+      //     ):Center(child: Text('Non ci sono elementi')),
+      //     orElse: () => const SizedBox(),
+      //   ),
+      // ),
 
 
         )

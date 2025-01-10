@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -16,11 +17,12 @@ import 'package:torri_cantine_app/app/common/bottom_bar_items/menu_bottom_item.d
 import 'package:torri_cantine_app/app/common/bottom_bar_items/wishlist_bottom_item.dart';
 import 'package:torri_cantine_app/app/common/sub_page_appbar.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
-import 'package:torri_cantine_app/app/routing/main_navigation.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 import '../../app/utilitys/fixedFloatingPositions.dart';
 
-class Products extends StatefulWidget {
+@RoutePage()
+class ProductsScreen extends StatefulWidget {
   double? minPrice;
   double? maxPrice;
   bool? orderAsc;
@@ -35,7 +37,7 @@ class Products extends StatefulWidget {
   final bool showAppBar;
   final bool fromMenu;
 
-  Products({
+  ProductsScreen({
     super.key,
     this.minPrice,
     this.maxPrice,
@@ -53,10 +55,10 @@ class Products extends StatefulWidget {
   });
 
   @override
-  State<Products> createState() => _ProductsState();
+  State<ProductsScreen> createState() => _ProductsScreenState();
 }
 
-class _ProductsState extends State<Products> {
+class _ProductsScreenState extends State<ProductsScreen> {
   LocalStorage storage = LocalStorage();
   int selectedIndex = 0;
   int setDrawer = 0;
@@ -148,231 +150,189 @@ class _ProductsState extends State<Products> {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        return PopScope(
-            canPop: false,
-            onPopInvoked : (didPop){
-            },
-            child: Scaffold(
-              backgroundColor: const Color.fromARGB(255, 244, 244, 244),
-              appBar: PreferredSize(
-                  preferredSize: Size.fromHeight(
-                      MediaQuery.of(context).size.height * 0.07),
-                  child: widget.showAppBar
-                      ? SubPageAppbar(
-                          onTap: () => MainNavigation.pop(context),
-                          text: "TUTTI I PRODOTTI",
-                        )
-                      : const SizedBox()),
-              bottomNavigationBar: widget.showAppBar
-                  ? Container(
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: const Offset(0, 3),
-                          ),
-                        ],
-                        color: Colors.white,
-                      ),
-                      height: 70,
-                      child: Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                selectedIndex = 3;
-                              });
-                              MainNavigation.push(
-                                context,
-                                const MainNavigation.menu(),
-                              );
-                            },
-                            child: MenuBottomItem(
-                              text: 'Menu',
-                              icon: Icons.menu,
-                              isActive: selectedIndex == 3,
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                selectedIndex = 4;
-                              });
-                              MainNavigation.push(
-                                context,
-                                const MainNavigation.account(false),
-                              );
-                            },
-                            child: AccountBottomItem(
-                              text: 'Account',
-                              icon: Icons.person_outlined,
-                              isActive: selectedIndex == 4,
-                            ),
-                          ),
-                          // SizedBox(
-                          //   width: MediaQuery.of(context).size.width * 0.20,
-                          // ),
-
-                          Container(
-                            padding: const EdgeInsets.only(left: 10, right: 10),
-                            child: GestureDetector(
-                                onTap: () => MainNavigation.push(
-                                      context,
-                                      const MainNavigation.home(),
-                                    ),
-                                child: Stack(
-                                    alignment: Alignment.topCenter,
-                                    clipBehavior: Clip.none,
-                                    children: [
-                                      const SizedBox(width: 48, height: 48),
-                                      Positioned(
-                                        top: -11.0,
-                                        child: CircleAvatar(
-                                          radius: 30,
-                                          backgroundColor: Colors.transparent,
-                                          child: Container(
-                                            padding: const EdgeInsets.only(top: 0),
-                                            //padding: const EdgeInsets.all(6),
-                                            child: Image.asset(
-                                              "assets/torri.png",
-                                              width: 48,
-                                              height: 48,
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                    ])),
-                          ),
-
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                selectedIndex = 5;
-                              });
-                              MainNavigation.push(
-                                context,
-                                const MainNavigation.wishList(true, false),
-                              );
-                            },
-                            child: WishListBottomItem(
-                              text: 'Wishlist',
-                              icon: Icons.favorite_outline,
-                              isActive: selectedIndex == 5,
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                selectedIndex = 6;
-                              });
-                              MainNavigation.push(
-                                context,
-                                const MainNavigation.cart(
-                                    true, false, false, true),
-                              );
-                            },
-                            child: CartBottomItem(
-                              text: 'Carrello',
-                              icon: Icons.shopping_cart_outlined,
-                              isActive: selectedIndex == 6,
-                            ),
-                          )
-                        ],
-                      ),
+        return Scaffold(
+          backgroundColor: const Color.fromARGB(255, 244, 244, 244),
+          appBar: PreferredSize(
+              preferredSize: Size.fromHeight(
+                  MediaQuery.of(context).size.height * 0.07),
+              child: widget.showAppBar
+                  ? SubPageAppbar(
+                      onTap: () => context.router.popForced(),
+                      text: "TUTTI I PRODOTTI",
                     )
-                  : null,
-              body: Builder(builder: (context) {
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.05,
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black54,
-                              blurRadius: 10.0,
-                              spreadRadius: 0,
-                              offset: Offset(0, 0),
-                            ),
-                          ]),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            BlocBuilder<AllProductsBloc, AllProductsState>(
-                                builder: (context, state) {
-                                  return state.maybeWhen(
-                                      orElse: (){return const SizedBox();},
-                                      loading: (model, pageNumber){return const Center(
-                                          child: Padding(padding: EdgeInsets.only(left: 40.0),
-                                              child: SizedBox(height: 18, width: 18,
-                                                  child: CircularProgressIndicator(color: Color.fromARGB(255, 161, 29, 51),
-                                                  )
+                  : const SizedBox()),
+          bottomNavigationBar: widget.showAppBar
+              ? Container(
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                    color: Colors.white,
+                  ),
+                  height: 70,
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedIndex = 3;
+                          });
+                          context.router.push(const MenuRoute(),);
+                        },
+                        child: MenuBottomItem(
+                          text: 'Menu',
+                          icon: Icons.menu,
+                          isActive: selectedIndex == 3,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedIndex = 4;
+                          });
+                          context.router.push(AccountRoute(fromSecondPage: false),
+                          );
+                        },
+                        child: AccountBottomItem(
+                          text: 'Account',
+                          icon: Icons.person_outlined,
+                          isActive: selectedIndex == 4,
+                        ),
+                      ),
+                      // SizedBox(
+                      //   width: MediaQuery.of(context).size.width * 0.20,
+                      // ),
+
+                      Container(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: GestureDetector(
+                            onTap: () => context.router.push(const MainRoute()),
+                            child: Stack(
+                                alignment: Alignment.topCenter,
+                                clipBehavior: Clip.none,
+                                children: [
+                                  const SizedBox(width: 48, height: 48),
+                                  Positioned(
+                                    top: -11.0,
+                                    child: CircleAvatar(
+                                      radius: 30,
+                                      backgroundColor: Colors.transparent,
+                                      child: Container(
+                                        padding: const EdgeInsets.only(top: 0),
+                                        //padding: const EdgeInsets.all(6),
+                                        child: Image.asset(
+                                          "assets/torri.png",
+                                          width: 48,
+                                          height: 48,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ])),
+                      ),
+
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedIndex = 5;
+                          });
+                          context.router.push(WishlistRoute(fromMenu: true, fromAccount: false),);
+                        },
+                        child: WishListBottomItem(
+                          text: 'Wishlist',
+                          icon: Icons.favorite_outline,
+                          isActive: selectedIndex == 5,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedIndex = 6;
+                          });
+                          context.router.push(CartRoute(showAppBar: true,fromMenu:  false,fromCompleteOrder:  false,fromHomePage:  true),
+                          );
+                        },
+                        child: CartBottomItem(
+                          text: 'Carrello',
+                          icon: Icons.shopping_cart_outlined,
+                          isActive: selectedIndex == 6,
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              : null,
+          body: Builder(builder: (context) {
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.05,
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black54,
+                          blurRadius: 10.0,
+                          spreadRadius: 0,
+                          offset: Offset(0, 0),
+                        ),
+                      ]),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        BlocBuilder<AllProductsBloc, AllProductsState>(
+                            builder: (context, state) {
+                              return state.maybeWhen(
+                                  orElse: (){return const SizedBox();},
+                                  loading: (model, pageNumber){return const Center(
+                                      child: Padding(padding: EdgeInsets.only(left: 40.0),
+                                          child: SizedBox(height: 18, width: 18,
+                                              child: CircularProgressIndicator(color: Color.fromARGB(255, 161, 29, 51),
                                               )
                                           )
-                                      );},
-                                      loaded: (model, pageNumber){
-                                        return GestureDetector(
-                                            child: Padding(
-                                              padding:
-                                              const EdgeInsets.only(left: 40.0),
-                                              child: widget.orderAsc == true
-                                                  ? Row(
-                                                children: [
-                                                  Text(
-                                                    "PREZZO:BASSO-ALTO",
-                                                    style:
-                                                    TCTypography.of(context)
-                                                        .text_14_bold
-                                                        .copyWith(
-                                                      color: const Color
-                                                          .fromARGB(
-                                                          255,
-                                                          113,
-                                                          112,
-                                                          112),
-                                                    ),
-                                                  ),
-                                                  const Icon(
-                                                    Icons
-                                                        .keyboard_arrow_down_outlined,
-                                                    color: Color.fromARGB(
-                                                        255, 113, 112, 112),
-                                                  )
-                                                ],
+                                      )
+                                  );},
+                                  loaded: (model, pageNumber){
+                                    return GestureDetector(
+                                        child: Padding(
+                                          padding:
+                                          const EdgeInsets.only(left: 40.0),
+                                          child: widget.orderAsc == true
+                                              ? Row(
+                                            children: [
+                                              Text(
+                                                "PREZZO:BASSO-ALTO",
+                                                style:
+                                                TCTypography.of(context)
+                                                    .text_14_bold
+                                                    .copyWith(
+                                                  color: const Color
+                                                      .fromARGB(
+                                                      255,
+                                                      113,
+                                                      112,
+                                                      112),
+                                                ),
+                                              ),
+                                              const Icon(
+                                                Icons
+                                                    .keyboard_arrow_down_outlined,
+                                                color: Color.fromARGB(
+                                                    255, 113, 112, 112),
                                               )
-                                                  : widget.orderDesc == true
-                                                  ? Row(
-                                                children: [
-                                                  Text("PREZZO:ALTO-BASSO",
-                                                      style:
-                                                      TCTypography.of(
-                                                          context)
-                                                          .text_14_bold
-                                                          .copyWith(
-                                                        color: const Color
-                                                            .fromARGB(
-                                                            255,
-                                                            113,
-                                                            112,
-                                                            112),
-                                                      )),
-                                                  const Icon(
-                                                    Icons
-                                                        .keyboard_arrow_down_outlined,
-                                                    color: Color.fromARGB(
-                                                        255, 113, 112, 112),
-                                                  )
-                                                ],
-                                              )
-                                                  : widget.orderDate == true
-                                                  ? Row(children: [
-                                                Text(
-                                                  "DATA:PIÙ RECENTI",
+                                            ],
+                                          )
+                                              : widget.orderDesc == true
+                                              ? Row(
+                                            children: [
+                                              Text("PREZZO:ALTO-BASSO",
                                                   style:
                                                   TCTypography.of(
                                                       context)
@@ -384,241 +344,265 @@ class _ProductsState extends State<Products> {
                                                         113,
                                                         112,
                                                         112),
-                                                  ),
-                                                ),
-                                                const Icon(
-                                                  Icons
-                                                      .keyboard_arrow_down_outlined,
-                                                  color: Color.fromARGB(
-                                                      255,
-                                                      113,
-                                                      112,
-                                                      112),
-                                                )
-                                              ])
-                                                  : widget.orderRating == true
-                                                  ? Row(
-                                                children: [
-                                                  Text(
-                                                      "RATING MIGLIORE",
-                                                      style: TCTypography.of(
-                                                          context)
-                                                          .text_14_bold
-                                                          .copyWith(
-                                                        color: const Color
-                                                            .fromARGB(
-                                                            255,
-                                                            113,
-                                                            112,
-                                                            112),
-                                                      )),
-                                                  const Icon(
-                                                    Icons
-                                                        .keyboard_arrow_down_outlined,
-                                                    color: Color
-                                                        .fromARGB(
-                                                        255,
-                                                        113,
-                                                        112,
-                                                        112),
-                                                  )
-                                                ],
+                                                  )),
+                                              const Icon(
+                                                Icons
+                                                    .keyboard_arrow_down_outlined,
+                                                color: Color.fromARGB(
+                                                    255, 113, 112, 112),
                                               )
-                                                  : widget.orderPop ==
-                                                  true
-                                                  ? Row(
-                                                children: [
-                                                  Text(
-                                                    "I PIÙ VENDUTI",
-                                                    style: TCTypography.of(
-                                                        context)
-                                                        .text_14_bold
-                                                        .copyWith(
-                                                      color: const Color
-                                                          .fromARGB(
-                                                          255,
-                                                          113,
-                                                          112,
-                                                          112),
-                                                    ),
-                                                  )
-                                                ],
-                                              )
-                                                  : Text(
-                                                "ORDINA",
-                                                style: TCTypography.of(
-                                                    context)
-                                                    .text_14_bold
-                                                    .copyWith(
+                                            ],
+                                          )
+                                              : widget.orderDate == true
+                                              ? Row(children: [
+                                            Text(
+                                              "DATA:PIÙ RECENTI",
+                                              style:
+                                              TCTypography.of(
+                                                  context)
+                                                  .text_14_bold
+                                                  .copyWith(
+                                                color: const Color
+                                                    .fromARGB(
+                                                    255,
+                                                    113,
+                                                    112,
+                                                    112),
+                                              ),
+                                            ),
+                                            const Icon(
+                                              Icons
+                                                  .keyboard_arrow_down_outlined,
+                                              color: Color.fromARGB(
+                                                  255,
+                                                  113,
+                                                  112,
+                                                  112),
+                                            )
+                                          ])
+                                              : widget.orderRating == true
+                                              ? Row(
+                                            children: [
+                                              Text(
+                                                  "RATING MIGLIORE",
+                                                  style: TCTypography.of(
+                                                      context)
+                                                      .text_14_bold
+                                                      .copyWith(
                                                     color: const Color
                                                         .fromARGB(
                                                         255,
                                                         113,
                                                         112,
-                                                        112)),
-                                              ),
-                                            ),
-                                            onTap: () {
-                                              bottomSheetController =
-                                                  Scaffold.of(context)
-                                                      .showBottomSheet(
-                                                          (context) => setDrawer == 1
-                                                          ? OrderDrawer(
-                                                        categoriesMap: widget
-                                                            .categoriesMap,
-                                                        tagsMap:
-                                                        widget.tagsMap,
-                                                        onClose: () {
-                                                          bottomSheetController
-                                                              ?.close();
-                                                        },
-                                                       onFilterSelected: _setFilter,
-                                                       onFetchPage: _updateOrder,
-                                                       pagingController: _pagingController,
-                                                      )
-                                                          : FilterDrawer());
-                                              setState(() {
-                                                setDrawer = 1;
-                                              });
-                                            });
-                                      });
-                                }
-                            ),
-
-                            BlocBuilder<AllProductsBloc, AllProductsState>(
-                            builder: (context, state) {
-                              return state.maybeWhen(
-                                  orElse: () {
-                                    return const SizedBox();
-                                  },
-                                  loading: (model, pageNumber) {
-                                    return const Center(
-                                        child: Padding(
-                                            padding: EdgeInsets.only(
-                                                right: 40.0),
-                                            child: SizedBox(
-                                                height: 18, width: 18,
-                                                child: CircularProgressIndicator(
-                                                  color: Color.fromARGB(
-                                                      255, 161, 29, 51),
-                                                )
-                                            )
-                                        )
-                                    );
-                                  },
-                                  loaded: (model, pageNumber) {
-                                    return GestureDetector(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              right: 40.0),
-                                          child: Text(
-                                            "FILTRA",
-                                            style: TCTypography
-                                                .of(context)
+                                                        112),
+                                                  )),
+                                              const Icon(
+                                                Icons
+                                                    .keyboard_arrow_down_outlined,
+                                                color: Color
+                                                    .fromARGB(
+                                                    255,
+                                                    113,
+                                                    112,
+                                                    112),
+                                              )
+                                            ],
+                                          )
+                                              : widget.orderPop ==
+                                              true
+                                              ? Row(
+                                            children: [
+                                              Text(
+                                                "I PIÙ VENDUTI",
+                                                style: TCTypography.of(
+                                                    context)
+                                                    .text_14_bold
+                                                    .copyWith(
+                                                  color: const Color
+                                                      .fromARGB(
+                                                      255,
+                                                      113,
+                                                      112,
+                                                      112),
+                                                ),
+                                              )
+                                            ],
+                                          )
+                                              : Text(
+                                            "ORDINA",
+                                            style: TCTypography.of(
+                                                context)
                                                 .text_14_bold
                                                 .copyWith(
-                                              color: const Color.fromARGB(
-                                                  255, 113, 112, 112),
-                                            ),
+                                                color: const Color
+                                                    .fromARGB(
+                                                    255,
+                                                    113,
+                                                    112,
+                                                    112)),
                                           ),
                                         ),
-                                        onTap:() {
-                                            bottomSheetController =
-                                                Scaffold.of(context)
-                                                    .showBottomSheet(
-                                                        (context) =>
-                                                    setDrawer == 1
-                                                        ? OrderDrawer(
-                                                      categoriesMap: widget
-                                                          .categoriesMap,
-                                                      tagsMap:
-                                                      widget.tagsMap,
-                                                      onClose: () {
-                                                        bottomSheetController
-                                                            ?.close();
-                                                      },
-                                                      onFilterSelected: _setFilter,
-                                                    )
-                                                        : FilterDrawer(
-                                                        onClose: () {
-                                                          bottomSheetController
-                                                              ?.close();
-                                                        },
-                                                        onFilterPage: _updateFilter,
-                                                        pagingController: _pagingController,
-                                                        onFilterSelected: _setFilter,
-                                                    ));
-                                            setState(() {
-                                              setDrawer = 0;
-                                            });
+                                        onTap: () {
+                                          bottomSheetController =
+                                              Scaffold.of(context)
+                                                  .showBottomSheet(
+                                                      (context) => setDrawer == 1
+                                                      ? OrderDrawer(
+                                                    categoriesMap: widget
+                                                        .categoriesMap,
+                                                    tagsMap:
+                                                    widget.tagsMap,
+                                                    onClose: () {
+                                                      bottomSheetController
+                                                          ?.close();
+                                                    },
+                                                   onFilterSelected: _setFilter,
+                                                   onFetchPage: _updateOrder,
+                                                   pagingController: _pagingController,
+                                                  )
+                                                      : FilterDrawer());
+                                          setState(() {
+                                            setDrawer = 1;
+                                          });
                                         });
-                                  }
-                              );
-                            })]),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 5),
-                      child:  CategoriesCarousel(),
-                    ),
-                    Expanded(
-                      child: RefreshIndicator(
-                      color: const Color.fromARGB(255, 161, 29, 51),
-                        displacement: 20,
-                        onRefresh: () async {
-                          _pagingController.refresh();
-                          // _fetchPage(1, null, null);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                          child: PagedGridView<int, Product>(
-                            pagingController: _pagingController,
-                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              childAspectRatio: 0.50,
-                              crossAxisSpacing: 15,
-                              mainAxisSpacing: 30,
-                            ),
-                            builderDelegate: PagedChildBuilderDelegate<Product>(
-                              firstPageProgressIndicatorBuilder :  (context) => const Center(
-                                child:  CircularProgressIndicator(
-                                  color: Color.fromARGB(255, 161, 29, 51),
-                                ),
-                              ),
-                              newPageProgressIndicatorBuilder: (context) => const Center(
-                                child: CircularProgressIndicator(
-                                  color: Color.fromARGB(255, 161, 29, 51),
-                                ),
-                              ),
-                              itemBuilder: (context, product, index) => ProductPreview(
-                                id: product.id ?? 0,  // Default to 0 if id is null
-                                image: product.images.isEmpty
-                                    ? ""  // Default empty string if no image
-                                    : product.images.first.src ?? "",  // Null check for src
-                                name: product.name ?? 'Unknown Product',  // Default name
-                                price: product.price ?? "0",  // Default price if null
-                                regular_price: product.regular_price ?? "0",  // Default regular price
-                                description: product.description ?? 'No Description Available',  // Default description
-                                short_description: product.short_description ?? 'No Short Description',  // Default short description
-                                average_rating: product.average_rating ?? "0",  // Default rating
-                                tags: product.tags ?? [],  // Default to empty list
-                                categories: product.categories ?? [],  // Default empty list
-                                type: product.type ?? 'Unknown',
-                                productPoint: product.points ?? 0, isPurchasableSable: product.purchasable ?? false,),
+                                  });
+                            }
+                        ),
+
+                        BlocBuilder<AllProductsBloc, AllProductsState>(
+                        builder: (context, state) {
+                          return state.maybeWhen(
+                              orElse: () {
+                                return const SizedBox();
+                              },
+                              loading: (model, pageNumber) {
+                                return const Center(
+                                    child: Padding(
+                                        padding: EdgeInsets.only(
+                                            right: 40.0),
+                                        child: SizedBox(
+                                            height: 18, width: 18,
+                                            child: CircularProgressIndicator(
+                                              color: Color.fromARGB(
+                                                  255, 161, 29, 51),
+                                            )
+                                        )
+                                    )
+                                );
+                              },
+                              loaded: (model, pageNumber) {
+                                return GestureDetector(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          right: 40.0),
+                                      child: Text(
+                                        "FILTRA",
+                                        style: TCTypography
+                                            .of(context)
+                                            .text_14_bold
+                                            .copyWith(
+                                          color: const Color.fromARGB(
+                                              255, 113, 112, 112),
+                                        ),
+                                      ),
+                                    ),
+                                    onTap:() {
+                                        bottomSheetController =
+                                            Scaffold.of(context)
+                                                .showBottomSheet(
+                                                    (context) =>
+                                                setDrawer == 1
+                                                    ? OrderDrawer(
+                                                  categoriesMap: widget
+                                                      .categoriesMap,
+                                                  tagsMap:
+                                                  widget.tagsMap,
+                                                  onClose: () {
+                                                    bottomSheetController
+                                                        ?.close();
+                                                  },
+                                                  onFilterSelected: _setFilter,
+                                                )
+                                                    : FilterDrawer(
+                                                    onClose: () {
+                                                      bottomSheetController
+                                                          ?.close();
+                                                    },
+                                                    onFilterPage: _updateFilter,
+                                                    pagingController: _pagingController,
+                                                    onFilterSelected: _setFilter,
+                                                ));
+                                        setState(() {
+                                          setDrawer = 0;
+                                        });
+                                    });
+                              }
+                          );
+                        })]),
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  child:  CategoriesCarousel(),
+                ),
+                Expanded(
+                  child: RefreshIndicator(
+                  color: const Color.fromARGB(255, 161, 29, 51),
+                    displacement: 20,
+                    onRefresh: () async {
+                      _pagingController.refresh();
+                      // _fetchPage(1, null, null);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      child: PagedGridView<int, Product>(
+                        pagingController: _pagingController,
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 0.50,
+                          crossAxisSpacing: 15,
+                          mainAxisSpacing: 30,
+                        ),
+                        builderDelegate: PagedChildBuilderDelegate<Product>(
+                          firstPageProgressIndicatorBuilder :  (context) => const Center(
+                            child:  CircularProgressIndicator(
+                              color: Color.fromARGB(255, 161, 29, 51),
                             ),
                           ),
+                          newPageProgressIndicatorBuilder: (context) => const Center(
+                            child: CircularProgressIndicator(
+                              color: Color.fromARGB(255, 161, 29, 51),
+                            ),
+                          ),
+                          itemBuilder: (context, product, index) => ProductPreview(
+                            id: product.id ?? 0,  // Default to 0 if id is null
+                            image: product.images.isEmpty
+                                ? ""  // Default empty string if no image
+                                : product.images.first.src ?? "",  // Null check for src
+                            name: product.name ?? 'Unknown Product',  // Default name
+                            price: product.price ?? "0",  // Default price if null
+                            regular_price: product.regular_price ?? "0",  // Default regular price
+                            description: product.description ?? 'No Description Available',  // Default description
+                            short_description: product.short_description ?? 'No Short Description',  // Default short description
+                            average_rating: product.average_rating ?? "0",  // Default rating
+                            tags: product.tags ?? [],  // Default to empty list
+                            categories: product.categories ?? [],  // Default empty list
+                            type: product.type ?? 'Unknown',
+                            productPoint: product.points ?? 0, isPurchasableSable: product.purchasable ?? false,),
                         ),
                       ),
-                    )
-                  ],
-                );
-              }),
-              drawer: setDrawer == 1
-                  ? OrderDrawer(
-                      categoriesMap: widget.categoriesMap,
-                      tagsMap: widget.tagsMap,
-                    )
-                  : FilterDrawer(),
-            ));
+                    ),
+                  ),
+                )
+              ],
+            );
+          }),
+          drawer: setDrawer == 1
+              ? OrderDrawer(
+                  categoriesMap: widget.categoriesMap,
+                  tagsMap: widget.tagsMap,
+                )
+              : FilterDrawer(),
+        );
       },
     );
   }

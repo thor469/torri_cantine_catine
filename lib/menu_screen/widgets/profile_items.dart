@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
@@ -8,13 +9,13 @@ class ProfileItems extends StatefulWidget {
   final int id;
   final String title;
   final bool isSelected;
-  final MainNavigation onTapNavigation;
+  final Function() onNavigationTap;
   const ProfileItems({
     super.key,
     required this.id,
     required this.title,
     required this.isSelected,
-    required this.onTapNavigation,
+    required this.onNavigationTap,
   });
 
   @override
@@ -30,9 +31,10 @@ class _ProfileItemsState extends State<ProfileItems> {
       child: Container(
         color: Colors.white,
         child: InkWell(
-          onTap: ()async {
+          onTap: () async {
             await storage.setBottomTabState(4);
-            MainNavigation.push(context, widget.onTapNavigation);
+            widget.onNavigationTap();
+            // MainNavigation.push(context, widget.onTapNavigation);
           },
           child: Row(
             children: [

@@ -1,7 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:torri_cantine_app/all_products/model/response/all_products_response.dart';
 import 'package:torri_cantine_app/all_products/widgets/product_preview.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 
 class Highlights extends StatefulWidget {
@@ -44,10 +46,8 @@ class _HighlightsState extends State<Highlights> {
                 ),
                 const Spacer(),
                 InkWell(
-                  onTap: () => MainNavigation.push(
-                    context,
-                    const MainNavigation.products(),
-                  ),
+                  onTap: () => context.router.push(ProductsRoute(fromMenu: false, showAppBar: false)),
+                  // onTap: () => MainNavigation.push(context, const MainNavigation.products()),
                   child: Row(
                     children: <Widget>[
                       Text(

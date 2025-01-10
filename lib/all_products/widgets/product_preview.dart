@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,6 +7,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:torri_cantine_app/all_products/cubit/products_wishlisted_cubit.dart';
 import 'package:torri_cantine_app/all_products/model/response/all_products_response.dart';
 import 'package:torri_cantine_app/app/cache_manager/cache_manager.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/app/utilitys/tc_typography.dart';
 import 'package:torri_cantine_app/cart/add_product_to_cart/add_product_to_cart_bloc.dart';
@@ -108,7 +110,8 @@ class _ProductPreviewState extends State<ProductPreview> {
       padding: const EdgeInsets.symmetric(horizontal: 5),
       child: GestureDetector(
         onTap: () {
-          MainNavigation.push(context, MainNavigation.productDetail(widget.id));
+          context.router.push(ProductDetailRoute(id: widget.id));
+          // MainNavigation.push(context, MainNavigation.productDetail(widget.id));
         },
         child: SizedBox(
           child: Column(
@@ -328,7 +331,9 @@ class _ProductPreviewState extends State<ProductPreview> {
                             onPressed: () {
                               if(widget.isPurchasableSable){
                                 if (widget.type == 'bundle') {
-                                  MainNavigation.push(context, MainNavigation.productDetail(widget.id));
+                                  context.router.push(ProductDetailRoute(id: widget.id));
+
+                                  // MainNavigation.push(context, MainNavigation.productDetail(widget.id));
                                 } else {
                                   if (!isLoading) {
                                     setState(() {isLoading = true;});

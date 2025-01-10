@@ -1,5 +1,6 @@
  // ignore_for_file: deprecated_member_use
 
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,14 +8,14 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:torri_cantine_app/account/account/account_bloc.dart';
 import 'package:torri_cantine_app/app/common/primary_button.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
-import 'package:torri_cantine_app/app/routing/main_navigation.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/cart/cart/cart_bloc.dart';
 import 'package:torri_cantine_app/cart/cubit/cart_badge_cubit_cubit.dart';
 import 'package:torri_cantine_app/login/login/login_bloc.dart';
 import 'package:torri_cantine_app/registration/registration/registration_bloc.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+ @RoutePage()
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -114,12 +115,6 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             loaded: (response) {
               context.read<CartBadgeCubitCubit>().emit(response.totalItems);
-              // MainNavigation.replace(
-              //   context,
-              //   [
-              //     const MainNavigation.home(),
-              //   ],
-              // );
               return null;
             },
             error: (error) {
@@ -147,7 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             color: Colors.grey,
             onPressed: () {
-              Navigator.pop(context);
+              context.router.popForced();
             },
           ),
           actions: [
@@ -325,10 +320,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           isLoading = true;
                         });
                         context.read<LoginBloc>().add(LoginEvent.login(_controllers['email'].text, _controllers['password'].text, await token.getFCMToken()));
-                        // if (mounted) {
-                        //   MainNavigation.replace(
-                        //       context, [const MainNavigation.home()]);
-                        // }
                       }),
                   Padding(
                     padding: EdgeInsets.only(
@@ -420,8 +411,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               context
                                   .read<LoginBloc>()
                                   .add(const LoginEvent.loginWithGoogle());
-                              //     MainNavigation.push(
-                              // context, const MainNavigation.home());}
                             }
                           },
                           child: SizedBox(
@@ -457,8 +446,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                         ),
                         onTap: () {
-                          MainNavigation.push(context,
-                              const MainNavigation.firstRegistration());
+                          context.router.push(const FirstRegistrRoute());
                         },
                       ),
                     ),

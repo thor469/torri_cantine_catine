@@ -73,6 +73,7 @@ dependencies:
   uni_links: ^0.5.1
   cached_network_image: ^3.2.3
   auto_size_text: ^3.0.0
+  auto_route: 8.1.4
 
 
 dependency_overrides:
@@ -88,6 +89,7 @@ dev_dependencies:
   #analyzer: ^6.8.0
   isar_generator: *isar_version
   build_runner: any
+  auto_route_generator: 8.0.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

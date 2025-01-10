@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dio/dio.dart';
@@ -9,6 +10,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:torri_cantine_app/app/cache_manager/cache_manager.dart';
 import 'package:torri_cantine_app/app/cache_manager/http_cache_manager.dart';
 import 'package:torri_cantine_app/app/dependency_injection/dependency_factory_impl.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 
 
@@ -66,16 +68,12 @@ class _SlideBannersState extends State<SlideBanners> {
                                     .ctaLink!
                                     .split('=')[1];
                                 if (linkType == 'product') {
-                                  MainNavigation.push(
-                                      context,
-                                      MainNavigation.productDetail(
-                                          int.tryParse(linkId)!));
+                                  context.router.push(ProductDetailRoute(id: int.tryParse(linkId)!));
+                                  // MainNavigation.push(context, MainNavigation.productDetail(int.tryParse(linkId)!));
                                 }
                                 if (linkType == 'category') {
-                                  MainNavigation.push(
-                                      context,
-                                      MainNavigation.categoriesDetail(
-                                          int.tryParse(linkId)!));
+                                  context.router.push(CategoriesDetailRoute(id: int.tryParse(linkId)!));
+                                  // MainNavigation.push(context, MainNavigation.categoriesDetail(int.tryParse(linkId)!));
                                 }
                               },
                               child: CachedNetworkImage(

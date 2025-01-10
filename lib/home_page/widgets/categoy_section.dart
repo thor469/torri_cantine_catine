@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 
 import '../../app/common/utilities/tc_typography.dart';
@@ -37,8 +39,10 @@ class _CategorySectionState extends State<CategorySection> {
                   const Spacer(),
                   GestureDetector(
                     onTap: () {
-                      MainNavigation.push(
-                          context, const MainNavigation.products());
+                      context.router.push(ProductsRoute(showAppBar: false, fromMenu: false));
+
+                      // MainNavigation.push(
+                      //     context, const MainNavigation.products());
                     },
                     child: const Row(
                       children: [

@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:configurable_expansion_tile_null_safety/configurable_expansion_tile_null_safety.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/product_detail/widgets/reviews.dart/model/response/reviews_response.dart';
 import 'package:torri_cantine_app/product_detail/widgets/reviews.dart/reviews/reviews_bloc.dart';
@@ -92,10 +94,9 @@ class _ReviewsListState extends State<ReviewsList> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              MainNavigation.push(
-                                context,
-                                MainNavigation.addReview(widget.product_id),
-                              );
+                              context.router.push(AddReviewRoute(productId: widget.product_id));
+
+                              // MainNavigation.push(context, MainNavigation.addReview(widget.product_id),);
                             },
                             child: Text(
                               "Vedi tutte",
@@ -160,10 +161,7 @@ class _ReviewsListState extends State<ReviewsList> {
                             ),
                           ),
                           onTap: () {
-                            MainNavigation.push(
-                              context,
-                              MainNavigation.addReview(widget.product_id),
-                            );
+                            context.router.push(AddReviewRoute(productId: widget.product_id));
                           },
                         ),
                       ],
@@ -212,13 +210,7 @@ class _ReviewsListState extends State<ReviewsList> {
                                 children: [
                                   GestureDetector(
                                     onTap: () {
-                                      MainNavigation.push(
-                                          context,
-                                          MainNavigation.addReview(
-                                              widget.product_id
-                                              //model.reviews!.first.product_id ?? 0
-                                          )
-                                      );
+                                      context.router.push(AddReviewRoute(productId: widget.product_id));
                                     },
                                     child: Text(
                                       "Vedi tutte",
@@ -377,10 +369,7 @@ class _ReviewsListState extends State<ReviewsList> {
                                   ),
                                 ),
                                 onTap: () {
-                                  MainNavigation.push(
-                                    context,
-                                    MainNavigation.addReview(widget.product_id),
-                                  );
+                                  context.router.push(AddReviewRoute(productId: widget.product_id));
                                 },
                               ),
                             ],

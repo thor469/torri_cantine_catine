@@ -1,11 +1,13 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:auto_route/auto_route.dart';
 import 'package:configurable_expansion_tile_null_safety/configurable_expansion_tile_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:torri_cantine_app/account/account/account_bloc.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/login/login/login_bloc.dart';
 import 'package:torri_cantine_app/menu_screen/widgets/menu_items.dart';
@@ -14,6 +16,7 @@ import 'package:torri_cantine_app/utilities/enum.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+@RoutePage()
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
 
@@ -101,7 +104,9 @@ class _MenuScreenState extends State<MenuScreen> {
                         onTap: ()async {
                           await storage.setBottomTabState(0);
                           if(context.mounted){
-                            MainNavigation.replace(context, [const MainNavigation.home()]);
+                            context.router.popAndPush(const MainRoute());
+
+                            // MainNavigation.replace(context, [const MainNavigation.home()]);
                           }
                         },
                         child: Container(
@@ -121,9 +126,10 @@ class _MenuScreenState extends State<MenuScreen> {
                       GestureDetector(
                         onTap: () async{
                           await storage.setBottomTabState(6);
-
-                          MainNavigation.push(context,
-                              const MainNavigation.cart(true, false, false, false));
+                          if(context.mounted){
+                            context.router.push(CartRoute(showAppBar: true, fromMenu: false, fromCompleteOrder: false, fromHomePage: false));
+                          }
+                          // MainNavigation.push(context, const MainNavigation.cart(true, false, false, false));
                         },
                         child: const MenuItems(
                           title: "CARRELLO",
@@ -139,8 +145,10 @@ class _MenuScreenState extends State<MenuScreen> {
                       GestureDetector(
                         onTap: () async{
                           await storage.setBottomTabState(5);
-                          MainNavigation.push(context,
-                              const MainNavigation.wishList(true, false));
+                          if(context.mounted){
+                            context.router.push(WishlistRoute(fromMenu: true, fromAccount: false));
+                          }
+
                         },
                         child: const MenuItems(
                           title: "WISHLIST",
@@ -156,9 +164,13 @@ class _MenuScreenState extends State<MenuScreen> {
                       GestureDetector(
                         onTap: () async{
                           await storage.setBottomTabState(0);
+                          if(context.mounted){
+                            context.router.push(CategoriesRoute(fromMenu: false, showAppBar: true));
 
-                          MainNavigation.push(context,
-                              const MainNavigation.categories(true, false));
+                          }
+
+                          // MainNavigation.push(context,
+                          //     const MainNavigation.categories(true, false));
                         },
                         child: const MenuItems(
                           title: "CATEGORIE PRODOTTI",
@@ -227,8 +239,10 @@ class _MenuScreenState extends State<MenuScreen> {
                                           title: "Il mio account",
                                           isSelected: currentProfile ==
                                               PersonalProfile.myaccount,
-                                          onTapNavigation:
-                                          const MainNavigation.account(true)),
+                                          onNavigationTap : () {
+                                            context.router.push(AccountRoute(fromSecondPage: true));
+                                            },
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -241,10 +255,13 @@ class _MenuScreenState extends State<MenuScreen> {
                                       child: ProfileItems(
                                           id: 11,
                                           title: "I miei ordini",
-                                          isSelected: currentProfile ==
-                                              PersonalProfile.myorders,
-                                          onTapNavigation:
-                                          const MainNavigation.myOrders(true, false, false, false)),
+                                          isSelected: currentProfile == PersonalProfile.myorders,
+                                          onNavigationTap: (){
+                                            storage.setBottomTabState(0);
+                                            context.router.push(MyOrdersRoute(
+                                                fromMenu: true,fromAccount: false,fromThankScreen: false,fromOrderDetails: false)
+                                            );},
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -259,9 +276,12 @@ class _MenuScreenState extends State<MenuScreen> {
                                         title: "Raccolta Punti",
                                         isSelected: currentProfile ==
                                             PersonalProfile.points,
-                                        onTapNavigation:
-                                            const MainNavigation.pointsBalance(
-                                                true, false),
+                                        onNavigationTap: (){
+                                          storage.setBottomTabState(0);
+                                          context.router.push(PointsBalanceRoute(
+                                            fromMenu: true, fromAccount: false,
+                                          )
+                                          );},
                                       ),
                                     ),
                                   ],
@@ -432,7 +452,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         padding: const EdgeInsets.only(top: 30, bottom: 30),
                         child: GestureDetector(
                           onTap: () {
-                            MainNavigation.replace(context, [const MainNavigation.welcome()] // Wrap it in a list
+                            context.router.replace(WelcomeRoute() // Wrap it in a list
                             );
                             context.read<LoginBloc>().add(const LoginEvent.logout());
                             setState(() {
@@ -451,11 +471,7 @@ class _MenuScreenState extends State<MenuScreen> {
                 ),
               ],
             ),
-
           ),
     );
-
-
-
   }
 }

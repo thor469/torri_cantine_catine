@@ -1,24 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:torri_cantine_app/app/routing/main_navigation.dart';
-import 'package:torri_cantine_app/app/routing/main_navigation_stack.dart';
-import 'package:torri_cantine_app/app/routing/main_router_delegate.dart';
-
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import '../utilities/local_storage.dart';
 import 'dependency_injection/dependency_factory_impl.dart';
 import 'dependency_injection/dependency_provider.dart';
 
+
+
 class App extends StatelessWidget {
   static final navigatorKey = GlobalKey<NavigatorState>();
-  static final mainNavigationDelegate =
-      MainRouterDelegate(
-    MainNavigationStack(
-      [
-        const MainNavigation.welcome(),
-      ],
-    ),
-  );
+  final _appRouter = AppRouter();
   final List<int>? wishList;
-  const App({
+   App({
     Key? key,
     this.wishList,
   }) : super(key: key);
@@ -44,7 +36,8 @@ class App extends StatelessWidget {
       dependencyFactory: const DependencyFactoryImpl(),
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
-        routerDelegate: mainNavigationDelegate,
+        routerDelegate: _appRouter.delegate(),
+        routeInformationParser: _appRouter.defaultRouteParser(),
         // builder: (context, child) => child!,
         builder: (context, child) {
           final MediaQueryData data = MediaQuery.of(context);

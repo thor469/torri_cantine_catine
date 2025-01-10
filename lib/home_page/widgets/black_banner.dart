@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/categories/categories/categories_bloc.dart';
 import 'package:torri_cantine_app/categories/presentation/categories_screen.dart';
@@ -43,8 +45,9 @@ class _BlackBannerState extends State<BlackBanner> {
                 const Spacer(),
                 GestureDetector(
                   onTap: () {
-                    MainNavigation.push(
-                        context, const MainNavigation.products());
+                    context.router.push(ProductsRoute(showAppBar: false, fromMenu: false));
+
+                    // MainNavigation.push(context, const MainNavigation.products());
                   },
                   child: Row(
                     children: [

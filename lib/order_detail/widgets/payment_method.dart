@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torri_cantine_app/app/common/primary_button.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/cart/add_product_to_cart/add_product_to_cart_bloc.dart';
 import 'package:torri_cantine_app/cart/cubit/cart_badge_cubit_cubit.dart';
@@ -39,10 +41,7 @@ class _PaymentMethodState extends State<PaymentMethod> {
         addedProduct: (cart) => {
           if (cart.items.length == widget.order.lineItems!.length)
             {
-              MainNavigation.push(
-                context,
-                const MainNavigation.cart(true, true, true, false),
-              )
+              context.router.push(CartRoute(showAppBar: true, fromMenu: true, fromCompleteOrder: true, fromHomePage: false))
             }
         },
       ),

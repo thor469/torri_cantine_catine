@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:torri_cantine_app/app/routing/main_navigation.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/cart/add_product_to_cart/add_product_to_cart_bloc.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 
@@ -50,7 +52,6 @@ class _BottomBanvigationMenuState extends State<BottomBanvigationMenu> {
   Widget build(BuildContext context) {
     // Load the bottom state from storage asynchronously
     Future.delayed(Duration.zero, getBottomStateFromStorage);
-
     return Container(
       decoration: BoxDecoration(
         boxShadow: [
@@ -86,10 +87,7 @@ class _BottomBanvigationMenuState extends State<BottomBanvigationMenu> {
               setState(() {
                 widget.selectedIndex = 4;
               });
-              MainNavigation.push(
-                context,
-                const MainNavigation.account(true),
-              );
+              context.router.replaceAll([const MainRoute(), AccountRoute(fromSecondPage: true)]);
             },
             child: AccountBottomItem(
               text: 'Account',
@@ -100,7 +98,7 @@ class _BottomBanvigationMenuState extends State<BottomBanvigationMenu> {
 
           // Center Logo
           GestureDetector(
-            onTap: () => MainNavigation.replace(context, [const MainNavigation.home()]),
+            onTap: () => context.router.replaceAll(const [MainRoute()]),
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Stack(
@@ -132,10 +130,7 @@ class _BottomBanvigationMenuState extends State<BottomBanvigationMenu> {
               setState(() {
                 widget.selectedIndex = 5;
               });
-              MainNavigation.push(
-                context,
-                const MainNavigation.wishList(true, false),
-              );
+              context.router.replaceAll([const MainRoute(), WishlistRoute(fromMenu: true, fromAccount: false)]);
             },
             child: WishListBottomItem(
               text: 'Wishlist',
@@ -165,12 +160,9 @@ class _BottomBanvigationMenuState extends State<BottomBanvigationMenu> {
                   setState(() {
                     widget.selectedIndex = 6;
                   });
-                  MainNavigation.push(
-                    context,
-                    const MainNavigation.cart(true, false, false, false),
-                  );
-                }
 
+                  context.router.replaceAll([const MainRoute(), CartRoute(showAppBar: true, fromMenu: false, fromCompleteOrder: false, fromHomePage: false),]);
+                }
               },
               child: CartBottomItem(
                 text: 'Carrello',

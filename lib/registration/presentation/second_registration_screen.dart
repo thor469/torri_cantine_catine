@@ -1,13 +1,15 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:torri_cantine_app/app/common/primary_button.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
-import 'package:torri_cantine_app/app/routing/main_navigation.dart';
+import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/login/login/login_bloc.dart';
 import 'package:torri_cantine_app/registration/registration/registration_bloc.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 
+@RoutePage()
 class SecondRegistrScreen extends StatefulWidget {
   const SecondRegistrScreen({super.key, required this.registrationDatas});
   final List<String> registrationDatas;
@@ -69,8 +71,7 @@ class _SecondRegistrScreenState extends State<SecondRegistrScreen> {
               .add(LoginEvent.login(password, password, fcmtoken));
           return null;
         },
-        loaded: (response) => MainNavigation.push(
-            context, const MainNavigation.thirdRegistration()),
+        loaded: (response) => context.router.push(const ThirdRegistrRoute()),
         error: (error, codeError) {
           final snackBar = SnackBar(
             content: Text(error),
@@ -384,12 +385,10 @@ class _SecondRegistrScreenState extends State<SecondRegistrScreen> {
                             ),
                             onTap: () async {
                               final tokenId = await token.getTokenId();
-                              if (mounted) {
+                              if (context.mounted) {
                                 tokenId == null
-                                    ? MainNavigation.push(
-                                        context, const MainNavigation.login())
-                                    : MainNavigation.push(
-                                        context, const MainNavigation.home());
+                                    ? context.router.push(const LoginRoute())
+                                    : context.router.push(const MainRoute());
                               }
                             }),
                       ),
