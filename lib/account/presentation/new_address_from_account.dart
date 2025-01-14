@@ -714,20 +714,16 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
                             switch (widget.returnPage) {
                               case 'account' : {
                                 context.router.replaceAll([const MainRoute(), AccountRoute(fromSecondPage: false)]);
-
-                                // MainNavigation.replace(context, [const MainNavigation.account(false)]);
+                                context.router.replaceAll([const MainRoute(), AccountRoute(fromSecondPage: false)]);
                                 break;
                               }
                               case 'completeorder' : {
                                 context.router.popForced();
-
-                                // MainNavigation.replace(context, [MainNavigation.completeOrder(widget.point ?? 0, widget.subTotal ?? "")]);
                                 break;
                               }
                               default : {
                                 context.router.replaceAll([const MainRoute(), AccountRoute(fromSecondPage: false)]);
-
-                                // MainNavigation.replace(context, [const MainNavigation.account(false)]);
+                                context.router.replaceAll([const MainRoute(), AccountRoute(fromSecondPage: false)]);
                                 break;
                               }
                             }
