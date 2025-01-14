@@ -8,42 +8,41 @@ import '../../../app/app_config.dart';
 import '../../../app/dependency_injection/dependency_factory_impl.dart';
 
 
-Future<List<ShippingMethod?>> processShippingMethods(String postcode) async {
-
-  var sz = await shippingZonesServices().getShippingZones();
-  var sl = await shippingZonesServices().getShippingLocations(sz);
+Future<List<ShippingMethod?>> processShippingMethods(String postcode, bool isSelectedCod) async {
   List<ShippingMethod?> sm = [];
-  //String postcode = '66034';
-  //postcode = '57031';
 
   String matchedZone = '';
   String defaultZone = '';
 
-  //print(sl);
-
-  if(sl!=null) {
+  var sz = await shippingZonesServices().getShippingZones();
 
 
+  if(isSelectedCod){
+    sm = await shippingZonesServices().getShippingMethods("16",postcode);
+    return sm;
+  }
+
+
+  var sl = await shippingZonesServices().getShippingLocations(sz);
+
+  sl.removeWhere((e) => e["id"] == 16);
+
+  if (sl.isNotEmpty) {
     for (var location in sl) {
-      //print('###SHIPPING ZONE ${location['id']} #######################');
-      //print(location);
-
-      if(location['locations'].length ==1 && location['locations'][0].type == 'country' && location['locations'][0].code == 'IT') {
+      if (location['locations'].length == 1 && location['locations'][0].type == 'country' && location['locations'][0].code == 'IT') {
         defaultZone = location['id'].toString();
       }
 
       // defaultZone = location['locations'].lastWhere((val) => val.type == 'country' && val.code == 'IT' )['id'];
 
       //location['locations'].where((val) => val.type == 'postcode' ).forEach((values){
-      location['locations'].forEach((values){
-        if(values!.type == 'postcode') {
-          //print('@#@#@# POSTCODE - ${values!.code}');
-          if( (values!.code).contains('...') ) {
+      location['locations'].forEach((values) {
+        if (values!.type == 'postcode') {
+          if ((values!.code).contains('...')) {
             var splitCodes = (values!.code).split('...');
-            if(num.tryParse(postcode)!  >= num.tryParse(splitCodes.first)! && num.tryParse(postcode)!  <= num.tryParse(splitCodes.last)!) {
+            if (num.tryParse(postcode)! >= num.tryParse(splitCodes.first)! && num.tryParse(postcode)! <= num.tryParse(splitCodes.last)!) {
               matchedZone = location['id'].toString();
             }
-
           } else {
             if (postcode == values!.code) {
               matchedZone = location['id'].toString();
@@ -51,14 +50,10 @@ Future<List<ShippingMethod?>> processShippingMethods(String postcode) async {
           }
         }
       });
-
     }
-
-    // print('###MATCH  ZONE ${matchedZone} #######################');
-    // print(matchedZone=='');
-    // print('###DEFAULT ZONE ${defaultZone} #######################');
-    sm = await shippingZonesServices().getShippingMethods(matchedZone==''?defaultZone:matchedZone,postcode);
   }
+  sm = await shippingZonesServices().getShippingMethods(matchedZone != "" ? matchedZone : defaultZone,postcode);
+
   return sm;
 }
 

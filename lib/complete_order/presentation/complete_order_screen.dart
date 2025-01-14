@@ -164,8 +164,8 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
     });
   }
 
-  getShippingMethods(postcode) async {
-    shippingMethodsFuture =  processShippingMethods(postcode);
+  getShippingMethods(String postcode, bool isSelectedCod) async {
+    shippingMethodsFuture =  processShippingMethods(postcode,isSelectedCod);
   }
 
   getPayGateway() async {
@@ -301,7 +301,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                         }
                       }
                       shippingPostocde = ((selectedBillingAddress?.postcode != null && selectedShippingAddress?.postcode != '') ? selectedShippingAddress?.postcode : selectedBillingAddress?.postcode) ?? "";
-                      getShippingMethods(shippingPostocde);
+                      getShippingMethods(shippingPostocde, false);
                       firstLoad = false;
                     }
                     shippingPostocde = ((selectedBillingAddress?.postcode != null && selectedShippingAddress?.postcode != '') ? selectedShippingAddress?.postcode : selectedBillingAddress?.postcode) ?? "";
@@ -647,7 +647,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                 selectedBillingIndex = value;
                                                 selectedBillingAddress = model.billing[value!];
                                                 shippingPostocde = ((selectedBillingAddress?.postcode != null && selectedShippingAddress?.postcode != '') ? selectedShippingAddress?.postcode : selectedBillingAddress?.postcode)!;
-                                                getShippingMethods(shippingPostocde);
+                                                getShippingMethods(shippingPostocde,false);
                                               });
                                             },
                                           ),
@@ -1042,7 +1042,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                 selectedShippingIndex = value;
                                                 selectedShippingAddress = model.shipping[value!];
                                                 shippingPostocde = ((selectedBillingAddress?.postcode != null && selectedShippingAddress?.postcode != '') ? selectedShippingAddress?.postcode : selectedBillingAddress?.postcode)!;
-                                                getShippingMethods(shippingPostocde);
+                                                getShippingMethods(shippingPostocde, false);
                                               });
                                             },
                                           ),
@@ -1198,8 +1198,14 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                         gruppoval2 = index;
                                                       });
 
+                                                      // getPayGateway();
+
+                                                      await getShippingMethods(selectedShippingAddress?.postcode ?? "", pg[index]!.id == "cod");
+
+
                                                       if(pg[index]!.id == "cod"){
                                                         try {
+
                                                           final dep = DependencyFactoryImpl();
                                                           final Dio dio = dep.createDioForApiCart().dio;
 
@@ -1210,11 +1216,26 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                             ),
                                                           );
 
+
                                                         } catch (e) {}
 
                                                         setState(() {
                                                           cartSummedPrice += codeInfo?.data;
                                                         });
+
+                                                        try {
+                                                          final dep = DependencyFactoryImpl();
+                                                          final Dio dio = dep.createDioForApiCart().dio;
+
+                                                          await dio.request(
+                                                            '/wp-json/wp/v2/add_payment_method_costs',
+                                                            options: Options(
+                                                              method: 'POST',
+                                                            ),
+                                                          );
+
+                                                        } catch (e) {}
+
                                                       }else{
                                                         setState(() {
                                                           cartSummedPrice -= codeInfo?.data;
@@ -1287,9 +1308,11 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                                     gruppoval2 = index;
                                                                   });
 
+                                                                  // getPayGateway();
+                                                                  await getShippingMethods(selectedShippingAddress?.postcode ?? "", pg[index]!.id == "cod");
+
+
                                                                   if(pg[index]!.id == "cod"){
-
-
                                                                     try {
                                                                       final dep = DependencyFactoryImpl();
                                                                       final Dio dio = dep.createDioForApiCart().dio;
@@ -1302,6 +1325,10 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                                       );
 
                                                                     } catch (e) {}
+
+                                                                    setState(() {
+                                                                      cartSummedPrice += codeInfo?.data;
+                                                                    });
 
 
                                                                     try {
@@ -1320,9 +1347,6 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
 
 
 
-                                                                    setState(() {
-                                                                      cartSummedPrice += codeInfo?.data;
-                                                                    });
                                                                   }else{
                                                                     setState(() {
                                                                       cartSummedPrice -= codeInfo?.data;

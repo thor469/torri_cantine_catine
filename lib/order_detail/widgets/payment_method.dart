@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http_services/http_services.dart';
 import 'package:torri_cantine_app/app/common/primary_button.dart';
+import 'package:torri_cantine_app/app/dependency_injection/dependency_factory_impl.dart';
 import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/cart/add_product_to_cart/add_product_to_cart_bloc.dart';
@@ -18,6 +20,43 @@ class PaymentMethod extends StatefulWidget {
 }
 
 class _PaymentMethodState extends State<PaymentMethod> {
+
+  var codInfo;
+  String codPrice = "";
+
+
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      var a = await getCodPrice() ?? "";
+      setState(() {
+      codPrice = a;
+      });
+    });
+  }
+
+  Future<String?>? getCodPrice() async{
+    try {
+      final dep = DependencyFactoryImpl();
+      final Dio dio = dep.createDioForApiCart().dio;
+
+      codInfo = await dio.request(
+        '/wp-json/wp/v2/get_cod_price',
+        options: Options(
+          method: 'GET',
+        ),
+      );
+
+    } catch (e) {}
+
+    return codInfo?.data.toString();
+  }
+
+
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -33,7 +72,6 @@ class _PaymentMethodState extends State<PaymentMethod> {
     print(widget.order.discountTotal);
 
     String shippingTotal = (double.tryParse(widget.order.shippingTotal)! + double.tryParse(widget.order.shippingTax)! ).toStringAsFixed(2).replaceAll('.', '.');
-
 
     return BlocListener<AddProductToCartBloc, AddProductToCartState>(
       listener: (context, state) => state.maybeWhen(
@@ -106,6 +144,30 @@ class _PaymentMethodState extends State<PaymentMethod> {
                     const Spacer(),
                     Text(
                       "-€${((double.tryParse(widget.order.discountTotal) ?? 0) + (double.tryParse(widget.order.discountTax ?? '0') ?? 0)) } ",
+                      style: TCTypography.of(context).text_14_bold.copyWith(
+                        color: const Color.fromARGB(255, 13, 117, 161),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+
+            Visibility(
+              visible: widget.order.paymentMethod == "cod",
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Row(
+                  children: [
+                    Text(
+                      "Costo contrassegno:",
+                      style: TCTypography.of(context).text_14_bold.copyWith(
+                        color: const Color.fromARGB(255, 13, 117, 161),
+                      ),
+                    ),
+                    const Spacer(),
+                    Text(
+                      "€$codPrice.00",
                       style: TCTypography.of(context).text_14_bold.copyWith(
                         color: const Color.fromARGB(255, 13, 117, 161),
                       ),
