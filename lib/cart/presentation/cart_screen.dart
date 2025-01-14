@@ -218,7 +218,7 @@ class _CartScreenState extends State<CartScreen> {
 
               var cartTotalDiscountValue = (int.tryParse(cart.totals.totalDiscount??'0')! + int.tryParse(cart.totals.totalDiscountTax??'0')!)/100;
               if(moneyDiscount >= 5.0 && taxedTotalItemsValue >= 50){
-                cartPointDiscountValue += 5;
+                cartPointDiscountValue = 5;
                 isPointDiscountEnabled = true;
               }
               var cartTotalDiscount = double.tryParse(cartTotalDiscountValue.toString())!.toStringAsFixed(2).replaceAll('.', ',');
@@ -335,8 +335,7 @@ class _CartScreenState extends State<CartScreen> {
                                     Text(
                                       "Raccolta punti:",
                                       style: TCTypography.of(context).text_16_bold.copyWith(
-                                        color: const Color.fromARGB(
-                                            255, 13, 117, 161),
+                                        color: const Color.fromARGB(255, 13, 117, 161),
                                       ),
                                     ),
                                     Text(

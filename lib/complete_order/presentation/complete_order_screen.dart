@@ -216,7 +216,11 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
         loaded: (response) => {
           context.read<CartBadgeCubitCubit>().removeCartItem(),
           context.read<CartBloc>().deleteCart(),
+          setState(() {
+            startedOrder = false;
+          }),
           context.router.push(const ThankYouRoute())
+
         },
         loading: () => const Center(
           child: CircularProgressIndicator(
@@ -1284,6 +1288,8 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                                   });
 
                                                                   if(pg[index]!.id == "cod"){
+
+
                                                                     try {
                                                                       final dep = DependencyFactoryImpl();
                                                                       final Dio dio = dep.createDioForApiCart().dio;
@@ -1296,6 +1302,23 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                                       );
 
                                                                     } catch (e) {}
+
+
+                                                                    try {
+                                                                      final dep = DependencyFactoryImpl();
+                                                                      final Dio dio = dep.createDioForApiCart().dio;
+
+                                                                       await dio.request(
+                                                                        '/wp-json/wp/v2/add_payment_method_costs',
+                                                                        options: Options(
+                                                                          method: 'POST',
+                                                                        ),
+                                                                      );
+
+                                                                    } catch (e) {}
+
+
+
 
                                                                     setState(() {
                                                                       cartSummedPrice += codeInfo?.data;
@@ -1834,9 +1857,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
         widget.totPoint
     ),
     );
-    setState(() {
-      startedOrder = false;
-    });
+
   }
 
   Future<void> payWithMethodSelected(String paymentMethod, UserAddress shipping, UserAddress billing, CartResponse cart, int customerId) async{
