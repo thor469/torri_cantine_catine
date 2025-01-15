@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:torri_cantine_app/account/account/account_bloc.dart';
 import 'package:torri_cantine_app/account/account/address/address_bloc.dart';
 import 'package:torri_cantine_app/account/model/request/add_address_request.dart';
 import 'package:torri_cantine_app/account/model/response/add_address_response.dart';
@@ -11,6 +12,7 @@ import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
 import 'package:torri_cantine_app/cart/model/response/cart_response.dart';
 import 'package:torri_cantine_app/personal_info/update_customer/update_customer_bloc.dart';
+import 'package:torri_cantine_app/utilities/local_storage.dart';
 
 @RoutePage()
 class NewAddressFromAccountScreen extends StatefulWidget {
@@ -59,10 +61,14 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
   TextEditingController emailController = TextEditingController();
   TextEditingController companyController = TextEditingController();
 
-
+  LocalStorage storage = LocalStorage();
+  String? userEmail;
 
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      userEmail = await storage.getUserEmail() ?? "";
+    });
     indFatturaIsChecked = widget.editFatturazione;
     indSpedizioneIsChecked = widget.editShipping;
     addFatturazione = widget.editFatturazione;
@@ -714,7 +720,7 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
                             switch (widget.returnPage) {
                               case 'account' : {
                                 context.router.replaceAll([const MainRoute(), AccountRoute(fromSecondPage: false)]);
-                                context.router.replaceAll([const MainRoute(), AccountRoute(fromSecondPage: false)]);
+                                context.read<AccountBloc>().add(AccountEvent.fetch(userEmail ?? ""));
                                 break;
                               }
                               case 'completeorder' : {
@@ -723,7 +729,7 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
                               }
                               default : {
                                 context.router.replaceAll([const MainRoute(), AccountRoute(fromSecondPage: false)]);
-                                context.router.replaceAll([const MainRoute(), AccountRoute(fromSecondPage: false)]);
+                                context.read<AccountBloc>().add(AccountEvent.fetch(userEmail ?? ""));
                                 break;
                               }
                             }
