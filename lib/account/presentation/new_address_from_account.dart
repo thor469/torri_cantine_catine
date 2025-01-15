@@ -724,6 +724,7 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
                                 break;
                               }
                               case 'completeorder' : {
+                                context.read<AccountBloc>().add(const AccountEvent.fetchAddress());
                                 context.router.popForced();
                                 break;
                               }

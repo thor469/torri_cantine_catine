@@ -167,7 +167,7 @@ class _PaymentMethodState extends State<PaymentMethod> {
                     ),
                     const Spacer(),
                     Text(
-                      "€$codPrice.00",
+                      "€$codPrice",
                       style: TCTypography.of(context).text_14_bold.copyWith(
                         color: const Color.fromARGB(255, 13, 117, 161),
                       ),

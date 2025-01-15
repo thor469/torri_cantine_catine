@@ -2,8 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:http_services/http_services.dart';
-import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-
 import 'package:torri_cantine_app/account/model/request/add_address_request.dart';
 import 'package:torri_cantine_app/account/model/response/address_response.dart';
 import 'package:torri_cantine_app/account/service/address_service.dart';

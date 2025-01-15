@@ -79,14 +79,19 @@ return PopScope(
         //   initialSelectedIndex: 0,
         //   context: context,
         // ),
-        body: BlocListener<AccountBloc, AccountState>(
-            listener: (context, state) {
-              state.maybeWhen<void>(
-                deletedAddress: () {
-                  context.read<AccountBloc>().add(const AccountEvent.fetchAddress());
+        body: MultiBlocListener(
+            listeners: [
+              BlocListener<AccountBloc, AccountState>(
+                listener: (context, state) {
+                  state.maybeWhen<void>(
+                    deletedAddress: () {
+                      context.read<AccountBloc>().add(const AccountEvent.fetchAddress());
+                    },
+                    orElse: () {},
+                  );
                 },
-                orElse: () {},
-              );},
+              ),
+            ],
             child:  BlocBuilder<AccountBloc, AccountState>(
               builder: (context, state) => state.maybeWhen(
                 loading: () => const Center(
@@ -296,9 +301,7 @@ return PopScope(
                                     GestureDetector(
                                       onTap: (){
                                         context.router.push(NewAddressFromAccountRoute(customerdId: widget.customerdId, editFatturazione: false, editShipping: true, returnPage:  "account", isNewAddress: true, subTotal: ""));
-
-                                        // MainNavigation.push(context, MainNavigation.newAddressFromAccount(widget.customerdId, false, true, null, "account", true,null, "null"));
-                                      },
+                                        },
                                       child: const Row(
                                         children: [
                                           Text(
@@ -335,17 +338,6 @@ return PopScope(
                             colorText: Colors.white,
                             ontap: () {
                               context.router.push(NewAddressFromAccountRoute(customerdId: widget.customerdId, editFatturazione: false, editShipping: true, returnPage:  "account", isNewAddress: true, subTotal: ""));
-
-                              // MainNavigation.push(context, MainNavigation.newAddressFromAccount(
-                              //     widget.customerdId,
-                              //     false,
-                              //     true,
-                              //     null,
-                              //     'account',
-                              //     true,
-                              //     null, "null"
-                              // ),
-                              // );
                             },
                           ),
                         ),
@@ -365,9 +357,6 @@ return PopScope(
   Future<void> _updateDefaultAddress(UserAddress address, String type, String id) async {
 
     context.router.replaceAll([const MainRoute(),AccountRoute(fromSecondPage: true)]);
-
-    // MainNavigation.replace(context, [const MainNavigation.account(true)]);
-
     context.read<AccountBloc>().add(
         AccountEvent.updateAddress(
           AddAddressRequest(
@@ -434,21 +423,7 @@ return PopScope(
           text: "MODIFICA",
           colorText: Colors.white,
           ontap: () {
-            context.router.push(NewAddressFromAccountRoute(customerdId: widget.customerdId, editFatturazione: billing.is_default,existingAddress: billing, editShipping: false, returnPage:  "account", isNewAddress: false, subTotal: ""));
-
-
-
-            // MainNavigation.push(
-            //   context,
-            //   MainNavigation.newAddressFromAccount(
-            //     widget.customerdId,
-            //     billing.is_default,
-            //     false,
-            //     billing,
-            //     'account',
-            //     false,null, "null"
-            //   ),
-            // );
+            context.router.push(NewAddressFromAccountRoute(customerdId: widget.customerdId, editFatturazione: billing.is_default, existingAddress: billing, editShipping: false, returnPage:  "account", isNewAddress: false, subTotal: ""));
           },
         ),
         const SizedBox(
@@ -499,19 +474,6 @@ return PopScope(
           colorText: Colors.white,
           ontap: () {
             context.router.push(NewAddressFromAccountRoute(customerdId: widget.customerdId, editFatturazione: shipping.is_default,existingAddress: shipping, editShipping: false, returnPage:  "account", isNewAddress: false, subTotal: ""));
-            // MainNavigation.push(
-            //   context,
-            //   MainNavigation.newAddressFromAccount(
-            //     widget.customerdId,
-            //     false,
-            //     shipping.is_default,
-            //     shipping,
-            //     'account',
-            //     false,
-            //       null,
-            //       "null"
-            //   ),
-            // );
           },
         ),
         const SizedBox(

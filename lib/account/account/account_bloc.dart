@@ -20,11 +20,8 @@ part 'account_state.dart';
 // Bloc Implementation
 class AccountBloc extends Bloc<AccountEvent, AccountState> {
   final AccountService service;
-  final CacheManager cacheManager;
 
-  AccountBloc(this.service)
-      : cacheManager = CacheManager(cacheDuration: const Duration(minutes: 30)),
-        super(const _Initial());
+  AccountBloc(this.service) :super(const _Initial());
 
   @override
   Stream<AccountState> mapEventToState(AccountEvent event) async* {
@@ -38,12 +35,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
 
   Stream<AccountState> _account(String email) async* {
     final cacheKey = 'account_$email';
-    final cachedResponse = cacheManager.get(cacheKey);
 
-    if (cachedResponse != null) {
-      yield AccountState.loaded(cachedResponse);
-      return;
-    }
 
     LocalStorage customer = LocalStorage();
     yield const AccountState.initial();
@@ -61,9 +53,6 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         } else {
           await customer.setCustomerId(response.user.first.id);
 
-          // Salva nella cache
-          cacheManager.set(cacheKey, response);
-
           yield AccountState.loaded(response);
         }
       }
@@ -76,14 +65,6 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
   }
 
   Stream<AccountState> getAddress() async* {
-    const cacheKey = 'get_address';
-    final cachedResponse = cacheManager.get(cacheKey);
-
-    if (cachedResponse != null) {
-      yield AccountState.loadedAddress(cachedResponse);
-      return;
-    }
-
     yield const AccountState.loading();
     try {
       const dep = DependencyFactoryImpl();
@@ -96,8 +77,6 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
       );
       AddressResponse data = AddressResponse.fromJson(codeInfo.data);
 
-      // Salva nella cache
-      cacheManager.set(cacheKey, data);
 
       yield AccountState.loadedAddress(data);
     } catch (e) {
@@ -141,7 +120,6 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
       );
       AddressResponse data = AddressResponse.fromJson(codeInfo.data);
 
-      cacheManager.clear();
 
       yield AccountState.loadedAddress(data);
     } on DioError catch (e) {
@@ -184,7 +162,6 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
           method: 'DELETE',
         ),
       );
-      cacheManager.clear();
       yield const AccountState.deletedAddress();
 
     } on DioError catch (e) {

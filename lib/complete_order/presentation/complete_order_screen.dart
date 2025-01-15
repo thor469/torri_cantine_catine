@@ -24,6 +24,7 @@ import 'package:torri_cantine_app/cart/model/request/shipping.dart';
 import 'package:torri_cantine_app/cart/model/response/cart_response.dart';
 import 'package:torri_cantine_app/complete_order/stripe_manager/stripe_payment_manager.dart';
 import 'package:torri_cantine_app/coupon/coupon/coupon_bloc.dart';
+import 'package:torri_cantine_app/menu_screen/menu_screen.dart';
 import 'package:torri_cantine_app/my_orders/model/request/my_orders_request.dart';
 import 'package:torri_cantine_app/my_orders/model/response/my_orders_response.dart';
 import 'package:torri_cantine_app/my_orders/my_orders/my_orders_bloc.dart';
@@ -129,8 +130,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
       }
 
       final totalDiscount = int.tryParse(cart.totals.totalDiscount ?? "0") ?? 0;
-      final totalDiscountTax =
-          int.tryParse(cart.totals.totalDiscountTax ?? "0") ?? 0;
+      final totalDiscountTax = int.tryParse(cart.totals.totalDiscountTax ?? "0") ?? 0;
       taxedTotal -= (totalDiscount + totalDiscountTax);
 
       if (taxedTotal > 0) {
@@ -232,6 +232,9 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
       child: Scaffold(
         backgroundColor: Colors.white,
         key: newKey,
+        drawer: const Drawer(
+          child: MenuScreen(),
+        ),
         floatingActionButtonLocation: _dockedFabLocation(context),
         floatingActionButton: const FloatingButton(),
         bottomNavigationBar: BottomBanvigationMenu(
@@ -1584,7 +1587,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                 ),
                                               ),
                                               Text(
-                                                "€ ${codeInfo?.data}.00",
+                                                "€ ${codeInfo?.data}0",
                                                 style: const TextStyle(
                                                   fontSize: 13,
                                                   color: Color.fromARGB(255, 13, 117, 161),
