@@ -30,6 +30,7 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
+  String? email;
   void launchURL(String url) async {
     if (await canLaunch(url)) {
       await launch(
@@ -72,8 +73,8 @@ class _AccountScreenState extends State<AccountScreen> {
   void initState() {
     widget.fromSecondPage ? null :
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      String email = await storage.getUserEmail() ?? "";
-      if (mounted) {context.read<AccountBloc>().add(AccountEvent.fetch(email));}
+      email = await storage.getUserEmail() ?? "";
+      if (mounted) {context.read<AccountBloc>().add(AccountEvent.fetch(email!));}
     });
     super.initState();
   }
@@ -334,13 +335,21 @@ class _AccountScreenState extends State<AccountScreen> {
                 ),
               );
             },
-            orElse: () => const SizedBox.shrink(),
+            orElse: () {
+              _fetchAccountData(context);
+              return const SizedBox.shrink();
+            },
           ),
         ),
       ),
     );
-
-
-
+  }
+  void _fetchAccountData(BuildContext context) async {
+    if (mounted) {
+      email ??= await storage.getUserEmail();
+      if (email != null) {
+        context.read<AccountBloc>().add(AccountEvent.fetch(email!));
+      }
+    }
   }
 }
