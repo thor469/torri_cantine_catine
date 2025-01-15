@@ -10,6 +10,7 @@ import 'package:torri_cantine_app/app/common/bottom_bar_items/bottom_bar.dart';
 import 'package:torri_cantine_app/app/common/bottom_bar_items/floating_action_button.dart';
 import 'package:torri_cantine_app/app/common/primary_button.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
+import 'package:torri_cantine_app/app/dependency_injection/dependency_factory.dart';
 import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/login/login/login_bloc.dart';
 import 'package:torri_cantine_app/menu_screen/menu_screen.dart';
@@ -336,7 +337,7 @@ class _AccountScreenState extends State<AccountScreen> {
               );
             },
             orElse: () {
-              _fetchAccountData(context);
+              // _fetchAccountData(context);
               return const SizedBox.shrink();
             },
           ),
