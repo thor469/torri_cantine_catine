@@ -337,7 +337,7 @@ class _AccountScreenState extends State<AccountScreen> {
               );
             },
             orElse: () {
-              // _fetchAccountData(context);
+              _fetchAccountData(context);
               return const SizedBox.shrink();
             },
           ),
@@ -346,7 +346,7 @@ class _AccountScreenState extends State<AccountScreen> {
     );
   }
   void _fetchAccountData(BuildContext context) async {
-    if (mounted) {
+    if (mounted && context.router.current.name == AccountRoute.name) {
       email ??= await storage.getUserEmail();
       if (email != null) {
         context.read<AccountBloc>().add(AccountEvent.fetch(email!));
