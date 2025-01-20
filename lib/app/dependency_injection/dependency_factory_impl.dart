@@ -55,8 +55,8 @@ class DependencyFactoryImpl extends DependencyFactory {
               // receiveTimeout: 60000,
               // sendTimeout: 60000,
               headers: {
-                'authorization':
-                    'Basic ${base64.encode(utf8.encode("${AppConfig.username}:${AppConfig.password}"))}',
+                'authorization': 'Basic ${base64.encode(utf8.encode("${AppConfig.username}:${AppConfig.password}"))}',
+                'X-Requested-By' :'TorriApp'
               }),
         )..interceptors.addAll(
             [],
@@ -69,6 +69,9 @@ class DependencyFactoryImpl extends DependencyFactory {
           BaseOptions(
             baseUrl: AppConfig.baseUrl,
             contentType: 'application/json',
+            headers: {
+              'X-Requested-By' :'TorriApp'
+            }
           ),
         )..interceptors.addAll(
             [
@@ -86,9 +89,8 @@ class DependencyFactoryImpl extends DependencyFactory {
               contentType: 'application/json',
               headers: {
                 'Algorithm': 'HS256',
-                'Secret':
-                   // ";:%]vt}:Wi(:8jN([,4MRih[I(xTNt<DQs/!j)kcMP~khD8[)].NL4]5^/S,OL^-",
-                    AppConfig.tokenAuth,
+                'Secret': // ";:%]vt}:Wi(:8jN([,4MRih[I(xTNt<DQs/!j)kcMP~khD8[)].NL4]5^/S,OL^-",
+                AppConfig.tokenAuth,
               }),
         )..interceptors.addAll(
             [],

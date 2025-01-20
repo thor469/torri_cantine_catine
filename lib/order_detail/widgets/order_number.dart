@@ -101,7 +101,6 @@ class _OrderNumberState extends State<OrderNumber> {
                       try {
                         final dep = DependencyFactoryImpl();
                         final Dio dio = dep.createDioForApiCart().dio;
-
                         codeInfo = await dio.request(
                           '/wp-json/wp/v2/get_track_link',
                           options: Options(

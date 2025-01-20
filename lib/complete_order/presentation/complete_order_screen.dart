@@ -97,6 +97,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   String subPrice = "";
   bool couponDeleted = false;
   Response? codeInfo;
+  bool isAdded = false;
 
   @override
   void initState() {
@@ -1206,7 +1207,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                       await getShippingMethods(selectedShippingAddress?.postcode ?? "", pg[index]!.id == "cod");
 
 
-                                                      if(pg[index]!.id == "cod"){
+                                                      if(pg[index]!.id == "cod" && !isAdded){
                                                         try {
 
                                                           final dep = DependencyFactoryImpl();
@@ -1222,9 +1223,12 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
 
                                                         } catch (e) {}
 
-                                                        setState(() {
-                                                          cartSummedPrice += codeInfo?.data;
-                                                        });
+                                                          setState(() {
+                                                            cartSummedPrice += double.tryParse(codeInfo?.data.replaceAll(",", ".")) ?? 0;
+                                                            isAdded = true;
+                                                          });
+
+
 
                                                         try {
                                                           final dep = DependencyFactoryImpl();
@@ -1241,8 +1245,9 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
 
                                                       }else{
                                                         setState(() {
-                                                          cartSummedPrice -= codeInfo?.data;
-                                                          codeInfo?.data = 0;
+                                                          cartSummedPrice -= double.tryParse(codeInfo?.data.replaceAll(",", ".")) ?? 0;
+                                                          codeInfo?.data = "0";
+                                                          isAdded = false;
                                                         });
                                                       }
 
@@ -1315,7 +1320,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                                   await getShippingMethods(selectedShippingAddress?.postcode ?? "", pg[index]!.id == "cod");
 
 
-                                                                  if(pg[index]!.id == "cod"){
+                                                                  if(pg[index]!.id == "cod" && !isAdded){
                                                                     try {
                                                                       final dep = DependencyFactoryImpl();
                                                                       final Dio dio = dep.createDioForApiCart().dio;
@@ -1329,9 +1334,11 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
 
                                                                     } catch (e) {}
 
-                                                                    setState(() {
-                                                                      cartSummedPrice += codeInfo?.data;
-                                                                    });
+                                                                      setState(() {
+                                                                        cartSummedPrice += double.tryParse(codeInfo?.data.replaceAll(",", ".")) ?? 0;
+                                                                        isAdded = true;
+                                                                      });
+
 
 
                                                                     try {
@@ -1345,15 +1352,18 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                                         ),
                                                                       );
 
-                                                                    } catch (e) {}
+                                                                    } catch (e) {
+
+                                                                    }
 
 
 
 
                                                                   }else{
                                                                     setState(() {
-                                                                      cartSummedPrice -= codeInfo?.data;
-                                                                      codeInfo?.data = 0;
+                                                                      cartSummedPrice -= double.tryParse(codeInfo?.data.replaceAll(",", ".")) ?? 0;
+                                                                      codeInfo?.data = "0";
+                                                                      isAdded = false;
                                                                     });
                                                                   }
 
@@ -1573,7 +1583,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                       ),
 
                                       Visibility(
-                                        visible: codeInfo?.data != null &&  codeInfo?.data != 0,
+                                        visible: codeInfo?.data != null &&  codeInfo?.data != "0",
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(vertical: 5.0),
                                           child: Row(
@@ -1587,7 +1597,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                 ),
                                               ),
                                               Text(
-                                                "€ ${codeInfo?.data}0",
+                                                "€ ${codeInfo?.data}",
                                                 style: const TextStyle(
                                                   fontSize: 13,
                                                   color: Color.fromARGB(255, 13, 117, 161),
