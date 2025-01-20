@@ -325,6 +325,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                 onTap: () async {
                                   context.read<LoginBloc>().add(const LoginEvent.logout());
                                   context.router.replaceAll([WelcomeRoute()]);
+                                  await storage.setBottomTabState(0);
                                 },
                               ),
                             ),
