@@ -767,6 +767,9 @@ class _BundleItemsListState extends State<BundleItemsList> {
                        text:  isLoading ? "": "AGGIUNGI",
                        disabled: !(selectedBundleItems>=widget.minSize && selectedBundleItems<=widget.maxSize),
                        ontap: () {
+                         if(isLoading){
+                           return;
+                         }
                          setState(() {
                            isLoading = true;
                          });
