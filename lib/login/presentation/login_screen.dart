@@ -45,8 +45,16 @@ class _LoginScreenState extends State<LoginScreen> {
   LocalStorage token = LocalStorage();
   bool isChecked = false;
   bool isLoading = false;
+  final FocusNode _nodeMail = FocusNode();
+  final FocusNode _nodePassword = FocusNode();
 
 
+  @override
+  void dispose() {
+    _nodeMail.dispose();
+    _nodePassword.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -229,6 +237,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: TextField(
                       cursorColor: Colors.black,
                       controller: _controllers['email'],
+                      focusNode: _nodeMail,
+                      onSubmitted: (value) => _nodePassword.requestFocus(),
                       decoration: InputDecoration(
                         labelStyle:
                             const TextStyle(decoration: TextDecoration.none),
@@ -264,6 +274,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: TextField(
                       cursorColor: Colors.black,
                       controller: _controllers['password'],
+                      focusNode: _nodePassword,
                       obscureText: true,
                       decoration: InputDecoration(
                         hintText: "Password...",
