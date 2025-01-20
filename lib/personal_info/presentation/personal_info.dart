@@ -77,6 +77,13 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
 
     return BlocListener<UpdateCustomerBloc, UpdateCustomerState>(
   listener: (context, state) => state.maybeWhen(
+    error: (){
+      if (context.mounted) {
+        context.read<AccountBloc>().add(AccountEvent.fetch(userEmail ?? ""));
+      }
+      context.router.popForced();
+      return;
+    },
     loaded: (_){
       if (context.mounted) {
         context.read<AccountBloc>().add(AccountEvent.fetch(userEmail ?? ""));
