@@ -28,7 +28,9 @@ class _CartBottomItemState extends State<CartBottomItem> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async{
       CartResponse? cart = await context.read<CartBloc>().fetchItemCart();
-      context.read<CartBadgeCubitCubit>().addCartItem(qty: cart?.items.length ?? 0, isFromCart: true);
+      if(mounted){
+        context.read<CartBadgeCubitCubit>().addCartItem(qty: cart?.items.length ?? 0, isFromCart: true);
+      }
     });
     super.initState();
   }
