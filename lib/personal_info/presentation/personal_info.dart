@@ -75,11 +75,23 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
   @override
   Widget build(BuildContext context) {
 
-    return PopScope(
+    return BlocListener<UpdateCustomerBloc, UpdateCustomerState>(
+  listener: (context, state) => state.maybeWhen(
+    loaded: (_){
+      if (context.mounted) {
+        context.read<AccountBloc>().add(AccountEvent.fetch(userEmail ?? ""));
+      }
+      context.router.popForced();
+      return;
+    }, orElse: () {
+      return;
+    }
+  ),
+  child: PopScope(
       canPop: true,
       onPopInvokedWithResult: (didPop, _){
         if(didPop){
-          context.read<AccountBloc>().add(AccountEvent.fetch(userEmail ?? ""));
+          // context.read<AccountBloc>().add(AccountEvent.fetch(userEmail ?? ""));
         }
       },
       child: Scaffold(
@@ -88,7 +100,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
         appBar: SubPageAppbar(
           text: "INFORMAZIONI PERSONALI",
           onTap: () {
-            context.read<AccountBloc>().add(AccountEvent.fetch(userEmail ?? ""));
+            // context.read<AccountBloc>().add(AccountEvent.fetch(userEmail ?? ""));
             context.router.popForced();
           },
         ),
@@ -150,34 +162,54 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 40),
-                      child: PrimaryButton(
-                          text: "SALVA LE MODIFICHE",
-                          ontap: () async {
-                            if (validation()) {
-                              context.read<UpdateCustomerBloc>().add(
-                                UpdateCustomerEvent.update(
-                                  id: widget.user.user.first.id,
-                                  firstName: controller['name'].text.trim() == ""
-                                      ? widget.user.user.first.first_name
-                                      : controller['name'].text,
-                                  lastName: controller['surname'].text.trim() == ""
-                                      ? widget.user.user.first.last_name
-                                      : controller['surname'].text,
-                                  phone: controller['phoneNumber'].text.trim() == ""
-                                      ? widget.user.user.first.billing!.phone!
-                                      : controller['phoneNumber'].text,
+                      child: BlocBuilder<UpdateCustomerBloc, UpdateCustomerState>(
+                          builder: (context, state) => state.maybeWhen(
+                            loading: () {
+                              return Container(
+                                width: MediaQuery.of(context).size.width * 0.88,
+                                height: 36,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: const Color.fromARGB(255, 161, 29, 52),
+                                ),
+                                child: const Align(
+                                  alignment: Alignment.center,
+                                  child: SizedBox(
+                                    width: 18,
+                                    height: 18,
+                                    child: CircularProgressIndicator(
+                                      color: Colors.white,
+                                      strokeWidth: 2,
+                                    ),
+                                  ),
                                 ),
                               );
-                              context.router.popForced();
+                            },
+                              orElse: (){
+                                return PrimaryButton(
+                                    text: "SALVA LE MODIFICHE",
+                                    ontap: () {
+                                      if (validation()) {
+                                        context.read<UpdateCustomerBloc>().add(
+                                          UpdateCustomerEvent.update(
+                                            id: widget.user.user.first.id,
+                                            firstName: controller['name'].text.trim() == ""
+                                                ? widget.user.user.first.first_name
+                                                : controller['name'].text,
+                                            lastName: controller['surname'].text.trim() == ""
+                                                ? widget.user.user.first.last_name
+                                                : controller['surname'].text,
+                                            phone: controller['phoneNumber'].text.trim() == ""
+                                                ? widget.user.user.first.billing!.phone!
+                                                : controller['phoneNumber'].text,
+                                          ),
+                                        );
+                                      }
+                                    });
+                              })
 
-                              final email = await storage.getUserEmail();
-                              if (mounted) {
-                                context
-                                    .read<AccountBloc>()
-                                    .add(AccountEvent.fetch(email ?? ""));
-                              }
-                            }
-                          }),
+
+                      ),
                     ),
                     const SizedBox(height: 50),
                   ],
@@ -188,7 +220,8 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
           ),
         ),
       ),
-    );
+    ),
+);
 
 
   }
