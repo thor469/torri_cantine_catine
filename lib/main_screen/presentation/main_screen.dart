@@ -75,7 +75,7 @@ class _MainScreenState extends State<MainScreen> {
             child: MenuScreen(),
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
-          floatingActionButton: const FloatingButton(),
+          // floatingActionButton: const FloatingButton(),
           body: selectPage(selectedIndex),
           bottomNavigationBar:
           BottomBanvigationMenu(

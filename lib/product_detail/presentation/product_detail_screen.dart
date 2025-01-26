@@ -90,7 +90,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       // floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
-      floatingActionButton: const FloatingButton(),
+      // floatingActionButton: const FloatingButton(),
       bottomNavigationBar: BottomBanvigationMenu(
         scaffoldKey: _key,
         initialSelectedIndex: 0,

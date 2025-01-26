@@ -99,7 +99,7 @@ class _AccountScreenState extends State<AccountScreen> {
         drawer: const Drawer(
           child: MenuScreen(),
         ),
-        floatingActionButton:  const FloatingButton(),
+        // floatingActionButton:  const FloatingButton(),
         floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
         bottomNavigationBar: BottomBanvigationMenu(
           scaffoldKey: _key,

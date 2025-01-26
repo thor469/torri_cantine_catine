@@ -84,9 +84,7 @@ class _CartScreenState extends State<CartScreen> {
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: widget.fromHomePage
-            ? const SizedBox()
-            : const FloatingButton(),
+        // floatingActionButton: widget.fromHomePage ? const SizedBox() : const FloatingButton(),
         bottomNavigationBar:  true==true? BottomBanvigationMenu(
           scaffoldKey: _key,
           initialSelectedIndex:6,

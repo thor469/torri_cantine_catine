@@ -33,8 +33,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
         child: MenuScreen(),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
-      floatingActionButton: const FloatingButton()
-      ,
+      // floatingActionButton: const FloatingButton(),
       bottomNavigationBar: BottomBanvigationMenu(
         scaffoldKey: _key,
         initialSelectedIndex: 0,

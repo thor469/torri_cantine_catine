@@ -22,9 +22,6 @@ class WishlistScreen extends StatefulWidget {
     required this.fromMenu,
     required this.fromAccount,
   });
-
-
-
   @override
   State<WishlistScreen> createState() => _WishlistScreenState();
 }
@@ -83,18 +80,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //print('wishBuild');
-    // context
-    //     .read<AllProductsBloc>()
-    //     .add(const AllProductsEvent.wishListProducts(ids: [169057,169057]));
-
-
-
     Future.delayed(Duration.zero, getWishListSaved).then((value) {
-      // context
-      //     .read<AllProductsBloc>()
-      //     .add(const AllProductsEvent.fetch());
-
     });
 
     final GlobalKey<ScaffoldState> key = GlobalKey();
@@ -130,8 +116,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
             ),
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
-          floatingActionButton: widget.fromMenu
-              ?const FloatingButton(): const SizedBox() ,
+          // floatingActionButton: widget.fromMenu ?const FloatingButton(): const SizedBox() ,
           bottomNavigationBar: widget.fromMenu
               ? BottomBanvigationMenu(
             scaffoldKey: key,
@@ -168,11 +153,6 @@ class _WishlistScreenState extends State<WishlistScreen> {
             return ListView.builder(
               itemCount: model.length,
               itemBuilder: (context, index) {
-
-                //print('WISHLIST LOADED');
-                //print(wishListProd(model ?? []));
-
-                //getWishlistProducts(wl);
 
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),

@@ -237,7 +237,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
           child: MenuScreen(),
         ),
         floatingActionButtonLocation: _dockedFabLocation(context),
-        floatingActionButton: const FloatingButton(),
+        // floatingActionButton: const FloatingButton(),
         bottomNavigationBar: BottomBanvigationMenu(
           scaffoldKey: newKey,
           initialSelectedIndex: 0,
