@@ -323,8 +323,7 @@ class _PointsBalanceScreenState extends State<PointsBalanceScreen> {
                                         ),
                                         trailing: Text(
                                           '${history[index].amount} pt',
-                                          style: TCTypography.of(context).text_14_bold.copyWith(
-                                              color: const Color.fromARGB(255, 161, 29, 51)),
+                                          style: TCTypography.of(context).text_14_bold.copyWith(color: history[index].amount?[0] == "-"? const Color.fromARGB(255, 161, 29, 51) : Colors.green),
                                         ),
                                       ),
                                     );
