@@ -174,7 +174,8 @@ mixin _$PointsState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String num) loaded,
+    required TResult Function(String num, List<PointHistoryResponse> history)
+        loaded,
     required TResult Function() error,
   }) =>
       throw _privateConstructorUsedError;
@@ -182,7 +183,7 @@ mixin _$PointsState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String num)? loaded,
+    TResult? Function(String num, List<PointHistoryResponse> history)? loaded,
     TResult? Function()? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -190,7 +191,7 @@ mixin _$PointsState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String num)? loaded,
+    TResult Function(String num, List<PointHistoryResponse> history)? loaded,
     TResult Function()? error,
     required TResult orElse(),
   }) =>
@@ -285,7 +286,8 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String num) loaded,
+    required TResult Function(String num, List<PointHistoryResponse> history)
+        loaded,
     required TResult Function() error,
   }) {
     return initial();
@@ -296,7 +298,7 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String num)? loaded,
+    TResult? Function(String num, List<PointHistoryResponse> history)? loaded,
     TResult? Function()? error,
   }) {
     return initial?.call();
@@ -307,7 +309,7 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String num)? loaded,
+    TResult Function(String num, List<PointHistoryResponse> history)? loaded,
     TResult Function()? error,
     required TResult orElse(),
   }) {
@@ -404,7 +406,8 @@ class _$_Loading with DiagnosticableTreeMixin implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String num) loaded,
+    required TResult Function(String num, List<PointHistoryResponse> history)
+        loaded,
     required TResult Function() error,
   }) {
     return loading();
@@ -415,7 +418,7 @@ class _$_Loading with DiagnosticableTreeMixin implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String num)? loaded,
+    TResult? Function(String num, List<PointHistoryResponse> history)? loaded,
     TResult? Function()? error,
   }) {
     return loading?.call();
@@ -426,7 +429,7 @@ class _$_Loading with DiagnosticableTreeMixin implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String num)? loaded,
+    TResult Function(String num, List<PointHistoryResponse> history)? loaded,
     TResult Function()? error,
     required TResult orElse(),
   }) {
@@ -483,7 +486,7 @@ abstract class _$$_LoadedCopyWith<$Res> {
   factory _$$_LoadedCopyWith(_$_Loaded value, $Res Function(_$_Loaded) then) =
       __$$_LoadedCopyWithImpl<$Res>;
   @useResult
-  $Res call({String num});
+  $Res call({String num, List<PointHistoryResponse> history});
 }
 
 /// @nodoc
@@ -497,12 +500,17 @@ class __$$_LoadedCopyWithImpl<$Res>
   @override
   $Res call({
     Object? num = null,
+    Object? history = null,
   }) {
     return _then(_$_Loaded(
       null == num
           ? _value.num
           : num // ignore: cast_nullable_to_non_nullable
               as String,
+      null == history
+          ? _value._history
+          : history // ignore: cast_nullable_to_non_nullable
+              as List<PointHistoryResponse>,
     ));
   }
 }
@@ -510,14 +518,21 @@ class __$$_LoadedCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Loaded with DiagnosticableTreeMixin implements _Loaded {
-  const _$_Loaded(this.num);
+  const _$_Loaded(this.num, final List<PointHistoryResponse> history)
+      : _history = history;
 
   @override
   final String num;
+  final List<PointHistoryResponse> _history;
+  @override
+  List<PointHistoryResponse> get history {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_history);
+  }
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PointsState.loaded(num: $num)';
+    return 'PointsState.loaded(num: $num, history: $history)';
   }
 
   @override
@@ -525,7 +540,8 @@ class _$_Loaded with DiagnosticableTreeMixin implements _Loaded {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'PointsState.loaded'))
-      ..add(DiagnosticsProperty('num', num));
+      ..add(DiagnosticsProperty('num', num))
+      ..add(DiagnosticsProperty('history', history));
   }
 
   @override
@@ -533,11 +549,13 @@ class _$_Loaded with DiagnosticableTreeMixin implements _Loaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Loaded &&
-            (identical(other.num, num) || other.num == num));
+            (identical(other.num, num) || other.num == num) &&
+            const DeepCollectionEquality().equals(other._history, _history));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, num);
+  int get hashCode => Object.hash(
+      runtimeType, num, const DeepCollectionEquality().hash(_history));
 
   @JsonKey(ignore: true)
   @override
@@ -550,10 +568,11 @@ class _$_Loaded with DiagnosticableTreeMixin implements _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String num) loaded,
+    required TResult Function(String num, List<PointHistoryResponse> history)
+        loaded,
     required TResult Function() error,
   }) {
-    return loaded(num);
+    return loaded(num, history);
   }
 
   @override
@@ -561,10 +580,10 @@ class _$_Loaded with DiagnosticableTreeMixin implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String num)? loaded,
+    TResult? Function(String num, List<PointHistoryResponse> history)? loaded,
     TResult? Function()? error,
   }) {
-    return loaded?.call(num);
+    return loaded?.call(num, history);
   }
 
   @override
@@ -572,12 +591,12 @@ class _$_Loaded with DiagnosticableTreeMixin implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String num)? loaded,
+    TResult Function(String num, List<PointHistoryResponse> history)? loaded,
     TResult Function()? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(num);
+      return loaded(num, history);
     }
     return orElse();
   }
@@ -621,9 +640,11 @@ class _$_Loaded with DiagnosticableTreeMixin implements _Loaded {
 }
 
 abstract class _Loaded implements PointsState {
-  const factory _Loaded(final String num) = _$_Loaded;
+  const factory _Loaded(
+      final String num, final List<PointHistoryResponse> history) = _$_Loaded;
 
   String get num;
+  List<PointHistoryResponse> get history;
   @JsonKey(ignore: true)
   _$$_LoadedCopyWith<_$_Loaded> get copyWith =>
       throw _privateConstructorUsedError;
@@ -673,7 +694,8 @@ class _$_Error with DiagnosticableTreeMixin implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String num) loaded,
+    required TResult Function(String num, List<PointHistoryResponse> history)
+        loaded,
     required TResult Function() error,
   }) {
     return error();
@@ -684,7 +706,7 @@ class _$_Error with DiagnosticableTreeMixin implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String num)? loaded,
+    TResult? Function(String num, List<PointHistoryResponse> history)? loaded,
     TResult? Function()? error,
   }) {
     return error?.call();
@@ -695,7 +717,7 @@ class _$_Error with DiagnosticableTreeMixin implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String num)? loaded,
+    TResult Function(String num, List<PointHistoryResponse> history)? loaded,
     TResult Function()? error,
     required TResult orElse(),
   }) {

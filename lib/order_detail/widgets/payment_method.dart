@@ -10,6 +10,7 @@ import 'package:torri_cantine_app/cart/add_product_to_cart/add_product_to_cart_b
 import 'package:torri_cantine_app/cart/cubit/cart_badge_cubit_cubit.dart';
 import 'package:torri_cantine_app/my_orders/my_orders/list_all_orders/model/response/list_all_orders_response.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
+import 'package:collection/collection.dart';
 
 class PaymentMethod extends StatefulWidget {
   Order order;
@@ -23,12 +24,18 @@ class _PaymentMethodState extends State<PaymentMethod> {
 
   var codInfo;
   String codPrice = "";
+  String scontoPunti = "";
 
 
 
   @override
   void initState() {
     super.initState();
+
+    var a = widget.order.feeLines.firstWhereOrNull((e) => e.name == "Sconto Punti");
+    if(a != null){
+      scontoPunti = a.total;
+    }
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       var a = await getCodPrice() ?? "";
       setState(() {
@@ -177,6 +184,30 @@ class _PaymentMethodState extends State<PaymentMethod> {
               ),
             ),
 
+            Visibility(
+              visible: scontoPunti != "",
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Row(
+                  children: [
+                    Text(
+                      "Sconto punti:",
+                      style: TCTypography.of(context).text_14_bold.copyWith(
+                        color: const Color.fromARGB(255, 13, 117, 161),
+                      ),
+                    ),
+                    const Spacer(),
+                    Text(
+                      "€$scontoPunti",
+                      style: TCTypography.of(context).text_14_bold.copyWith(
+                        color: const Color.fromARGB(255, 13, 117, 161),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+
             Padding(
               padding: const EdgeInsets.only(bottom: 10),
               child: Row(
@@ -211,8 +242,7 @@ class _PaymentMethodState extends State<PaymentMethod> {
 
 void orderAgain(Order order, BuildContext context) {
   for (var item in order.lineItems!) {
-    context.read<AddProductToCartBloc>().add(AddProductToCartEvent.addProduct(
-        item.productId ?? 0, item.quantity ?? 0));
-    context.read<CartBadgeCubitCubit>().addCartItem();
+    context.read<AddProductToCartBloc>().add(AddProductToCartEvent.addProduct(item.productId ?? 0, item.quantity ?? 0));
+    context.read<CartBadgeCubitCubit>().addCartItem(context);
   }
 }

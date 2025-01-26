@@ -149,10 +149,8 @@ class _WishlistItemsState extends State<WishlistItems> {
                                 ),
                                 text: "AGGIUNGI",
                                 ontap: () {
-                                  context.read<AddProductToCartBloc>().add(
-                                      AddProductToCartEvent.addProduct(
-                                          widget.productId, 1));
-                                  context.read<CartBadgeCubitCubit>().addCartItem();
+                                  context.read<AddProductToCartBloc>().add(AddProductToCartEvent.addProduct(widget.productId, 1));
+                                  context.read<CartBadgeCubitCubit>().addCartItem(context);
                                 }),
                           )
                         ],

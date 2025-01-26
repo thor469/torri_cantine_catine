@@ -8,7 +8,7 @@ part 'insert_notification_response.g.dart';
 class InsertNotificationResponse extends ResponseBase
     with _$InsertNotificationResponse {
   factory InsertNotificationResponse({
-    required String id,
+    required dynamic id,
   }) = _InsertNotificationResponse;
 
   factory InsertNotificationResponse.fromJson(Map<String, dynamic> json) =>

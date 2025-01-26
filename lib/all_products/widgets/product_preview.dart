@@ -316,10 +316,16 @@ class _ProductPreviewState extends State<ProductPreview> {
                             state.maybeWhen(
                                 addedProduct: (_) {
                                   setState(() {isLoading = false;});
-                                  WidgetsBinding.instance.addPostFrameCallback((_) async {
-                                    CartResponse? cartItem = await context.read<CartBloc>().fetchItemCart();
-                                    context.read<CartBadgeCubitCubit>().addCartItem(qty: cartItem?.items.length ?? 0, isFromCart: cartItem != null && cartItem.items.length != 0);
-                                  });
+                                  if(!isLoading){
+                                    context.read<CartBadgeCubitCubit>().addCartItem(context);
+                                  }
+                                  // WidgetsBinding.instance.addPostFrameCallback((_) async {
+                                  //   CartResponse? cartItem = await context.read<CartBloc>().fetchItemCart();
+                                  //   if(context.mounted){
+                                  //     // context.read<CartBadgeCubitCubit>().addCartItem(qty: cartItem?.items.length ?? 0, isFromCart: cartItem != null && cartItem.items.isNotEmpty);
+                                  //     context.read<CartBadgeCubitCubit>().addCartItem(context);
+                                  //   }
+                                  // });
                                 },
                                 error: () {
                                   setState(() {isLoading = false;});

@@ -45,20 +45,13 @@ class _CartScreenState extends State<CartScreen> {
   bool isFirstLoad = true;
   int cartPointDiscountValue = 0;
   bool isPointDiscountEnabled = false;
+  bool isLoadedDiscount = false;
 
 
   @override
   void initState() {
     context.read<CartBloc>().add(const CartEvent.fetch());
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      if (mounted) {
-        double money = 0.0;
-          money = await context.read<PointsBloc>().getMoneyDiscountAvaible() ?? 0;
-        setState(() {
-          moneyDiscount = money;
-        });
-      }
-    });
+    context.read<CartBadgeCubitCubit>().addCartItem(context);
     super.initState();
   }
 
@@ -94,7 +87,7 @@ class _CartScreenState extends State<CartScreen> {
         floatingActionButton: widget.fromHomePage
             ? const SizedBox()
             : const FloatingButton(),
-        bottomNavigationBar:  true==true?BottomBanvigationMenu(
+        bottomNavigationBar:  true==true? BottomBanvigationMenu(
           scaffoldKey: _key,
           initialSelectedIndex:6,
           context: context,
@@ -184,7 +177,7 @@ class _CartScreenState extends State<CartScreen> {
             cartEmpty: ()  {
               if(isFirstLoad){
                 WidgetsBinding.instance.addPostFrameCallback((_) async{
-                  context.read<CartBadgeCubitCubit>().removeCartItem();
+                  context.read<CartBadgeCubitCubit>().addCartItem(context);
                 });
                 isFirstLoad = false;
               }
@@ -211,16 +204,37 @@ class _CartScreenState extends State<CartScreen> {
               ),
             ),
             loaded: (cart) {
+
               bool isDiscountEnabled = false;
               var taxedTotalItemsValue=  ((int.tryParse((cart.totals.totalItems))! + int.tryParse(cart.totals.totalItemsTax)!)/100 );
               var taxedTotalItems=  double.tryParse(taxedTotalItemsValue.toString())!.toStringAsFixed(2).replaceAll('.', ',');
 
 
               var cartTotalDiscountValue = (int.tryParse(cart.totals.totalDiscount??'0')! + int.tryParse(cart.totals.totalDiscountTax??'0')!)/100;
+
+
+              if(taxedTotalItemsValue >= 50){
+                WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+                  if (mounted) {
+                    double money = 0.0;
+                    money = await context.read<PointsBloc>().getMoneyDiscountAvaible() ?? 0;
+                    setState(() {
+                      moneyDiscount = money;
+                    });
+                  }
+                });
+              }
+
+
               if(moneyDiscount >= 5.0 && taxedTotalItemsValue >= 50){
                 cartPointDiscountValue = 5;
                 isPointDiscountEnabled = true;
+              }else{
+                cartPointDiscountValue = 0;
+                isPointDiscountEnabled = false;
               }
+
+
               var cartTotalDiscount = double.tryParse(cartTotalDiscountValue.toString())!.toStringAsFixed(2).replaceAll('.', ',');
 
 
@@ -230,13 +244,14 @@ class _CartScreenState extends State<CartScreen> {
               var filteredItems = [];
 
               for (var element in cart.items) {
-
-                if(element.extensions?.bundles['bundled_item_data']?['is_hidden_in_cart'] != true
-                    && element.extensions?.bundles['bundled_item_data']?['is_hidden_in_summary'] != true) {
+                if(element.extensions?.bundles['bundled_item_data']?['is_hidden_in_cart'] != true && element.extensions?.bundles['bundled_item_data']?['is_hidden_in_summary'] != true) {
                   filteredItems.add(element);
                 }
               }
-              context.read<CounterSingleProductCubit>().emit({for (var e in cart.items) e.key ?? "": e.quantity ?? 0});
+              context.read<CounterSingleProductCubit>().emit({for(var e in cart.items) e.key ?? "": e.quantity ?? 0});
+              // context.read<CartBadgeCubitCubit>().addCartItem(qty: cart.totalItems, isFromCart: true);
+              context.read<CartBadgeCubitCubit>().addCartItem(context);
+
               return Scaffold(
                 backgroundColor: Colors.white,
                 body: SizedBox(
@@ -339,7 +354,7 @@ class _CartScreenState extends State<CartScreen> {
                                       ),
                                     ),
                                     Text(
-                                      "- € $cartPointDiscountValue.00",
+                                      "- € ${cartPointDiscountValue.toStringAsFixed(2)}",
                                       //"-€ ${(double.tryParse((int.tryParse(cart.totals.totalDiscount)!/100) as String)! + double.tryParse((int.tryParse(cart.totals.totalDiscount)!/100 * 0.22)  as String )!)!.toStringAsFixed(2).replaceAll('.',',') } ",
                                       style: TCTypography.of(context)
                                           .text_16

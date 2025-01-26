@@ -234,10 +234,10 @@ mixin _$Order {
   @JsonKey(name: "tax_lines")
   List<TaxLine>? get taxLines => throw _privateConstructorUsedError;
   @JsonKey(name: "shipping_lines")
-  List<ShippingLine>? get shippingLines =>
-      throw _privateConstructorUsedError; // @JsonKey(name: "fee_lines")
-// final List<dynamic> feeLines,
-// @JsonKey(name: "coupon_lines")
+  List<ShippingLine>? get shippingLines => throw _privateConstructorUsedError;
+  @JsonKey(name: "fee_lines")
+  List<FeeLine> get feeLines =>
+      throw _privateConstructorUsedError; // @JsonKey(name: "coupon_lines")
 // final List<dynamic> couponLines,
 // @JsonKey(name: "refunds")
 // final List<dynamic> refunds,
@@ -312,6 +312,7 @@ abstract class $OrderCopyWith<$Res> {
       @JsonKey(name: "line_items") List<LineItem>? lineItems,
       @JsonKey(name: "tax_lines") List<TaxLine>? taxLines,
       @JsonKey(name: "shipping_lines") List<ShippingLine>? shippingLines,
+      @JsonKey(name: "fee_lines") List<FeeLine> feeLines,
       @JsonKey(name: "payment_url") String paymentUrl,
       @JsonKey(name: "is_editable") bool isEditable,
       @JsonKey(name: "needs_payment") bool needsPayment,
@@ -376,6 +377,7 @@ class _$OrderCopyWithImpl<$Res, $Val extends Order>
     Object? lineItems = freezed,
     Object? taxLines = freezed,
     Object? shippingLines = freezed,
+    Object? feeLines = null,
     Object? paymentUrl = null,
     Object? isEditable = null,
     Object? needsPayment = null,
@@ -523,6 +525,10 @@ class _$OrderCopyWithImpl<$Res, $Val extends Order>
           ? _value.shippingLines
           : shippingLines // ignore: cast_nullable_to_non_nullable
               as List<ShippingLine>?,
+      feeLines: null == feeLines
+          ? _value.feeLines
+          : feeLines // ignore: cast_nullable_to_non_nullable
+              as List<FeeLine>,
       paymentUrl: null == paymentUrl
           ? _value.paymentUrl
           : paymentUrl // ignore: cast_nullable_to_non_nullable
@@ -635,6 +641,7 @@ abstract class _$$_OrderCopyWith<$Res> implements $OrderCopyWith<$Res> {
       @JsonKey(name: "line_items") List<LineItem>? lineItems,
       @JsonKey(name: "tax_lines") List<TaxLine>? taxLines,
       @JsonKey(name: "shipping_lines") List<ShippingLine>? shippingLines,
+      @JsonKey(name: "fee_lines") List<FeeLine> feeLines,
       @JsonKey(name: "payment_url") String paymentUrl,
       @JsonKey(name: "is_editable") bool isEditable,
       @JsonKey(name: "needs_payment") bool needsPayment,
@@ -697,6 +704,7 @@ class __$$_OrderCopyWithImpl<$Res> extends _$OrderCopyWithImpl<$Res, _$_Order>
     Object? lineItems = freezed,
     Object? taxLines = freezed,
     Object? shippingLines = freezed,
+    Object? feeLines = null,
     Object? paymentUrl = null,
     Object? isEditable = null,
     Object? needsPayment = null,
@@ -844,6 +852,10 @@ class __$$_OrderCopyWithImpl<$Res> extends _$OrderCopyWithImpl<$Res, _$_Order>
           ? _value._shippingLines
           : shippingLines // ignore: cast_nullable_to_non_nullable
               as List<ShippingLine>?,
+      feeLines: null == feeLines
+          ? _value._feeLines
+          : feeLines // ignore: cast_nullable_to_non_nullable
+              as List<FeeLine>,
       paymentUrl: null == paymentUrl
           ? _value.paymentUrl
           : paymentUrl // ignore: cast_nullable_to_non_nullable
@@ -940,6 +952,8 @@ class _$_Order implements _Order {
       final List<TaxLine>? taxLines = const <TaxLine>[],
       @JsonKey(name: "shipping_lines")
       final List<ShippingLine>? shippingLines = const <ShippingLine>[],
+      @JsonKey(name: "fee_lines")
+      final List<FeeLine> feeLines = const <FeeLine>[],
       @JsonKey(name: "payment_url") required this.paymentUrl,
       @JsonKey(name: "is_editable") required this.isEditable,
       @JsonKey(name: "needs_payment") required this.needsPayment,
@@ -955,7 +969,8 @@ class _$_Order implements _Order {
       @JsonKey(name: "weight_unit") required this.weightUnit})
       : _lineItems = lineItems,
         _taxLines = taxLines,
-        _shippingLines = shippingLines;
+        _shippingLines = shippingLines,
+        _feeLines = feeLines;
 
   factory _$_Order.fromJson(Map<String, dynamic> json) =>
       _$$_OrderFromJson(json);
@@ -1080,8 +1095,14 @@ class _$_Order implements _Order {
     return EqualUnmodifiableListView(value);
   }
 
-// @JsonKey(name: "fee_lines")
-// final List<dynamic> feeLines,
+  final List<FeeLine> _feeLines;
+  @override
+  @JsonKey(name: "fee_lines")
+  List<FeeLine> get feeLines {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_feeLines);
+  }
+
 // @JsonKey(name: "coupon_lines")
 // final List<dynamic> couponLines,
 // @JsonKey(name: "refunds")
@@ -1128,7 +1149,7 @@ class _$_Order implements _Order {
 
   @override
   String toString() {
-    return 'Order(id: $id, parentId: $parentId, status: $status, currency: $currency, version: $version, pricesIncludeTax: $pricesIncludeTax, dateCreated: $dateCreated, dateModified: $dateModified, discountTotal: $discountTotal, discountTax: $discountTax, shippingTotal: $shippingTotal, shippingTax: $shippingTax, cartTax: $cartTax, total: $total, totalTax: $totalTax, customerId: $customerId, orderKey: $orderKey, billing: $billing, shipping: $shipping, paymentMethod: $paymentMethod, paymentMethodTitle: $paymentMethodTitle, transactionId: $transactionId, customerIpAddress: $customerIpAddress, customerUserAgent: $customerUserAgent, createdVia: $createdVia, customerNote: $customerNote, dateCompleted: $dateCompleted, datePaid: $datePaid, cartHash: $cartHash, number: $number, lineItems: $lineItems, taxLines: $taxLines, shippingLines: $shippingLines, paymentUrl: $paymentUrl, isEditable: $isEditable, needsPayment: $needsPayment, needsProcessing: $needsProcessing, dateCreatedGmt: $dateCreatedGmt, dateModifiedGmt: $dateModifiedGmt, dateCompletedGmt: $dateCompletedGmt, datePaidGmt: $datePaidGmt, email: $email, finalAmount: $finalAmount, currencySymbol: $currencySymbol, weight: $weight, weightUnit: $weightUnit)';
+    return 'Order(id: $id, parentId: $parentId, status: $status, currency: $currency, version: $version, pricesIncludeTax: $pricesIncludeTax, dateCreated: $dateCreated, dateModified: $dateModified, discountTotal: $discountTotal, discountTax: $discountTax, shippingTotal: $shippingTotal, shippingTax: $shippingTax, cartTax: $cartTax, total: $total, totalTax: $totalTax, customerId: $customerId, orderKey: $orderKey, billing: $billing, shipping: $shipping, paymentMethod: $paymentMethod, paymentMethodTitle: $paymentMethodTitle, transactionId: $transactionId, customerIpAddress: $customerIpAddress, customerUserAgent: $customerUserAgent, createdVia: $createdVia, customerNote: $customerNote, dateCompleted: $dateCompleted, datePaid: $datePaid, cartHash: $cartHash, number: $number, lineItems: $lineItems, taxLines: $taxLines, shippingLines: $shippingLines, feeLines: $feeLines, paymentUrl: $paymentUrl, isEditable: $isEditable, needsPayment: $needsPayment, needsProcessing: $needsProcessing, dateCreatedGmt: $dateCreatedGmt, dateModifiedGmt: $dateModifiedGmt, dateCompletedGmt: $dateCompletedGmt, datePaidGmt: $datePaidGmt, email: $email, finalAmount: $finalAmount, currencySymbol: $currencySymbol, weight: $weight, weightUnit: $weightUnit)';
   }
 
   @override
@@ -1194,6 +1215,7 @@ class _$_Order implements _Order {
             const DeepCollectionEquality().equals(other._taxLines, _taxLines) &&
             const DeepCollectionEquality()
                 .equals(other._shippingLines, _shippingLines) &&
+            const DeepCollectionEquality().equals(other._feeLines, _feeLines) &&
             (identical(other.paymentUrl, paymentUrl) ||
                 other.paymentUrl == paymentUrl) &&
             (identical(other.isEditable, isEditable) ||
@@ -1257,6 +1279,7 @@ class _$_Order implements _Order {
         const DeepCollectionEquality().hash(_lineItems),
         const DeepCollectionEquality().hash(_taxLines),
         const DeepCollectionEquality().hash(_shippingLines),
+        const DeepCollectionEquality().hash(_feeLines),
         paymentUrl,
         isEditable,
         needsPayment,
@@ -1324,6 +1347,7 @@ abstract class _Order implements Order {
       @JsonKey(name: "line_items") final List<LineItem>? lineItems,
       @JsonKey(name: "tax_lines") final List<TaxLine>? taxLines,
       @JsonKey(name: "shipping_lines") final List<ShippingLine>? shippingLines,
+      @JsonKey(name: "fee_lines") final List<FeeLine> feeLines,
       @JsonKey(name: "payment_url") required final String paymentUrl,
       @JsonKey(name: "is_editable") required final bool isEditable,
       @JsonKey(name: "needs_payment") required final bool needsPayment,
@@ -1440,9 +1464,10 @@ abstract class _Order implements Order {
   @override
   @JsonKey(name: "shipping_lines")
   List<ShippingLine>? get shippingLines;
-  @override // @JsonKey(name: "fee_lines")
-// final List<dynamic> feeLines,
-// @JsonKey(name: "coupon_lines")
+  @override
+  @JsonKey(name: "fee_lines")
+  List<FeeLine> get feeLines;
+  @override // @JsonKey(name: "coupon_lines")
 // final List<dynamic> couponLines,
 // @JsonKey(name: "refunds")
 // final List<dynamic> refunds,
@@ -1487,6 +1512,190 @@ abstract class _Order implements Order {
   @override
   @JsonKey(ignore: true)
   _$$_OrderCopyWith<_$_Order> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+FeeLine _$FeeLineFromJson(Map<String, dynamic> json) {
+  return _FeeLine.fromJson(json);
+}
+
+/// @nodoc
+mixin _$FeeLine {
+  @JsonKey(name: "id")
+  int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: "name")
+  String get name => throw _privateConstructorUsedError;
+  @JsonKey(name: "total")
+  String get total => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $FeeLineCopyWith<FeeLine> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $FeeLineCopyWith<$Res> {
+  factory $FeeLineCopyWith(FeeLine value, $Res Function(FeeLine) then) =
+      _$FeeLineCopyWithImpl<$Res, FeeLine>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: "id") int id,
+      @JsonKey(name: "name") String name,
+      @JsonKey(name: "total") String total});
+}
+
+/// @nodoc
+class _$FeeLineCopyWithImpl<$Res, $Val extends FeeLine>
+    implements $FeeLineCopyWith<$Res> {
+  _$FeeLineCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? name = null,
+    Object? total = null,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      total: null == total
+          ? _value.total
+          : total // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_FeeLineCopyWith<$Res> implements $FeeLineCopyWith<$Res> {
+  factory _$$_FeeLineCopyWith(
+          _$_FeeLine value, $Res Function(_$_FeeLine) then) =
+      __$$_FeeLineCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: "id") int id,
+      @JsonKey(name: "name") String name,
+      @JsonKey(name: "total") String total});
+}
+
+/// @nodoc
+class __$$_FeeLineCopyWithImpl<$Res>
+    extends _$FeeLineCopyWithImpl<$Res, _$_FeeLine>
+    implements _$$_FeeLineCopyWith<$Res> {
+  __$$_FeeLineCopyWithImpl(_$_FeeLine _value, $Res Function(_$_FeeLine) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? name = null,
+    Object? total = null,
+  }) {
+    return _then(_$_FeeLine(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      total: null == total
+          ? _value.total
+          : total // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_FeeLine implements _FeeLine {
+  const _$_FeeLine(
+      {@JsonKey(name: "id") required this.id,
+      @JsonKey(name: "name") required this.name,
+      @JsonKey(name: "total") required this.total});
+
+  factory _$_FeeLine.fromJson(Map<String, dynamic> json) =>
+      _$$_FeeLineFromJson(json);
+
+  @override
+  @JsonKey(name: "id")
+  final int id;
+  @override
+  @JsonKey(name: "name")
+  final String name;
+  @override
+  @JsonKey(name: "total")
+  final String total;
+
+  @override
+  String toString() {
+    return 'FeeLine(id: $id, name: $name, total: $total)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_FeeLine &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.total, total) || other.total == total));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, name, total);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_FeeLineCopyWith<_$_FeeLine> get copyWith =>
+      __$$_FeeLineCopyWithImpl<_$_FeeLine>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_FeeLineToJson(
+      this,
+    );
+  }
+}
+
+abstract class _FeeLine implements FeeLine {
+  const factory _FeeLine(
+      {@JsonKey(name: "id") required final int id,
+      @JsonKey(name: "name") required final String name,
+      @JsonKey(name: "total") required final String total}) = _$_FeeLine;
+
+  factory _FeeLine.fromJson(Map<String, dynamic> json) = _$_FeeLine.fromJson;
+
+  @override
+  @JsonKey(name: "id")
+  int get id;
+  @override
+  @JsonKey(name: "name")
+  String get name;
+  @override
+  @JsonKey(name: "total")
+  String get total;
+  @override
+  @JsonKey(ignore: true)
+  _$$_FeeLineCopyWith<_$_FeeLine> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

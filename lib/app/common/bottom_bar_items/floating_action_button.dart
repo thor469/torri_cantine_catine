@@ -1,8 +1,10 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
+import 'package:torri_cantine_app/cart/cubit/cart_badge_cubit_cubit.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 
 class FloatingButton extends StatelessWidget {
@@ -20,6 +22,7 @@ class FloatingButton extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           storage.setBottomTabState(0);
+          context.read<CartBadgeCubitCubit>().addCartItem(context);
           context.router.replaceAll([MainRoute()]);
 
           // MainNavigation.push(

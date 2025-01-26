@@ -68,6 +68,10 @@ _$_Order _$$_OrderFromJson(Map<String, dynamic> json) => _$_Order(
               ?.map((e) => ShippingLine.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const <ShippingLine>[],
+      feeLines: (json['fee_lines'] as List<dynamic>?)
+              ?.map((e) => FeeLine.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const <FeeLine>[],
       paymentUrl: json['payment_url'] as String,
       isEditable: json['is_editable'] as bool,
       needsPayment: json['needs_payment'] as bool,
@@ -125,6 +129,7 @@ Map<String, dynamic> _$$_OrderToJson(_$_Order instance) => <String, dynamic>{
       'line_items': instance.lineItems,
       'tax_lines': instance.taxLines,
       'shipping_lines': instance.shippingLines,
+      'fee_lines': instance.feeLines,
       'payment_url': instance.paymentUrl,
       'is_editable': instance.isEditable,
       'needs_payment': instance.needsPayment,
@@ -138,6 +143,19 @@ Map<String, dynamic> _$$_OrderToJson(_$_Order instance) => <String, dynamic>{
       'currency_symbol': instance.currencySymbol,
       'weight': instance.weight,
       'weight_unit': instance.weightUnit,
+    };
+
+_$_FeeLine _$$_FeeLineFromJson(Map<String, dynamic> json) => _$_FeeLine(
+      id: (json['id'] as num).toInt(),
+      name: json['name'] as String,
+      total: json['total'] as String,
+    );
+
+Map<String, dynamic> _$$_FeeLineToJson(_$_FeeLine instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'total': instance.total,
     };
 
 _$_Ing _$$_IngFromJson(Map<String, dynamic> json) => _$_Ing(

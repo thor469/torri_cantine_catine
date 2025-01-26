@@ -137,8 +137,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             },
             cartEmpty: () => {
               context.read<CartBadgeCubitCubit>().emit(0),
-              // overlayLoader.hide(context),
-            context.router.replaceAll(const [MainRoute()]),
+              context.router.replaceAll(const [MainRoute()]),
             },
             orElse: () => const SizedBox(),
             // orElse: () => const SizedBox(),

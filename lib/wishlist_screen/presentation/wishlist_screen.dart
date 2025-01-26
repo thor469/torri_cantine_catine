@@ -265,10 +265,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
 
     }
     //print('getWishlistProducts');
-    context
-        .read<AllProductsBloc>()
-    //.add(AllProductsEvent.fetch(page: productsPage + 1));
-        .add(AllProductsEvent.wishListProducts(ids: wl));
+    context.read<AllProductsBloc>().add(AllProductsEvent.wishListProducts(ids: wl));
 
     return wishListProducts;
   }

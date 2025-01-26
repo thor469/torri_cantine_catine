@@ -111,10 +111,8 @@ class _VerticalListState extends State<VerticalList> {
                       ),
                     ),
                     onTap: () {
-                      context
-                          .read<AddProductToCartBloc>()
-                          .add(AddProductToCartEvent.addProduct(widget.id, 1));
-                      context.read<CartBadgeCubitCubit>().addCartItem();
+                      context.read<AddProductToCartBloc>().add(AddProductToCartEvent.addProduct(widget.id, 1));
+                      context.read<CartBadgeCubitCubit>().addCartItem(context);
                     },
                   ),
                 ],

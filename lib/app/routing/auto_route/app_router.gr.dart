@@ -142,6 +142,8 @@ abstract class _$AppRouter extends RootStackRouter {
           point: args.point,
           cart: args.cart,
           subTotal: args.subTotal,
+          isFirstShippingAddress: args.isFirstShippingAddress,
+          isFirstBillingAddress: args.isFirstBillingAddress,
         ),
       );
     },
@@ -669,6 +671,8 @@ class NewAddressFromAccountRoute
     int? point,
     CartResponse? cart,
     required String subTotal,
+    required bool isFirstShippingAddress,
+    required bool isFirstBillingAddress,
     List<PageRouteInfo>? children,
   }) : super(
           NewAddressFromAccountRoute.name,
@@ -683,6 +687,8 @@ class NewAddressFromAccountRoute
             point: point,
             cart: cart,
             subTotal: subTotal,
+            isFirstShippingAddress: isFirstShippingAddress,
+            isFirstBillingAddress: isFirstBillingAddress,
           ),
           initialChildren: children,
         );
@@ -705,6 +711,8 @@ class NewAddressFromAccountRouteArgs {
     this.point,
     this.cart,
     required this.subTotal,
+    required this.isFirstShippingAddress,
+    required this.isFirstBillingAddress,
   });
 
   final Key? key;
@@ -727,9 +735,13 @@ class NewAddressFromAccountRouteArgs {
 
   final String subTotal;
 
+  final bool isFirstShippingAddress;
+
+  final bool isFirstBillingAddress;
+
   @override
   String toString() {
-    return 'NewAddressFromAccountRouteArgs{key: $key, customerdId: $customerdId, editFatturazione: $editFatturazione, editShipping: $editShipping, existingAddress: $existingAddress, returnPage: $returnPage, isNewAddress: $isNewAddress, point: $point, cart: $cart, subTotal: $subTotal}';
+    return 'NewAddressFromAccountRouteArgs{key: $key, customerdId: $customerdId, editFatturazione: $editFatturazione, editShipping: $editShipping, existingAddress: $existingAddress, returnPage: $returnPage, isNewAddress: $isNewAddress, point: $point, cart: $cart, subTotal: $subTotal, isFirstShippingAddress: $isFirstShippingAddress, isFirstBillingAddress: $isFirstBillingAddress}';
   }
 }
 

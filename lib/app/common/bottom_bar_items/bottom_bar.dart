@@ -2,8 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:torri_cantine_app/all_products/cubit/products_wishlisted_cubit.dart';
 import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
+import 'package:torri_cantine_app/cart/add_bundle_to_cart/add_bundle_to_cart_bloc.dart';
 import 'package:torri_cantine_app/cart/add_product_to_cart/add_product_to_cart_bloc.dart';
+import 'package:torri_cantine_app/cart/cubit/cart_badge_cubit_cubit.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 
 import 'account_bottom.dart';
@@ -98,7 +101,11 @@ class _BottomBanvigationMenuState extends State<BottomBanvigationMenu> {
 
           // Center Logo
           GestureDetector(
-            onTap: () => context.router.replaceAll(const [MainRoute()]),
+            onTap: () {
+
+              context.router.replaceAll(const [MainRoute()]);
+              context.read<CartBadgeCubitCubit>().addCartItem(context);
+            },
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Stack(
@@ -140,19 +147,37 @@ class _BottomBanvigationMenuState extends State<BottomBanvigationMenu> {
           ),
 
           // Cart Item
-          BlocListener<AddProductToCartBloc, AddProductToCartState>(
-            listener: (BuildContext context, AddProductToCartState state) {
-              state.maybeWhen(
-                  loading: (){isLoading = true;},
-                  addedProduct: (_) {
-                    isLoading = false;
-                  },
-                  error: () {
-                    isLoading = false;
-                  },
-                  orElse: () {}
-              );
-            },
+          MultiBlocListener(
+            listeners: [
+              BlocListener<AddProductToCartBloc, AddProductToCartState>(
+                listener: (BuildContext context, AddProductToCartState state) {
+                  state.maybeWhen(
+                      loading: (){isLoading = true;},
+                      addedProduct: (_) {
+                        isLoading = false;
+                      },
+                      error: () {
+                        isLoading = false;
+                      },
+                      orElse: () {}
+                  );
+                },
+              ),
+              BlocListener<AddBundleToCartBloc, AddBundleToCartState>(
+                listener: (BuildContext context, AddBundleToCartState state) {
+                  state.maybeWhen(
+                      loading: (){isLoading = true;},
+                      addedProduct: () {
+                        isLoading = false;
+                      },
+                      error: () {
+                        isLoading = false;
+                      },
+                      orElse: () {}
+                  );
+                },
+              ),
+            ],
             child: GestureDetector(
               onTap: () {
                 if(!isLoading){

@@ -108,8 +108,8 @@ class Order with _$Order {
     @Default(<TaxLine>[]) List<TaxLine>? taxLines,
     @JsonKey(name: "shipping_lines")
     @Default(<ShippingLine>[]) List<ShippingLine>? shippingLines,
-    // @JsonKey(name: "fee_lines")
-    // final List<dynamic> feeLines,
+    @JsonKey(name: "fee_lines")
+    @Default(<FeeLine>[]) List<FeeLine> feeLines,
     // @JsonKey(name: "coupon_lines")
     // final List<dynamic> couponLines,
     // @JsonKey(name: "refunds")
@@ -143,6 +143,17 @@ class Order with _$Order {
   }) = _Order;
 
   factory Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);
+}
+
+@freezed
+class FeeLine with _$FeeLine {
+  const factory FeeLine({
+    @JsonKey(name: "id") required int id,
+    @JsonKey(name: "name") required String name,
+    @JsonKey(name: "total") required String total,
+  }) = _FeeLine;
+
+  factory FeeLine.fromJson(Map<String, dynamic> json) => _$FeeLineFromJson(json);
 }
 
 @freezed

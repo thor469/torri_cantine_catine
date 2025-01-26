@@ -10,6 +10,7 @@ import 'package:torri_cantine_app/app/common/primary_button.dart';
 import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
 import 'package:torri_cantine_app/app/routing/auto_route/app_router.dart';
 import 'package:torri_cantine_app/app/routing/main_navigation.dart';
+import 'package:torri_cantine_app/cart/cart/cart_bloc.dart';
 import 'package:torri_cantine_app/cart/model/response/cart_response.dart';
 import 'package:torri_cantine_app/personal_info/update_customer/update_customer_bloc.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
@@ -21,6 +22,8 @@ class NewAddressFromAccountScreen extends StatefulWidget {
   final bool editShipping;
   final bool isNewAddress;
   final UserAddress? existingAddress;
+  final bool isFirstBillingAddress;
+  final bool isFirstShippingAddress;
   final int? point;
   String returnPage;
   final CartResponse? cart;
@@ -32,7 +35,7 @@ class NewAddressFromAccountScreen extends StatefulWidget {
     required this.editFatturazione,
     required this.editShipping,
     this.existingAddress,
-    required this.returnPage, required this.isNewAddress,  this.point, this.cart, required this.subTotal
+    required this.returnPage, required this.isNewAddress,  this.point, this.cart, required this.subTotal, required this.isFirstShippingAddress, required this.isFirstBillingAddress
   });
   @override
   State<NewAddressFromAccountScreen> createState() => _NewAddressFromAccountScreenState();
@@ -610,11 +613,14 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
                       Checkbox(
                           activeColor: Colors.transparent,
                           checkColor: const Color.fromARGB(255, 158, 29, 48),
-                          value: indFatturaIsChecked,
+                          value: widget.isFirstBillingAddress ? widget.isFirstBillingAddress : indFatturaIsChecked,
                           onChanged: (bool? value) {
-                            setState(() {
-                              indFatturaIsChecked = value!;
-                            });
+                            if(!widget.isFirstBillingAddress){
+                              setState(() {
+                                indFatturaIsChecked = value!;
+                              });
+                            }
+
                           }),
                     ],
                   ),
@@ -632,18 +638,17 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
                       Checkbox(
                           activeColor: Colors.transparent,
                           checkColor: const Color.fromARGB(255, 161, 29, 51),
-                          value: indSpedizioneIsChecked,
+                          value: widget.isFirstShippingAddress ? widget.isFirstShippingAddress: indSpedizioneIsChecked,
                           onChanged: (bool? value) {
-                            setState(() {
-                              indSpedizioneIsChecked = value!;
-                            });
+                            if(!widget.isFirstShippingAddress){
+                              setState(() {
+                                indSpedizioneIsChecked = value!;
+                              });
+                            }
                           }),
                     ],
                   ),
-                  const Divider(
-                      color: Color.fromARGB(255, 191, 190, 190),
-                      height: 15,
-                      thickness: 1),
+                  const Divider(color: Color.fromARGB(255, 191, 190, 190), height: 15, thickness: 1),
                   // Row(
                   //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   //   children: [
@@ -676,17 +681,20 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
                           Checkbox(
                               activeColor: Colors.transparent,
                               checkColor: const Color.fromARGB(255, 161, 29, 51),
-                              value: addOtherChecked,
+                              value: widget.isFirstBillingAddress  ||  widget.isFirstShippingAddress ? true   :  addOtherChecked,
                               onChanged: (bool? value) {
-                                setState(() {
-                                  addOtherChecked = !addOtherChecked;
+                                if(!widget.isFirstBillingAddress  &&  !widget.isFirstShippingAddress){
+                                  setState(() {
+                                    addOtherChecked = !addOtherChecked;
 
-                                  if(addOtherChecked){
-                                    addOther = !addFatturazione ? "fatturazione": "spedizione";
-                                  }else{
-                                    addOther = "";
-                                  }
-                                });
+                                    if(addOtherChecked){
+                                      addOther = !addFatturazione ? "fatturazione": "spedizione";
+                                    }else{
+                                      addOther = "";
+                                    }
+                                  });
+                                }
+
                               }),
                         ],
                       ),
@@ -703,17 +711,17 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
                               loading = true;
                             });
                             if(widget.isNewAddress){
-                              if(widget.editFatturazione || addOther == "fatturazione"){
-                                await confirmAddress(isDefault: indFatturaIsChecked, type: "billing");
+                              if(widget.editFatturazione || addOther == "fatturazione" || widget.isFirstBillingAddress){
+                                await confirmAddress(isDefault: widget.isFirstBillingAddress ? widget.isFirstBillingAddress : indFatturaIsChecked, type: "billing");
                               }
-                              if(widget.editShipping || addOther == "spedizione"){
-                                await confirmAddress(isDefault: indSpedizioneIsChecked, type: "shipping");
+                              if(widget.editShipping || addOther == "spedizione" || widget.isFirstShippingAddress){
+                                await confirmAddress(isDefault: widget.isFirstShippingAddress ? widget.isFirstShippingAddress : indSpedizioneIsChecked, type: "shipping");
                               }
                             }else{
                               if(widget.editFatturazione){
-                                await updateAddress(isDefault: indFatturaIsChecked, type: "billing", id: widget.existingAddress?.id ?? "");
+                                await updateAddress(isDefault: widget.isFirstBillingAddress ? widget.isFirstBillingAddress :  indFatturaIsChecked, type: "billing", id: widget.existingAddress?.id ?? "");
                               }else if(widget.editShipping){
-                                await updateAddress(isDefault: indSpedizioneIsChecked, type: "shipping",id: widget.existingAddress?.id ?? "");
+                                await updateAddress(isDefault: widget.isFirstShippingAddress ? widget.isFirstShippingAddress : indSpedizioneIsChecked, type: "shipping",id: widget.existingAddress?.id ?? "");
                               }
                             }
 
@@ -724,8 +732,9 @@ class _NewAddressFromAccountScreenState extends State<NewAddressFromAccountScree
                                 break;
                               }
                               case 'completeorder' : {
-                                context.read<AccountBloc>().add(const AccountEvent.fetchAddress());
                                 context.router.popForced();
+                                context.read<AccountBloc>().add(const AccountEvent.fetchAddress());
+                                context.read<CartBloc>().add(const CartEvent.fetch());
                                 break;
                               }
                               default : {

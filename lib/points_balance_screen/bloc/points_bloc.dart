@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:http_services/http_services.dart';
 import 'package:torri_cantine_app/app/dependency_injection/dependency_factory_impl.dart';
+import 'package:torri_cantine_app/points_balance_screen/model/response/point_history_response.dart';
 import 'package:torri_cantine_app/points_balance_screen/model/response/point_response.dart';
 
 part 'points_bloc.freezed.dart';
@@ -33,8 +34,16 @@ class PointsBloc extends Bloc<PointsEvent, PointsState> {
           method: 'GET',
         ),
       );
-      // AddressResponse data = AddressResponse.fromJson(codeInfo.data);
-      yield PointsState.loaded(codeInfo.data);
+
+      var response = await dio.request(
+        '/wp-json/wp/v2/get_user_points_history',
+        options: Options(
+          method: 'GET',
+        ),
+      );
+
+      List<PointHistoryResponse> data = (response.data as List).map((item) => PointHistoryResponse.fromJson(item)).toList();
+      yield PointsState.loaded(codeInfo.data, data);
     } on DioError catch (e){
       if (kDebugMode) {
         print(e.message);
@@ -105,9 +114,6 @@ class PointsBloc extends Bloc<PointsEvent, PointsState> {
         ),
       );
       // PointMaxValueResponse data = PointMaxValueResponse.fromJson(codeInfo.data);
-      if (kDebugMode) {
-        print(codeInfo.data);
-      }
       if(codeInfo.data is int){
         codeInfo.data = codeInfo.data.toDouble();
       }
