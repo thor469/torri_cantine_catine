@@ -32,8 +32,7 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
     );
   }
 
-  Stream<RegistrationState> _fetch(String email, String firstname,
-      String lastname, String username, String password) async* {
+  Stream<RegistrationState> _fetch(String email, String firstname, String lastname, String username, String password) async* {
     yield const RegistrationState.loading();
     try {
       final response = await service.getRegistration(
@@ -67,8 +66,7 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
       );
 
       try {
-        UserCredential userCredential =
-            await FirebaseAuth.instance.signInWithCredential(credential);
+        UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
         storage.setUserName(userCredential.user!.email ?? "");
         storage.setPassword(getPassword(userCredential.user!.email ?? ""));
         final response = await service.getRegistration(

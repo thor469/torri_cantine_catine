@@ -1208,8 +1208,6 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                   }
                                                 }
 
-                                                // print('pgIcon');
-                                                // print(pgIcon);
 
                                                 return pg[index]?.title == null
                                                     ? const SizedBox.shrink()
@@ -1222,10 +1220,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                         gruppoval2 = index;
                                                       });
 
-                                                      // getPayGateway();
-
                                                       await getShippingMethods(selectedShippingAddress?.postcode ?? "", pg[index]!.id == "cod");
-
 
                                                       if(pg[index]!.id == "cod" && !isAdded){
                                                         try {
@@ -1263,29 +1258,29 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
 
                                                         } catch (e) {}
 
-                                                      }else{
-
-                                                        setState(() {
-                                                          cartSummedPrice -= double.tryParse(codeInfo?.data.replaceAll(",", ".") ?? "") ?? 0;
-                                                          codeInfo?.data = "0";
-                                                          isAdded = false;
-                                                        });
-
-                                                        try {
-                                                          final dep = DependencyFactoryImpl();
-                                                          final Dio dio = dep.createDioForApiCart().dio;
-
-                                                          await dio.request(
-                                                            '/wp-json/wp/v2/remove_payment_method_costs',
-                                                            options: Options(
-                                                              method: 'POST',
-                                                            ),
-                                                          );
-
-                                                        } catch (e) {}
-
-
                                                       }
+                                                      else{
+
+                                                        if(pg[index]!.id != "cod"){
+                                                          setState(() {
+                                                            cartSummedPrice -= double.tryParse(codeInfo?.data.replaceAll(",", ".") ?? "") ?? 0;
+                                                            codeInfo?.data = "0";
+                                                            isAdded = false;
+                                                          });
+                                                          try {
+                                                            final dep = DependencyFactoryImpl();
+                                                            final Dio dio = dep.createDioForApiCart().dio;
+
+                                                            await dio.request(
+                                                              '/wp-json/wp/v2/remove_payment_method_costs',
+                                                              options: Options(
+                                                                method: 'POST',
+                                                              ),
+                                                            );
+                                                          } catch (e) {}
+                                                        }
+                                                      }
+
 
 
                                                     },
@@ -1376,7 +1371,6 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                                       });
 
 
-
                                                                     try {
                                                                       final dep = DependencyFactoryImpl();
                                                                       final Dio dio = dep.createDioForApiCart().dio;
@@ -1388,38 +1382,30 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                                         ),
                                                                       );
 
-                                                                    } catch (e) {
-
-                                                                    }
-
-
-
-
-                                                                  }else{
-                                                                    setState(() {
-                                                                      cartSummedPrice -= double.tryParse(codeInfo?.data.replaceAll(",", ".") ?? "") ?? 0;
-                                                                      codeInfo?.data = "0";
-                                                                      isAdded = false;
-                                                                    });
+                                                                    } catch (e) {}
                                                                   }
+                                                                  else{
+                                                                    if(pg[index]!.id != "cod"){
+                                                                      setState(() {
+                                                                        cartSummedPrice -= double.tryParse(codeInfo?.data.replaceAll(",", ".") ?? "") ?? 0;
+                                                                        codeInfo?.data = "0";
+                                                                        isAdded = false;
+                                                                      });
+                                                                      try {
+                                                                        final dep = DependencyFactoryImpl();
+                                                                        final Dio dio = dep.createDioForApiCart().dio;
 
-                                                                  try {
-                                                                    final dep = DependencyFactoryImpl();
-                                                                    final Dio dio = dep.createDioForApiCart().dio;
-
-                                                                    await dio.request(
-                                                                      '/wp-json/wp/v2/remove_payment_method_costs',
-                                                                      options: Options(
-                                                                        method: 'POST',
-                                                                      ),
-                                                                    );
-
-                                                                  } catch (e) {}
-
-
-
+                                                                        await dio.request(
+                                                                          '/wp-json/wp/v2/remove_payment_method_costs',
+                                                                          options: Options(
+                                                                            method: 'POST',
+                                                                          ),
+                                                                        );
+                                                                      } catch (e) {}
+                                                                    }
+                                                                  }
                                                                 }
-                                                            ) ,
+                                                            ),
                                                           )
                                                         ]
                                                     ),
