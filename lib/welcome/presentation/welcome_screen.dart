@@ -137,8 +137,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             },
             cartEmpty: () => {
               context.read<CartBadgeCubitCubit>().emit(0),
-              // overlayLoader.hide(context),
-            context.router.replaceAll(const [MainRoute()]),
+              context.router.replaceAll(const [MainRoute()]),
             },
             orElse: () => const SizedBox(),
             // orElse: () => const SizedBox(),
@@ -335,10 +334,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         GestureDetector(
                           onTap: () async {
                             if (await GoogleSignIn().isSignedIn() == true) {
-                              if (mounted) {
+                              if (context.mounted) {
                                 context.read<RegistrationBloc>().add(const RegistrationEvent.registerWithGoogle());
                               }
-                            } else if (mounted) {
+                            } else if (context.mounted) {
                               context.read<LoginBloc>().add(const LoginEvent.loginWithGoogle());
                             }
                           },

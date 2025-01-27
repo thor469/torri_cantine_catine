@@ -18,15 +18,6 @@ class ThankYouScreen extends StatefulWidget {
 class _ThankYouScreenState extends State<ThankYouScreen> {
   LocalStorage storage = LocalStorage();
 
-  // @override
-  // void initState() {
-  //   context.read<MyOrdersBloc>().add(const MyOrdersEvent.fetch());
-  //   // context.read<ListAllOrdersBloc>().add(const ListAllOrdersEvent.fetch());
-  //   context.read<CartBadgeCubitCubit>().cleanCart();
-  //
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return PopScope(

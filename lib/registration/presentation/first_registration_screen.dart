@@ -92,21 +92,16 @@ class _FirstRegistrScreenState extends State<FirstRegistrScreen> {
           bloc: context.read<RegistrationBloc>(),
           listener: (context, state) => state.maybeWhen(
             loadedWithGoogle: (response, username, password) => {
-              context
-                  .read<LoginBloc>()
-                  .add(LoginEvent.login(password, password, fcmtoken)),
+              context.read<LoginBloc>().add(LoginEvent.login(password, password, fcmtoken)),
             },
-            loaded: (response) =>
-                context.router.push(const ThirdRegistrRoute()),
+            loaded: (response) => context.router.push(const ThirdRegistrRoute()),
             error: (error, errorCode) async {
               final username = await storage.getUserName();
               final password = await storage.getPassword();
               final fcmToken = await storage.getFCMToken();
               if (errorCode == "registration-error-email-exists") {
                 if (mounted) {
-                  context
-                      .read<LoginBloc>()
-                      .add(LoginEvent.login(username, password, fcmToken));
+                  context.read<LoginBloc>().add(LoginEvent.login(username, password, fcmToken));
                 }
               } else {
                 final snackBar = SnackBar(

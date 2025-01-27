@@ -11,10 +11,6 @@ part 'cart_response.g.dart';
 
 Map<String, dynamic> extensionsParser(dynamic input) {
 
-  print('### PARSEINTER extensionsParser');
-  print(input);
-  print(input.runtimeType);
-
   // if (input == null) return {};
   if (input.runtimeType == List<dynamic>) return { "bundles": {} } ;
 

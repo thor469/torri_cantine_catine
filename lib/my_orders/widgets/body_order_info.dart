@@ -191,10 +191,7 @@ class _BodyOrderInfoState extends State<BodyOrderInfo> {
                                               .symmetric(
                                               horizontal: 20),
                                           child: HorizontalList(
-                                            pathImage: orders
-                                                .orders![index]
-                                                .lineItems![itemIndex]
-                                                .image!
+                                            pathImage: orders.orders![index].lineItems![itemIndex].image!
                                                 .src,
                                           ),
                                         );

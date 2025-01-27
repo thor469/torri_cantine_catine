@@ -24,7 +24,7 @@ class _PrimaryButtonState extends State<PrimaryButton> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.disabled==true?null:widget.ontap,
+      onTap: widget.disabled==true? null: widget.ontap,
       child: Container(
         width: MediaQuery.of(context).size.width * 0.88,
         height: 36,

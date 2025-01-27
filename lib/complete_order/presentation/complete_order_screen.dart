@@ -215,7 +215,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
     return BlocListener<MyOrdersBloc, MyOrdersState>(
       listener: (context, state) => state.maybeWhen(
         loaded: (response) => {
-          context.read<CartBadgeCubitCubit>().removeCartItem(),
+        context.read<CartBadgeCubitCubit>().addCartItem(context),
           context.read<CartBloc>().deleteCart(),
           setState(() {
             startedOrder = false;
@@ -237,7 +237,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
           child: MenuScreen(),
         ),
         floatingActionButtonLocation: _dockedFabLocation(context),
-        floatingActionButton: const FloatingButton(),
+        // floatingActionButton: const FloatingButton(),
         bottomNavigationBar: BottomBanvigationMenu(
           scaffoldKey: newKey,
           initialSelectedIndex: 0,
@@ -252,8 +252,20 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
               color: Color.fromARGB(255, 110, 116, 119),
               size: 30,
             ),
-            onPressed: () {
+            onPressed: () async{
               context.router.popForced();
+              try {
+                final dep = DependencyFactoryImpl();
+                final Dio dio = dep.createDioForApiCart().dio;
+
+                await dio.request(
+                  '/wp-json/wp/v2/remove_payment_method_costs',
+                  options: Options(
+                    method: 'POST',
+                  ),
+                );
+
+              } catch (e) {}
             },
           ),
           title: const Text("DETTAGLI ORDINE",
@@ -616,20 +628,22 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                     ),
                                   ),
                                   model.billing.isEmpty
-                                      ? Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10.0),
+                                      ? Padding(padding: const EdgeInsets.symmetric(vertical: 10.0),
                                     child: PrimaryButton(
-                                      text:
-                                      'Aggiungi un indirizzo per la Fatturazione',
-                                      ontap: () {
-                                        context.router.push(NewAddressFromAccountRoute(
-                                            customerdId: customerId,editFatturazione:  true ,editShipping:  false,
+                                      text: 'Aggiungi un indirizzo per la Fatturazione',
+                                      ontap: () async{
+                                        await context.router.push(NewAddressFromAccountRoute(
+                                            customerdId: customerId, editFatturazione:  true ,editShipping:  false,
                                             existingAddress: null,
                                             returnPage: "completeorder",
                                             isNewAddress: true,
                                             point: widget.totPoint,
-                                            subTotal: widget.cartSubTotal));
+                                            subTotal: widget.cartSubTotal, isFirstShippingAddress:  model.shipping.isEmpty, isFirstBillingAddress:  model.billing.isEmpty));
+
+                                        firstLoad = true;
+                                        if(context.mounted){
+                                          context.read<AccountBloc>().add(AccountEvent.fetchAddress());
+                                        }
                                       },
                                     ),
                                   )
@@ -686,7 +700,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                               existingAddress: model.billing[index],returnPage: 'completeorder',
                                                               isNewAddress: false,
                                                               point: widget.totPoint,
-                                                              subTotal:  widget.cartSubTotal));
+                                                              subTotal:  widget.cartSubTotal, isFirstShippingAddress:  model.shipping.isEmpty, isFirstBillingAddress:  model.billing.isEmpty));
                                                         },
                                                       ),
                                                     ),
@@ -711,7 +725,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                             returnPage: "completeorder",
                                             isNewAddress: true,
                                             point: widget.totPoint,
-                                            subTotal: widget.cartSubTotal));                                        // context.read<AccountBloc>().addAddress();
+                                            subTotal: widget.cartSubTotal, isFirstShippingAddress:  model.shipping.isEmpty, isFirstBillingAddress:  model.billing.isEmpty));                                        // context.read<AccountBloc>().addAddress();
                                       },
                                       child: const Row(
                                         children: [
@@ -1018,13 +1032,19 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                       padding: const EdgeInsets.symmetric(vertical: 10.0),
                                       child: PrimaryButton(
                                         text:'Inserisci un indirizzo di spedizione',
-                                        ontap: () {
-                                          context.router.push(NewAddressFromAccountRoute(customerdId: customerId,editFatturazione:  false,
+                                        ontap: () async {
+                                         await context.router.push(NewAddressFromAccountRoute(customerdId: customerId,editFatturazione:  false,
                                               editShipping: true,
                                               existingAddress: null,returnPage: 'completeorder',
                                               isNewAddress:  true,
                                               point: widget.totPoint,
-                                              subTotal:   widget.cartSubTotal));
+                                              subTotal:   widget.cartSubTotal, isFirstShippingAddress:  model.shipping.isEmpty, isFirstBillingAddress:  model.billing.isEmpty));
+
+                                         firstLoad = true;
+                                         if(context.mounted){
+                                           context.read<AccountBloc>().add(AccountEvent.fetchAddress());
+                                         }
+
                                           //MainNavigation.newShipping(model.user.first.id));
                                         },
                                       ))
@@ -1080,7 +1100,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                               customerdId: customerId, editFatturazione:  false,editShipping:  true,
                                                               existingAddress: model.shipping[index],
                                                               returnPage: 'completeorder',isNewAddress: false,
-                                                             point:  widget.totPoint,  subTotal: widget.cartSubTotal));
+                                                             point:  widget.totPoint,  subTotal: widget.cartSubTotal, isFirstShippingAddress:  model.shipping.isEmpty, isFirstBillingAddress:  model.billing.isEmpty));
                                                         },
                                                       ),
                                                     ),
@@ -1103,7 +1123,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                         context.router.push(NewAddressFromAccountRoute(
                                             customerdId: customerId,editFatturazione:  false,editShipping:  true,
                                             existingAddress: null,returnPage:  "completeorder",
-                                            isNewAddress: true,point:  widget.totPoint,subTotal:   widget.cartSubTotal));
+                                            isNewAddress: true,point:  widget.totPoint,subTotal: widget.cartSubTotal, isFirstShippingAddress:  model.shipping.isEmpty, isFirstBillingAddress:  model.billing.isEmpty));
                                         // context.read<AccountBloc>().addAddress();
                                       },
                                       child: const Row(
@@ -1188,8 +1208,6 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                   }
                                                 }
 
-                                                // print('pgIcon');
-                                                // print(pgIcon);
 
                                                 return pg[index]?.title == null
                                                     ? const SizedBox.shrink()
@@ -1202,10 +1220,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                         gruppoval2 = index;
                                                       });
 
-                                                      // getPayGateway();
-
                                                       await getShippingMethods(selectedShippingAddress?.postcode ?? "", pg[index]!.id == "cod");
-
 
                                                       if(pg[index]!.id == "cod" && !isAdded){
                                                         try {
@@ -1243,13 +1258,29 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
 
                                                         } catch (e) {}
 
-                                                      }else{
-                                                        setState(() {
-                                                          cartSummedPrice -= double.tryParse(codeInfo?.data.replaceAll(",", ".")) ?? 0;
-                                                          codeInfo?.data = "0";
-                                                          isAdded = false;
-                                                        });
                                                       }
+                                                      else{
+
+                                                        if(pg[index]!.id != "cod"){
+                                                          setState(() {
+                                                            cartSummedPrice -= double.tryParse(codeInfo?.data.replaceAll(",", ".") ?? "") ?? 0;
+                                                            codeInfo?.data = "0";
+                                                            isAdded = false;
+                                                          });
+                                                          try {
+                                                            final dep = DependencyFactoryImpl();
+                                                            final Dio dio = dep.createDioForApiCart().dio;
+
+                                                            await dio.request(
+                                                              '/wp-json/wp/v2/remove_payment_method_costs',
+                                                              options: Options(
+                                                                method: 'POST',
+                                                              ),
+                                                            );
+                                                          } catch (e) {}
+                                                        }
+                                                      }
+
 
 
                                                     },
@@ -1340,7 +1371,6 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                                       });
 
 
-
                                                                     try {
                                                                       final dep = DependencyFactoryImpl();
                                                                       final Dio dio = dep.createDioForApiCart().dio;
@@ -1352,24 +1382,30 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                                                                         ),
                                                                       );
 
-                                                                    } catch (e) {
-
-                                                                    }
-
-
-
-
-                                                                  }else{
-                                                                    setState(() {
-                                                                      cartSummedPrice -= double.tryParse(codeInfo?.data.replaceAll(",", ".")) ?? 0;
-                                                                      codeInfo?.data = "0";
-                                                                      isAdded = false;
-                                                                    });
+                                                                    } catch (e) {}
                                                                   }
+                                                                  else{
+                                                                    if(pg[index]!.id != "cod"){
+                                                                      setState(() {
+                                                                        cartSummedPrice -= double.tryParse(codeInfo?.data.replaceAll(",", ".") ?? "") ?? 0;
+                                                                        codeInfo?.data = "0";
+                                                                        isAdded = false;
+                                                                      });
+                                                                      try {
+                                                                        final dep = DependencyFactoryImpl();
+                                                                        final Dio dio = dep.createDioForApiCart().dio;
 
-
+                                                                        await dio.request(
+                                                                          '/wp-json/wp/v2/remove_payment_method_costs',
+                                                                          options: Options(
+                                                                            method: 'POST',
+                                                                          ),
+                                                                        );
+                                                                      } catch (e) {}
+                                                                    }
+                                                                  }
                                                                 }
-                                                            ) ,
+                                                            ),
                                                           )
                                                         ]
                                                     ),
@@ -1717,6 +1753,12 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                     );
                   },
                 ),
+                buildWhen: (prevState, currentState) {
+                  return currentState.maybeWhen(
+                    loadedAddress: (model) => true,
+                    orElse: () => false,
+                  );
+                },
               );
             },
             orElse: () => const SizedBox.shrink(),
@@ -1833,7 +1875,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
 
     if (mounted) {
       if (isSuccess) {
-        context.read<CartBadgeCubitCubit>().removeCartItem();
+        context.read<CartBadgeCubitCubit>().addCartItem(context);
         if(mounted){
           context.read<CartBloc>().deleteCart();
         }
@@ -1941,7 +1983,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
           var response = await StripePaymentManager.makePayment(context, (orderId?.customer_id ?? 0), orderId!.billing_address!, orderId.payment_result!.redirect_url!.replaceAll("#response=", ""));
           if(response){
             if(mounted){
-              context.read<CartBadgeCubitCubit>().removeCartItem();
+              context.read<CartBadgeCubitCubit>().addCartItem(context);
               context.read<CartBloc>().deleteCart();
               context.router.push(const ThankYouRoute());
             }

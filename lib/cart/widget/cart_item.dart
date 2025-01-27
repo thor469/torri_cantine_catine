@@ -66,7 +66,7 @@ class _CartItemState extends State<CartItem> {
                   context.read<CouponBloc>().deleteCoupon(item.code),
                 },
               },
-              context.read<CartBadgeCubitCubit>().removeCartItem(),
+              context.read<CartBadgeCubitCubit>().addCartItem(context),
               context.read<CartBloc>().add(const CartEvent.fetchTotals()),
               // setState(() {
               //   isUpdating=false;
@@ -86,7 +86,7 @@ class _CartItemState extends State<CartItem> {
               context.read<CartBloc>().add(const CartEvent.fetchTotals());
             },
             addedProduct: (cart) => {
-              context.read<CartBadgeCubitCubit>().addCartItem(),
+              context.read<CartBadgeCubitCubit>().addCartItem(context),
               context.read<CartBloc>().add(const CartEvent.fetchTotals()),
             },
             orElse: () => const SizedBox(),
@@ -175,19 +175,11 @@ class _CartItemState extends State<CartItem> {
                                           widget.keyId,
                                           widget.quantity - 1),
                                     );
-                                    context
-                                        .read<CounterSingleProductCubit>()
-                                        .removeCartItem(widget.keyId);
-                                    context
-                                        .read<CartBadgeCubitCubit>()
-                                        .removeCartItem();
+                                    context.read<CounterSingleProductCubit>().removeCartItem(widget.keyId);
+                                    context.read<CartBadgeCubitCubit>().addCartItem(context);
                                   } else {
-                                    context.read<RemoveProductToCartBloc>().add(
-                                        RemoveProductToCartEvent.removeProduct(
-                                            widget.keyId, widget.quantity - 1));
-                                    context
-                                        .read<CartBadgeCubitCubit>()
-                                        .removeCartItem();
+                                    context.read<RemoveProductToCartBloc>().add(RemoveProductToCartEvent.removeProduct(widget.keyId, widget.quantity - 1));
+                                    context.read<CartBadgeCubitCubit>().addCartItem(context);
                                   }
 
                                   Future.delayed(const Duration( seconds: 2), (){
@@ -245,15 +237,9 @@ class _CartItemState extends State<CartItem> {
                                   });
 
 
-                                  context.read<AddProductToCartBloc>().add(
-                                      AddProductToCartEvent.updateProduct(
-                                          widget.keyId, widget.quantity + 1));
-                                  context
-                                      .read<CounterSingleProductCubit>()
-                                      .addCartItem(widget.keyId);
-                                  context
-                                      .read<CartBadgeCubitCubit>()
-                                      .addCartItem();
+                                  context.read<AddProductToCartBloc>().add(AddProductToCartEvent.updateProduct(widget.keyId, widget.quantity + 1));
+                                  context.read<CounterSingleProductCubit>().addCartItem(widget.keyId);
+                                  context.read<CartBadgeCubitCubit>().addCartItem(context);
 
                                   Future.delayed(const Duration( seconds: 2), (){
                                     setState(() {
@@ -286,18 +272,16 @@ class _CartItemState extends State<CartItem> {
                     height: 27,
                   ),
                   onTap: () async{
-                    setState(() {
-                      //isUpdating = true;
-                      updatingItems.add(widget.id);
-                    });
-                    context.read<RemoveProductToCartBloc>().add(
-                        RemoveProductToCartEvent.removeProduct(
-                            widget.keyId, 0)
-                    );
+
+                    if(updatingItems.contains(widget.id)){
+                      return;
+                    }
 
                     setState(() {
-                      //isUpdating = false;
+                      updatingItems.add(widget.id);
                     });
+                    context.read<RemoveProductToCartBloc>().add(RemoveProductToCartEvent.removeProduct(widget.keyId, 0));
+
                   },
                 ),
                 BlocBuilder<ProductsWishlistedCubit, ProductsWishlistedState>(

@@ -138,23 +138,88 @@ class _WishlistItemsState extends State<WishlistItems> {
                               height: 27,
                             ),
                           ),
-                          SizedBox(
-                            width: 100,
-                            height: 30,
-                            child: PrimaryButton(
-                                disabled: !(product.purchasable ?? false ),
-                                icon: const Icon(
-                                  Icons.shopping_cart_outlined,
-                                  color: Colors.white,
-                                ),
-                                text: "AGGIUNGI",
-                                ontap: () {
-                                  context.read<AddProductToCartBloc>().add(
-                                      AddProductToCartEvent.addProduct(
-                                          widget.productId, 1));
-                                  context.read<CartBadgeCubitCubit>().addCartItem();
-                                }),
+
+
+                          BlocBuilder<AddProductToCartBloc, AddProductToCartState>(
+                            builder: (context, state){
+                              return state.maybeWhen(
+                                  loading: () {
+                                    return SizedBox(
+                                      width: 100,
+                                      height: 30,
+                                      child: Center(
+                                        child: PrimaryButton(
+                                            disabled: !(product.purchasable ?? false ),
+                                            icon: Center(child: CircularProgressIndicator(color: Colors.white,),),
+                                            text: "",
+                                            ontap: () {}
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  addedProduct:(_) {
+                                    return SizedBox(
+                                      width: 100,
+                                      height: 30,
+                                      child: PrimaryButton(
+                                          disabled: !(product.purchasable ?? false ),
+                                          icon: const Icon(
+                                            Icons.shopping_cart_outlined,
+                                            color: Colors.white,
+                                          ),
+                                          text: "AGGIUNGI",
+                                          ontap: () {
+                                            context.read<AddProductToCartBloc>().add(AddProductToCartEvent.addProduct(widget.productId, 1));
+                                            context.read<CartBadgeCubitCubit>().addCartItem(context);
+                                          }
+                                      ),
+                                    );
+                                  },
+                                  error: () {
+                                    return SizedBox(
+                                      width: 100,
+                                      height: 30,
+                                      child: PrimaryButton(
+                                          disabled: !(product.purchasable ?? false ),
+                                          icon: const Icon(
+                                            Icons.shopping_cart_outlined,
+                                            color: Colors.white,
+                                          ),
+                                          text: "AGGIUNGI",
+                                          ontap: () {
+                                            context.read<AddProductToCartBloc>().add(AddProductToCartEvent.addProduct(widget.productId, 1));
+                                            context.read<CartBadgeCubitCubit>().addCartItem(context);
+                                          }
+                                      ),
+                                    );
+                                  },
+                                  orElse:() {
+                                    return SizedBox(
+                                      width: 100,
+                                      height: 30,
+                                      child: PrimaryButton(
+                                          disabled: !(product.purchasable ?? false ),
+                                          icon: const Icon(
+                                            Icons.shopping_cart_outlined,
+                                            color: Colors.white,
+                                          ),
+                                          text: "AGGIUNGI",
+                                          ontap: () {
+                                            context.read<AddProductToCartBloc>().add(AddProductToCartEvent.addProduct(widget.productId, 1));
+                                            context.read<CartBadgeCubitCubit>().addCartItem(context);
+                                          }
+                                      ),
+                                    );
+                                  }
+                              );
+                            }
                           )
+
+
+
+
+
+
                         ],
                       ),
                     ],
@@ -162,7 +227,23 @@ class _WishlistItemsState extends State<WishlistItems> {
                 );
 
               },
-
+              loading: () => Center(
+                child: Container(
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      top: BorderSide(
+                        color: Color.fromARGB(255, 212, 211, 211),
+                      ),
+                    ),
+                  ),
+                  height: 120,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: Color.fromARGB(255, 161, 29, 52),
+                    ),
+                  ),
+                )
+              ),
               orElse: () => SizedBox.shrink());
         }
     );

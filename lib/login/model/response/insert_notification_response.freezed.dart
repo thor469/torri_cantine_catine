@@ -21,7 +21,7 @@ InsertNotificationResponse _$InsertNotificationResponseFromJson(
 
 /// @nodoc
 mixin _$InsertNotificationResponse {
-  String get id => throw _privateConstructorUsedError;
+  dynamic get id => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +36,7 @@ abstract class $InsertNotificationResponseCopyWith<$Res> {
       _$InsertNotificationResponseCopyWithImpl<$Res,
           InsertNotificationResponse>;
   @useResult
-  $Res call({String id});
+  $Res call({dynamic id});
 }
 
 /// @nodoc
@@ -59,7 +59,7 @@ class _$InsertNotificationResponseCopyWithImpl<$Res,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as dynamic,
     ) as $Val);
   }
 }
@@ -73,7 +73,7 @@ abstract class _$$_InsertNotificationResponseCopyWith<$Res>
       __$$_InsertNotificationResponseCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id});
+  $Res call({dynamic id});
 }
 
 /// @nodoc
@@ -95,7 +95,7 @@ class __$$_InsertNotificationResponseCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as dynamic,
     ));
   }
 }
@@ -109,7 +109,7 @@ class _$_InsertNotificationResponse implements _InsertNotificationResponse {
       _$$_InsertNotificationResponseFromJson(json);
 
   @override
-  final String id;
+  final dynamic id;
 
   @override
   String toString() {
@@ -121,12 +121,13 @@ class _$_InsertNotificationResponse implements _InsertNotificationResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_InsertNotificationResponse &&
-            (identical(other.id, id) || other.id == id));
+            const DeepCollectionEquality().equals(other.id, id));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(id));
 
   @JsonKey(ignore: true)
   @override
@@ -145,14 +146,14 @@ class _$_InsertNotificationResponse implements _InsertNotificationResponse {
 
 abstract class _InsertNotificationResponse
     implements InsertNotificationResponse {
-  factory _InsertNotificationResponse({required final String id}) =
+  factory _InsertNotificationResponse({required final dynamic id}) =
       _$_InsertNotificationResponse;
 
   factory _InsertNotificationResponse.fromJson(Map<String, dynamic> json) =
       _$_InsertNotificationResponse.fromJson;
 
   @override
-  String get id;
+  dynamic get id;
   @override
   @JsonKey(ignore: true)
   _$$_InsertNotificationResponseCopyWith<_$_InsertNotificationResponse>

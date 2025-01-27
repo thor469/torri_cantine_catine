@@ -8,6 +8,7 @@ import 'package:torri_cantine_app/app/common/utilities/tc_typography.dart';
 import 'package:torri_cantine_app/my_orders/my_orders/list_all_orders/list_all_orders_bloc.dart';
 import 'package:torri_cantine_app/my_orders/my_orders/list_all_orders/model/response/list_all_orders_response.dart';
 import 'package:torri_cantine_app/points_balance_screen/bloc/points_bloc.dart';
+import 'package:torri_cantine_app/points_balance_screen/model/response/point_history_response.dart';
 import 'package:torri_cantine_app/points_balance_screen/model/response/point_response.dart';
 import 'package:torri_cantine_app/utilities/local_storage.dart';
 
@@ -34,35 +35,20 @@ class _PointsBalanceScreenState extends State<PointsBalanceScreen> {
   bool progress = true;
   PointMaxValueResponse? maxPoint = PointMaxValueResponse(points: 200, money: 5);
   double moneyDiscount = 0;
+  List<PointHistoryResponse> history = [];
 
-  List<Map<String, dynamic>> orders = [];
-
-  Future<void> getOrders(BuildContext context, ListAllOrdersResponse orderList, ) async{
-    for(Order item in orderList.orders ?? []){
-      var i = 0;
-      var point = await context.read<PointsBloc>().getOrderPoint(item.id);
-      setState(() {
-        orders.add({
-          "numero_ordine": item.id,
-          "date": item.dateCreated,
-          "points": point ?? 0,
-        });
-      });
-      i++;
-    }
-    setState(() {
-      progress = false;
-    });
-  }
 
 
   void _sortOrders() {
     setState(() {
       _isDescending = !_isDescending;
-      orders.sort((a, b) {
-        return _isDescending
-            ? b['date'].compareTo(a['date'])
-            : a['date'].compareTo(b['date']);
+      history.sort((a, b) {
+        final dateA = a.date_earning != null ? DateTime.tryParse(a.date_earning!) : DateTime(0);
+        final dateB = b.date_earning != null ? DateTime.tryParse(b.date_earning!) : DateTime(0);
+
+        if (dateA == null || dateB == null) return 0; // Fallback se le date sono malformate
+
+        return _isDescending ? dateB.compareTo(dateA) : dateA.compareTo(dateB);
       });
     });
   }
@@ -83,7 +69,10 @@ class _PointsBalanceScreenState extends State<PointsBalanceScreen> {
       if (mounted) {
         context.read<PointsBloc>().add(const PointsEvent.fetch());
         context.read<ListAllOrdersBloc>().add(ListAllOrdersEvent.fetch(customerId));
-        moneyDiscount = await context.read<PointsBloc>().getMoneyDiscountAvaible() ?? 0;
+        var ap = await context.read<PointsBloc>().getMoneyDiscountAvaible() ?? 0;
+        setState(() {
+          moneyDiscount = ap;
+        });
         maxPoint = await context.read<PointsBloc>().getPointsMaxValues();
       }
     });
@@ -117,17 +106,14 @@ class _PointsBalanceScreenState extends State<PointsBalanceScreen> {
                       ),
                     );
                   },
-                  loaded: (numericId) {
+                  loaded: (numericId, historyPoint ) {
+
+
+
                     if(numericId != ""){
                       if(firstLoad1){
+                        history = List.from(historyPoint);
                         totalPoints = int.tryParse(numericId) ?? 0;
-                        // if(totalPoints > 200){
-                        //   WidgetsBinding.instance.addPostFrameCallback((_) async{
-                        //     setState(() {
-                        //       totalPoints = 200;
-                        //     });
-                        //   });
-                        // }
                         firstLoad1 = false;
                       }
 
@@ -159,10 +145,8 @@ class _PointsBalanceScreenState extends State<PointsBalanceScreen> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text('Ogni 200 punti ',
-                                      style: TCTypography.of(context).text_16.copyWith(
-                                          color: const Color.fromARGB(255, 121, 121, 121))),
-                                  Text('${moneyDiscount.toStringAsFixed(2)} €',
+                                  Text('Ogni ${maxPoint?.points ?? ""} punti ', style: TCTypography.of(context).text_16.copyWith(color: const Color.fromARGB(255, 121, 121, 121))),
+                                  Text('${maxPoint?.money.toStringAsFixed(2)} €',
                                     style: TCTypography.of(context).text_16_bold.copyWith(
                                       color: const Color.fromARGB(255, 161, 29, 51),
                                     ),
@@ -221,7 +205,7 @@ class _PointsBalanceScreenState extends State<PointsBalanceScreen> {
                                             ],
                                           ),
                                           Text(
-                                            '5,00 €',
+                                            '${maxPoint?.money.toStringAsFixed(2)} €',
                                             style: TCTypography.of(context).text_16_bold.copyWith(
                                               color: const Color.fromARGB(255, 157, 2, 2),
                                             ),
@@ -299,69 +283,53 @@ class _PointsBalanceScreenState extends State<PointsBalanceScreen> {
                                   ),
                                 ],
                               ),
-                              BlocBuilder<ListAllOrdersBloc, ListAllOrdersState>(
-                                  builder: (ctx, state) => state.maybeWhen(
-                                      loading: () {
-                                        return const CircularProgressIndicator(
-                                          color: Color.fromARGB(255, 161, 29, 51),
-                                        );
-                                      },
-                                      loaded: (item){
-
-                                        if(firstLoad){
-                                          getOrders(context, item);
-                                          firstLoad = false;
-                                        }
-                                        return progress ? const Center(
-                                            child: CircularProgressIndicator(
-                                              color: Color.fromARGB(255, 161, 29, 51),
-                                            ),
-                                          )
-                                              : Expanded(
-                                            child: ListView.builder(
-                                              itemCount: orders.length,
-                                              itemBuilder: (BuildContext context, int index) {
-                                                return Padding(
-                                                  padding: const EdgeInsets.only(left: 8),
-                                                  child: ListTile(
-                                                    title: RichText(
-                                                      text: TextSpan(
-                                                        children: [
-                                                          TextSpan(
-                                                            text: 'Acquisto prodotti - ',
-                                                            style: TCTypography.of(context).text_14_bold,
-                                                          ),
-                                                          TextSpan(
-                                                              text:
-                                                              'ordine n. ${orders[index]['numero_ordine']}',
-                                                              style: TCTypography.of(context).text_14),
-                                                        ],
-                                                        style: DefaultTextStyle.of(context).style,
-                                                      ),
-                                                    ),
-                                                    subtitle: Text(
-                                                      DateFormat('dd MMMM yyyy', 'it_IT')
-                                                          .format(orders[index]['date']),
-                                                      style: TCTypography.of(context).text_14,
-                                                    ),
-                                                    trailing: Text(
-                                                      '+${orders[index]['points']} pt',
-                                                      style: TCTypography.of(context).text_14_bold.copyWith(
-                                                          color: const Color.fromARGB(255, 161, 29, 51)),
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                            ),
-                                          );
 
 
-                                      },
-                                      orElse: () => const SizedBox.shrink()
+                              //TODO PER TERMINARE DEVO PER FORZA USARE HISTORY
+                              history.isEmpty ?
+                              Container(
+                                  child: Text(
+                                      "Nessun ordine per questo account",
+                                      style: TCTypography.of(context).text_12_bold.copyWith(
+                                        color: const Color.fromARGB(255, 121, 121, 121)
+                                      )
                                   )
                               )
-
-
+                              : Expanded(
+                                child: ListView.builder(
+                                  itemCount: history.length,
+                                  itemBuilder: (BuildContext context, int index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.only(left: 8),
+                                      child: ListTile(
+                                        title: RichText(
+                                          text: TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text: history[index].order_id == "0"? "Registrazione punti": 'Acquisto prodotti - ',
+                                                style: TCTypography.of(context).text_14_bold,
+                                              ),
+                                              TextSpan(
+                                                  text: history[index].order_id == "0"? "" : 'ordine n. ${history[index].order_id}',
+                                                  style: TCTypography.of(context).text_14
+                                              ),
+                                            ],
+                                            style: DefaultTextStyle.of(context).style,
+                                          ),
+                                        ),
+                                        subtitle: Text(
+                                          DateFormat('dd MMMM yyyy', 'it_IT').format(DateTime.parse(history[index]?.date_earning ?? "")),
+                                          style: TCTypography.of(context).text_14,
+                                        ),
+                                        trailing: Text(
+                                          '${history[index].amount} pt',
+                                          style: TCTypography.of(context).text_14_bold.copyWith(color: history[index].amount?[0] == "-"? const Color.fromARGB(255, 161, 29, 51) : Colors.green),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              )
                             ],
                           ),
                         );

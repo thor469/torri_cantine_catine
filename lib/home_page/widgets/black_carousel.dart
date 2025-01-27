@@ -157,7 +157,7 @@ class BlackCarousel extends StatelessWidget {
                   width: 115,
                   child: ElevatedButton.icon(
                     onPressed: () {
-                      context.read<CartBadgeCubitCubit>().addCartItem();
+                      context.read<CartBadgeCubitCubit>().addCartItem(context);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor:

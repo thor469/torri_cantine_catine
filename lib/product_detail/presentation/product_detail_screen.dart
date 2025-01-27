@@ -90,7 +90,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       // floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
-      floatingActionButton: const FloatingButton(),
+      // floatingActionButton: const FloatingButton(),
       bottomNavigationBar: BottomBanvigationMenu(
         scaffoldKey: _key,
         initialSelectedIndex: 0,
@@ -285,7 +285,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   Visibility(
                     visible: state.type =='bundle',
                     child: BundleItemsList(bundles: state.bundled_items!, minSize: state.bundle_min_size!, maxSize: state.bundle_max_size!,productId:widget.id, initialCartQty: initialCartQty, contx: context),
-
                   ),
 
                   Visibility(
@@ -306,10 +305,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                   height: 35,
                                   width: 35,
                                   decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color:
-                                          const Color.fromARGB(255, 99, 103, 106)),
-                                      borderRadius: const BorderRadius.only( topLeft: Radius.circular(5), bottomLeft: Radius.circular(5) )
+                                      border: Border.all(color: const Color.fromARGB(255, 99, 103, 106)),
+                                      borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(5), bottomLeft: Radius.circular(5)
+                                      )
                                   ),
                                   child:
                                   IconButton(
@@ -320,8 +319,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                             () {
                                           if (initialCartQty > 1) {
                                             initialCartQty--;
-                                            cartController = TextEditingController(
-                                                text: initialCartQty.toString());
+                                            cartController = TextEditingController(text: initialCartQty.toString());
                                           }
                                         },
                                       );
@@ -338,9 +336,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                     decoration: const BoxDecoration(
                                       border: Border.symmetric(
                                           horizontal: BorderSide(
-
-                                              color:
-                                              Color.fromARGB(255, 99, 103, 106)
+                                              color: Color.fromARGB(255, 99, 103, 106)
                                           )
                                       ),
                                     ),
@@ -393,11 +389,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             listener: (BuildContext context, AddProductToCartState state) {
                               state.maybeWhen(
                                   addedProduct: (_) {
-                                    setState(() {isLoading = false;});
-                                    WidgetsBinding.instance.addPostFrameCallback((_) async{
-                                      CartResponse? cart = await context.read<CartBloc>().fetchItemCart();
-                                      context.read<CartBadgeCubitCubit>().addCartItem(qty: cart?.items.length ?? 0, isFromCart: true);
+                                    setState(() {
+                                      isLoading = false;
                                     });
+                                    context.read<CartBadgeCubitCubit>().addCartItem(context);
                                   },
                                   error: () {
                                     setState(() {isLoading = false;});
@@ -414,7 +409,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                   text: isLoading ? "" : "AGGIUNGI",
                                   ontap: () {
                                     if(!isLoading){
-                                      setState(() {isLoading = true;});
+                                      setState(() {
+                                        isLoading = true;
+                                      });
                                       context.read<AddProductToCartBloc>().add(AddProductToCartEvent.addProduct(widget.id, initialCartQty??1));
                                     }
                                   },
@@ -444,9 +441,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             builder: (context, state) {
                               return GestureDetector(
                                 onTap: () {
-                                  context
-                                      .read<ProductsWishlistedCubit>()
-                                      .wishListed(widget.id);
+                                  context.read<ProductsWishlistedCubit>().wishListed(widget.id);
                                 },
                                 child: state.wishListProducts.contains(widget.id)
                                     ? const Icon(
@@ -466,24 +461,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       ),
                     ),
                   ),
-
-
-                  // Padding(
-                  //   padding: const EdgeInsets.fromLTRB(25, 34, 20, 0),
-                  //   child: Row(
-                  //     children: [
-                  //       SvgPicture.asset('assets/Ordine-spedizione.svg'),
-                  //       Padding(
-                  //         padding: const EdgeInsets.only(left: 15.0),
-                  //         child: Text(
-                  //           'Spedizione in 24h',
-                  //           style: TCTypography.of(context).text_14.copyWith(
-                  //               color: const Color.fromARGB(255, 37, 37, 37)),
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
                   const Padding(
                     padding: EdgeInsets.fromLTRB(25, 20, 25, 16),
                     child: Divider(
@@ -491,9 +468,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     ),
                   ),
                   const CharList(),
-
                   const CharListSecondary(),
-
                   const DescriptionList(),
                   const Padding(
                     padding: EdgeInsets.fromLTRB(25, 16, 25, 16),
@@ -510,24 +485,15 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       thickness: 1.3,
                     ),
                   ),
-                  // Padding(
-                  //   padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                  //   child: Text("PRODOTTI E OFFERTE",
-                  //       style: TCTypography.of(context).text_14_bold),
-                  // ),
-                  // const SizedBox(height: 400),
                 ],
               ),
             );
-          }
-          ,
+          },
           error: () => const SizedBox(),
           orElse: () => const SizedBox(),
         ),
       ),
     );
-
-
   }
 }
 
@@ -538,9 +504,8 @@ int percentage(String fullPrice, String halfPrice) {
 
 Widget selectPage(int i) {
   switch (i) {
-    case 0:
-      return const HomeScreen();
-    case 1:
+    case 0 : return const HomeScreen();
+    case 1 :
       return const CategoriesScreen(
         showAppBar: true,
         fromMenu: false,
@@ -570,7 +535,6 @@ Widget selectPage(int i) {
   }
 }
 
-
 class BundleItemsList extends StatefulWidget {
   final List<BundledItems> bundles ;
   final int minSize;
@@ -590,19 +554,15 @@ class _BundleItemsListState extends State<BundleItemsList> {
   int selectedBundleItems = 0;
   bool isLoading = false;
 
-
-    @override
-  void initState() {
+  @override
+  void initState(){
       for (int i = 0; i < widget.bundles.length; i++) {
-
         TextEditingController controller = TextEditingController();
         controllers.add(controller);
-        //setState(() {
         controllers[i].text = '${widget.bundles[i].quantity_default??0}';
         selectedBundleItems += widget.bundles[i].quantity_default;
-        //});
       }
-    super.initState();
+      super.initState();
   }
 
   @override
@@ -629,28 +589,23 @@ class _BundleItemsListState extends State<BundleItemsList> {
                    height: 80,
                    child: Row(
                      children: [
-                       Expanded(child:
-                       Container(
-                           padding: const EdgeInsets.symmetric(horizontal: 8),
-                           child: Text(currentItem.title, style: TCTypography.of(context)
-                               .text_14_bold
-                               .copyWith()
+                       Expanded(
+                           child: Container(
+                               padding: const EdgeInsets.symmetric(horizontal: 8),
+                               child: Text(currentItem.title, style: TCTypography.of(context).text_14_bold.copyWith())
                            )
-                       )),
+                       ),
                        Container(
                          padding:const EdgeInsets.symmetric(vertical: 8),
                          child: Row(
                            crossAxisAlignment: CrossAxisAlignment.stretch,
                            mainAxisAlignment: MainAxisAlignment.start,
-
                            children: [
                              Container(
                                height: 35,
                                width: 35,
                                decoration: BoxDecoration(
-                                   border: Border.all(
-                                       color:
-                                       const Color.fromARGB(255, 99, 103, 106)),
+                                   border: Border.all(color: const Color.fromARGB(255, 99, 103, 106)),
                                    borderRadius: const BorderRadius.only( topLeft: Radius.circular(5), bottomLeft: Radius.circular(5) )
                                ),
                                child:
@@ -659,16 +614,12 @@ class _BundleItemsListState extends State<BundleItemsList> {
                                  constraints: const BoxConstraints(),
                                  disabledColor: Colors.black12,
                                  onPressed: (int.parse(controllers[index].text)==currentItem.quantity_min || (currentItem.stock_status).toLowerCase()!='in_stock')?null:() {
-
                                    setState(() {
                                      controllers[index].text = (int.parse(controllers[index].text)-1).toString();
                                      selectedBundleItems -=1;
                                    });
                                  },
-                                 icon: const Icon(
-                                   Icons.remove,
-                                   //color: Color.fromARGB(255, 99, 103, 106),
-                                 ),
+                                 icon: const Icon(Icons.remove,),
                                ),
                              ),
                              Padding(
@@ -677,9 +628,7 @@ class _BundleItemsListState extends State<BundleItemsList> {
                                  decoration: const BoxDecoration(
                                    border: Border.symmetric(
                                        horizontal: BorderSide(
-
-                                           color:
-                                           Color.fromARGB(255, 99, 103, 106)
+                                           color: Color.fromARGB(255, 99, 103, 106)
                                        )
                                    ),
                                  ),
@@ -691,10 +640,8 @@ class _BundleItemsListState extends State<BundleItemsList> {
                                      style: TCTypography.of(context).text_18,
                                      textAlign: TextAlign.center,
                                      textAlignVertical: TextAlignVertical.center,
-
                                      decoration: const InputDecoration(
                                          border: InputBorder.none,
-
                                      ),
                                      readOnly: true,
                                      controller: controllers[index],
@@ -706,29 +653,20 @@ class _BundleItemsListState extends State<BundleItemsList> {
                                height: 35,
                                width: 35,
                                decoration: BoxDecoration(
-                                   border: Border.all(
-                                       color:
-                                       const Color.fromARGB(255, 99, 103, 106)),
-                                   borderRadius: const BorderRadius.only( topRight: Radius.circular(5), bottomRight: Radius.circular(5) )
+                                   border: Border.all(color: const Color.fromARGB(255, 99, 103, 106)),
+                                   borderRadius: const BorderRadius.only(topRight: Radius.circular(5), bottomRight: Radius.circular(5) )
                                ),
                                child: IconButton(
-
                                  padding: EdgeInsets.zero,
                                  constraints: const BoxConstraints(),
                                  disabledColor: Colors.black12,
-
                                  onPressed: (int.parse(controllers[index].text)==currentItem.quantity_max || selectedBundleItems==widget.maxSize || (currentItem.stock_status).toLowerCase()!='in_stock')?null:() {
-
                                    setState(() {
                                      controllers[index].text = (int.parse(controllers[index].text)+1).toString();
                                      selectedBundleItems +=1;
                                    });
-
                                  },
-                                 icon: const Icon(
-                                   Icons.add,
-                                   //color: Color.fromARGB(255, 99, 103, 106),
-                                 ),
+                                 icon: const Icon(Icons.add,),
                                ),
                              ),
                            ],
@@ -740,138 +678,360 @@ class _BundleItemsListState extends State<BundleItemsList> {
                },
              ),
            ),
-           BlocListener<AddBundleToCartBloc, AddBundleToCartState>(
-             listener: (BuildContext context, AddBundleToCartState state) {
-               state.maybeWhen(
+
+           BlocBuilder<AddBundleToCartBloc, AddBundleToCartState>(
+             builder: (BuildContext context, AddBundleToCartState state) {
+               return state.maybeWhen(
                    addedProduct: () {
-                     setState(() {isLoading = false;});
-                     WidgetsBinding.instance.addPostFrameCallback((_) async{
-                       CartResponse? cart = await context.read<CartBloc>().fetchItemCart();
-                       context.read<CartBadgeCubitCubit>().addCartItem(qty: cart?.items.length ?? 0, isFromCart: true);
-                     });
-                   },
-                   error: () {
-                     setState(() {isLoading = false;});
-                   },
-                   orElse: () {}
-               );
-             },
-             child: Padding(
-             padding: const EdgeInsets.only(left: 23, right:23, top:23),
-             child: Row(
-               children: [
-                 Expanded(
-                   child: Padding(
-                     padding: const EdgeInsets.symmetric(horizontal: 10),
-                     child: PrimaryButton(
-                       text:  isLoading ? "": "AGGIUNGI",
-                       disabled: !(selectedBundleItems>=widget.minSize && selectedBundleItems<=widget.maxSize),
-                       ontap: () {
-                         if(isLoading){
-                           return;
-                         }
-                         setState(() {
-                           isLoading = true;
-                         });
-
-                         int ind = 0;
-                         List<dynamic> bundleConf=[];
-                         String bundleCartUrl = '?add-to-cart=${widget.productId}&quantity=1';
-                         for (ind=0; ind<controllers.length; ind++) {
-                           // print(controllers[ind].text);
-                           // print(widget.bundles[ind].bundled_item_id);
-                           // print(widget.bundles[ind].product_id);
-
-                           bundleCartUrl += '&bundle_quantity_${widget.bundles[ind].bundled_item_id}=${controllers[ind].text}';
-
-
-                           if(int.tryParse(controllers[ind].text)!>=0) {
-                             bundleConf.add({
-                               "bundled_item_id": widget.bundles[ind].bundled_item_id,
-                               "product_id": widget.bundles[ind].product_id,
-                               "quantity": int.tryParse(controllers[ind].text)
-                             });
-                           }
-                         }
-
-
-
-                         var bundlePost = {
-                           "line_items": [
-                             {
-                               "product_id": widget.productId,
-                               "quantity": 1,
-                               "bundle_configuration": bundleConf
-                             }
-                           ]
-                         };
-
-                         if (kDebugMode) {
-                           print('fullBundleConf');
-                         }
-                         if (kDebugMode) {
-                           print(bundlePost);
-                         }
-                         if (kDebugMode) {
-                           print(bundleCartUrl);
-                         }
-
-
-                         if(selectedBundleItems>=widget.minSize && selectedBundleItems<=widget.maxSize) {
-                           context.read<AddBundleToCartBloc>().add(AddBundleToCartEvent.addBundle(widget.productId,bundlePost,bundleCartUrl, widget.initialCartQty??1));
-                           context.read<CartBadgeCubitCubit>().addCartItem( qty: widget.initialCartQty??1);
-                         }
-
-                       },
-
-                       icon: isLoading ? Center(
-                         child: Container(
-                           width: 25,
-                           height: 25,
-                           child: CircularProgressIndicator(
-                             color: Colors.white,
+                     if(isLoading){
+                       context.read<CartBadgeCubitCubit>().addCartItem(context);
+                       isLoading = false;
+                     }
+                     return Padding(
+                       padding: const EdgeInsets.only(left: 23, right:23, top:23),
+                       child: Row(
+                         children: [
+                           Expanded(
+                             child: Padding(
+                               padding: const EdgeInsets.symmetric(horizontal: 10),
+                               child: PrimaryButton(
+                                 text:  isLoading ? "" : "AGGIUNGI",
+                                 disabled: !(selectedBundleItems>=widget.minSize && selectedBundleItems<=widget.maxSize),
+                                 ontap: () {
+                                   if(isLoading){
+                                     return;
+                                   }
+                                   isLoading = true;
+                                   int ind = 0;
+                                   List<dynamic> bundleConf = [];
+                                   String bundleCartUrl = '?add-to-cart=${widget.productId}&quantity=1';
+                                   for (ind=0; ind<controllers.length; ind++) {
+                                     bundleCartUrl += '&bundle_quantity_${widget.bundles[ind].bundled_item_id}=${controllers[ind].text}';
+                                     if(int.tryParse(controllers[ind].text)!>=0) {
+                                       bundleConf.add({
+                                         "bundled_item_id": widget.bundles[ind].bundled_item_id,
+                                         "product_id": widget.bundles[ind].product_id,
+                                         "quantity": int.tryParse(controllers[ind].text)
+                                       });
+                                     }
+                                   }
+                                   var bundlePost = {
+                                     "line_items": [
+                                       {
+                                         "product_id": widget.productId,
+                                         "quantity": 1,
+                                         "bundle_configuration": bundleConf
+                                       }
+                                     ]
+                                   };
+                                   if(selectedBundleItems>=widget.minSize && selectedBundleItems<=widget.maxSize) {
+                                     context.read<AddBundleToCartBloc>().add(AddBundleToCartEvent.addBundle(widget.productId,bundlePost,bundleCartUrl, widget.initialCartQty??1));
+                                   }
+                                 },
+                                 icon: isLoading ? const Center(
+                                   child: SizedBox(
+                                     width: 25,
+                                     height: 25,
+                                     child: CircularProgressIndicator(
+                                       color: Colors.white,
+                                     ),
+                                   ),
+                                 ):
+                                 Padding(
+                                   padding: const EdgeInsets.only(right: 5),
+                                   child: SvgPicture.asset("assets/Menu-cart.svg", color: Colors.white, width: 25, height: 25),
+                                 ),
+                               ),
+                             ),
                            ),
-                         ),
-                       ):
-                       Padding(
-                         padding: const EdgeInsets.only(right: 5),
-                         child: SvgPicture.asset("assets/Menu-cart.svg",
-                             // ignore: deprecated_member_use
-                             color: Colors.white,
-                             width: 25,
-                             height: 25),
-                       ),
-                     ),
-                   ),
-                 ),
-                 BlocBuilder<ProductsWishlistedCubit,
-                     ProductsWishlistedState>(
-                   builder: (context, state) {
-                     return GestureDetector(
-                       onTap: () {
-                         context
-                             .read<ProductsWishlistedCubit>()
-                             .wishListed(widget.productId);
-                       },
-                       child: state.wishListProducts.contains(widget.productId)
-                           ? const Icon(
-                         Icons.favorite,
-                         size: 25,
-                         color: Color.fromARGB(255, 161, 29, 52),
-                       )
-                           : const Icon(
-                         Icons.favorite_border,
-                         size: 25,
-                         color: Color.fromARGB(255, 99, 103, 106),
+                           BlocBuilder<ProductsWishlistedCubit, ProductsWishlistedState>(
+                             builder: (context, state) {
+                               return GestureDetector(
+                                 onTap: () {
+                                   context.read<ProductsWishlistedCubit>().wishListed(widget.productId);
+                                 },
+                                 child: state.wishListProducts.contains(widget.productId)
+                                     ? const Icon(
+                                   Icons.favorite,
+                                   size: 25,
+                                   color: Color.fromARGB(255, 161, 29, 52),
+                                 )
+                                     : const Icon(
+                                   Icons.favorite_border,
+                                   size: 25,
+                                   color: Color.fromARGB(255, 99, 103, 106),
+                                 ),
+                               );
+                             },
+                           ),
+                         ],
                        ),
                      );
                    },
-                 ),
-               ],
-             ),
-           ),
-         ),
-
+                   loading: () {
+                     isLoading = true;
+                     return Padding(
+                       padding: const EdgeInsets.only(left: 23, right:23, top:23),
+                       child: Row(
+                         children: [
+                           Expanded(
+                             child: Padding(
+                               padding: const EdgeInsets.symmetric(horizontal: 10),
+                               child: PrimaryButton(
+                                 text:  "",
+                                 disabled: !(selectedBundleItems>=widget.minSize && selectedBundleItems<=widget.maxSize),
+                                 ontap: () {
+                                 },
+                                 icon: const Center(
+                                   child: SizedBox(
+                                     width: 25,
+                                     height: 25,
+                                     child: CircularProgressIndicator(
+                                       color: Colors.white,
+                                     ),
+                                   ),
+                                 )
+                               ),
+                             ),
+                           ),
+                           BlocBuilder<ProductsWishlistedCubit, ProductsWishlistedState>(
+                             builder: (context, state) {
+                               return GestureDetector(
+                                 onTap: () {
+                                   context.read<ProductsWishlistedCubit>().wishListed(widget.productId);
+                                 },
+                                 child: state.wishListProducts.contains(widget.productId)
+                                     ? const Icon(
+                                   Icons.favorite,
+                                   size: 25,
+                                   color: Color.fromARGB(255, 161, 29, 52),
+                                 )
+                                     : const Icon(
+                                   Icons.favorite_border,
+                                   size: 25,
+                                   color: Color.fromARGB(255, 99, 103, 106),
+                                 ),
+                               );
+                             },
+                           ),
+                         ],
+                       ),
+                     );
+                   },
+                   error: () {
+                     if(isLoading){
+                       context.read<CartBadgeCubitCubit>().addCartItem(context);
+                       isLoading = false;
+                     }
+                     return Padding(
+                       padding: const EdgeInsets.only(left: 23, right:23, top:23),
+                       child: Row(
+                         children: [
+                           Expanded(
+                             child: Padding(
+                               padding: const EdgeInsets.symmetric(horizontal: 10),
+                               child: PrimaryButton(
+                                 text:  isLoading ? "" : "AGGIUNGI",
+                                 disabled: !(selectedBundleItems>=widget.minSize && selectedBundleItems<=widget.maxSize),
+                                 ontap: () {
+                                   if(isLoading){
+                                     return;
+                                   }
+                                   isLoading = true;
+                                   int ind = 0;
+                                   List<dynamic> bundleConf = [];
+                                   String bundleCartUrl = '?add-to-cart=${widget.productId}&quantity=1';
+                                   for (ind=0; ind<controllers.length; ind++) {
+                                     bundleCartUrl += '&bundle_quantity_${widget.bundles[ind].bundled_item_id}=${controllers[ind].text}';
+                                     if(int.tryParse(controllers[ind].text)!>=0) {
+                                       bundleConf.add({
+                                         "bundled_item_id": widget.bundles[ind].bundled_item_id,
+                                         "product_id": widget.bundles[ind].product_id,
+                                         "quantity": int.tryParse(controllers[ind].text)
+                                       });
+                                     }
+                                   }
+                                   var bundlePost = {
+                                     "line_items": [
+                                       {
+                                         "product_id": widget.productId,
+                                         "quantity": 1,
+                                         "bundle_configuration": bundleConf
+                                       }
+                                     ]
+                                   };
+                                   if(selectedBundleItems>=widget.minSize && selectedBundleItems<=widget.maxSize) {
+                                     context.read<AddBundleToCartBloc>().add(AddBundleToCartEvent.addBundle(widget.productId,bundlePost,bundleCartUrl, widget.initialCartQty??1));
+                                   }
+                                 },
+                                 icon: isLoading ? const Center(
+                                   child: SizedBox(
+                                     width: 25,
+                                     height: 25,
+                                     child: CircularProgressIndicator(
+                                       color: Colors.white,
+                                     ),
+                                   ),
+                                 ):
+                                 Padding(
+                                   padding: const EdgeInsets.only(right: 5),
+                                   child: SvgPicture.asset("assets/Menu-cart.svg", color: Colors.white, width: 25, height: 25),
+                                 ),
+                               ),
+                             ),
+                           ),
+                           BlocBuilder<ProductsWishlistedCubit, ProductsWishlistedState>(
+                             builder: (context, state) {
+                               return GestureDetector(
+                                 onTap: () {
+                                   context.read<ProductsWishlistedCubit>().wishListed(widget.productId);
+                                 },
+                                 child: state.wishListProducts.contains(widget.productId)
+                                     ? const Icon(
+                                   Icons.favorite,
+                                   size: 25,
+                                   color: Color.fromARGB(255, 161, 29, 52),
+                                 )
+                                     : const Icon(
+                                   Icons.favorite_border,
+                                   size: 25,
+                                   color: Color.fromARGB(255, 99, 103, 106),
+                                 ),
+                               );
+                             },
+                           ),
+                         ],
+                       ),
+                     );
+                   },
+                   orElse: () {
+                   if(isLoading){
+                   context.read<CartBadgeCubitCubit>().addCartItem(context);
+               isLoading = false;
+             }
+                           return  Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 23, right: 23, top: 23),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
+                                      child: PrimaryButton(
+                                        text: isLoading ? "" : "AGGIUNGI",
+                                        disabled: !(selectedBundleItems >=
+                                                widget.minSize &&
+                                            selectedBundleItems <=
+                                                widget.maxSize),
+                                        ontap: () {
+                                          if (isLoading) {
+                                            return;
+                                          }
+                                          isLoading = true;
+                                          int ind = 0;
+                                          List<dynamic> bundleConf = [];
+                                          String bundleCartUrl =
+                                              '?add-to-cart=${widget.productId}&quantity=1';
+                                          for (ind = 0;
+                                              ind < controllers.length;
+                                              ind++) {
+                                            bundleCartUrl +=
+                                                '&bundle_quantity_${widget.bundles[ind].bundled_item_id}=${controllers[ind].text}';
+                                            if (int.tryParse(
+                                                    controllers[ind].text)! >=
+                                                0) {
+                                              bundleConf.add({
+                                                "bundled_item_id": widget
+                                                    .bundles[ind]
+                                                    .bundled_item_id,
+                                                "product_id": widget
+                                                    .bundles[ind].product_id,
+                                                "quantity": int.tryParse(
+                                                    controllers[ind].text)
+                                              });
+                                            }
+                                          }
+                                          var bundlePost = {
+                                            "line_items": [
+                                              {
+                                                "product_id": widget.productId,
+                                                "quantity": 1,
+                                                "bundle_configuration":
+                                                    bundleConf
+                                              }
+                                            ]
+                                          };
+                                          if (selectedBundleItems >=
+                                                  widget.minSize &&
+                                              selectedBundleItems <=
+                                                  widget.maxSize) {
+                                            context
+                                                .read<AddBundleToCartBloc>()
+                                                .add(AddBundleToCartEvent
+                                                    .addBundle(
+                                                        widget.productId,
+                                                        bundlePost,
+                                                        bundleCartUrl,
+                                                        widget.initialCartQty ??
+                                                            1));
+                                          }
+                                        },
+                                        icon: isLoading
+                                            ? const Center(
+                                                child: SizedBox(
+                                                  width: 25,
+                                                  height: 25,
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              )
+                                            : Padding(
+                                                padding: const EdgeInsets.only(
+                                                    right: 5),
+                                                child: SvgPicture.asset(
+                                                    "assets/Menu-cart.svg",
+                                                    color: Colors.white,
+                                                    width: 25,
+                                                    height: 25),
+                                              ),
+                                      ),
+                                    ),
+                                  ),
+                                  BlocBuilder<ProductsWishlistedCubit,
+                                      ProductsWishlistedState>(
+                                    builder: (context, state) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          context
+                                              .read<ProductsWishlistedCubit>()
+                                              .wishListed(widget.productId);
+                                        },
+                                        child: state.wishListProducts
+                                                .contains(widget.productId)
+                                            ? const Icon(
+                                                Icons.favorite,
+                                                size: 25,
+                                                color: Color.fromARGB(
+                                                    255, 161, 29, 52),
+                                              )
+                                            : const Icon(
+                                                Icons.favorite_border,
+                                                size: 25,
+                                                color: Color.fromARGB(
+                                                    255, 99, 103, 106),
+                                              ),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
+                            );
+                          });
+             },
+           )
          ],
        )
 
