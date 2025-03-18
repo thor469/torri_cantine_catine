@@ -56,13 +56,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           token = value ?? "";
           storage.setFCMToken(token);
         });
-        notificationService.insertToken(InsertNotificationRequest(token: token.trim(), deviceId: deviceId.trim(), userId: 165));
+        notificationService.insertToken(InsertNotificationRequest(token: token.trim(), deviceId: deviceId.trim(), email: username));
       } else {
-        notificationService.insertToken(InsertNotificationRequest(token: fcmToken.trim(), deviceId: deviceId.trim(), userId: 0));
+        notificationService.insertToken(InsertNotificationRequest(token: fcmToken.trim(), deviceId: deviceId.trim(), email: username));
       }
       storage.setUserName(username);
       storage.setPassword(password);
-
       yield LoginState.loggedIn(response);
     } on ApiException catch (e) {
       if (kDebugMode) {
@@ -157,13 +156,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           print(RegistrationBloc.getPassword(
             userCredential.user!.email ?? ""));
         }
-        final response = await service.login(LoginRequest(
-            username: userCredential.user!.email ?? "",
-            password: RegistrationBloc.getPassword(
-                userCredential.user!.email ?? "")));
-        String fcmToken = await storage.getFCMToken() ?? '';
+        final response = await service.login(LoginRequest(username: userCredential.user!.email ?? "", password: RegistrationBloc.getPassword(userCredential.user!.email ?? "")));
+        String token = await storage.getFCMToken() ?? '';
         String deviceId = await storage.getDeviceId() ??'';
-        //String deviceId = response.token!;
         final notificationResponse =
             await notificationService.getToken(NotificationRequest());
         if (kDebugMode) {
@@ -172,21 +167,21 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         if (kDebugMode) {
           print(notificationResponse);
         }
-        if (fcmToken == '') {
+        if (token == '') {
           await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-          FirebaseMessaging.instance.getToken().then((value) {
-            String? token = value;
+          await FirebaseMessaging.instance.getToken().then((value) {
+            token = value ?? "";
             if (kDebugMode) {
-              print('FCMToken:${token!}');
+              print('FCMToken:${token}');
             }
             if (kDebugMode) {
               print('DeviceID:${deviceId!}');
             }
             storage.setFCMToken(token!);
           });
-          notificationService.insertToken(InsertNotificationRequest(token: fcmToken.trim(), deviceId: deviceId.trim(), userId: 167));
+          notificationService.insertToken(InsertNotificationRequest(token: token.trim(), deviceId: deviceId.trim(), email: userCredential.user!.email ?? "",));
         } else {
-          notificationService.insertToken(InsertNotificationRequest(token: fcmToken.trim(), deviceId: deviceId.trim(), userId: 168));
+          notificationService.insertToken(InsertNotificationRequest(token: token.trim(), deviceId: deviceId.trim(), email: userCredential.user!.email ?? "",));
         }
 
         yield LoginState.loggedIn(response);

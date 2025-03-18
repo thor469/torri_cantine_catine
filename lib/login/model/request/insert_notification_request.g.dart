@@ -11,7 +11,7 @@ _$_InsertNotificationRequest _$$_InsertNotificationRequestFromJson(
     _$_InsertNotificationRequest(
       token: json['token'] as String,
       deviceId: json['deviceId'] as String,
-      userId: (json['userId'] as num?)?.toInt(),
+      email: json['email'] as String,
     );
 
 Map<String, dynamic> _$$_InsertNotificationRequestToJson(
@@ -19,5 +19,5 @@ Map<String, dynamic> _$$_InsertNotificationRequestToJson(
     <String, dynamic>{
       'token': instance.token,
       'deviceId': instance.deviceId,
-      'userId': instance.userId,
+      'email': instance.email,
     };

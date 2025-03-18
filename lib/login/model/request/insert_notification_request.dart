@@ -8,9 +8,11 @@ part 'insert_notification_request.g.dart';
 class InsertNotificationRequest extends RequestBase
     with _$InsertNotificationRequest {
   InsertNotificationRequest._();
-  factory InsertNotificationRequest(
-      {required String token,
-      required String deviceId, int? userId }) = _InsertNotificationRequest;
+  factory InsertNotificationRequest({
+    required String token,
+    required String deviceId,
+    required String email
+  }) = _InsertNotificationRequest;
 
   factory InsertNotificationRequest.fromJson(Map<String, dynamic> json) =>
       _$InsertNotificationRequestFromJson(json);
@@ -21,6 +23,6 @@ class InsertNotificationRequest extends RequestBase
 
   @override
   Map<String, dynamic> toData() {
-    return {'token': token, 'deviceId': deviceId ,'userId': userId};
+    return {'token': token, 'deviceId': deviceId ,'email': email};
   }
 }

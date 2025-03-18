@@ -23,7 +23,7 @@ InsertNotificationRequest _$InsertNotificationRequestFromJson(
 mixin _$InsertNotificationRequest {
   String get token => throw _privateConstructorUsedError;
   String get deviceId => throw _privateConstructorUsedError;
-  int? get userId => throw _privateConstructorUsedError;
+  String get email => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +37,7 @@ abstract class $InsertNotificationRequestCopyWith<$Res> {
           $Res Function(InsertNotificationRequest) then) =
       _$InsertNotificationRequestCopyWithImpl<$Res, InsertNotificationRequest>;
   @useResult
-  $Res call({String token, String deviceId, int? userId});
+  $Res call({String token, String deviceId, String email});
 }
 
 /// @nodoc
@@ -56,7 +56,7 @@ class _$InsertNotificationRequestCopyWithImpl<$Res,
   $Res call({
     Object? token = null,
     Object? deviceId = null,
-    Object? userId = freezed,
+    Object? email = null,
   }) {
     return _then(_value.copyWith(
       token: null == token
@@ -67,10 +67,10 @@ class _$InsertNotificationRequestCopyWithImpl<$Res,
           ? _value.deviceId
           : deviceId // ignore: cast_nullable_to_non_nullable
               as String,
-      userId: freezed == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as int?,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -84,7 +84,7 @@ abstract class _$$_InsertNotificationRequestCopyWith<$Res>
       __$$_InsertNotificationRequestCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String token, String deviceId, int? userId});
+  $Res call({String token, String deviceId, String email});
 }
 
 /// @nodoc
@@ -102,7 +102,7 @@ class __$$_InsertNotificationRequestCopyWithImpl<$Res>
   $Res call({
     Object? token = null,
     Object? deviceId = null,
-    Object? userId = freezed,
+    Object? email = null,
   }) {
     return _then(_$_InsertNotificationRequest(
       token: null == token
@@ -113,10 +113,10 @@ class __$$_InsertNotificationRequestCopyWithImpl<$Res>
           ? _value.deviceId
           : deviceId // ignore: cast_nullable_to_non_nullable
               as String,
-      userId: freezed == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as int?,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -125,7 +125,7 @@ class __$$_InsertNotificationRequestCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_InsertNotificationRequest extends _InsertNotificationRequest {
   _$_InsertNotificationRequest(
-      {required this.token, required this.deviceId, this.userId})
+      {required this.token, required this.deviceId, required this.email})
       : super._();
 
   factory _$_InsertNotificationRequest.fromJson(Map<String, dynamic> json) =>
@@ -136,11 +136,11 @@ class _$_InsertNotificationRequest extends _InsertNotificationRequest {
   @override
   final String deviceId;
   @override
-  final int? userId;
+  final String email;
 
   @override
   String toString() {
-    return 'InsertNotificationRequest(token: $token, deviceId: $deviceId, userId: $userId)';
+    return 'InsertNotificationRequest(token: $token, deviceId: $deviceId, email: $email)';
   }
 
   @override
@@ -151,12 +151,12 @@ class _$_InsertNotificationRequest extends _InsertNotificationRequest {
             (identical(other.token, token) || other.token == token) &&
             (identical(other.deviceId, deviceId) ||
                 other.deviceId == deviceId) &&
-            (identical(other.userId, userId) || other.userId == userId));
+            (identical(other.email, email) || other.email == email));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, token, deviceId, userId);
+  int get hashCode => Object.hash(runtimeType, token, deviceId, email);
 
   @JsonKey(ignore: true)
   @override
@@ -177,7 +177,7 @@ abstract class _InsertNotificationRequest extends InsertNotificationRequest {
   factory _InsertNotificationRequest(
       {required final String token,
       required final String deviceId,
-      final int? userId}) = _$_InsertNotificationRequest;
+      required final String email}) = _$_InsertNotificationRequest;
   _InsertNotificationRequest._() : super._();
 
   factory _InsertNotificationRequest.fromJson(Map<String, dynamic> json) =
@@ -188,7 +188,7 @@ abstract class _InsertNotificationRequest extends InsertNotificationRequest {
   @override
   String get deviceId;
   @override
-  int? get userId;
+  String get email;
   @override
   @JsonKey(ignore: true)
   _$$_InsertNotificationRequestCopyWith<_$_InsertNotificationRequest>
